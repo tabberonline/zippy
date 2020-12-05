@@ -9,6 +9,9 @@
 .flexBetween{
     justify-content: space-between;
 }
+.flexAround{
+    justify-content: space-around;
+}
 .flexAlignCenter{
     align-items: center;
 }
