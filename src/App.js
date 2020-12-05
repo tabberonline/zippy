@@ -1,11 +1,10 @@
 import React from 'react';
-import './App.css';
-import GoogleBtn from './components/GoogleBtn';
+import HomeScreen from './screens/HomeScreen/HomeScreen';
 
 function App() {
   return (
     <div className="App">
-    <GoogleBtn />
+      <HomeScreen />
     </div>
   );
 }

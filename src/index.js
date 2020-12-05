@@ -3,10 +3,27 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import HomeScreen from './screens/HomeScreen/HomeScreen';
+import { createStore, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
+import thunk from 'redux-thunk'
+import { logger } from 'redux-logger'
+
+const store = createStore(
+  applyMiddleware(thunk, logger)
+)
 
 ReactDOM.render(
   <React.StrictMode>
-      <App />
+    <Provider store={store}>
+      <Router>
+        <Switch>
+            <Route exact path="/" component={App} />
+            <Route exact path="/home" component={HomeScreen} /> 
+        </Switch>            
+      </Router>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
