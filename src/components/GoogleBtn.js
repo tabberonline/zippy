@@ -1,16 +1,17 @@
 import React, { Component } from 'react'
+import axios from 'axios';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
+import { getItem, setItem } from '../utility/localStorageControl';
+import BASEURL from '../baseUrl';
 
-
-const CLIENT_ID = '5091892136-dqu92rarora8213sbklvc1iit5r13sje.apps.googleusercontent.com';
-
+const CLIENT_ID = '148434873376-a1k8ubdj3g3oqkh53an00v8angbj2itd.apps.googleusercontent.com';
 
 class GoogleBtn extends Component {
    constructor(props) {
     super(props);
 
     this.state = {
-      isLogined: false,
+      isLogin: false,
       accessToken: ''
     };
 
@@ -23,21 +24,33 @@ class GoogleBtn extends Component {
   login (response) {
     if(response.accessToken){
       this.setState(state => ({
-        isLogined: true,
+        isLogin: true,
         accessToken: response.accessToken
       }));
+      setItem('access_token', this.state.accessToken); 
+      const accessToken = getItem('access_token');
+      
+      // axios.post(`${BASEURL}/login?idTokenString=`, {
+      //   idTokenString: accessToken,
+      // })
+      // .then(function (response) {
+      //   console.log(response);
+      // })
+      // .catch(function (error) {
+      //   console.log(error);
+      // });
     }
   }
 
   logout (response) {
     this.setState(state => ({
-      isLogined: false,
+      isLogin: false,
       accessToken: ''
     }));
   }
 
   handleLoginFailure (response) {
-    alert('Failed to log in')
+    console.log(response)
   }
 
   handleLogoutFailure (response) {
@@ -47,24 +60,28 @@ class GoogleBtn extends Component {
   render() {
     return (
     <div>
-      { this.state.isLogined ?
-        <GoogleLogout
+      { this.state.isLogin ?(
+        /* <GoogleLogout
           clientId={ CLIENT_ID }
-          buttonText='Logout'
+          buttonText='Sign Out'
           onLogoutSuccess={ this.logout }
           onFailure={ this.handleLogoutFailure }
-        >
-        </GoogleLogout>: <GoogleLogin
-          clientId={ CLIENT_ID }
-          buttonText='Login'
-          onSuccess={ this.login }
-          onFailure={ this.handleLoginFailure }
-          cookiePolicy={ 'single_host_origin' }
-          responseType='code,token'
-        />
+          className="google-button"
+        /> */
+          <button className="edit-your-portfolio">Edit your Portfolio</button>
+        )
+        : 
+        (
+          <GoogleLogin
+            clientId={ CLIENT_ID }
+            buttonText='Sign in with Google'
+            onSuccess={ this.login }
+            onFailure={ this.handleLoginFailure }
+            cookiePolicy={ 'single_host_origin' }
+            responseType='code,token'
+          />
+        )
       }
-      { this.state.accessToken ? <h5>Your Access Token: <br/><br/> { this.state.accessToken }</h5> : null }
-
     </div>
     )
   }
