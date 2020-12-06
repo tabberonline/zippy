@@ -42,3 +42,22 @@
     padding: 10px 29px !important;
     font-family: 'Poppins', sans-serif;
 }
+.bold{
+    font-weight: 700;
+}
+.ml-20{
+    margin-left: 20px;
+}
+.mt-50{margin-top: 50px;}
+.mb-20{margin-bottom: 20px;}
+.mv-40{
+    margin: 40px 0;
+}
+.pb-100{
+    padding-bottom: 100px;
+}
+.pl-40{
+    padding-left: 40px
+}
+.mh-40{margin: 0 40px}
+.ph-40{padding: 0 40px}

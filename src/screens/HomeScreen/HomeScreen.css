@@ -1,7 +1,7 @@
 #intro-section{
     margin : 60px 0;
 }
-#intro-section .mw600{
+.mw600{
     max-width: 600px;
 }
 #intro-section .intro-text{
@@ -25,6 +25,24 @@
     padding: 40px 0 80px 0;
     clip-path: polygon(0 0, 100% 0, 100% 80%, 0% 100%);
 }
-#why-tabber{
-
+#why-tabber .whytabber-heading, .tabberfeatures-heading, .achievements-heading, .tabberfeatures-heading{
+    font: 48px 'Poppins', sans-serif;
+    font-weight: 500;
+}
+#why-tabber .whytabber-text, .whytabber-point{
+    font: 20px 'Poppins', sans-serif;
+    font-weight: 400;
+}
+#why-tabber .whytabber-features{
+    font: 20px 'Poppins', sans-serif;
+    font-weight: 500;
+}
+#tabberfeatures, #faq{
+    margin: 60px 0;
+    padding: 40px;
+}
+#achievements{
+    background-color: #81CDC8;
+    margin: 60px 0;
+    padding: 80px 40px;
 }
