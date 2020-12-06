@@ -1,0 +1,10 @@
+.faq-card{
+    background: #F2D492;
+    border-radius: 8px;
+    padding: 10px 30px;
+    margin: 15px 0;
+}
+.faq-ques{
+    font: 20px 'Poppins', sans-serif;
+    font-weight: 400;
+}
