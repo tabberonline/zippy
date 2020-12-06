@@ -1,0 +1,14 @@
+.footer{
+    background: #202C39;
+    mix-blend-mode: normal;
+    padding: 80px;
+    color: white;
+}
+.footer-logo{
+    font: 36px 'Poppins', sans-serif;
+    font-weight: 700;
+}
+.footer-links{
+    font: 16px 'Poppins', sans-serif;
+    font-weight: 400;
+}
