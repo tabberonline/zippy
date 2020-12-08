@@ -58,6 +58,7 @@ class GoogleBtn extends Component {
   }
 
   render() {
+
     return (
     <div>
       { this.state.isLogin ?(
@@ -79,6 +80,7 @@ class GoogleBtn extends Component {
             onFailure={ this.handleLoginFailure }
             cookiePolicy={ 'single_host_origin' }
             responseType='code,token'
+            className="google-button"
           />
         )
       }

@@ -33,6 +33,15 @@
 .header button:focus{
     border: none !important;
 }
+.google-button{
+    background-color: rgba(143,210,248,1) !important;
+    box-shadow: none !important;
+    border-radius: 10px !important;
+}
+.google-logo{
+    background-color: rgba(143,210,248,1) !important;
+    border-radius: 10px !important;
+}
 .edit-your-portfolio{
     background-color: rgba(242,212,146,1);
     border-radius: 2px !important;
