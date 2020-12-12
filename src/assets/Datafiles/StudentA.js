@@ -44,11 +44,11 @@ export default[
         achievements : [
             {
                 sr : 1,
-                namee : 'GeeksforGeeks',
+                name : 'GeeksforGeeks',
                 logo : 'https://media.geeksforgeeks.org/wp-content/cdn-uploads/20200817185016/gfg_complete_logo_2x-min.png',
                 id: 'coder1234',
                 rank : 1234,
-                contest : 'Codewars 2014 India’s FFirst Coding Competition.'
+                contest : 'Codewars 2014 India’s First Coding Competition.'
             },
         ],
         projects : [
