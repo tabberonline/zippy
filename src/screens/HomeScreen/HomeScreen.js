@@ -25,7 +25,7 @@ function HomeScreen() {
                     Improve your chances of getting hired, just Tab it for 
                     <span style={{color: 'rgba(0,229,216,1)'}}> FREE</span>
                 </h1>
-                <button className="flexAlignCenter intro-button">Get Started</button>
+                <a href="/portfolio" className="flexAlignCenter intro-button">Get Started</a>
             </div>
           </div>
       </div>

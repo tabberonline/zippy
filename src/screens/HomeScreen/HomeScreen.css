@@ -14,10 +14,15 @@
     border: none;
     margin-top: 20px;
     padding: 10px 30px;
-    width: 30%;
+    width: 20%;
     font: 20px 'Poppins', sans-serif;
     font-weight: 700;
     color: rgba(40,40,40,1);
+}
+#intro-section .intro-button:hover{
+    background-color: inherit;
+    border: 3px solid #00E5D8;
+    padding: 7px 27px;
 }
 #why-tabber{
     margin: 60px 0;

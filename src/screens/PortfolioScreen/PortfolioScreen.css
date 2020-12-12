@@ -1,0 +1,26 @@
+.share{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding: 30px;
+}
+.share .share-button{
+    background-color: #00E5D8;
+    border-radius: 8px;
+    border: none;
+    margin-right: 20px;
+    padding: 10px 30px;
+    font: 18px 'Poppins', sans-serif;
+    font-weight: 500;
+}
+.share .share-button:hover{
+    background-color: inherit;
+    border: 3px solid #00E5D8;
+    padding: 7px 27px;
+}
+.portfolio-section{
+    background: #F7F7F7;
+    border-radius: 8px;
+    height: 800px;
+    margin: 0 20px 60px 20px;
+}
