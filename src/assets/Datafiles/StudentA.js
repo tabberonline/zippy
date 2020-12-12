@@ -17,24 +17,28 @@ export default[
                 name : 'Topcoder',
                 id : 'coder1234',
                 rank : 1234,
+                logo : 'https://www.topcoder.com/wp-content/uploads/2016/01/topcoder-logo.png',
             },
             {
                 sr : 2,
                 name : 'Leetcode',
                 id : 'coder1234',
                 rank : 1234,
+                logo : 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/LeetCode_Logo_black_with_text.svg/1024px-LeetCode_Logo_black_with_text.svg.png',
             },
             {
                 sr : 3,
                 name : 'CodeChef',
                 id : 'coder1234',
                 rank : 1234,
+                logo : 'https://upload.wikimedia.org/wikipedia/en/thumb/7/7b/Codechef%28new%29_logo.svg/1200px-Codechef%28new%29_logo.svg.png',
             },
             {
                 sr : 4,
                 name : 'GeeksforGeeks',
                 id : 'coder1234',
                 rank : 1234,
+                logo : 'https://media.geeksforgeeks.org/wp-content/cdn-uploads/20200817185016/gfg_complete_logo_2x-min.png',
             },
         ],
         achievements : [

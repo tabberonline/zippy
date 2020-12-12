@@ -59,8 +59,12 @@
 }
 .mt-50{margin-top: 50px;}
 .mb-20{margin-bottom: 20px;}
+.mb-10{margin-bottom: 10px;}
 .mv-40{
     margin: 40px 0;
+}
+.mv-20{
+    margin: 20px 0;
 }
 .pb-100{
     padding-bottom: 100px;
@@ -70,5 +74,14 @@
 }
 .mh-40{margin: 0 40px}
 .ph-40{padding: 0 40px}
-.p-30{padding: 30px}
+.p-40{padding: 40px}
 .m-20{margin: 20px;}
+.pl-20{padding-left: 20px;}
+.ml-40{margin-left: 40px;}
+.pv-10{
+    padding: 10px 0;
+}
+
+.flexWrap{
+    flex-wrap: wrap;
+}
