@@ -41,6 +41,25 @@ function PortfolioScreen() {
                   </div>
                 </div>
               </div>
+              <div className="coding-profile mv-20">
+                <p className="card-heading mb-20">Contests Won</p>
+                <div className="flexRow flexWrap">
+                  {student.achievements.map(achievement => (
+                    <div key={achievement.sr} className="flexColumn profile-card">
+                      <img className="logo" src={achievement.logo} alt="logo" />
+                      <p className="profile-name pl-20 mb-10">{achievement.name}</p>
+                      <div className="flexRow flexBetween"> 
+                        <p className="profile-name pl-20 mb-10"><span className="profile-heading">ID:</span> {achievement.id}</p>
+                        <p className="profile-name pl-20 mb-10"><span className="profile-heading">Rank:</span> {achievement.rank}</p>
+                      </div>
+                      <p className="profile-name pl-20 mb-10"><span className="profile-heading">Contest Name:</span> {achievement.contest}</p>
+                    </div>
+                  ))}
+                  <div className="flexColumn flexCenter flexAlignCenter profile-card">
+                    <AiOutlinePlusCircle style={{fontSize: 80, color: '#C0C0C0'}} />
+                  </div>
+                </div>
+              </div>
             </div>
           ))}
         </div>
