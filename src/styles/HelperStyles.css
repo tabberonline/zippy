@@ -86,3 +86,6 @@
 .flexWrap{
     flex-wrap: wrap;
 }
+.flexEnd{
+    justify-content: flex-end;
+}

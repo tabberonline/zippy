@@ -5,7 +5,9 @@ import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import StudentA from '../../assets/Datafiles/StudentA';
 import {AiOutlinePlusCircle} from 'react-icons/ai';
-import project1 from '../../assets/images/StudentA/Rectangle 25.png';
+import CodingCard from '../../components/CodingCard/CodingCard';
+import ContestCard from '../../components/ContestCard/ContestCard';
+import ProjectCard from '../../components/ProjectCard/ProjectCard';
 
 function PortfolioScreen() {
   return (
@@ -30,14 +32,9 @@ function PortfolioScreen() {
                 <p className="card-heading mb-20">Coding Profile</p>
                 <div className="flexRow flexWrap">
                   {student.profile.map(profile => (
-                    <div key={profile.sr} className="flexColumn profile-card">
-                      <img className="logo" src={profile.logo} alt="logo" />
-                      <p className="profile-name pl-20 mb-10">{profile.name}</p>
-                      <p className="profile-name pl-20 mb-10"><span className="profile-heading">ID:</span> {profile.id}</p>
-                      <p className="profile-name pl-20 mb-10"><span className="profile-heading">Rank:</span> {profile.rank}</p>
-                    </div>
+                    <CodingCard name={profile.name} id={profile.id} rank={profile.rank} logo={profile.logo} />
                   ))}
-                  <div className="flexColumn flexCenter flexAlignCenter profile-card">
+                  <div className="flexColumn flexCenter flexAlignCenter add-card">
                     <AiOutlinePlusCircle style={{fontSize: 80, color: '#C0C0C0'}} />
                   </div>
                 </div>
@@ -46,17 +43,9 @@ function PortfolioScreen() {
                 <p className="card-heading mb-20">Contests Won</p>
                 <div className="flexRow flexWrap">
                   {student.achievements.map(achievement => (
-                    <div key={achievement.sr} className="flexColumn achievement-card">
-                      <img className="logo" src={achievement.logo} alt="logo" />
-                      <p className="profile-name pl-20 mb-10">{achievement.name}</p>
-                      <div className="flexRow flexBetween"> 
-                        <p className="profile-name ph-20 mb-10"><span className="profile-heading">ID:</span> {achievement.id}</p>
-                        <p className="profile-name ph-20 mb-10"><span className="profile-heading">Rank:</span> {achievement.rank}</p>
-                      </div>
-                      <p className="profile-name ph-20 mb-10"><span className="profile-heading">Contest Name:</span> {achievement.contest}</p>
-                    </div>
+                    <ContestCard name={achievement.name} id={achievement.id} rank={achievement.rank} logo={achievement.logo} contest={achievement.contest} />
                   ))}
-                  <div className="flexColumn flexCenter flexAlignCenter achievement-card">
+                  <div className="flexColumn flexCenter flexAlignCenter add-card">
                     <AiOutlinePlusCircle style={{fontSize: 80, color: '#C0C0C0'}} />
                   </div>
                 </div>
@@ -65,14 +54,9 @@ function PortfolioScreen() {
                 <p className="card-heading mb-20">Personal Projects</p>
                 <div className="flexRow flexWrap">
                   {student.projects.map(project => (
-                    <div key={project.sr} className="flexColumn project-card" >
-                      <img src={project.img} alt="project" className="project-img" />
-                      {/* <div className="flexColumn flexCenter flexAlignCenter project-textbox">
-                        <p className="project-name">{project.name}</p>
-                      </div> */}
-                    </div>
+                    <ProjectCard name={project.name} img={project.img} techstack={project.techstack} />
                   ))}
-                  <div className="flexColumn flexCenter flexAlignCenter project-card">
+                  <div className="flexColumn flexCenter flexAlignCenter add-card">
                     <AiOutlinePlusCircle style={{fontSize: 80, color: '#C0C0C0'}} />
                   </div>
                 </div>
