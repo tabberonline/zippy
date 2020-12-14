@@ -68,3 +68,7 @@ textarea{
     font-weight: 500;
     color: rgba(154,154,154,1);
 } 
+input:focus, textarea:focus{
+    border: none;
+    outline: none;
+}

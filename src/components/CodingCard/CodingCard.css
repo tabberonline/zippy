@@ -21,3 +21,10 @@
     font: 20px 'Poppins', sans-serif;
     font-weight: 400;
 }
+.empty-logo{
+    background-color: #E1E1E1;
+    height: 40px;
+    width: 180px;
+    margin-bottom: 40px;
+    align-self: center;
+}
