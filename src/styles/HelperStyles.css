@@ -75,6 +75,7 @@
 .mb-40{margin-bottom: 40px}
 .mv-40{margin: 40px 0}
 .mh-40{margin: 0 40px}
+.mh-20{margin: 0 20px}
 .ph-40{padding: 0 40px}
 .p-40{padding: 40px}
 .m-20{margin: 20px;}
@@ -166,4 +167,7 @@
     background-color: inherit;
     border: none;
     outline: none;
+}
+.dividerBottom{
+    border-bottom: 1px solid #000000;
 }

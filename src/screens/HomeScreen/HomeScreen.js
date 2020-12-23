@@ -45,7 +45,7 @@ function HomeScreen() {
       <div id="tabberfeatures">
           <div className="mw1100 pl-40 flexColumn">
             <h1 className="tabberfeatures-heading">What we got you</h1>
-            <div className="flexRow" style={{flexWrap: 'wrap'}}>
+            <div className="flexRow flexBetween" style={{flexWrap: 'wrap'}}>
                 {FeaturesList.map(feature => (
                     <FeatureCard key={feature.sr} name={feature.name} desc={feature.desc} icon={feature.icon} />
                 ))}

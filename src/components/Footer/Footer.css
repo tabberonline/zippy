@@ -12,3 +12,9 @@
     font: 16px 'Poppins', sans-serif;
     font-weight: 400;
 }
+.footer a{
+    color: white;
+}
+.footer a:hover{
+    color: white;
+}

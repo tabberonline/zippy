@@ -14,7 +14,7 @@ function Header(){
                 <Navbar.Collapse id="basic-navbar-nav" className="w100 flexRow flexAlignCenter flexBetween">
                     <Nav className="ml-auto">
                         <Nav.Link href="/about">About</Nav.Link>
-                        <Nav.Link href="/faq">FAQ</Nav.Link>
+                        <Nav.Link href="/home#faq">FAQ</Nav.Link>
                         <Nav.Link href="/contact">Contact</Nav.Link>
                     </Nav>
                     <GoogleBtn />
