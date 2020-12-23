@@ -43,7 +43,7 @@ function ContestProfileModal(props) {
         </Form>
 
         <div className="share" style={{justifyContent: 'center'}}>
-          <a href="#" onClick={props.onHide} className="flexAlignCenter modal-button">Add to Profile</a>
+          <a href="" onClick={props.onHide} className="flexAlignCenter modal-button">Add to Profile</a>
         </div>
 
       </div>

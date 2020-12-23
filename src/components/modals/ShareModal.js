@@ -8,6 +8,7 @@ function ShareModal(props) {
     <Modal
       {...props}
       size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
       centered
     >
       <div className="flexColumn">
@@ -26,7 +27,7 @@ function ShareModal(props) {
         </Form>
 
         <div className="share" style={{justifyContent: 'center'}}>
-          <a href="#" onClick={props.onHide} className="flexAlignCenter modal-button">Copy Link</a>
+          <a href="" onClick={props.onHide} className="flexAlignCenter modal-button">Copy Link</a>
         </div>
 
       </div>
