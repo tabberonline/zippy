@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import HomeScreen from './screens/HomeScreen/HomeScreen';
 import PortfolioScreen from './screens/PortfolioScreen/PortfolioScreen';
 import AboutScreen from './screens/AboutScreen/AboutScreen';
+import ContactScreen from './screens/ContactScreen/ContactScreen';
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
@@ -25,6 +26,7 @@ ReactDOM.render(
             <Route exact path="/home" component={HomeScreen} /> 
             <Route exact path="/portfolio" component={PortfolioScreen} /> 
             <Route exact path="/about" component={AboutScreen} /> 
+            <Route exact path="/contact" component={ContactScreen} /> 
         </Switch>            
       </Router>
     </Provider>

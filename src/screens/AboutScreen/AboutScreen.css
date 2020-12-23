@@ -1,18 +1,18 @@
-#intro-section{
+.about-screen #intro-section{
     margin : 60px 0;
 }
-.mw500{
+.about-screen .mw500{
     max-width: 500px;
 }
-#intro-section .about-section{
+.about-screen #intro-section .about-section{
     margin: 80px 20px;
 }
-#intro-section .about-heading{
+.about-screen #intro-section .about-heading{
     font: 48px 'Poppins', sans-serif;
     font-weight: 500;
     color: black;
 }
-#intro-section .about-text{
+.about-screen #intro-section .about-text{
     font: 20px 'Poppins', sans-serif;
     font-weight: 400;
     color: black;

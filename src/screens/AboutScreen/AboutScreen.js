@@ -8,7 +8,7 @@ import pc from '../../assets/images/random.png';
 
 function AboutScreen() {
   return (
-    <div className="#about-screen">
+    <div className="about-screen">
         <Header />
         <div id="intro-section">
           <div className="mw1100 flexColumn">
