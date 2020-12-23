@@ -8,15 +8,26 @@ import {AiOutlinePlusCircle} from 'react-icons/ai';
 import CodingCard from '../../components/CodingCard/CodingCard';
 import ContestCard from '../../components/ContestCard/ContestCard';
 import ProjectCard from '../../components/ProjectCard/ProjectCard';
+import CodingProfileModal from '../../components/modals/CodingProfileModal';
+import ContestProfileModal from '../../components/modals/ContestProfileModal';
+import ProjectModal from '../../components/modals/ProjectModal';
+import ShareModal from '../../components/modals/ShareModal';
 
 function PortfolioScreen() {
   const [title, settitle] = useState('');
   const[desc, setdesc] = useState('');
+  const [modalShow, setModalShow] = useState(false);
+  const [modalShow1, setModalShow1] = useState(false);
+  const [modalShow2, setModalShow2] = useState(false);
+  const [modalShow3, setModalShow3] = useState(false);
   return (
     <div className="#portfolio-screen">
       <Header />
       <div className="mw1100 share">
-        <a href="/portfolio" className="flexAlignCenter share-button">Share</a>
+        <button className="flexAlignCenter share-button" style={{outline: 'none'}} onClick={() => setModalShow3(true)}>
+          Share        
+          <ShareModal show={modalShow3} onHide={() => setModalShow3(false)} />
+        </button>
       </div>
       <div className="mw1100">
         <div className="p-40 flexColumn portfolio-section">
@@ -37,8 +48,11 @@ function PortfolioScreen() {
                   {student.profile.map(profile => (
                     <CodingCard key={profile.sr} name={profile.name} id={profile.id} rank={profile.rank} logo={profile.logo} />
                   ))}
-                  <div className="flexColumn flexCenter flexAlignCenter add-card">
-                    <AiOutlinePlusCircle style={{fontSize: 80, color: '#C0C0C0'}} />
+                  <div className="flexColumn flexCenter flexAlignCenter add-card" style={{height: 240}}>
+                    <button onClick={() => setModalShow(true)}>
+                      <AiOutlinePlusCircle style={{fontSize: 80, color: '#C0C0C0'}} />
+                      <CodingProfileModal show={modalShow} onHide={() => setModalShow(false)} />
+                    </button>
                   </div>
                 </div>
               </div>
@@ -49,7 +63,10 @@ function PortfolioScreen() {
                     <ContestCard key={achievement.sr} name={achievement.name} id={achievement.id} rank={achievement.rank} logo={achievement.logo} contest={achievement.contest} />
                   ))}
                   <div className="flexColumn flexCenter flexAlignCenter add-card">
-                    <AiOutlinePlusCircle style={{fontSize: 80, color: '#C0C0C0'}} />
+                    <button onClick={() => setModalShow1(true)}>
+                      <AiOutlinePlusCircle style={{fontSize: 80, color: '#C0C0C0'}} />
+                      <ContestProfileModal show={modalShow1} onHide={() => setModalShow1(false)} />
+                    </button>
                   </div>
                 </div>
               </div>
@@ -60,7 +77,10 @@ function PortfolioScreen() {
                     <ProjectCard key={project.sr} name={project.name} img={project.img} techstack={project.techstack} />
                   ))}
                   <div className="flexColumn flexCenter flexAlignCenter add-card">
-                    <AiOutlinePlusCircle style={{fontSize: 80, color: '#C0C0C0'}} />
+                    <button onClick={() => setModalShow2(true)}>
+                      <AiOutlinePlusCircle style={{fontSize: 80, color: '#C0C0C0'}} />
+                      <ProjectModal show={modalShow2} onHide={() => setModalShow2(false)} />
+                    </button>
                   </div>
                 </div>
               </div>
