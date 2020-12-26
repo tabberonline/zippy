@@ -3,7 +3,7 @@ import '../../styles/HelperStyles.css';
 import './ContactScreen.css';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
-import contactimg from '../../assets/images/aboutimg.png';
+import contactimg from '../../assets/images/Contactimg.png';
 import {Form} from 'react-bootstrap';
 
 function ContactScreen() {
@@ -12,7 +12,7 @@ function ContactScreen() {
         <Header />
         <div id="intro-section">
           <div className="mw1100 flexColumn">
-            <div className="flexColumn flexAlignCenter flexCenter mh-20" style={{backgroundColor: '#00e5d8', height: 300, borderRadius: 8}}>
+            <div className="flexColumn flexAlignCenter flexCenter mh-20" style={{height: 300, borderRadius: 8}}>
                 <img src={contactimg} alt="" style={{width: '90%'}} />
             </div>
             <div className="flexColumn contact-section">

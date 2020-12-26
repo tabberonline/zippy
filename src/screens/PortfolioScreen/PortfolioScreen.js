@@ -12,6 +12,9 @@ import CodingProfileModal from '../../components/modals/CodingProfileModal';
 import ContestProfileModal from '../../components/modals/ContestProfileModal';
 import ProjectModal from '../../components/modals/ProjectModal';
 import ShareModal from '../../components/modals/ShareModal';
+import {AiOutlineEdit} from 'react-icons/ai';
+import {BsThreeDotsVertical} from 'react-icons/bs';
+import $ from 'jquery';
 
 function PortfolioScreen() {
   const [title, settitle] = useState('');
@@ -20,6 +23,14 @@ function PortfolioScreen() {
   const [modalShow1, setModalShow1] = useState(false);
   const [modalShow2, setModalShow2] = useState(false);
   const [modalShow3, setModalShow3] = useState(false);
+  const Edit1 = () => {
+    console.log('edittable1')
+    $(".title").prop("readonly", false);
+  } 
+  const Edit2 = () => {
+    console.log('edittable2')
+    $(".desc").prop("readonly", false);
+  } 
   return (
     <div className="#portfolio-screen">
       <Header />
@@ -33,13 +44,28 @@ function PortfolioScreen() {
         <div className="p-40 flexColumn portfolio-section">
           {StudentA.map(student => (
             <div className="flexColumn" key={student.sr}>
-              <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" className="title" defaultValue={student.title} onChange={(text) => settitle(text)} placeholder="Portfolio Title" />
+              <div className="flexRow flexCenter flexAlignCenter">
+                <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" className="title" defaultValue={student.title} onChange={(text) => settitle(text)} placeholder="Portfolio Title" readOnly />
+                <div className="flexRow flexCenter flexAlignCenter iconcontainer">
+                  <AiOutlineEdit className="portfolio-icon" size="20" onClick={()=>Edit1()} />
+                </div>
+              </div>
               <hr style={{color : '#717070', width: '80%', margin: 'auto', marginTop: 10}} />
               <div className="flexAlignCenter flexRow mv-40">
-                <img src={student.image} className="profile-pic" alt="profile" />
+                <div className="flexRow">
+                  <img src={student.image} className="profile-pic" alt="profile" />
+                  <div className="flexRow flexCenter flexAlignCenter iconcontainer" style={{top: 140, left: '-20%'}}>
+                    <BsThreeDotsVertical className="portfolio-icon" size="20" />
+                  </div>
+                </div>
                 <div className="flexColumn ml-40">
                   <p className="name mb-20 pl-20">Hello! I am <strong>{student.name}</strong></p>
-                  <textarea autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" rows="5" className="desc" defaultValue={student.desc} onChange={(text) => setdesc(text)} placeholder="Enter your College and profile description here" />
+                  <div className="flexRow">
+                    <textarea autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" rows="5" className="desc" defaultValue={student.desc} onChange={(text) => setdesc(text)} readOnly placeholder="Enter your College and profile description here" />
+                    <div className="flexRow flexCenter flexAlignCenter iconcontainer" style={{left: -15, top: -15}}>
+                      <AiOutlineEdit className="portfolio-icon" size="20" onClick={()=>Edit2()} />
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="coding-profile mv-20">
