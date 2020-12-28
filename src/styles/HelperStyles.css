@@ -171,3 +171,16 @@
 .dividerBottom{
     border-bottom: 1px solid #000000;
 }
+.card11 .hidden{
+    display: none;
+}
+.card11 .option{
+    background-color: white;
+    padding: 5px 20px 5px 5px;
+    border-radius: 8px;
+}
+.card11 .options-text{
+    font: 16px 'Poppins', sans-serif;
+    font-weight: 400;
+    color: black;
+}
