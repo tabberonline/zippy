@@ -16,6 +16,7 @@ export default function CodingCard({name, rank, id, logo}){
                 )}
                 <div className="flexRow flexCenter flexAlignCenter iconcontainer" style={{top: '-15%', right:'-25%'}}>
                     <BsThreeDotsVertical className="portfolio-icon" size="20" />
+                    
                 </div>
             </div>
             <p className="profile-name pl-20 mb-10"> {name === "" ? "Company Name" : name}</p>

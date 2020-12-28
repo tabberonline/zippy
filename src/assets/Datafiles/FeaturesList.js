@@ -1,39 +1,46 @@
 /* eslint-disable import/no-anonymous-default-export */
+import review from '../images/Review.png';
+import onpoint from '../images/OnPoint.png';
+import modify from '../images/Modifiable.png';
+import nolimit from '../images/NoLimit.png';
+import projects from '../images/Projects.png';
+import achievements from '../images/Achievements.png';
+
 export default [
     {
         sr : 1,
-        icon : 'fas fa-medal feature-icon',
-        name : 'Feature 1',
-        desc : 'This gives detail of feature 1',
+        img : review,
+        name : 'Easily Reviewable',
+        desc : 'Review your profile with ease',
     },
     {
         sr : 2,
-        icon : 'fas fa-medal feature-icon',
-        name : 'Feature 1',
-        desc : 'This gives detail of feature 1',
+        img : onpoint,
+        name : 'Simple, crisp and concise',
+        desc : 'Everything here is straightforward',
     },
     {
         sr : 3,
-        icon : 'fas fa-medal feature-icon',
-        name : 'Feature 1',
-        desc : 'This gives detail of feature 1',
+        img : modify,
+        name : 'Easily modifiable',
+        desc : 'As simple as two to three clicks.',
     },
     {
         sr : 4,
-        icon : 'fas fa-medal feature-icon',
-        name : 'Feature 1',
-        desc : 'This gives detail of feature 1',
+        img : nolimit,
+        name : 'No sharing limit',
+        desc : 'Share as many times you want',
     },
     {
         sr : 5,
-        icon : 'fas fa-medal feature-icon',
-        name : 'Feature 1',
-        desc : 'This gives detail of feature 1',
+        img : projects,
+        name : 'Showcase Projects',
+        desc : 'Best place to view your project',
     },
     {
         sr : 6,
-        icon : 'fas fa-medal feature-icon',
-        name : 'Feature 1',
-        desc : 'This gives detail of feature 1',
+        img : achievements,
+        name : 'Show your achievements',
+        desc : 'Easily show your rankings and achievements in one go.',
     },
 ];
