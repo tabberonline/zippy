@@ -46,7 +46,7 @@ function PortfolioScreen() {
             <div className="flexColumn" key={student.sr}>
               <div className="flexRow flexCenter flexAlignCenter">
                 <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" className="title" defaultValue={student.title} onChange={(text) => settitle(text)} placeholder="Portfolio Title" readOnly />
-                <div className="flexRow flexCenter flexAlignCenter iconcontainer">
+                <div className="flexRow flexCenter flexAlignCenter iconcontainer1">
                   <AiOutlineEdit className="portfolio-icon" size="20" onClick={()=>Edit1()} />
                 </div>
               </div>
@@ -54,7 +54,7 @@ function PortfolioScreen() {
               <div className="flexAlignCenter flexRow mv-40">
                 <div className="flexRow">
                   <img src={student.image} className="profile-pic" alt="profile" />
-                  <div className="flexRow flexCenter flexAlignCenter iconcontainer" style={{top: 140, left: '-20%'}}>
+                  <div className="flexRow flexCenter flexAlignCenter iconcontainer1" style={{top: 140, left: '-20%'}}>
                     <BsThreeDotsVertical className="portfolio-icon" size="20" />
                   </div>
                 </div>
@@ -62,7 +62,7 @@ function PortfolioScreen() {
                   <p className="name mb-20 pl-20">Hello! I am <strong>{student.name}</strong></p>
                   <div className="flexRow">
                     <textarea autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" rows="5" className="desc" defaultValue={student.desc} onChange={(text) => setdesc(text)} readOnly placeholder="Enter your College and profile description here" />
-                    <div className="flexRow flexCenter flexAlignCenter iconcontainer" style={{left: -15, top: -15}}>
+                    <div className="flexRow flexCenter flexAlignCenter iconcontainer1" style={{left: -15, top: -15}}>
                       <AiOutlineEdit className="portfolio-icon" size="20" onClick={()=>Edit2()} />
                     </div>
                   </div>
@@ -72,7 +72,7 @@ function PortfolioScreen() {
                 <p className="card-heading mb-20">Coding Profile</p>
                 <div className="flexRow flexWrap">
                   {student.profile.map(profile => (
-                    <CodingCard key={profile.sr} name={profile.name} id={profile.id} rank={profile.rank} logo={profile.logo} />
+                    <CodingCard key={profile.sr} class1={profile.sr} name={profile.name} id={profile.id} rank={profile.rank} logo={profile.logo} />
                   ))}
                   <div className="flexColumn flexCenter flexAlignCenter add-card" style={{height: 240}}>
                     <button onClick={() => setModalShow(true)}>

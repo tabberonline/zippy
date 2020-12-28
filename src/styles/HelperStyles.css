@@ -12,6 +12,9 @@
 .flexAround{
     justify-content: space-around;
 }
+.flexStart{
+    justify-content: flex-start;
+}
 .flexAlignCenter{
     align-items: center;
 }
@@ -176,7 +179,7 @@
 }
 .card11 .option{
     background-color: white;
-    padding: 5px 20px 5px 5px;
+    padding: 5px 10px;
     border-radius: 8px;
 }
 .card11 .options-text{
