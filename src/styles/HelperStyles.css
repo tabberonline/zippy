@@ -181,6 +181,7 @@
     background-color: white;
     padding: 5px 10px;
     border-radius: 8px;
+    box-shadow: 1px 0px 7px rgba(155, 155, 155, 0.25);
 }
 .card11 .options-text{
     font: 16px 'Poppins', sans-serif;
