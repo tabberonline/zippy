@@ -1,14 +1,15 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import '../../styles/HelperStyles.css'
 import { Modal, Form } from 'react-bootstrap';
-import {AiOutlineCloseCircle} from 'react-icons/ai';
+import {AiOutlineCloseCircle, AiOutlinePlusCircle} from 'react-icons/ai';
 
-function ContestProfileModal(props) {
-  console.log(props)
+function MyVerticallyCenteredModal(props) {
   return (
     <Modal
       {...props}
       size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
       centered
     >
       <div className="flexColumn">
@@ -43,7 +44,7 @@ function ContestProfileModal(props) {
         </Form>
 
         <div className="share" style={{justifyContent: 'center'}}>
-          <a href="" onClick={props.onHide} className="flexAlignCenter modal-button">Add to Profile</a>
+          <a onClick={props.onHide} className="flexAlignCenter modal-button">Add to Profile</a>
         </div>
 
       </div>
@@ -51,4 +52,21 @@ function ContestProfileModal(props) {
   );
 }
 
-export default ContestProfileModal;
+export default function ContestProfileModal() {
+  const [modalShow, setModalShow] = React.useState(false);
+
+  return (
+    <>
+      <div className="flexColumn flexCenter flexAlignCenter add-card">
+        <button onClick={() => setModalShow(true)}>
+          <AiOutlinePlusCircle style={{fontSize: 80, color: '#C0C0C0'}} />
+        </button>
+      </div>
+
+      <MyVerticallyCenteredModal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      />
+    </>
+  );
+}

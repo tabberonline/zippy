@@ -18,11 +18,7 @@ import $ from 'jquery';
 
 function PortfolioScreen() {
   const [title, settitle] = useState('');
-  const[desc, setdesc] = useState('');
-  const [modalShow, setModalShow] = useState(false);
-  const [modalShow1, setModalShow1] = useState(false);
-  const [modalShow2, setModalShow2] = useState(false);
-  const [modalShow3, setModalShow3] = useState(false);
+  const [desc, setdesc] = useState('');
   const Edit1 = () => {
     console.log('edittable1')
     $(".title").prop("readonly", false);
@@ -34,12 +30,7 @@ function PortfolioScreen() {
   return (
     <div className="#portfolio-screen">
       <Header />
-      <div className="mw1100 share">
-        <button className="flexAlignCenter share-button" style={{outline: 'none'}} onClick={() => setModalShow3(true)}>
-          Share        
-          <ShareModal show={modalShow3} onHide={() => setModalShow3(false)} />
-        </button>
-      </div>
+      <ShareModal />
       <div className="mw1100">
         <div className="p-40 flexColumn portfolio-section">
           {StudentA.map(student => (
@@ -74,12 +65,7 @@ function PortfolioScreen() {
                   {student.profile.map(profile => (
                     <CodingCard key={profile.sr} class1={profile.sr} name={profile.name} id={profile.id} rank={profile.rank} logo={profile.logo} />
                   ))}
-                  <div className="flexColumn flexCenter flexAlignCenter add-card" style={{height: 240}}>
-                    <button onClick={() => setModalShow(true)}>
-                      <AiOutlinePlusCircle style={{fontSize: 80, color: '#C0C0C0'}} />
-                      <CodingProfileModal show={modalShow} onHide={() => setModalShow(false)} />
-                    </button>
-                  </div>
+                  <CodingProfileModal />
                 </div>
               </div>
               <div className="coding-profile mv-20">
@@ -88,12 +74,7 @@ function PortfolioScreen() {
                   {student.achievements.map(achievement => (
                     <ContestCard key={achievement.sr} name={achievement.name} id={achievement.id} rank={achievement.rank} logo={achievement.logo} contest={achievement.contest} />
                   ))}
-                  <div className="flexColumn flexCenter flexAlignCenter add-card">
-                    <button onClick={() => setModalShow1(true)}>
-                      <AiOutlinePlusCircle style={{fontSize: 80, color: '#C0C0C0'}} />
-                      <ContestProfileModal show={modalShow1} onHide={() => setModalShow1(false)} />
-                    </button>
-                  </div>
+                  <ContestProfileModal />
                 </div>
               </div>
               <div className="coding-profile mv-20">
@@ -101,13 +82,8 @@ function PortfolioScreen() {
                 <div className="flexRow flexWrap">
                   {student.projects.map(project => (
                     <ProjectCard key={project.sr} name={project.name} img={project.img} techstack={project.techstack} />
-                  ))}
-                  <div className="flexColumn flexCenter flexAlignCenter add-card">
-                    <button onClick={() => setModalShow2(true)}>
-                      <AiOutlinePlusCircle style={{fontSize: 80, color: '#C0C0C0'}} />
-                      <ProjectModal show={modalShow2} onHide={() => setModalShow2(false)} />
-                    </button>
-                  </div>
+                  ))}                  
+                  <ProjectModal />
                 </div>
               </div>
             </div>

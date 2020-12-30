@@ -1,9 +1,10 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import '../../styles/HelperStyles.css'
 import { Modal, Form } from 'react-bootstrap';
 import {AiOutlineCloseCircle} from 'react-icons/ai';
 
-function ShareModal(props) {
+function MyVerticallyCenteredModal(props) {
   return (
     <Modal
       {...props}
@@ -27,7 +28,7 @@ function ShareModal(props) {
         </Form>
 
         <div className="share" style={{justifyContent: 'center'}}>
-          <a href="" onClick={props.onHide} className="flexAlignCenter modal-button">Copy Link</a>
+          <a onClick={props.onHide} className="flexAlignCenter modal-button">Copy Link</a>
         </div>
 
       </div>
@@ -35,4 +36,21 @@ function ShareModal(props) {
   );
 }
 
-export default ShareModal;
+export default function ShareModal() {
+  const [modalShow, setModalShow] = React.useState(false);
+
+  return (
+    <>
+      <div className="mw1100 share">
+        <button className="flexAlignCenter share-button" style={{outline: 'none'}} onClick={() => setModalShow(true)}>
+          Share        
+        </button>
+      </div>
+
+      <MyVerticallyCenteredModal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      />
+    </>
+  );
+}

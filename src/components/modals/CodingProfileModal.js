@@ -1,20 +1,22 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import '../../styles/HelperStyles.css'
-import { Modal, Form } from 'react-bootstrap';
-import {AiOutlineCloseCircle} from 'react-icons/ai';
+import { Form, Modal } from 'react-bootstrap';
+import {AiOutlineCloseCircle, AiOutlinePlusCircle} from 'react-icons/ai';
 
-function CodingProfileModal({show, onHide}) {
-  return (
-    <Modal
-      show = {show}
-      size="lg"
-      centered
-    >
-      <div className="flexColumn">
+function MyVerticallyCenteredModal(props) {
+    return (
+      <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <div className="flexColumn">
         <div className="flexRow flexBetween flexAlignCenter mb-40">
           <div style={{width: 20}}></div>
           <h2 className="modal-head">Add Coding Profile</h2>
-          <button onClick={onHide}>
+          <button onClick={props.onHide}>
             <AiOutlineCloseCircle style={{fontSize: 40, color: 'black'}} />
           </button>
         </div>
@@ -37,12 +39,29 @@ function CodingProfileModal({show, onHide}) {
         </Form>
 
         <div className="share" style={{justifyContent: 'center'}}>
-          <a href="" onClick={onHide} className="flexAlignCenter modal-button">Add to Profile</a>
+          <a onClick={props.onHide} className="flexAlignCenter modal-button">Add to Profile</a>
         </div>
 
       </div>
-    </Modal>
-  );
-}
-
-export default CodingProfileModal;
+      </Modal>
+    );
+  }
+  
+  export default function CodingProfileModal() {
+    const [modalShow, setModalShow] = React.useState(false);
+  
+    return (
+      <>
+        <div className="flexColumn flexCenter flexAlignCenter add-card" style={{height: 240}}>
+            <button onClick={() => setModalShow(true)}>
+                <AiOutlinePlusCircle style={{fontSize: 80, color: '#C0C0C0'}} />
+            </button>
+        </div>
+  
+        <MyVerticallyCenteredModal
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+        />
+      </>
+    );
+  }

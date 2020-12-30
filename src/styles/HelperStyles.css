@@ -188,3 +188,6 @@
     font-weight: 400;
     color: black;
 }
+.modal a{
+    cursor: pointer !important;
+}
