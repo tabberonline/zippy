@@ -4,7 +4,6 @@ import './PortfolioScreen.css';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import StudentA from '../../assets/Datafiles/StudentA';
-import {AiOutlinePlusCircle} from 'react-icons/ai';
 import CodingCard from '../../components/CodingCard/CodingCard';
 import ContestCard from '../../components/ContestCard/ContestCard';
 import ProjectCard from '../../components/ProjectCard/ProjectCard';
