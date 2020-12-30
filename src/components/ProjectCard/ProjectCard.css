@@ -16,3 +16,9 @@
     font: 20px 'Poppins', sans-serif;
     font-weight: 700;
 }
+.project-textbox1{
+    background-color: rgba(40, 40, 40, 0.8);
+    height: 100%;
+    border-radius : 8px;
+    position: relative;
+}
