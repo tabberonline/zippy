@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { getItem, setItem } from '../utility/localStorageControl';
-import BASEURL from '../baseUrl';
 
 const CLIENT_ID = '148434873376-a1k8ubdj3g3oqkh53an00v8angbj2itd.apps.googleusercontent.com';
 
