@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { getItem, setItem } from '../utility/localStorageControl';
+import AdminService from '../AdminServices/AdminService';
 
 const CLIENT_ID = '148434873376-a1k8ubdj3g3oqkh53an00v8angbj2itd.apps.googleusercontent.com';
 
@@ -21,23 +22,22 @@ class GoogleBtn extends Component {
   }
 
   login (response) {
-    if(response.accessToken){
+    console.log(response.tokenId);
+    if(response.tokenId){
       this.setState(state => ({
         isLogin: true,
-        accessToken: response.accessToken
+        accessToken: response.tokenId
       }));
-      setItem('access_token', this.state.accessToken); 
-      const accessToken = getItem('access_token');
-      
-      // axios.post(`${BASEURL}/login?idTokenString=`, {
-      //   idTokenString: accessToken,
-      // })
-      // .then(function (response) {
-      //   console.log(response);
-      // })
-      // .catch(function (error) {
-      //   console.log(error);
-      // });
+
+      AdminService.addToken(this.state.accessToken)
+        .then(result => {
+          console.log(result);
+          setItem('access_token', this.state.accessToken); 
+        }) 
+        .catch(error => {
+          console.log("Invalid");
+          console.warn(error);
+        })
     }
   }
 

@@ -1,12 +1,13 @@
-import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
+import { getItem, setItem } from '../utility/localStorageControl';
 
 const API_ENDPOINT = 'https://whispering-eyrie-04211.herokuapp.com';
 
 const authHeader = () => ({
-  Authorization: `Bearer ${AsyncStorage.getItem('access_token')}`,
+  Authorization: `Bearer ${getItem('access_token')}`,
   'Content-Type': 'application/json',
-   'Accept': 'application/json'
+   'Accept': 'application/json',
+
 });
 
 const client = axios.create({

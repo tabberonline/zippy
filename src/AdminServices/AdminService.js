@@ -3,6 +3,10 @@ import Axios from 'axios';
 import { DataService } from './dataService';
 
 export default {
+
+  addToken : async (data) => {
+    return DataService.post(`login?idTokenString=`+data);
+  }
   // forgotPassword: async (data) => {
   //   return  DataService.post(`/auth/forgot_password`,data);
   // },
