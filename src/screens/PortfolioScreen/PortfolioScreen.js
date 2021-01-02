@@ -16,6 +16,8 @@ import {BsThreeDotsVertical} from 'react-icons/bs';
 import $ from 'jquery';
 
 function PortfolioScreen() {
+  const [name, setname] = useState('');
+  const [image, setimage] = useState('');
   const [title, settitle] = useState('');
   const [desc, setdesc] = useState('');
   const Edit1 = () => {

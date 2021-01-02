@@ -12,7 +12,9 @@ class GoogleBtn extends Component {
 
     this.state = {
       isLogin: false,
-      accessToken: ''
+      accessToken: '',
+      name: '',
+      picture_url: '' 
     };
 
     this.login = this.login.bind(this);
@@ -22,20 +24,23 @@ class GoogleBtn extends Component {
   }
 
   login (response) {
-    console.log(response.tokenId);
     if(response.tokenId){
       this.setState(state => ({
         isLogin: true,
-        accessToken: response.tokenId
+        accessToken: response.tokenId,
+        name: response.profileObj.name,
+        picture_url: response.profileObj.imgUrl
       }));
+
+      setItem('access_token', this.state.accessToken);
+      setItem('name', this.state.name);
+      setItem('image', this.state.picture_url); 
 
       AdminService.addToken(this.state.accessToken)
         .then(result => {
-          console.log(result);
-          setItem('access_token', this.state.accessToken); 
+          console.log('Bearer ' + getItem('access_token'));
         }) 
         .catch(error => {
-          console.log("Invalid");
           console.warn(error);
         })
     }
