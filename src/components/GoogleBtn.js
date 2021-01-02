@@ -3,9 +3,10 @@ import axios from 'axios';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { getItem, setItem } from '../utility/localStorageControl';
 import AdminService from '../AdminServices/AdminService';
+import Axios from 'axios';
 
 const CLIENT_ID = '148434873376-a1k8ubdj3g3oqkh53an00v8angbj2itd.apps.googleusercontent.com';
-
+const API_ENDPOINT = 'https://whispering-eyrie-04211.herokuapp.com';
 class GoogleBtn extends Component {
    constructor(props) {
     super(props);
@@ -34,17 +35,21 @@ class GoogleBtn extends Component {
 
       setItem('access_token', this.state.accessToken);
       setItem('name', this.state.name);
-      setItem('image', this.state.picture_url); 
+      setItem('image', this.state.picture_url);
+      const idToken = getItem('access_token');
 
-      AdminService.addToken(this.state.accessToken)
-        .then(result => {
-          console.log('Bearer ' + getItem('access_token'));
-        }) 
-        .catch(error => {
-          console.warn(error);
+      Axios.post(`${API_ENDPOINT}/login?idTokenString=${idToken}`)
+        .then(function (response) {
+          console.log(response.data.access_token);
         })
+        .catch(function (error) {
+          console.log(error);
+        });
+
     }
   }
+
+
 
   logout (response) {
     this.setState(state => ({

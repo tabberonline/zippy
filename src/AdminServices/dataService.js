@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { getItem, setItem } from '../utility/localStorageControl';
+import { getItem } from '../utility/localStorageControl';
 
 const API_ENDPOINT = 'https://whispering-eyrie-04211.herokuapp.com';
 
 const authHeader = () => ({
-  Authorization: 'Bearer ' + getItem('access_token'),
+  Authorization: `Bearer ${getItem('access_token')}`,
   'Content-Type': 'application/json',
    'Accept': 'application/json',
 });
@@ -20,16 +20,17 @@ class DataService {
       method: 'GET',
       url: path,
       headers: { ...authHeader() },
-    }).catch(error => {return error});
+    });
   }
 
   static post(path = '', data = {}, optionalHeader = {}) {
     return client({
+      credentials: 'include',
       method: 'POST',
       url: path,
       data,
       headers: { ...authHeader(), ...optionalHeader },
-    }).catch(error => {return error});
+    });
 
   }
 
@@ -39,7 +40,7 @@ class DataService {
       url: path,
       data: JSON.stringify(data),
       headers: { ...authHeader() },
-    }).catch(error => {return error});
+    });
   }
 
   static put(path = '', data = {}) {
@@ -48,7 +49,7 @@ class DataService {
       url: path,
       data: JSON.stringify(data),
       headers: { ...authHeader() },
-    }).catch(error => {return error});
+    });
   }
 
   static delete(path = '') {
@@ -56,7 +57,7 @@ class DataService {
       method: 'DELETE',
       url: path,
       headers: { ...authHeader() },
-    }).catch(error => {return error});
+    });
   }
 }
 
