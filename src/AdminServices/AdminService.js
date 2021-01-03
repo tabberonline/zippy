@@ -6,6 +6,9 @@ export default {
 
   addToken : async (data) => {
     return DataService.post(`/login?idTokenString=`+data);
+  },
+  createPortfolio : async (data) => {
+    return DataService.post(`/portfolio/create`, data);
   }
   // forgotPassword: async (data) => {
   //   return  DataService.post(`/auth/forgot_password`,data);

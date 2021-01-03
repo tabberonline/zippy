@@ -2,6 +2,7 @@
 import React from 'react';
 import '../../styles/HelperStyles.css'
 import { Form, Modal } from 'react-bootstrap';
+import AdminService from '../../AdminServices/AdminService';
 import {AiOutlineCloseCircle, AiOutlinePlusCircle} from 'react-icons/ai';
 import { getItem, setItem } from '../../utility/localStorageControl';
   
@@ -11,13 +12,30 @@ import { getItem, setItem } from '../../utility/localStorageControl';
     const [desc, setdesc] = React.useState('');
     const [title, settitle] = React.useState('');
 
+    const createPortfolio = async () => {
+        // if (name.length > 0 & title.length > 0 & desc.length > 0 ){
+            const portfolioData = {
+                'title': getItem('title'),
+                'picture_url': getItem('image'),
+                'description': getItem('desc')
+            };
+
+            AdminService.createPortfolio(portfolioData)
+                .then(result => {
+                    console.log(result);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        // }
+    };
+
     function MyVerticallyCenteredModal(props) {
         const Add = () => {
           setItem('title', title);
           setItem('name', name);
           setItem('desc', desc);
-          props.onHide();
-          window.open("/portfolio");
+          createPortfolio();
         }
         return (
           <Modal

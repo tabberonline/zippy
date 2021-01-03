@@ -37,7 +37,7 @@ function PortfolioScreen() {
           {StudentA.map(student => (
             <div className="flexColumn" key={student.sr}>
               <div className="flexRow flexCenter flexAlignCenter">
-                <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" className="title" defaultValue={student.title} onChange={(text) => settitle(text)} placeholder="Portfolio Title" readOnly />
+                <input type="text" autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" className="title" defaultValue={student.title} onChange={(text) => settitle(text)} placeholder="Portfolio Title" readOnly />
                 <div className="flexRow flexCenter flexAlignCenter iconcontainer1">
                   <AiOutlineEdit className="portfolio-icon" size="20" onClick={()=>Edit1()} />
                 </div>
@@ -53,7 +53,7 @@ function PortfolioScreen() {
                 <div className="flexColumn ml-40">
                   <p className="name mb-20 pl-20">Hello! I am <strong>{student.name}</strong></p>
                   <div className="flexRow">
-                    <textarea autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" rows="5" className="desc" defaultValue={student.desc} onChange={(text) => setdesc(text)} readOnly placeholder="Enter your College and profile description here" />
+                    <textarea autocomplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" rows="5" className="desc" defaultValue={student.desc} onChange={(text) => setdesc(text)} readOnly placeholder="Enter your College and profile description here" />
                     <div className="flexRow flexCenter flexAlignCenter iconcontainer1" style={{left: -15, top: -15}}>
                       <AiOutlineEdit className="portfolio-icon" size="20" onClick={()=>Edit2()} />
                     </div>
