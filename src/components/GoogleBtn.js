@@ -44,6 +44,7 @@ class GoogleBtn extends Component {
 
       Axios.post(`${API_ENDPOINT}/login?idTokenString=${idToken}`)
         .then(function (response) {
+          console.log(response);
           console.log('What is being sent', idToken);
           console.log('What is being stored', response.data.access_token);
           toast.success('Login Successful!', {
