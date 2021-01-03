@@ -4,9 +4,6 @@ import { DataService } from './dataService';
 
 export default {
 
-  addToken : async (data) => {
-    return DataService.post(`/login?idTokenString=`+data);
-  },
   createPortfolio : async (data) => {
     return DataService.post(`/portfolio/create`, data);
   }
