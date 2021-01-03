@@ -14,6 +14,9 @@ const API_ENDPOINT = 'https://whispering-eyrie-04211.herokuapp.com';
     const [desc, setdesc] = React.useState('');
     const [title, settitle] = React.useState('');
 
+    const accessToken = getItem('access_token');
+    console.log(accessToken);
+
     const createPortfolio = async () => {
         // if (name.length > 0 & title.length > 0 & desc.length > 0 ){
             const portfolioData = {
@@ -31,6 +34,15 @@ const API_ENDPOINT = 'https://whispering-eyrie-04211.herokuapp.com';
               .catch(error => {
                 console.log(error);
               })
+            // Axios.post(`${API_ENDPOINT}/portfolio/create`, portfolioData, {headers : {
+            //   'Authorization': `${accessToken}`,
+            // }})
+            //   .then(resp => {
+            //     console.log(resp);
+            //   })
+            //   .catch(err => {
+            //     console.log(err);
+            //   })
         // }
     };
 

@@ -37,16 +37,13 @@ class GoogleBtn extends Component {
         picture_url: response.profileObj.imageUrl
       }));
 
-      setItem('access_token', this.state.accessToken);
       setItem('name', this.state.name);
       setItem('image', this.state.picture_url);
-      const idToken = getItem('access_token');
+      const idToken = this.state.accessToken;
 
       Axios.post(`${API_ENDPOINT}/login?idTokenString=${idToken}`)
         .then(function (response) {
-          console.log(response);
-          console.log('What is being sent', idToken);
-          console.log('What is being stored', response.data.access_token);
+          setItem('access_token', response.data.access_token);
           toast.success('Login Successful!', {
             position: "top-center",
             autoClose: 2000,
