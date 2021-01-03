@@ -29,11 +29,12 @@ class GoogleBtn extends Component {
 
   login (response) {
     if(response.tokenId){
+      console.log(response);
       this.setState(state => ({
         isLogin: true,
         accessToken: response.tokenId,
         name: response.profileObj.name,
-        picture_url: response.profileObj.imgUrl
+        picture_url: response.profileObj.imageUrl
       }));
 
       setItem('access_token', this.state.accessToken);
@@ -43,6 +44,8 @@ class GoogleBtn extends Component {
 
       Axios.post(`${API_ENDPOINT}/login?idTokenString=${idToken}`)
         .then(function (response) {
+          console.log('What is being sent', idToken);
+          console.log('What is being stored', response.data.access_token);
           toast.success('Login Successful!', {
             position: "top-center",
             autoClose: 2000,
