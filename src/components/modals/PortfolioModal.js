@@ -5,6 +5,8 @@ import { Form, Modal } from 'react-bootstrap';
 import AdminService from '../../AdminServices/AdminService';
 import {AiOutlineCloseCircle, AiOutlinePlusCircle} from 'react-icons/ai';
 import { getItem, setItem } from '../../utility/localStorageControl';
+import Axios from 'axios';
+const API_ENDPOINT = 'https://whispering-eyrie-04211.herokuapp.com';
   
   export default function CodingProfileModal() {
     const [modalShow, setModalShow] = React.useState(false);
@@ -19,24 +21,27 @@ import { getItem, setItem } from '../../utility/localStorageControl';
                 'picture_url': getItem('image'),
                 'description': getItem('desc')
             };
-
+            
+            console.log(portfolioData);
+            
             AdminService.createPortfolio(portfolioData)
-                .then(result => {
-                    console.log(result);
-                })
-                .catch(error => {
-                    console.log(error);
-                });
+              .then(response => {
+                console.log(response);
+              })
+              .catch(error => {
+                console.log(error);
+              })
         // }
     };
 
+    const Add = () => {
+      setItem('title', title);
+      setItem('name', name);
+      setItem('desc', desc);
+      createPortfolio();
+    }
+
     function MyVerticallyCenteredModal(props) {
-        const Add = () => {
-          setItem('title', title);
-          setItem('name', name);
-          setItem('desc', desc);
-          createPortfolio();
-        }
         return (
           <Modal
             {...props}
@@ -55,17 +60,17 @@ import { getItem, setItem } from '../../utility/localStorageControl';
             <Form>
               <Form.Group controlId="formBasicEmail" className="mb-20">
                 <Form.Label>Name<span style={{color: 'red'}}>*</span></Form.Label>
-                <Form.Control type="text" defaultValue={name} onChangeText={(text) => setname(text)} placeholder="Eg. Aarav Bansal" />
+                <Form.Control type="text" defaultValue={name} onChange={(e) => setname(e.target.value)} placeholder="Eg. Aarav Bansal" />
               </Form.Group>
     
               <Form.Group controlId="formBasic1" className="mb-20">
                 <Form.Label>Your Portfolio Title<span style={{color: 'red'}}>*</span> </Form.Label>
-                <Form.Control type="text" defaultValue={title} onChangeText={(text) => settitle(text)} placeholder="Eg. Web Developer" />
+                <Form.Control type="text" defaultValue={title} onChange={(e) => settitle(e.target.value)} placeholder="Eg. Web Developer" />
               </Form.Group>
     
               <Form.Group controlId="formBasic2">
                 <Form.Label>Your Description<span style={{color: 'red'}}>*</span></Form.Label>
-                <Form.Control type="text" defaultValue={desc} onChangeText={(text) => setdesc(text)} placeholder="Enter your College and profile description here" />
+                <Form.Control type="text" defaultValue={desc} onChange={(e) => setdesc(e.target.value)} placeholder="Enter your College and profile description here" />
               </Form.Group>
     
             </Form>
