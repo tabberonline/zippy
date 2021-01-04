@@ -15,7 +15,6 @@ const API_ENDPOINT = 'https://whispering-eyrie-04211.herokuapp.com';
     const [title, settitle] = React.useState('');
 
     const accessToken = getItem('access_token');
-    console.log(accessToken);
 
     const createPortfolio = async () => {
         // if (name.length > 0 & title.length > 0 & desc.length > 0 ){
@@ -24,25 +23,23 @@ const API_ENDPOINT = 'https://whispering-eyrie-04211.herokuapp.com';
                 'picture_url': getItem('image'),
                 'description': getItem('desc')
             };
-            
-            console.log(portfolioData);
-            
-            AdminService.createPortfolio(portfolioData)
-              .then(response => {
-                console.log(response);
-              })
-              .catch(error => {
-                console.log(error);
-              })
-            // Axios.post(`${API_ENDPOINT}/portfolio/create`, portfolioData, {headers : {
-            //   'Authorization': `${accessToken}`,
-            // }})
-            //   .then(resp => {
-            //     console.log(resp);
+                        
+            // AdminService.createPortfolio(portfolioData)
+            //   .then(response => {
+            //     console.log(response);
             //   })
-            //   .catch(err => {
-            //     console.log(err);
+            //   .catch(error => {
+            //     console.log(error);
             //   })
+            Axios.post(`${API_ENDPOINT}/portfolio/create`, portfolioData, {headers : {
+              'Authorization': `Bearer ${accessToken}`,
+            }})
+              .then(resp => {
+                console.log(resp);
+              })
+              .catch(err => {
+                console.log(err.response);
+              })
         // }
     };
 

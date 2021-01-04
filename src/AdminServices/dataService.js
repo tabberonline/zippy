@@ -4,7 +4,7 @@ import { getItem } from '../utility/localStorageControl';
 const API_ENDPOINT = 'https://whispering-eyrie-04211.herokuapp.com';
 
 const authHeader = () => ({
-  Authorization: `${getItem('access_token')}`,
+  Authorization: `Bearer ${getItem('access_token')}`,
   'Content-Type': 'application/json',
    'Accept': 'application/json',
 });
