@@ -27,6 +27,10 @@ class GoogleBtn extends Component {
     this.handleLogoutFailure = this.handleLogoutFailure.bind(this);
   }
 
+  componentDidMount(){
+    setItem('access_token', '');
+  }
+
   login (response) {
     if(response.tokenId){
       console.log(response);
@@ -43,7 +47,9 @@ class GoogleBtn extends Component {
 
       Axios.post(`${API_ENDPOINT}/login?idTokenString=${idToken}`)
         .then(function (response) {
+          console.log('1st call', getItem('access_token'));
           setItem('access_token', response.data.access_token);
+          console.log('2nd call', getItem('access_token'));
           toast.success('Login Successful!', {
             position: "top-center",
             autoClose: 2000,

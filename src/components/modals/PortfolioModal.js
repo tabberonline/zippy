@@ -17,35 +17,29 @@ const API_ENDPOINT = 'https://whispering-eyrie-04211.herokuapp.com';
     const accessToken = getItem('access_token');
 
     const createPortfolio = async () => {
+        console.log('3rd call', getItem('access_token'));
         // if (name.length > 0 & title.length > 0 & desc.length > 0 ){
             const portfolioData = {
                 'title': getItem('title'),
                 'picture_url': getItem('image'),
                 'description': getItem('desc')
             };
-                        
-            // AdminService.createPortfolio(portfolioData)
-            //   .then(response => {
-            //     console.log(response);
-            //   })
-            //   .catch(error => {
-            //     console.log(error);
-            //   })
             Axios.post(`${API_ENDPOINT}/portfolio/create`, portfolioData, {headers : {
               'Authorization': `Bearer ${accessToken}`,
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
             }})
               .then(resp => {
-                console.log(resp);
+                console.log('Response',resp);
               })
               .catch(err => {
-                console.log(err.response);
+                console.log('Error',err.response);
               })
         // }
     };
 
     const Add = () => {
       setItem('title', title);
-      setItem('name', name);
       setItem('desc', desc);
       createPortfolio();
     }
