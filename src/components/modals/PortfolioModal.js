@@ -25,7 +25,7 @@ const API_ENDPOINT = 'https://whispering-eyrie-04211.herokuapp.com';
                 'description': getItem('desc')
             };
             Axios.post(`${API_ENDPOINT}/portfolio/create`, portfolioData, {headers : {
-              'Authorization': `Bearer ${accessToken}`,
+              'Authorization': `${accessToken}`,
               'Content-Type': 'application/json',
               'Accept': 'application/json',
             }})
