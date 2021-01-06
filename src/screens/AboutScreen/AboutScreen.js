@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../styles/HelperStyles.css';
 import './AboutScreen.css';
-import Header from '../../components/Header/Header';
+import Header1 from '../../components/Header/Header1';
 import Footer from '../../components/Footer/Footer';
 import aboutimg from '../../assets/images/aboutimg.png';
 import pc from '../../assets/images/random.png';
@@ -9,7 +9,7 @@ import pc from '../../assets/images/random.png';
 function AboutScreen() {
   return (
     <div className="about-screen">
-        <Header />
+        <Header1 />
         <div id="intro-section">
           <div className="mw1100 flexColumn">
             <div className="flexColumn flexAlignCenter flexCenter mh-20" style={{backgroundColor: '#00e5d8', height: 300, borderRadius: 8}}>

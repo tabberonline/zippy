@@ -1,15 +1,15 @@
 import React from 'react';
 import '../../styles/HelperStyles.css';
 import './ContactScreen.css';
-import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import contactimg from '../../assets/images/Contactimg.png';
 import {Form} from 'react-bootstrap';
+import Header1 from '../../components/Header/Header1';
 
 function ContactScreen() {
   return (
     <div className="contact-screen">
-        <Header />
+        <Header1 />
         <div id="intro-section">
           <div className="mw1100 flexColumn">
             <div className="flexColumn flexAlignCenter flexCenter mh-20" style={{height: 300, borderRadius: 8}}>

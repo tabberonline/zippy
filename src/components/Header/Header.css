@@ -26,3 +26,16 @@ a{
     font-weight: 400;
     font-size: 1rem;
 }
+.avatar{
+    display: flex;
+    flex-direction: row;
+    margin-left: 50px;
+}
+.avatar-name{
+    margin: auto 0;
+    font-size: 14px;
+    margin-left: 10px;
+}
+.name{
+    font-weight: bold;
+}
