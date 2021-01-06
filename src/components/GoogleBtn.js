@@ -14,7 +14,7 @@ class GoogleBtn extends Component {
     super(props);
 
     this.state = {
-      isLogin: false,
+      isLogin: getItem('login'),
       accessToken: '',
       name: '',
       picture_url: '',

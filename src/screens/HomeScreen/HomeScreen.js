@@ -15,14 +15,6 @@ import Footer from '../../components/Footer/Footer';
 import { setItem, getItem } from '../../utility/localStorageControl';
 
 function HomeScreen() {
-  
-  useEffect(() => {
-    setItem('access_token', '');
-    setItem('login', false);
-  }, []);
-
-  console.log(getItem('login'));
-
   return (
     <div className="#home-screen">
       <Header />
