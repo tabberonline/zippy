@@ -44,8 +44,9 @@ class GoogleBtn extends Component {
 
       Axios.post(`${API_ENDPOINT}/login?idTokenString=${idToken}`)
         .then(function (response) {
-          setItem('access_token', response.data.access_token);
-          console.log('Acceess Token Retrieved', getItem('access_token'));
+          setItem('access_token', response.data.access_token);   
+          console.log('Acceess Token Retrieved', getItem('access_token'));       
+          setItem('login', true);
           toast.success('Login Successful!', {
             position: "top-center",
             autoClose: 2000,
@@ -57,6 +58,7 @@ class GoogleBtn extends Component {
             });
         })
         .catch(function (error) {
+          console.log(error);
           toast.error('Login Failed, Retry!', {
             position: "top-center",
             autoClose: 2000,

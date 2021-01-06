@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import '../../styles/HelperStyles.css';
 import './HomeScreen.css';
 import Header from '../../components/Header/Header';
@@ -12,8 +12,17 @@ import AchievementCard from '../../components/AchievementCard/AchievementCard';
 import QnA from '../../assets/Datafiles/QnA';
 import FAQCard from '../../components/FAQCard/FAQCard';
 import Footer from '../../components/Footer/Footer';
+import { setItem, getItem } from '../../utility/localStorageControl';
 
 function HomeScreen() {
+  
+  useEffect(() => {
+    setItem('access_token', '');
+    setItem('login', false);
+  }, []);
+
+  console.log(getItem('login'));
+
   return (
     <div className="#home-screen">
       <Header />
