@@ -1,11 +1,13 @@
 /* eslint-disable import/no-anonymous-default-export */
-import Axios from 'axios';
 import { DataService } from './dataService';
 
 export default {
 
   createPortfolio : async (data) => {
-    return DataService.post(`/portfolio/create`, data);
+    return DataService.post('/portfolio/create', data);
+  },
+  updatePortfolio: async (data) => {
+    return DataService.put('/portfolio/update', data);
   }
   // forgotPassword: async (data) => {
   //   return  DataService.post(`/auth/forgot_password`,data);
