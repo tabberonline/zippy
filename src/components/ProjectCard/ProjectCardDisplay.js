@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import '../../styles/HelperStyles.css';
 import './ProjectCard.css';
-import deleted from '../../assets/images/Bin-Icon.png';
-import edited from '../../assets/images/Edit-Icon.png';
 
-export default function ProjectCard({name, img, techstack}){
+export default function ProjectCardDisplay({name, img, techstack}){
     const [namecard, setcard] = useState(true);
     return(
         <div className="flexColumn project-card flexEnd" 

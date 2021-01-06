@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import '../../styles/HelperStyles.css';
 import './CodingCard.css';
-import {BsThreeDotsVertical} from 'react-icons/bs';
 
 export default function CodingCardDisplay({name, rank, id, logo}){
     return(

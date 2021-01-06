@@ -1,13 +1,8 @@
 import React, { useState } from 'react';
 import '../../styles/HelperStyles.css';
 import './ContestCard.css';
-import {BsThreeDotsVertical} from 'react-icons/bs';
-import deleted from '../../assets/images/Bin-Icon.png';
-import edited from '../../assets/images/Edit-Icon.png';
-import hidden from '../../assets/images/Hide-Icon.png';
-import hidecards from '../../assets/images/hiddeeen.png';
 
-export default function ContestCard({name, rank, id, logo, contest}){
+export default function ContestCardDisplay({name, rank, id, logo, contest}){
     return(
         <div className="card11 flexColumn achievement-card">
             <div className="flexRow flexCenter" style={{position: 'relative'}}>
