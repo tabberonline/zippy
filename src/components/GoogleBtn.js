@@ -23,8 +23,6 @@ class GoogleBtn extends Component {
 
     this.login = this.login.bind(this);
     this.handleLoginFailure = this.handleLoginFailure.bind(this);
-    this.logout = this.logout.bind(this);
-    this.handleLogoutFailure = this.handleLogoutFailure.bind(this);
   }
 
   componentDidMount(){
@@ -33,7 +31,6 @@ class GoogleBtn extends Component {
 
   login (response) {
     if(response.tokenId){
-      console.log(response);
       this.setState(state => ({
         isLogin: true,
         accessToken: response.tokenId,
@@ -47,9 +44,8 @@ class GoogleBtn extends Component {
 
       Axios.post(`${API_ENDPOINT}/login?idTokenString=${idToken}`)
         .then(function (response) {
-          console.log('1st call', getItem('access_token'));
           setItem('access_token', response.data.access_token);
-          console.log('2nd call', getItem('access_token'));
+          console.log('Acceess Token Retrieved', getItem('access_token'));
           toast.success('Login Successful!', {
             position: "top-center",
             autoClose: 2000,
@@ -75,20 +71,16 @@ class GoogleBtn extends Component {
     }
   }
 
-
-  logout (response) {
-    this.setState(state => ({
-      isLogin: false,
-      accessToken: ''
-    }));
-  }
-
   handleLoginFailure (response) {
-    console.log(response)
-  }
-
-  handleLogoutFailure (response) {
-    console.log('Failed to log out')
+    toast.error('Login Failed, Retry!', {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   }
 
   render() {
@@ -96,13 +88,6 @@ class GoogleBtn extends Component {
     return (
     <div>
       { this.state.isLogin ?(
-        /* <GoogleLogout
-          clientId={ CLIENT_ID }
-          buttonText='Sign Out'
-          onLogoutSuccess={ this.logout }
-          onFailure={ this.handleLogoutFailure }
-          className="google-button"
-        /> */
         <>
           <PortfolioModal />
           <ToastContainer
