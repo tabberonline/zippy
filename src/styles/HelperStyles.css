@@ -194,3 +194,6 @@
 .edit-your-portfolio:focus{
     outline: none;
 }
+.Toastify__toast-container--top-center .Toastify__toast-body {
+    text-align: center;
+  }
