@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react';
+import React, { useState } from 'react';
 import '../../styles/HelperStyles.css'
 import { Form, Modal } from 'react-bootstrap';
 import {AiOutlineCloseCircle} from 'react-icons/ai';
@@ -10,7 +10,8 @@ import 'react-toastify/dist/ReactToastify.css';
 const API_ENDPOINT = 'https://whispering-eyrie-04211.herokuapp.com';
   
   export default function CodingProfileModal() {
-    const [modalShow, setModalShow] = React.useState(false);
+    const [modalShow, setModalShow] = useState(false);
+    const [apicall, setcall] = useState('');
     var name = '';
     var title = '';
     var desc = '';    
@@ -41,10 +42,27 @@ const API_ENDPOINT = 'https://whispering-eyrie-04211.herokuapp.com';
             'Accept': 'application/json',
           }})
             .then(resp => {
-              console.log('Response',resp);
+              toast.success('Details Entered!', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+              setcall('Success');
             })
             .catch(err => {
-              console.log('Error',err.response);
+              toast.error('Error, One User, One Portfolio!', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
             });
         }
       }
@@ -54,10 +72,11 @@ const API_ENDPOINT = 'https://whispering-eyrie-04211.herokuapp.com';
       setItem('titlePortfolio', title);
       setItem('descPortfolio', desc);
       createPortfolio();
+      setModalShow(false);
     }
 
     const ModalOpen = () => {
-      setModalShow(true);
+      apicall === 'Success' ? window.open('/portfolio', '_self') : setModalShow(true);
     }
 
     function MyVerticallyCenteredModal(props) {
@@ -102,7 +121,7 @@ const API_ENDPOINT = 'https://whispering-eyrie-04211.herokuapp.com';
   
     return (
       <>
-        <button onClick={() => ModalOpen()} className="edit-your-portfolio">Edit your Portfolio</button>
+        <button onClick={() => ModalOpen()} className="edit-your-portfolio">{apicall === 'Success' ? 'Move to your Portfolio' : 'Edit your Portfolio'}</button>
         <MyVerticallyCenteredModal
           show={modalShow}
           onHide={() => setModalShow(false)}
