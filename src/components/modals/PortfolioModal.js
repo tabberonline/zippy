@@ -4,10 +4,9 @@ import '../../styles/HelperStyles.css'
 import { Form, Modal } from 'react-bootstrap';
 import {AiOutlineCloseCircle} from 'react-icons/ai';
 import { getItem, setItem } from '../../utility/localStorageControl';
-import Axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-const API_ENDPOINT = 'https://whispering-eyrie-04211.herokuapp.com';
+import AdminService from '../../AdminServices/AdminService';
   
   export default function CodingProfileModal() {
     const [modalShow, setModalShow] = useState(false);
@@ -36,11 +35,7 @@ const API_ENDPOINT = 'https://whispering-eyrie-04211.herokuapp.com';
               'description': getItem('descPortfolio')
           };
           console.log(portfolioData);
-          Axios.post(`${API_ENDPOINT}/portfolio/create`, portfolioData, {headers : {
-            'Authorization': `${accessToken}`,
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-          }})
+          AdminService.createPortfolio(portfolioData)
             .then(resp => {
               toast.success('Details Entered!', {
                 position: "top-center",
@@ -64,11 +59,22 @@ const API_ENDPOINT = 'https://whispering-eyrie-04211.herokuapp.com';
                 progress: undefined,
               });
             });
+        } else {
+          toast.error('Error, Fields cannot be empty!', {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
         }
       }
     };  
 
     const Add = () => {
+      setItem('name', name);
       setItem('titlePortfolio', title);
       setItem('descPortfolio', desc);
       createPortfolio();
