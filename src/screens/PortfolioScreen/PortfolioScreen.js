@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import '../../styles/HelperStyles.css';
 import './PortfolioScreen.css';
-import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import StudentA from '../../assets/Datafiles/StudentA';
 import CodingCard from '../../components/CodingCard/CodingCard';
@@ -14,6 +13,7 @@ import ShareModal from '../../components/modals/ShareModal';
 import {AiOutlineEdit} from 'react-icons/ai';
 import {BsThreeDotsVertical} from 'react-icons/bs';
 import $ from 'jquery';
+import Header1 from '../../components/Header/Header1';
 
 function PortfolioScreen() {
   const [name, setname] = useState('');
@@ -30,7 +30,7 @@ function PortfolioScreen() {
   } 
   return (
     <div className="#portfolio-screen">
-      <Header />
+      <Header1 />
       <ShareModal />
       <div className="mw1100">
         <div className="p-40 flexColumn portfolio-section">
@@ -43,20 +43,12 @@ function PortfolioScreen() {
                 </div>
               </div>
               <hr style={{color : '#717070', width: '80%', margin: 'auto', marginTop: 10}} />
-              <div className="flexAlignCenter flexRow mv-40">
+              <div className="flexColumn" style={{margin: 40, marginLeft: 0, marginBottom: 0}}>
+                <p className="name mb-20 pl-20">Hello! I am <strong>{student.name}</strong></p>
                 <div className="flexRow">
-                  <img src={student.image} className="profile-pic" alt="profile" />
-                  <div className="flexRow flexCenter flexAlignCenter iconcontainer1" style={{top: 140, left: '-20%'}}>
-                    <BsThreeDotsVertical className="portfolio-icon" size="20" />
-                  </div>
-                </div>
-                <div className="flexColumn ml-40">
-                  <p className="name mb-20 pl-20">Hello! I am <strong>{student.name}</strong></p>
-                  <div className="flexRow">
-                    <textarea autocomplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" rows="5" className="desc" defaultValue={student.desc} onChange={(text) => setdesc(text)} readOnly placeholder="Enter your College and profile description here" />
-                    <div className="flexRow flexCenter flexAlignCenter iconcontainer1" style={{left: -15, top: -15}}>
-                      <AiOutlineEdit className="portfolio-icon" size="20" onClick={()=>Edit2()} />
-                    </div>
+                  <textarea autocomplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" rows="5" className="desc" defaultValue={student.desc} onChange={(text) => setdesc(text)} readOnly placeholder="Enter your College and profile description here" />
+                  <div className="flexRow flexCenter flexAlignCenter iconcontainer1" style={{left: -15, top: -15}}>
+                    <AiOutlineEdit className="portfolio-icon" size="20" onClick={()=>Edit2()} />
                   </div>
                 </div>
               </div>
