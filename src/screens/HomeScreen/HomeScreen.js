@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, {useEffect} from 'react';
 import '../../styles/HelperStyles.css';
 import './HomeScreen.css';
@@ -13,6 +14,9 @@ import QnA from '../../assets/Datafiles/QnA';
 import FAQCard from '../../components/FAQCard/FAQCard';
 import Footer from '../../components/Footer/Footer';
 import { setItem, getItem } from '../../utility/localStorageControl';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import PortfolioModal from '../../components/modals/PortfolioModal';
 
 function HomeScreen() {
   return (
@@ -26,7 +30,18 @@ function HomeScreen() {
                     Improve your chances of getting hired, just Tab it for 
                     <span style={{color: 'rgba(0,229,216,1)'}}> FREE</span>
                 </h1>
-                <a href="/portfolio" className="flexAlignCenter intro-button">Get Started</a>
+                <ToastContainer
+                  position="top-center"
+                  autoClose={3000}
+                  hideProgressBar={true}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                />
+                <PortfolioModal home={true} />
             </div>
           </div>
       </div>
