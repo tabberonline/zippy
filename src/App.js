@@ -4,8 +4,14 @@ import {setItem, getItem} from './utility/localStorageControl';
 
 function App() {  
   useEffect(() => {
-    setItem('access_token', '');
     setItem('login', false);
+    setItem('access_token', '');
+    setItem('name', '');
+    setItem('image', '');
+    setItem('portfolio', false);
+    setItem('projects', []);
+    setItem('rank', []);
+    setItem('contest', []);
   }, []);
 
   console.log(getItem('login'));
