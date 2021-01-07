@@ -6,7 +6,7 @@ import {AiOutlineCloseCircle, AiOutlinePlusCircle} from 'react-icons/ai';
 
   export default function CodingProfileModal() {
     const [modalShow, setModalShow] = React.useState(false);
-    var name = "";
+    var portal = "";
     var username = "";
     var rank = "";
 
@@ -29,7 +29,7 @@ import {AiOutlineCloseCircle, AiOutlinePlusCircle} from 'react-icons/ai';
           <Form>
             <Form.Group controlId="formBasicEmail" className="mb-20">
               <Form.Label>Website Name</Form.Label>
-              <Form.Control placeholder="Eg. GeeksforGeeks, CodeChef" type="text" defaultValue={name} onChange={(e) => name = (e.target.value)} />
+              <Form.Control placeholder="Eg. GeeksforGeeks, CodeChef" type="text" defaultValue={portal} onChange={(e) => portal = (e.target.value)} />
             </Form.Group>
   
             <Form.Group controlId="formBasicPassword" className="mb-20">
