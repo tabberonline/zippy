@@ -8,7 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
   
-  export default function CodingProfileModal() {
+  export default function PortfolioModal({home}) {
     const [modalShow, setModalShow] = useState(false);
     const [apicall, setcall] = useState('');
     var name = '';
@@ -47,6 +47,11 @@ import AdminService from '../../AdminServices/AdminService';
                 progress: undefined,
               });
               setcall('Success');
+              AdminService.getUserData()
+                .then(resp => {
+                  setItem('portfolio', resp.data.resume_present);
+                })
+                .catch(err => console.log(err));
             })
             .catch(err => {
               toast.error('Error, One User, One Portfolio!', {
@@ -127,22 +132,56 @@ import AdminService from '../../AdminServices/AdminService';
   
     return (
       <>
-        <button onClick={() => ModalOpen()} className="edit-your-portfolio">{apicall === 'Success' ? 'Move to your Portfolio' : 'Edit your Portfolio'}</button>
+        {
+          home ? (
+            <a onClick={() => {
+              if(getItem('login')){
+                if(getItem('portfolio')){
+                  window.open('/portfolio', '_self');
+                } else {
+                  setModalShow(true);
+                }
+              } else{
+                toast.warning('You need to Login first!', {
+                  position: "top-center",
+                  autoClose: 2000,
+                  hideProgressBar: true,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                });
+              }
+            }} className="flexAlignCenter intro-button"
+          >
+            Get Started
+          </a>
+          ) :
+            (
+              <button onClick={() => {
+                  getItem('portfolio') ? window.open('/portfolio', '_self') : ModalOpen()
+                }} 
+                className="edit-your-portfolio"
+              >
+                {apicall === 'Success' ? 'Move to your Portfolio' : 'Edit your Portfolio'}
+              </button>
+            )
+        }
         <MyVerticallyCenteredModal
           show={modalShow}
           onHide={() => setModalShow(false)}
         />
         <ToastContainer
-            position="top-center"
-            autoClose={3000}
-            hideProgressBar={true}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-          />
+          position="top-center"
+          autoClose={3000}
+          hideProgressBar={true}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
       </>
     );
   }
