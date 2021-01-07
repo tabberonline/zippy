@@ -35,7 +35,7 @@ class GoogleBtn extends Component {
       Axios.post(`${API_ENDPOINT}/login?idTokenString=${idToken}`)
         .then(function (response) {
           setItem('login', true);
-          setItem('access_token', response.data.access_token);        
+          setItem('access_token', response.data.access_token);  
           toast.success('Login Successful!', {
             position: "top-center",
             autoClose: 2000,
@@ -45,7 +45,6 @@ class GoogleBtn extends Component {
             draggable: true,
             progress: undefined,
           });
-
           AdminService.getUserData()
             .then(resp => {
               setItem('name', resp.data.name);
