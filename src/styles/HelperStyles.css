@@ -196,4 +196,6 @@
 }
 .Toastify__toast-container--top-center .Toastify__toast-body {
     text-align: center;
+    font: 16px 'Poppins', sans-serif;
+    font-weight: 400;
   }

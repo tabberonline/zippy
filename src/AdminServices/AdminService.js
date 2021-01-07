@@ -8,7 +8,10 @@ export default {
   },
   updatePortfolio: async (data) => {
     return DataService.put('/portfolio/update', data);
-  }
+  },
+  getUserData: async () => {
+    return DataService.get('/user/resume');
+  },
   // forgotPassword: async (data) => {
   //   return  DataService.post(`/auth/forgot_password`,data);
   // },
