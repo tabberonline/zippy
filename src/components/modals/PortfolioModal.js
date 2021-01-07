@@ -163,7 +163,7 @@ import AdminService from '../../AdminServices/AdminService';
                 }} 
                 className="edit-your-portfolio"
               >
-                {apicall === 'Success' ? 'Move to your Portfolio' : 'Edit your Portfolio'}
+                {apicall === 'Success' || getItem('portfolio') ? 'Move to your Portfolio' : 'Edit your Portfolio'}
               </button>
             )
         }
