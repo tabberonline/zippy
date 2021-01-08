@@ -6,6 +6,10 @@ import deleted from '../../assets/images/Bin-Icon.png';
 import edited from '../../assets/images/Edit-Icon.png';
 import hidden from '../../assets/images/Hide-Icon.png';
 import hidecards from '../../assets/images/hiddeeen.png';
+import {setItem, getItem, PortalMap} from '../../utility/localStorageControl';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import AdminService from '../../AdminServices/AdminService';
 
 export default function CodingCard({name, rank, id, logo}){        
     const [ bullets, setbullets ] = useState(true);
@@ -22,9 +26,52 @@ export default function CodingCard({name, rank, id, logo}){
         setdrawer(true);
         setbullets(false);
     }
+    const CloseOptionDrawer = () => {
+        setdrawer(false);
+        setbullets(true);
+    }
+
+    const formatPortal = portal => {
+        return portal.split(' ').join('').toLowerCase();
+    }
+
+    const DeleteCard = (name) => {
+        var website_name = formatPortal(name);
+        var website_id = PortalMap.get(website_name).id;
+
+        AdminService.deleteRankWidget(website_id)
+            .then(response => {
+                toast.success('Card deleted successfully!', {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+                AdminService.getUserData()
+                    .then(resp => {
+                      setItem('rankWidgets', resp.data.rank_widgets);
+                      window.open('/portfolio', '_self')
+                    })
+                    .catch(err => console.log(err));
+                })
+            .catch(error => {
+                toast.error('Error, Cannot delete this card!', {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                })
+            });
+    }
 
     return(
-            <div className="card11 flexColumn profile-card">
+            <div className="card11 flexColumn profile-card" onMouseLeave={() => CloseOptionDrawer()}>
                 {
                     hidecard ? (
                         <div id="overlay" onClick={() => sethide(false)} className="flexColumn flexCenter flexAlignCenter">
@@ -49,9 +96,9 @@ export default function CodingCard({name, rank, id, logo}){
                     }
                     { drawer ? (
                         <div className="flexColumn flexStart options" style={{position: 'absolute', top: '-15%', right:'-2%'}}>
-                            {icon1 ? (<img src={deleted} alt="delete" onMouseEnter={() => {setoption1(true); seticon1(false);}} className="delete-icon" style={{height:30, width: 30, marginBottom: 10, marginLeft: option2 ? 50 : null || option3 ? 50 : null}} />) : null }
+                            {icon1 ? (<img src={deleted} alt="delete" onMouseEnter={() => {setoption1(true); seticon1(false);}} onClick={() => DeleteCard(name)} className="delete-icon" style={{height:30, width: 30, marginBottom: 10, marginLeft: option2 ? 50 : null || option3 ? 50 : null}} />) : null }
                             { option1 ? (
-                                <div className="flexRow flexAlignCenter option delete-option" onMouseLeave={() => {setoption1(false); seticon1(true);}} style={{ marginBottom: 10, position: 'relative', left: 40 }}>
+                                <div className="flexRow flexAlignCenter option delete-option" onClick={() => DeleteCard(name)} onMouseLeave={() => {setoption1(false); seticon1(true);}} style={{ marginBottom: 10, position: 'relative', left: 40 }}>
                                     <img src={deleted} alt="delete" style={{height:30, width: 30, marginRight: 10}} />
                                     <p className="options-text">Delete</p>
                                 </div>                            
@@ -77,6 +124,17 @@ export default function CodingCard({name, rank, id, logo}){
                         ) : null
                     }
                 </div>
+                <ToastContainer
+                    position="top-center"
+                    autoClose={3000}
+                    hideProgressBar={true}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                />
                 <p className="profile-name pl-20 mb-10"> {name === "" ? "Company Name" : name}</p>
                 <p className="profile-name ph-20 mb-10"><span className="profile-heading">ID:</span> {id === "" ?  "Id here" : id }</p>
                 <p className="profile-name ph-20 mb-10"><span className="profile-heading">Rank:</span> {rank === "" ?  "?" : rank  }</p>
