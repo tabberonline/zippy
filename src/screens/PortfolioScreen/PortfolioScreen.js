@@ -13,7 +13,7 @@ import ShareModal from '../../components/modals/ShareModal';
 import {AiOutlineEdit} from 'react-icons/ai';
 import $ from 'jquery';
 import Header1 from '../../components/Header/Header1';
-import { getItem, setItem } from '../../utility/localStorageControl';
+import { getItem, setItem, ReversePortalMap } from '../../utility/localStorageControl';
 import AdminService from '../../AdminServices/AdminService';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -84,6 +84,7 @@ function PortfolioScreen() {
       });
     }
   }
+
   return (
     <div className="#portfolio-screen">      
       <ToastContainer
@@ -122,9 +123,13 @@ function PortfolioScreen() {
               <div className="coding-profile mv-20">
                 <p className="card-heading mb-20">Coding Profile</p>
                 <div className="flexRow flexWrap">
-                  {student.profile.map(profile => (
-                    <CodingCard key={profile.sr} class1={profile.sr} name={profile.name} id={profile.id} rank={profile.rank} logo={profile.logo} />
-                  ))}
+                  { getItem('rankWidgets') !== [''] ?
+                      (
+                        getItem('rankWidgets').map(profile => (
+                          <CodingCard name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} />
+                        ))
+                      ) : null
+                  }
                   <CodingProfileModal />
                 </div>
               </div>
