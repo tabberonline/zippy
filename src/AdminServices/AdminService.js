@@ -12,6 +12,15 @@ export default {
   getUserData: async () => {
     return DataService.get('/user/resume');
   },
+  createRankWidget: async (data) => {
+    return DataService.post('/rankwidget/create', data);
+  },
+  deleteRankWidget: async (data) => {
+    return DataService.delete(`/rankwidget/delete?website_id=${data}`);
+  },
+  updateRankWidget: async (data) => {
+    return DataService.put('/rankwidget/update', data);
+  }
   // forgotPassword: async (data) => {
   //   return  DataService.post(`/auth/forgot_password`,data);
   // },
