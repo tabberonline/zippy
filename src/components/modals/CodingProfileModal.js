@@ -3,12 +3,52 @@ import React from 'react';
 import '../../styles/HelperStyles.css'
 import { Form, Modal } from 'react-bootstrap';
 import {AiOutlineCloseCircle, AiOutlinePlusCircle} from 'react-icons/ai';
+import { PortalMap, setItem, getItem } from '../../utility/localStorageControl';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
   export default function CodingProfileModal() {
     const [modalShow, setModalShow] = React.useState(false);
     var portal = "";
     var username = "";
     var rank = "";
+
+    const createRankWidget = async () => {
+      if(portal.length > 0 && username.length > 0 && rank.length > 0){
+        const rankWidgetData = {
+          'rank' : getItem('rank'),
+          'website_id' : getItem('website_id'),
+          'username' : getItem('username'),
+        }
+        console.log(rankWidgetData);
+      } else {
+        toast.error('Error, Fields cannot be empty!', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
+    }
+
+    const getPortalDetails = (portal) => {
+      if(portal !== ''){
+        setItem('url', PortalMap.get(portal).url);
+        setItem('website_id', PortalMap.get(portal).id);
+        setItem('logo', PortalMap.get(portal).logo);
+      }
+    }
+
+    const UpdateCard = () => {
+      setItem('Codingportal', portal);
+      getPortalDetails(getItem('Codingportal'));
+      setItem('Codingusername', username);
+      setItem('Codingrank', rank);
+      createRankWidget();
+    }
 
     function MyVerticallyCenteredModal(props) {
       return (
@@ -37,7 +77,7 @@ import {AiOutlineCloseCircle, AiOutlinePlusCircle} from 'react-icons/ai';
               <Form.Control type="text" placeholder="Eg. abc_234" defaultValue={username} onChange={(e) => username = (e.target.value)} />
             </Form.Group>
   
-            <Form.Group controlId="formBasicPassword">
+            <Form.Group controlId="formBasicPassword1">
               <Form.Label>Your Rank</Form.Label>
               <Form.Control type="text" placeholder="Eg. 2512" defaultValue={rank} onChange={(e) => rank = (e.target.value)} />
             </Form.Group>
@@ -45,7 +85,7 @@ import {AiOutlineCloseCircle, AiOutlinePlusCircle} from 'react-icons/ai';
           </Form>
   
           <div className="share" style={{justifyContent: 'center'}}>
-            <a onClick={props.onHide} className="flexAlignCenter modal-button">Add to Profile</a>
+            <a onClick={() => UpdateCard() } className="flexAlignCenter modal-button">Add to Profile</a>
           </div>
   
         </div>
@@ -64,6 +104,18 @@ import {AiOutlineCloseCircle, AiOutlinePlusCircle} from 'react-icons/ai';
         <MyVerticallyCenteredModal
           show={modalShow}
           onHide={() => setModalShow(false)}
+        />
+        
+        <ToastContainer
+          position="top-center"
+          autoClose={3000}
+          hideProgressBar={true}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
         />
       </>
     );
