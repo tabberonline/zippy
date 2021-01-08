@@ -24,6 +24,4 @@ PortalMap.set('hackerrank', {url: 'https://www.hackerrank.com/', id: '3', logo: 
 PortalMap.set('codechef', {url: 'https://www.codechef.com/', id: '3', logo: 'https://i0.wp.com/gradsingames.com/wp-content/uploads/2016/05/856771_668224053197841_1943699009_o.png'});
 PortalMap.set('topcoder', {url: 'https://www.topcoder.com/', id: '3', logo: 'https://i0.wp.com/gradsingames.com/wp-content/uploads/2016/05/856771_668224053197841_1943699009_o.png'});
 
-console.log(PortalMap);
-
 export { getItem, setItem, removeItem, PortalMap };
