@@ -50,6 +50,7 @@ import AdminService from '../../AdminServices/AdminService';
               AdminService.getUserData()
                 .then(resp => {
                   setItem('portfolio', resp.data.resume_present);
+                  setModalShow(false);
                 })
                 .catch(err => console.log(err));
             })
@@ -83,7 +84,6 @@ import AdminService from '../../AdminServices/AdminService';
       setItem('titlePortfolio', title);
       setItem('descPortfolio', desc);
       createPortfolio();
-      setModalShow(false);
     }
 
     const ModalOpen = () => {
