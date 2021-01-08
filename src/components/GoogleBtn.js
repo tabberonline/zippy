@@ -50,9 +50,9 @@ class GoogleBtn extends Component {
               setItem('name', resp.data.name);
               setItem('image', resp.data.picture_url);
               setItem('portfolio', resp.data.resume_present);
-              setItem('projects', resp.data.personal_projects);
-              setItem('rank', resp.data.rank_widgets);
-              setItem('contest', resp.data.contest_widgets);
+              setItem('projectWidgets', resp.data.personal_projects);
+              setItem('rankWidgets', resp.data.rank_widgets);
+              setItem('contestWidgets', resp.data.contest_widgets);
             })
             .catch(err => console.log(err));
 
