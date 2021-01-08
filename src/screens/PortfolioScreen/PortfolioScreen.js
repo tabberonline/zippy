@@ -22,6 +22,7 @@ function PortfolioScreen() {
   const [name, setname] = useState(getItem('name'));
   const [title, settitle] = useState(getItem('titlePortfolio'));
   const [desc, setdesc] = useState(getItem('descPortfolio'));
+  const [rankWidgets, setrankwidgets] = useState(getItem('rankWidgets'));
   const Edit1 = () => {
     console.log('edittable1')
     $(".title").prop("readonly", false);
@@ -123,9 +124,9 @@ function PortfolioScreen() {
               <div className="coding-profile mv-20">
                 <p className="card-heading mb-20">Coding Profile</p>
                 <div className="flexRow flexWrap">
-                  { getItem('rankWidgets') !== [''] ?
+                  { rankWidgets !== [''] ?
                       (
-                        getItem('rankWidgets').map(profile => (
+                        rankWidgets.map(profile => (
                           <CodingCard name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} />
                         ))
                       ) : null
