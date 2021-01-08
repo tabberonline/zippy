@@ -6,6 +6,7 @@ import {AiOutlineCloseCircle, AiOutlinePlusCircle} from 'react-icons/ai';
 import { PortalMap, setItem, getItem } from '../../utility/localStorageControl';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AdminService from '../../AdminServices/AdminService';
 
   export default function CodingProfileModal() {
     const [modalShow, setModalShow] = React.useState(false);
@@ -13,14 +14,48 @@ import 'react-toastify/dist/ReactToastify.css';
     var username = "";
     var rank = "";
 
+    const formatPortal = portal => {
+      return portal.split(' ').join('').toLowerCase();
+    }
+
     const createRankWidget = async () => {
       if(portal.length > 0 && username.length > 0 && rank.length > 0){
         const rankWidgetData = {
-          'rank' : getItem('rank'),
+          'rank' : getItem('Codingrank'),
           'website_id' : getItem('website_id'),
-          'username' : getItem('username'),
+          'username' : getItem('Codingusername'),
         }
         console.log(rankWidgetData);
+        AdminService.createRankWidget(rankWidgetData)
+          .then(response => {
+            toast.success('Details Entered!', {
+              position: "top-center",
+              autoClose: 2000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+            AdminService.getUserData()
+              .then(resp => {
+                setItem('rankWidgets', resp.data.rank_widgets);
+                window.open('/portfolio', '_self')
+                setModalShow(false);
+              })
+              .catch(err => console.log(err));
+          })
+          .catch(error => {
+            toast.error('Error, Enter correct details!', {
+              position: "top-center",
+              autoClose: 2000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+          });
       } else {
         toast.error('Error, Fields cannot be empty!', {
           position: "top-center",
@@ -44,7 +79,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
     const UpdateCard = () => {
       setItem('Codingportal', portal);
-      getPortalDetails(getItem('Codingportal'));
+      getPortalDetails(formatPortal(getItem('Codingportal')));
       setItem('Codingusername', username);
       setItem('Codingrank', rank);
       createRankWidget();
