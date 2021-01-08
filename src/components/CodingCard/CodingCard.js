@@ -7,8 +7,7 @@ import edited from '../../assets/images/Edit-Icon.png';
 import hidden from '../../assets/images/Hide-Icon.png';
 import hidecards from '../../assets/images/hiddeeen.png';
 
-export default function CodingCard({name, rank, id, logo}){
-        
+export default function CodingCard({name, rank, id, logo}){        
     const [ bullets, setbullets ] = useState(true);
     const [ drawer, setdrawer ] = useState(false);
     const [option1, setoption1] = useState(false);
