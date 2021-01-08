@@ -10,6 +10,7 @@ import {setItem, getItem, PortalMap} from '../../utility/localStorageControl';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
+import UpdateCodingProfile from '../UpdateModals/UpdateCodingProfile';
 
 export default function CodingCard({name, rank, id, logo}){        
     const [ bullets, setbullets ] = useState(true);
@@ -107,7 +108,7 @@ export default function CodingCard({name, rank, id, logo}){
                             {icon2 ? (<img src={edited} alt="edit" onMouseEnter={() => {setoption2(true); seticon2(false);}} className="edit-icon" style={{height:30, width: 30, marginBottom: 10, marginLeft: option1 ? 50 : null || option3 ? 50 : null}} />) : null}
                             { option2 ? (
                                 <div className="flexRow flexAlignCenter option edit-option" onMouseLeave={() => {setoption2(false); seticon2(true);}} style={{ marginBottom: 10, position: 'relative', left: 40 }}>
-                                    <img src={edited} alt="edit" style={{height:30, width: 30, marginRight: 10}} />
+                                    <UpdateCodingProfile portalName={name} Rank={rank} userName={id} />
                                     <p className="options-text">Edit</p>
                                 </div>
                                 ) : null
