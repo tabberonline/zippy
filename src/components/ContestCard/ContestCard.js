@@ -12,7 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
 import UpdateContestProfile from '../UpdateModals/UpdateContestProfile';
 
-export default function ContestCard({name, rank, id, logo, contest}){
+export default function ContestCard({name, rank, id, logo, contest, card_id}){
 
     const [ bullets, setbullets ] = useState(true);
     const [ drawer, setdrawer ] = useState(false);
@@ -32,16 +32,12 @@ export default function ContestCard({name, rank, id, logo, contest}){
         setdrawer(false);
         setbullets(true);
     }
-    const formatPortal = portal => {
-        return portal.split(' ').join('').toLowerCase();
-    }
 
-    const DeleteCard = (name) => {
-        var website_name = formatPortal(name);
-        var website_id = PortalMap.get(website_name).id;
-
-        AdminService.deleteContestWidget(website_id)
+    const DeleteCard = (card_id) => {
+        
+        AdminService.deleteContestWidget(card_id)
             .then(response => {
+                console.log(response);
                 toast.success('Card deleted successfully!', {
                     position: "top-center",
                     autoClose: 2000,
@@ -53,8 +49,9 @@ export default function ContestCard({name, rank, id, logo, contest}){
                 });
                 AdminService.getUserData()
                     .then(resp => {
+                      console.log(resp);
                       setItem('contestWidgets', resp.data.contest_widgets);
-                      window.open('/portfolio', '_self')
+                    //   window.open('/portfolio', '_self')
                     })
                     .catch(err => console.log(err));
                 })
@@ -99,7 +96,7 @@ export default function ContestCard({name, rank, id, logo, contest}){
                     <div className="flexColumn flexStart options" style={{position: 'absolute', top: '-15%', right:'-2%'}}>
                         {icon1 ? (<img src={deleted} alt="delete" onMouseEnter={() => {setoption1(true); seticon1(false);}} className="delete-icon" style={{height:30, width: 30, marginBottom: 10, marginLeft: option2 ? 50 : null || option3 ? 50 : null}} />) : null }
                         { option1 ? (
-                            <div className="flexRow flexAlignCenter option delete-option" onClick={() => DeleteCard(name)} onMouseLeave={() => {setoption1(false); seticon1(true);}} style={{ marginBottom: 10, position: 'relative', left: 40 }}>
+                            <div className="flexRow flexAlignCenter option delete-option" onClick={() => DeleteCard(card_id)} onMouseLeave={() => {setoption1(false); seticon1(true);}} style={{ marginBottom: 10, position: 'relative', left: 40 }}>
                                 <img src={deleted} alt="delete" style={{height:30, width: 30, marginRight: 10}} />
                                 <p className="options-text">Delete</p>
                             </div>                            
@@ -108,7 +105,7 @@ export default function ContestCard({name, rank, id, logo, contest}){
                         {icon2 ? (<img src={edited} alt="edit" onMouseEnter={() => {setoption2(true); seticon2(false);}} className="edit-icon" style={{height:30, width: 30, marginBottom: 10, marginLeft: option1 ? 50 : null || option3 ? 50 : null}} />) : null}
                         { option2 ? (
                             <div className="flexRow flexAlignCenter option edit-option" onMouseLeave={() => {setoption2(false); seticon2(true);}} style={{ marginBottom: 10, position: 'relative', left: 40 }}>
-                                <UpdateContestProfile portalName={name} Rank={rank} userName={id} />
+                                <UpdateContestProfile portalName={name} Rank={rank} userName={id} id={card_id} ContestName={contest} />
                                 <p className="options-text">Edit</p>
                             </div>
                             ) : null
