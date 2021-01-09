@@ -30,6 +30,7 @@ export default function ContestProfileModal() {
       console.log(contestWidgetData);
       AdminService.createContestWidget(contestWidgetData)
         .then(response => {
+          console.log(response);
           toast.success('Details Entered!', {
             position: "top-center",
             autoClose: 2000,
@@ -41,8 +42,8 @@ export default function ContestProfileModal() {
           });
           AdminService.getUserData()
             .then(resp => {
-              setItem('contestWidgets', resp.data.rank_widgets);
-              window.open('/portfolio', '_self')
+              setItem('contestWidgets', resp.data.contest_widgets);
+              console.log(resp);
               setModalShow(false);
             })
             .catch(err => console.log(err));
@@ -84,6 +85,7 @@ export default function ContestProfileModal() {
     getPortalDetails(formatPortal(getItem('Contestportal')));
     setItem('Contestusername', username);
     setItem('Contestrank', rank);
+    setItem('Contestname', contest);
     createWidget();
   }
 
@@ -137,7 +139,7 @@ export default function ContestProfileModal() {
 
   return (
     <>
-      <div className="flexColumn flexCenter flexAlignCenter add-card">
+      <div className="flexColumn flexCenter flexAlignCenter add-card" style={{height: 250}}>
         <button onClick={() => setModalShow(true)}>
           <AiOutlinePlusCircle style={{fontSize: 80, color: '#C0C0C0'}} />
         </button>
