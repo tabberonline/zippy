@@ -3,11 +3,73 @@ import React from 'react';
 import '../../styles/HelperStyles.css'
 import { Modal, Form } from 'react-bootstrap';
 import {AiOutlineCloseCircle, AiOutlinePlusCircle} from 'react-icons/ai';
+import { setItem, getItem } from '../../utility/localStorageControl';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import AdminService from '../../AdminServices/AdminService';
 
 export default function ProjectModal() {
   const [modalShow, setModalShow] = React.useState(false);
   var url = '';
   var project = '';
+
+  const createWidget = async () => {
+    if(url.length > 0 && project.length > 0 ){
+      const projectWidgetData = {
+        'title' : getItem('Projectname'),
+        'link' : getItem('Projectid')
+      }
+      console.log(projectWidgetData);
+      AdminService.createProjectWidget(projectWidgetData)
+        .then(response => {
+          console.log(response);
+          toast.success('Details Entered!', {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+          AdminService.getUserData()
+            .then(resp => {
+              setItem('projectWidgets', resp.data.personal_projects);
+              console.log(resp);
+              setModalShow(false);
+            })
+            .catch(err => console.log(err));
+        })
+        .catch(error => {
+          toast.error('Error, Enter correct details!', {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        });
+    } else {
+      toast.error('Error, Fields cannot be empty!', {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  }
+
+  const UpdateCard = () => {
+    setItem('Projectname', project);
+    setItem('Projectid', url);
+    createWidget();
+    setModalShow(false);
+  }
 
   function MyVerticallyCenteredModal(props) {
     return (
@@ -48,7 +110,7 @@ export default function ProjectModal() {
           </Form>
   
           <div className="share" style={{justifyContent: 'center'}}>
-            <a onClick={props.onHide} className="flexAlignCenter modal-button">Add to Profile</a>
+            <a onClick={() => UpdateCard()} className="flexAlignCenter modal-button">Add to Profile</a>
           </div>
   
         </div>
@@ -58,11 +120,23 @@ export default function ProjectModal() {
 
   return (
     <>
-      <div className="flexColumn flexCenter flexAlignCenter add-card">
+      <div className="flexColumn flexCenter flexAlignCenter add-card" style={{height: 250}}>
         <button onClick={() => setModalShow(true)}>
           <AiOutlinePlusCircle style={{fontSize: 80, color: '#C0C0C0'}} />
         </button>
       </div>
+
+      <ToastContainer
+          position="top-center"
+          autoClose={3000}
+          hideProgressBar={true}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
 
       <MyVerticallyCenteredModal
         show={modalShow}

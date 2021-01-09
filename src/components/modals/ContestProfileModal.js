@@ -20,7 +20,7 @@ export default function ContestProfileModal() {
   }
 
   const createWidget = async () => {
-    if(portal.length > 0 && username.length > 0 && rank.length > 0){
+    if(portal.length > 0 && username.length > 0 && rank.length > 0 && contest.lenght > 0){
       const contestWidgetData = {
         'rank' : getItem('Contestrank'),
         'website_id' : getItem('website_id'),
@@ -144,6 +144,18 @@ export default function ContestProfileModal() {
           <AiOutlinePlusCircle style={{fontSize: 80, color: '#C0C0C0'}} />
         </button>
       </div>
+
+      <ToastContainer
+          position="top-center"
+          autoClose={3000}
+          hideProgressBar={true}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
 
       <MyVerticallyCenteredModal
         show={modalShow}
