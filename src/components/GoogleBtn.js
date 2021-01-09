@@ -47,6 +47,7 @@ class GoogleBtn extends Component {
           });
           AdminService.getUserData()
             .then(resp => {
+              console.log(resp);
               setItem('name', resp.data.name);
               setItem('image', resp.data.picture_url);
               setItem('portfolio', resp.data.resume_present);
