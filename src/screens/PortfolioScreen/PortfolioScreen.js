@@ -23,6 +23,7 @@ function PortfolioScreen() {
   const [title, settitle] = useState(getItem('titlePortfolio'));
   const [desc, setdesc] = useState(getItem('descPortfolio'));
   const [rankWidgets, setrankwidgets] = useState(getItem('rankWidgets'));
+  const [contestWidgets, setcontestwidgets] = useState(getItem('contestWidgets'));
   const Edit1 = () => {
     console.log('edittable1')
     $(".title").prop("readonly", false);
@@ -137,9 +138,13 @@ function PortfolioScreen() {
               <div className="coding-profile mv-20">
                 <p className="card-heading mb-20">Contests Won</p>
                 <div className="flexRow flexWrap">
-                  {student.achievements.map(achievement => (
-                    <ContestCard key={achievement.sr} name={achievement.name} id={achievement.id} rank={achievement.rank} logo={achievement.logo} contest={achievement.contest} />
-                  ))}
+                  { contestWidgets !== [''] ?
+                      (
+                        contestWidgets.map(profile => (
+                          <ContestCard card_id={profile.id} name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} contest={profile.contest_name} />
+                        ))
+                      ) : null
+                  }
                   <ContestProfileModal />
                 </div>
               </div>
