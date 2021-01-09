@@ -114,17 +114,17 @@ export default function UpdateContestProfile(portalName, Rank, userName, id, Con
               <Form.Control type="text" placeholder="Eg. GeeksforGeeks, CodeChef" defaultValue={portal} onChange={(e) => portal = (e.target.value)} readOnly />
             </Form.Group>
   
-            <Form.Group controlId="formBasicPassword" className="mb-20">
+            <Form.Group controlId="formBasicPassword1" className="mb-20">
               <Form.Label>Your Profile Username </Form.Label>
               <Form.Control type="text" placeholder="Eg. abc_234" defaultValue={username} onChange={(e) => username = (e.target.value)} />
             </Form.Group>
   
-            <Form.Group controlId="formBasicPassword" className="mb-20">
+            <Form.Group controlId="formBasicPassword2" className="mb-20">
               <Form.Label>Contest Name</Form.Label>
               <Form.Control type="text" placeholder="Eg. 2020 Hackathon" defaultValue={contest} onChange={(e) => contest = (e.target.value)} />
             </Form.Group>
   
-            <Form.Group controlId="formBasicPassword">
+            <Form.Group controlId="formBasicPassword3">
               <Form.Label>Your Rank</Form.Label>
               <Form.Control type="text" placeholder="Eg. 2514" defaultValue={rank} onChange={(e) => rank = (e.target.value)} />
             </Form.Group>
