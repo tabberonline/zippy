@@ -36,7 +36,7 @@ export default function CodingCard({name, rank, id, logo}){
         return portal.split(' ').join('').toLowerCase();
     }
 
-    const DeleteCard = (name) => {
+    const DeleteCard = async (name) => {
         var website_name = formatPortal(name);
         var website_id = PortalMap.get(website_name).id;
 
