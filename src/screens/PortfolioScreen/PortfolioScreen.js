@@ -24,6 +24,7 @@ function PortfolioScreen() {
   const [desc, setdesc] = useState(getItem('descPortfolio'));
   const [rankWidgets, setrankwidgets] = useState(getItem('rankWidgets'));
   const [contestWidgets, setcontestwidgets] = useState(getItem('contestWidgets'));
+  const [projectWidgets, setprojectwidgets] = useState(getItem('projectWidgets'));
   const Edit1 = () => {
     console.log('edittable1')
     $(".title").prop("readonly", false);
@@ -151,9 +152,13 @@ function PortfolioScreen() {
               <div className="coding-profile mv-20">
                 <p className="card-heading mb-20">Personal Projects</p>
                 <div className="flexRow flexWrap">
-                  {student.projects.map(project => (
-                    <ProjectCard key={project.sr} name={project.name} img={project.img} techstack={project.techstack} />
-                  ))}                  
+                  { projectWidgets !== [''] ?
+                      (
+                        projectWidgets.map(project => (
+                          <ProjectCard name={project.title} img="" url={project.link} id={project.id} />
+                        ))
+                      ) : null
+                  }                 
                   <ProjectModal />
                 </div>
               </div>
