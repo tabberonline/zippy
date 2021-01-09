@@ -6,6 +6,11 @@ import deleted from '../../assets/images/Bin-Icon.png';
 import edited from '../../assets/images/Edit-Icon.png';
 import hidden from '../../assets/images/Hide-Icon.png';
 import hidecards from '../../assets/images/hiddeeen.png';
+import {setItem, getItem, PortalMap} from '../../utility/localStorageControl';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import AdminService from '../../AdminServices/AdminService';
+import UpdateContestProfile from '../UpdateModals/UpdateContestProfile';
 
 export default function ContestCard({name, rank, id, logo, contest}){
 
@@ -23,9 +28,51 @@ export default function ContestCard({name, rank, id, logo, contest}){
         setdrawer(true);
         setbullets(false);
     }
+    const CloseOptionDrawer = () => {
+        setdrawer(false);
+        setbullets(true);
+    }
+    const formatPortal = portal => {
+        return portal.split(' ').join('').toLowerCase();
+    }
+
+    const DeleteCard = (name) => {
+        var website_name = formatPortal(name);
+        var website_id = PortalMap.get(website_name).id;
+
+        AdminService.deleteContestWidget(website_id)
+            .then(response => {
+                toast.success('Card deleted successfully!', {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+                AdminService.getUserData()
+                    .then(resp => {
+                      setItem('contestWidgets', resp.data.contest_widgets);
+                      window.open('/portfolio', '_self')
+                    })
+                    .catch(err => console.log(err));
+                })
+            .catch(error => {
+                toast.error('Error, Cannot delete this card!', {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                })
+            });
+    }
 
     return(
-        <div className="card11 flexColumn achievement-card">
+        <div className="card11 flexColumn achievement-card" onMouseLeave={() => CloseOptionDrawer()}>
             {
                 hidecard ? (
                     <div id="overlay" onClick={() => sethide(false)} className="flexColumn flexCenter flexAlignCenter">
@@ -52,7 +99,7 @@ export default function ContestCard({name, rank, id, logo, contest}){
                     <div className="flexColumn flexStart options" style={{position: 'absolute', top: '-15%', right:'-2%'}}>
                         {icon1 ? (<img src={deleted} alt="delete" onMouseEnter={() => {setoption1(true); seticon1(false);}} className="delete-icon" style={{height:30, width: 30, marginBottom: 10, marginLeft: option2 ? 50 : null || option3 ? 50 : null}} />) : null }
                         { option1 ? (
-                            <div className="flexRow flexAlignCenter option delete-option" onMouseLeave={() => {setoption1(false); seticon1(true);}} style={{ marginBottom: 10, position: 'relative', left: 40 }}>
+                            <div className="flexRow flexAlignCenter option delete-option" onClick={() => DeleteCard(name)} onMouseLeave={() => {setoption1(false); seticon1(true);}} style={{ marginBottom: 10, position: 'relative', left: 40 }}>
                                 <img src={deleted} alt="delete" style={{height:30, width: 30, marginRight: 10}} />
                                 <p className="options-text">Delete</p>
                             </div>                            
@@ -61,7 +108,7 @@ export default function ContestCard({name, rank, id, logo, contest}){
                         {icon2 ? (<img src={edited} alt="edit" onMouseEnter={() => {setoption2(true); seticon2(false);}} className="edit-icon" style={{height:30, width: 30, marginBottom: 10, marginLeft: option1 ? 50 : null || option3 ? 50 : null}} />) : null}
                         { option2 ? (
                             <div className="flexRow flexAlignCenter option edit-option" onMouseLeave={() => {setoption2(false); seticon2(true);}} style={{ marginBottom: 10, position: 'relative', left: 40 }}>
-                                <img src={edited} alt="edit" style={{height:30, width: 30, marginRight: 10}} />
+                                <UpdateContestProfile portalName={name} Rank={rank} userName={id} />
                                 <p className="options-text">Edit</p>
                             </div>
                             ) : null
@@ -78,6 +125,17 @@ export default function ContestCard({name, rank, id, logo, contest}){
                     ) : null
                 }
             </div>
+            <ToastContainer
+                position="top-center"
+                autoClose={3000}
+                hideProgressBar={true}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
             <p className="profile-name pl-20 mb-10"> {name === "" ? "Company Name" : name}</p>
             <div className="flexRow flexBetween"> 
                 <p className="profile-name ph-20 mb-10"><span className="profile-heading">ID:</span> {id === "" ?  "Id here" : id }</p>
