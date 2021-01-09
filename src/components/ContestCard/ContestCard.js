@@ -37,7 +37,6 @@ export default function ContestCard({name, rank, id, logo, contest, card_id}){
         
         AdminService.deleteContestWidget(card_id)
             .then(response => {
-                console.log(response);
                 toast.success('Card deleted successfully!', {
                     position: "top-center",
                     autoClose: 2000,
@@ -49,9 +48,8 @@ export default function ContestCard({name, rank, id, logo, contest, card_id}){
                 });
                 AdminService.getUserData()
                     .then(resp => {
-                      console.log(resp);
                       setItem('contestWidgets', resp.data.contest_widgets);
-                    //   window.open('/portfolio', '_self')
+                      window.open('/portfolio', '_self')
                     })
                     .catch(err => console.log(err));
                 })

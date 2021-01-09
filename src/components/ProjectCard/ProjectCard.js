@@ -15,7 +15,6 @@ export default function ProjectCard({name, img, url, id}){
     const DeleteCard = async (project_id) => {        
         AdminService.deleteProjectWidget(project_id)
             .then(response => {
-                console.log(response);
                 toast.success('Card deleted successfully!', {
                     position: "top-center",
                     autoClose: 2000,
@@ -28,7 +27,7 @@ export default function ProjectCard({name, img, url, id}){
                 AdminService.getUserData()
                     .then(resp => {
                         setItem('projectWidgets', resp.data.personal_projects);
-                        console.log(resp);
+                        window.open('/portfolio', '_self')
                     })
                     .catch(err => console.log(err));
                 })

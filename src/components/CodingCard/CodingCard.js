@@ -6,7 +6,7 @@ import deleted from '../../assets/images/Bin-Icon.png';
 import edited from '../../assets/images/Edit-Icon.png';
 import hidden from '../../assets/images/Hide-Icon.png';
 import hidecards from '../../assets/images/hiddeeen.png';
-import {setItem, getItem, PortalMap} from '../../utility/localStorageControl';
+import {setItem, PortalMap} from '../../utility/localStorageControl';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
