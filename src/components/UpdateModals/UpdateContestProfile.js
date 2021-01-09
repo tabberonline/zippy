@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
 import edited from '../../assets/images/Edit-Icon.png';
 
-export default function ContestProfileModal(portalName, Rank, userName, id, ContestName) {
+export default function UpdateContestProfile(portalName, Rank, userName, id, ContestName) {
   const [modalShow, setModalShow] = React.useState(false);
   var portal1 = portalName;
   var portal = portal1.portalName;
@@ -23,7 +23,7 @@ export default function ContestProfileModal(portalName, Rank, userName, id, Cont
   }
 
   const updateWidget = async (card_id) => {
-    if(portal.length > 0 && username.length > 0 && rank.length > 0){
+    if(portal.length > 0 && username.length > 0 && rank.length > 0 && contest.length > 0){
       const updateWidgetData = {
         'rank' : getItem('Contestrank'),
         'website_id' : getItem('website_id'),
@@ -83,7 +83,7 @@ export default function ContestProfileModal(portalName, Rank, userName, id, Cont
     }
   }
 
-  const UpdateCard = () => {
+  const UpdateCard = (card_id) => {
     setItem('Contestportal', portal);
     getPortalDetails(formatPortal(getItem('Contestportal')));
     setItem('Contestusername', username);
