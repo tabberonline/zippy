@@ -27,8 +27,8 @@ export default {
   deleteContestWidget: async (data) => {
     return DataService.delete(`/contestwidget/delete?id=${data}`);
   },
-  updateContestWidget: async (data) => {
-    return DataService.put(`/contestwidget/update?id=${data}`);
+  updateContestWidget: async (id, data) => {
+    return DataService.put(`/contestwidget/update?id=${id}`, data);
   }
   // forgotPassword: async (data) => {
   //   return  DataService.post(`/auth/forgot_password`,data);
