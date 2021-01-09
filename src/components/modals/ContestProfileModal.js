@@ -3,6 +3,10 @@ import React from 'react';
 import '../../styles/HelperStyles.css'
 import { Modal, Form } from 'react-bootstrap';
 import {AiOutlineCloseCircle, AiOutlinePlusCircle} from 'react-icons/ai';
+import { PortalMap, setItem, getItem } from '../../utility/localStorageControl';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import AdminService from '../../AdminServices/AdminService';
 
 export default function ContestProfileModal() {
   const [modalShow, setModalShow] = React.useState(false);
@@ -10,6 +14,78 @@ export default function ContestProfileModal() {
   var contest = '';
   var rank = '';
   var username = '';
+
+  const formatPortal = portal => {
+    return portal.split(' ').join('').toLowerCase();
+  }
+
+  const createWidget = async () => {
+    if(portal.length > 0 && username.length > 0 && rank.length > 0){
+      const contestWidgetData = {
+        'rank' : getItem('Contestrank'),
+        'website_id' : getItem('website_id'),
+        'username' : getItem('Contestusername'),
+        'contest_name': getItem('Contestname')
+      }
+      console.log(contestWidgetData);
+      AdminService.createContestWidget(contestWidgetData)
+        .then(response => {
+          toast.success('Details Entered!', {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+          AdminService.getUserData()
+            .then(resp => {
+              setItem('contestWidgets', resp.data.rank_widgets);
+              window.open('/portfolio', '_self')
+              setModalShow(false);
+            })
+            .catch(err => console.log(err));
+        })
+        .catch(error => {
+          toast.error('Error, Enter correct details!', {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        });
+    } else {
+      toast.error('Error, Fields cannot be empty!', {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  }
+
+  const getPortalDetails = (portal) => {
+    if(portal !== ''){
+      setItem('url', PortalMap.get(portal).url);
+      setItem('website_id', PortalMap.get(portal).id);
+      setItem('logo', PortalMap.get(portal).logo);
+    }
+  }
+
+  const UpdateCard = () => {
+    setItem('Contestportal', portal);
+    getPortalDetails(formatPortal(getItem('Contestportal')));
+    setItem('Contestusername', username);
+    setItem('Contestrank', rank);
+    createWidget();
+  }
 
   function MyVerticallyCenteredModal(props) {
     return (
@@ -51,7 +127,7 @@ export default function ContestProfileModal() {
           </Form>
   
           <div className="share" style={{justifyContent: 'center'}}>
-            <a onClick={props.onHide} className="flexAlignCenter modal-button">Add to Profile</a>
+            <a onClick={() => UpdateCard()} className="flexAlignCenter modal-button">Add to Profile</a>
           </div>
   
         </div>
