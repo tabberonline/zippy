@@ -24,11 +24,20 @@ export default {
   createContestWidget: async (data) => {
     return DataService.post('/contestwidget/create', data);
   },
-  deleteContestWidget: async (data) => {
-    return DataService.delete(`/contestwidget/delete?id=${data}`);
+  deleteContestWidget: async (id) => {
+    return DataService.delete(`/contestwidget/delete?id=${id}`);
   },
   updateContestWidget: async (id, data) => {
     return DataService.put(`/contestwidget/update?id=${id}`, data);
+  },
+  createProjectWidget: async (data) => {
+    return DataService.post('/personalproject/create', data);
+  },
+  deleteProjectWidget: async (id) => {
+    return DataService.delete(`/personalproject/delete?id=${id}`);
+  },
+  updateProjectWidget: async (id, data) => {
+    return DataService.put(`/personalproject/update?id=${id}`, data);
   }
   // forgotPassword: async (data) => {
   //   return  DataService.post(`/auth/forgot_password`,data);
