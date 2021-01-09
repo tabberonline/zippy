@@ -4,7 +4,7 @@ import '../../styles/HelperStyles.css'
 import { Modal, Form } from 'react-bootstrap';
 import {AiOutlineCloseCircle} from 'react-icons/ai';
 import { setItem, getItem } from '../../utility/localStorageControl';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
 import edited from '../../assets/images/Edit-Icon.png';
@@ -16,15 +16,12 @@ export default function UpdateProject(projectName, projectlink, projectImage, pr
   var project = project1.projectName;
   var project_id = project1.projectId;
 
-  console.log(project1);
-
   const updateWidget = async (id) => {
     if(url.length > 0 && project.length > 0 ){
         const projectWidgetData = {
           'title' : getItem('Projectname'),
           'link' : getItem('Projectid')
         }
-      console.log(projectWidgetData);
       AdminService.updateProjectWidget(id, projectWidgetData)
         .then(response => {
           toast.success('Card Updated!', {
@@ -39,7 +36,7 @@ export default function UpdateProject(projectName, projectlink, projectImage, pr
           AdminService.getUserData()
             .then(resp => {
                 setItem('projectWidgets', resp.data.personal_projects);
-                console.log(resp);
+                window.open('/portfolio', '_self')
                 setModalShow(false);
             })
             .catch(err => console.log(err));
@@ -129,18 +126,6 @@ export default function UpdateProject(projectName, projectlink, projectImage, pr
         <MyVerticallyCenteredModal
             show={modalShow}
             onHide={() => setModalShow(false)}
-        />
-        
-        <ToastContainer
-            position="top-center"
-            autoClose={3000}
-            hideProgressBar={true}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
         />
     </>
   );

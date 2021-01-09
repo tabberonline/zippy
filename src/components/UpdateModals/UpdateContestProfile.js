@@ -4,7 +4,7 @@ import '../../styles/HelperStyles.css'
 import { Modal, Form } from 'react-bootstrap';
 import {AiOutlineCloseCircle} from 'react-icons/ai';
 import { PortalMap, setItem, getItem } from '../../utility/localStorageControl';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
 import edited from '../../assets/images/Edit-Icon.png';
@@ -30,7 +30,6 @@ export default function UpdateContestProfile(portalName, Rank, userName, id, Con
         'username' : getItem('Contestusername'),
         'contest_name' : getItem('Contestname')
       }
-      console.log(updateWidgetData);
       AdminService.updateContestWidget(card_id, updateWidgetData)
         .then(response => {
           toast.success('Card Updated!', {
@@ -45,7 +44,7 @@ export default function UpdateContestProfile(portalName, Rank, userName, id, Con
           AdminService.getUserData()
             .then(resp => {
               setItem('rankWidgets', resp.data.rank_widgets);
-              console.log(resp);
+              window.open('/portfolio', '_self')
               setModalShow(false);
             })
             .catch(err => console.log(err));
@@ -147,18 +146,6 @@ export default function UpdateContestProfile(portalName, Rank, userName, id, Con
         <MyVerticallyCenteredModal
             show={modalShow}
             onHide={() => setModalShow(false)}
-        />
-        
-        <ToastContainer
-            position="top-center"
-            autoClose={3000}
-            hideProgressBar={true}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
         />
     </>
   );

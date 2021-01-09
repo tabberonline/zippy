@@ -16,8 +16,6 @@ import edited from '../../assets/images/Edit-Icon.png';
     var username = portal1.userName;
     var rank = portal1.Rank;
 
-    console.log(portal, username, rank);
-
     const formatPortal = portal => {
       return portal.split(' ').join('').toLowerCase();
     }
@@ -29,7 +27,6 @@ import edited from '../../assets/images/Edit-Icon.png';
           'website_id' : getItem('website_id'),
           'username' : getItem('Codingusername'),
         }
-        console.log(rankWidgetData);
         AdminService.updateRankWidget(rankWidgetData)
           .then(response => {
             toast.success('Card Updated!', {
@@ -74,7 +71,6 @@ import edited from '../../assets/images/Edit-Icon.png';
     }
 
     const getPortalDetails = (portal) => {
-        console.log(portal);
       if(portal !== ''){
         setItem('url', PortalMap.get(portal).url);
         setItem('website_id', PortalMap.get(portal).id);
