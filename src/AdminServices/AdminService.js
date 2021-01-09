@@ -20,6 +20,15 @@ export default {
   },
   updateRankWidget: async (data) => {
     return DataService.put('/rankwidget/update', data);
+  },
+  createContestWidget: async (data) => {
+    return DataService.post('/contestwidget/create', data);
+  },
+  deleteContestWidget: async (data) => {
+    return DataService.delete(`/contestwidget/delete?id=${data}`);
+  },
+  updateContestWidget: async (data) => {
+    return DataService.put(`/contestwidget/update?id=${data}`);
   }
   // forgotPassword: async (data) => {
   //   return  DataService.post(`/auth/forgot_password`,data);
