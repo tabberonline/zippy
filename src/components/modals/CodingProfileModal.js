@@ -25,7 +25,6 @@ import AdminService from '../../AdminServices/AdminService';
           'website_id' : getItem('website_id'),
           'username' : getItem('Codingusername'),
         }
-        console.log(rankWidgetData);
         AdminService.createRankWidget(rankWidgetData)
           .then(response => {
             toast.success('Details Entered!', {
@@ -40,7 +39,7 @@ import AdminService from '../../AdminServices/AdminService';
             AdminService.getUserData()
               .then(resp => {
                 setItem('rankWidgets', resp.data.rank_widgets);
-                window.open('/portfolio', '_self')
+                window.open('/portfolio', '_self');
                 setModalShow(false);
               })
               .catch(err => console.log(err));
@@ -130,7 +129,7 @@ import AdminService from '../../AdminServices/AdminService';
   
     return (
       <>
-        <div className="flexColumn flexCenter flexAlignCenter add-card" style={{height: 240}}>
+        <div className="flexColumn flexCenter flexAlignCenter add-card" style={{height: 250}}>
             <button onClick={() => setModalShow(true)}>
                 <AiOutlinePlusCircle style={{fontSize: 80, color: '#C0C0C0'}} />
             </button>

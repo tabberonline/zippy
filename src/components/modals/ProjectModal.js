@@ -19,7 +19,6 @@ export default function ProjectModal() {
         'title' : getItem('Projectname'),
         'link' : getItem('Projectid')
       }
-      console.log(projectWidgetData);
       AdminService.createProjectWidget(projectWidgetData)
         .then(response => {
           console.log(response);
@@ -35,7 +34,7 @@ export default function ProjectModal() {
           AdminService.getUserData()
             .then(resp => {
               setItem('projectWidgets', resp.data.personal_projects);
-              console.log(resp);
+              window.open('/portfolio', '_self');
               setModalShow(false);
             })
             .catch(err => console.log(err));

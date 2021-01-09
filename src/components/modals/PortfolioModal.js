@@ -34,7 +34,6 @@ import AdminService from '../../AdminServices/AdminService';
               'picture_url': getItem('image'),
               'description': getItem('descPortfolio')
           };
-          console.log(portfolioData);
           AdminService.createPortfolio(portfolioData)
             .then(resp => {
               toast.success('Details Entered!', {

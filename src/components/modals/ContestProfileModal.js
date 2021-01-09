@@ -20,14 +20,13 @@ export default function ContestProfileModal() {
   }
 
   const createWidget = async () => {
-    if(portal.length > 0 && username.length > 0 && rank.length > 0 && contest.lenght > 0){
+    if(portal && username && rank && contest){
       const contestWidgetData = {
         'rank' : getItem('Contestrank'),
         'website_id' : getItem('website_id'),
         'username' : getItem('Contestusername'),
         'contest_name': getItem('Contestname')
       }
-      console.log(contestWidgetData);
       AdminService.createContestWidget(contestWidgetData)
         .then(response => {
           console.log(response);
@@ -43,7 +42,7 @@ export default function ContestProfileModal() {
           AdminService.getUserData()
             .then(resp => {
               setItem('contestWidgets', resp.data.contest_widgets);
-              console.log(resp);
+              window.open('/portfolio', '_self');
               setModalShow(false);
             })
             .catch(err => console.log(err));
