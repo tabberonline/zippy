@@ -3,7 +3,7 @@ import '../../styles/HelperStyles.css';
 import './DisplayScreen.css';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
-import StudentA from '../../assets/Datafiles/StudentA';
+import {ReversePortalMap} from '../../utility/localStorageControl';
 import CodingCardDisplay from '../../components/CodingCard/CodingCardDisplay';
 import ContestCardDisplay from '../../components/ContestCard/ContestCardDisplay';
 import ProjectCardDisplay from '../../components/ProjectCard/ProjectCardDisplay';
@@ -30,36 +30,45 @@ function DisplayScreen() {
       <Header />
       <div className="mw1100">
         <div className="p-40 flexColumn display-section">
-          {StudentA.map(student => (
-            <div className="flexColumn" key={student.sr}>
-              <p className="title">{student.title}</p>
+          {userData.map(user => (
+            <div className="flexColumn" key={user.user_id}>
+              <p className="title">{user.portfolio.title}</p>
               <hr style={{color : '#717070', width: '80%', margin: 'auto', marginTop: 10}} />
               <div className="flexColumn" style={{margin: 40, marginLeft: -20, marginBottom: 0}}>
-                <p className="name mb-20 pl-20">Hello! I am <strong>{student.name}</strong></p>
-                <p className="desc">{student.desc}</p>
+                <p className="name mb-20 pl-20">Hello! I am <strong>{user.name}</strong></p>
+                <p className="desc">{user.portfolio.description}</p>
               </div>
               <div className="coding-profile mv-20">
                 <p className="card-heading mb-20">Coding Profile</p>
                 <div className="flexRow flexWrap">
-                  {student.profile.map(profile => (
-                    <CodingCardDisplay key={profile.sr} name={profile.name} id={profile.id} rank={profile.rank} logo={profile.logo} />
-                  ))}
+                  { user.rank_widgets ? 
+                      user.rank_widgets.map(profile => (
+                        <CodingCardDisplay name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} hide={profile.invisible} />
+                      )) : 
+                    null
+                  }
                 </div>
               </div>
               <div className="coding-profile mv-20">
                 <p className="card-heading mb-20">Contests Won</p>
                 <div className="flexRow flexWrap">
-                  {student.achievements.map(achievement => (
-                    <ContestCardDisplay key={achievement.sr} name={achievement.name} id={achievement.id} rank={achievement.rank} logo={achievement.logo} contest={achievement.contest} />
-                  ))}
+                  { user.contest_widgets ?
+                      user.contest_widgets.map(profile => (
+                        <ContestCardDisplay card_id={profile.id} name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} contest={profile.contest_name} hide={profile.invisible} />
+                      )) :
+                    null
+                  }
                 </div>
               </div>
               <div className="coding-profile mv-20">
                 <p className="card-heading mb-20">Personal Projects</p>
                 <div className="flexRow flexWrap">
-                  {student.projects.map(project => (
-                    <ProjectCardDisplay key={project.sr} name={project.name} img={project.img} techstack={project.techstack} />
-                  ))}
+                  { user.personal_projects ?
+                      user.personal_projects.map(project => (
+                        <ProjectCardDisplay name={project.title} img="" url={project.link} id={project.id} hide={project.invisible} />
+                      )) :
+                    null
+                  }
                 </div>
               </div>
             </div>
