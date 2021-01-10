@@ -43,7 +43,8 @@ function DisplayScreen() {
                 <div className="flexRow flexWrap">
                   { user.rank_widgets ? 
                       user.rank_widgets.map(profile => (
-                        <CodingCardDisplay name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} hide={profile.invisible} />
+                        profile.invisible ? null :
+                          <CodingCardDisplay name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} />
                       )) : 
                     null
                   }
@@ -54,7 +55,8 @@ function DisplayScreen() {
                 <div className="flexRow flexWrap">
                   { user.contest_widgets ?
                       user.contest_widgets.map(profile => (
-                        <ContestCardDisplay card_id={profile.id} name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} contest={profile.contest_name} hide={profile.invisible} />
+                        profile.invisible ? null :
+                          <ContestCardDisplay card_id={profile.id} name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} contest={profile.contest_name} />
                       )) :
                     null
                   }
@@ -65,7 +67,8 @@ function DisplayScreen() {
                 <div className="flexRow flexWrap">
                   { user.personal_projects ?
                       user.personal_projects.map(project => (
-                        <ProjectCardDisplay name={project.title} img="" url={project.link} id={project.id} hide={project.invisible} />
+                        project.invisible ? null :
+                          <ProjectCardDisplay name={project.title} img="" url={project.link} id={project.id} hide={project.invisible} />
                       )) :
                     null
                   }
