@@ -146,7 +146,7 @@ function PortfolioScreen() {
                   { contestWidgets !== [''] ?
                       (
                         contestWidgets.map(profile => (
-                          <ContestCard card_id={profile.id} name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} contest={profile.contest_name} />
+                          <ContestCard card_id={profile.id} name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} contest={profile.contest_name} hide={profile.invisible} />
                         ))
                       ) : null
                   }
@@ -163,7 +163,7 @@ function PortfolioScreen() {
                   { projectWidgets !== [''] ?
                       (
                         projectWidgets.map(project => (
-                          <ProjectCard name={project.title} img="" url={project.link} id={project.id} />
+                          <ProjectCard name={project.title} img="" url={project.link} id={project.id} hide={project.invisible} />
                         ))
                       ) : null
                   }   

@@ -36,7 +36,6 @@ class GoogleBtn extends Component {
         .then(function (response) {
           setItem('login', true);
           setItem('access_token', response.data.access_token);  
-          console.log(response);
           toast.success('Login Successful!', {
             position: "top-center",
             autoClose: 2000,
