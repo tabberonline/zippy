@@ -51,7 +51,7 @@ export default function ContestCard({name, rank, id, logo, contest, card_id, hid
         console.log(updateWidgetData);
         AdminService.updateContestWidget(card_id, updateWidgetData)
           .then(response => {
-            toast.success('Card Hidden!', {
+            toast.success('Card Updated!', {
               position: "top-center",
               autoClose: 2000,
               hideProgressBar: true,
@@ -62,13 +62,13 @@ export default function ContestCard({name, rank, id, logo, contest, card_id, hid
             });
             AdminService.getUserData()
               .then(resp => {
-                setItem('rankWidgets', resp.data.rank_widgets);
+                setItem('contestWidgets', resp.data.contest_widgets);
                 window.open('/portfolio', '_self')
               })
               .catch(err => console.log(err));
           })
           .catch(error => {
-            toast.error('Error hiding!', {
+            toast.error('Error updating!', {
               position: "top-center",
               autoClose: 2000,
               hideProgressBar: true,

@@ -48,7 +48,7 @@ export default function CodingCard({name, rank, id, logo, hide}){
           console.log(rankWidgetData);
           AdminService.updateRankWidget(rankWidgetData)
             .then(response => {
-              toast.success('Card Hidden!', {
+              toast.success('Card Updated!', {
                 position: "top-center",
                 autoClose: 2000,
                 hideProgressBar: true,
@@ -65,7 +65,7 @@ export default function CodingCard({name, rank, id, logo, hide}){
                 .catch(err => console.log(err));
             })
             .catch(error => {
-              toast.error('Error hiding!', {
+              toast.error('Error updating!', {
                 position: "top-center",
                 autoClose: 2000,
                 hideProgressBar: true,

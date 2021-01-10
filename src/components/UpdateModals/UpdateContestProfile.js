@@ -43,7 +43,7 @@ export default function UpdateContestProfile(portalName, Rank, userName, id, Con
           });
           AdminService.getUserData()
             .then(resp => {
-              setItem('rankWidgets', resp.data.rank_widgets);
+              setItem('contestWidgets', resp.data.contest_widgets);
               window.open('/portfolio', '_self')
               setModalShow(false);
             })
