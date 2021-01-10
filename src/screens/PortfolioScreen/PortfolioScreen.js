@@ -102,7 +102,7 @@ function PortfolioScreen() {
         pauseOnHover
       />
       <Header1 />
-      <ShareModal />
+      <ShareModal id={getItem('user_id')} />
       <div className="mw1100">
         <div className="p-40 flexColumn portfolio-section">
           {StudentA.map(student => (

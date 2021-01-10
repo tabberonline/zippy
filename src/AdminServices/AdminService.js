@@ -38,6 +38,9 @@ export default {
   },
   updateProjectWidget: async (id, data) => {
     return DataService.put(`/personalproject/update?id=${id}`, data);
+  },
+  getUserDataById: async(id) => {
+    return DataService.get(`/user/resume?id=${id}`);
   }
   // forgotPassword: async (data) => {
   //   return  DataService.post(`/auth/forgot_password`,data);
