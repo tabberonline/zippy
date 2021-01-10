@@ -21,9 +21,13 @@ function DisplayScreen() {
 
     AdminService.getUserDataById(user_id)
       .then(resp => resp.data)
-        .then(data => setData(data))
+        .then(data => {
+          setData([data]);
+        })
       .catch(error => console.log(error))
   }, [])
+
+  console.log('bbbbbbbb', userData);
 
   return (
     <div className="#display-screen">
@@ -38,42 +42,51 @@ function DisplayScreen() {
                 <p className="name mb-20 pl-20">Hello! I am <strong>{user.name}</strong></p>
                 <p className="desc">{user.portfolio.description}</p>
               </div>
-              <div className="coding-profile mv-20">
-                <p className="card-heading mb-20">Coding Profile</p>
-                <div className="flexRow flexWrap">
-                  { user.rank_widgets ? 
-                      user.rank_widgets.map(profile => (
-                        profile.invisible ? null :
-                          <CodingCardDisplay name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} />
-                      )) : 
-                    null
-                  }
-                </div>
-              </div>
-              <div className="coding-profile mv-20">
-                <p className="card-heading mb-20">Contests Won</p>
-                <div className="flexRow flexWrap">
-                  { user.contest_widgets ?
-                      user.contest_widgets.map(profile => (
-                        profile.invisible ? null :
-                          <ContestCardDisplay card_id={profile.id} name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} contest={profile.contest_name} />
-                      )) :
-                    null
-                  }
-                </div>
-              </div>
-              <div className="coding-profile mv-20">
-                <p className="card-heading mb-20">Personal Projects</p>
-                <div className="flexRow flexWrap">
-                  { user.personal_projects ?
-                      user.personal_projects.map(project => (
-                        project.invisible ? null :
-                          <ProjectCardDisplay name={project.title} img="" url={project.link} id={project.id} hide={project.invisible} />
-                      )) :
-                    null
-                  }
-                </div>
-              </div>
+              {
+                user.rank_widgets.length > 0 ? (
+                  <div className="coding-profile mv-20">
+                    <p className="card-heading mb-20">Coding Profile</p>
+                    <div className="flexRow flexWrap">
+                      { 
+                        user.rank_widgets.map(profile => (
+                          profile.invisible ? null :
+                            <CodingCardDisplay name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} />
+                        ))
+                      }
+                    </div>
+                  </div>
+                ) : null
+              }
+              {
+                user.contest_widgets.length > 0 ? (
+                  <div className="coding-profile mv-20">
+                    <p className="card-heading mb-20">Contests Won</p>
+                    <div className="flexRow flexWrap">
+                      { 
+                        user.contest_widgets.map(profile => (
+                          profile.invisible ? null :
+                            <ContestCardDisplay card_id={profile.id} name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} contest={profile.contest_name} />
+                        ))
+                      }
+                    </div>
+                  </div>
+                ) : null
+              }
+              {
+                user.personal_projects.length > 0 ? (
+                  <div className="coding-profile mv-20">
+                    <p className="card-heading mb-20">Personal Projects</p>
+                    <div className="flexRow flexWrap">
+                      { 
+                        user.personal_projects.map(project => (
+                          project.invisible ? null :
+                            <ProjectCardDisplay name={project.title} img="" url={project.link} id={project.id} hide={project.invisible} />
+                        ))
+                      }
+                    </div>
+                  </div>
+                ) : null
+              }
             </div>
           ))}
           <div className="flexRow flexCenter ph-20 flexAlignCenter mv-40">
