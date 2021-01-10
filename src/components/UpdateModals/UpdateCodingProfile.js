@@ -25,7 +25,7 @@ import edited from '../../assets/images/Edit-Icon.png';
         const rankWidgetData = {
           'rank' : getItem('Codingrank'),
           'website_id' : getItem('website_id'),
-          'username' : getItem('Codingusername'),
+          'username': getItem('Codingusername'),
         }
         AdminService.updateRankWidget(rankWidgetData)
           .then(response => {

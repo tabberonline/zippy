@@ -129,7 +129,7 @@ function PortfolioScreen() {
                   { rankWidgets !== [''] ?
                       (
                         rankWidgets.map(profile => (
-                          <CodingCard name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} />
+                          <CodingCard name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} hide={profile.invisible} />
                         ))
                       ) : null
                   }
