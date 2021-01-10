@@ -36,13 +36,19 @@ export default function CodingCard({name, rank, id, logo, hide}){
         return portal.split(' ').join('').toLowerCase();
     }
 
-    const updateRankWidget = async () => {
+    const updateRankWidget = async (name) => {        
+          var website_name = formatPortal(name);
+          var website_id = PortalMap.get(website_name).id;
           const rankWidgetData = {
+            'website_id' : website_id,
+            'rank' : rank,
+            'username': id,
             'invisible' : invisible,
           }
+          console.log(rankWidgetData);
           AdminService.updateRankWidget(rankWidgetData)
             .then(response => {
-              toast.success('Card Updated!', {
+              toast.success('Card Hidden!', {
                 position: "top-center",
                 autoClose: 2000,
                 hideProgressBar: true,
@@ -59,7 +65,7 @@ export default function CodingCard({name, rank, id, logo, hide}){
                 .catch(err => console.log(err));
             })
             .catch(error => {
-              toast.error('Error, Enter correct details!', {
+              toast.error('Error hiding!', {
                 position: "top-center",
                 autoClose: 2000,
                 hideProgressBar: true,
@@ -71,14 +77,14 @@ export default function CodingCard({name, rank, id, logo, hide}){
             });
         }
 
-      const unHideCard = () => {
+      const unHideCard = (name) => {
         invisible = false;
-        updateRankWidget();
+        updateRankWidget(name);
       }
   
-      const HideCard = () => {
+      const HideCard = (name) => {
         invisible = true;
-        updateRankWidget()
+        updateRankWidget(name)
       }
 
     const DeleteCard = async (name) => {
@@ -120,7 +126,7 @@ export default function CodingCard({name, rank, id, logo, hide}){
             <div className="card11 flexColumn profile-card" onMouseLeave={() => CloseOptionDrawer()}>
                 {
                     invisible ? (
-                        <div id="overlay" onClick={() => unHideCard()} className="flexColumn flexCenter flexAlignCenter">
+                        <div id="overlay" onClick={() => unHideCard(name)} className="flexColumn flexCenter flexAlignCenter">
                             <img src={hidecards} alt="hidden" className="hide-card-icon" style={{height:30, width: 30, marginBottom: 10}} />
                             <p className="options-text" style={{color: 'white'}}>Hidden</p>
                         </div>
@@ -160,7 +166,7 @@ export default function CodingCard({name, rank, id, logo, hide}){
                             }
                             {icon3 ? (<img src={hidden} alt="hide" onMouseEnter={() => {setoption3(true); seticon3(false);}} className="hide-icon" style={{height:30, width: 30, marginBottom: 10, marginLeft: option2 ? 50 : null || option1 ? 50 : null}} />) : null}
                             { option3 ? (
-                                <div className="flexRow flexAlignCenter option hide-option" onClick={() => HideCard()} onMouseLeave={() => {setoption3(false); seticon3(true);}} style={{ marginBottom: 10, position: 'relative', left: 40 }}>
+                                <div className="flexRow flexAlignCenter option hide-option" onClick={() => HideCard(name)} onMouseLeave={() => {setoption3(false); seticon3(true);}} style={{ marginBottom: 10, position: 'relative', left: 40 }}>
                                     <img src={hidden} alt="hide" style={{height:30, width: 30, marginRight: 10}} />
                                     <p className="options-text">Hide</p>
                                 </div>
