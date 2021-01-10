@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import '../../styles/HelperStyles.css';
 import './DisplayScreen.css';
 import Header from '../../components/Header/Header';
@@ -7,8 +7,24 @@ import StudentA from '../../assets/Datafiles/StudentA';
 import CodingCardDisplay from '../../components/CodingCard/CodingCardDisplay';
 import ContestCardDisplay from '../../components/ContestCard/ContestCardDisplay';
 import ProjectCardDisplay from '../../components/ProjectCard/ProjectCardDisplay';
+import AdminService from '../../AdminServices/AdminService';
 
 function DisplayScreen() {
+
+  const [userData, setData] = useState([]);
+
+  useEffect(() => {
+    const getIDFromURL = () => {
+      return window.location.href.split('?')[1].split('=')[1];
+    };
+    const user_id = getIDFromURL();
+
+    AdminService.getUserDataById(user_id)
+      .then(resp => resp.data)
+        .then(data => setData(data))
+      .catch(error => console.log(error))
+  }, [])
+
   return (
     <div className="#display-screen">
       <Header />
