@@ -6,23 +6,24 @@ import deleted from '../../assets/images/Bin-Icon.png';
 import edited from '../../assets/images/Edit-Icon.png';
 import hidden from '../../assets/images/Hide-Icon.png';
 import hidecards from '../../assets/images/hiddeeen.png';
-import {setItem} from '../../utility/localStorageControl';
+import {setItem, PortalMap} from '../../utility/localStorageControl';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
 import UpdateContestProfile from '../UpdateModals/UpdateContestProfile';
 
-export default function ContestCard({name, rank, id, logo, contest, card_id}){
+export default function ContestCard({name, rank, id, logo, contest, card_id, hide}){
 
     const [ bullets, setbullets ] = useState(true);
     const [ drawer, setdrawer ] = useState(false);
     const [option1, setoption1] = useState(false);
     const [option2, setoption2] = useState(false);
     const [option3, setoption3] = useState(false);
-    const [hidecard, sethide] = useState(false);
     const [icon1, seticon1] = useState(true);
     const [icon2, seticon2] = useState(true);
-    const [icon3, seticon3] = useState(true);
+    const [icon3, seticon3] = useState(true);     
+    var invisible = hide;
+    console.log(card_id);
 
     const OptionDrawer = () => {
         setdrawer(true);
@@ -31,6 +32,62 @@ export default function ContestCard({name, rank, id, logo, contest, card_id}){
     const CloseOptionDrawer = () => {
         setdrawer(false);
         setbullets(true);
+    }
+
+    const formatPortal = portal => {
+        return portal.split(' ').join('').toLowerCase();
+    }
+
+    const updateWidget = async () => {  
+        var website_name = formatPortal(name);
+        var website_id = PortalMap.get(website_name).id;
+        const updateWidgetData = {
+            'rank' : rank,
+            'website_id' : website_id,
+            'username' : name,
+            'contest_name' : contest,
+            'invisible': invisible,
+          }
+        console.log(updateWidgetData);
+        AdminService.updateContestWidget(card_id, updateWidgetData)
+          .then(response => {
+            toast.success('Card Hidden!', {
+              position: "top-center",
+              autoClose: 2000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+            AdminService.getUserData()
+              .then(resp => {
+                setItem('rankWidgets', resp.data.rank_widgets);
+                window.open('/portfolio', '_self')
+              })
+              .catch(err => console.log(err));
+          })
+          .catch(error => {
+            toast.error('Error hiding!', {
+              position: "top-center",
+              autoClose: 2000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+          });
+      }
+
+    const unHideCard = () => {
+      invisible = false;
+      updateWidget();
+    }
+
+    const HideCard = () => {
+      invisible = true;
+      updateWidget()
     }
 
     const DeleteCard = async (card_id) => {
@@ -69,8 +126,8 @@ export default function ContestCard({name, rank, id, logo, contest, card_id}){
     return(
         <div className="card11 flexColumn achievement-card" onMouseLeave={() => CloseOptionDrawer()}>
             {
-                hidecard ? (
-                    <div id="overlay" onClick={() => sethide(false)} className="flexColumn flexCenter flexAlignCenter">
+                invisible ? (
+                    <div id="overlay" onClick={() => unHideCard()} className="flexColumn flexCenter flexAlignCenter">
                         <img src={hidecards} alt="hidden" className="hide-card-icon" style={{height:30, width: 30, marginBottom: 10}} />
                         <p className="options-text" style={{color: 'white'}}>Hidden</p>
                     </div>
@@ -110,7 +167,7 @@ export default function ContestCard({name, rank, id, logo, contest, card_id}){
                         }
                         {icon3 ? (<img src={hidden} alt="hide" onMouseEnter={() => {setoption3(true); seticon3(false);}} className="hide-icon" style={{height:30, width: 30, marginBottom: 10, marginLeft: option2 ? 50 : null || option1 ? 50 : null}} />) : null}
                         { option3 ? (
-                            <div className="flexRow flexAlignCenter option hide-option" onClick={() => {sethide(true);}} onMouseLeave={() => {setoption3(false); seticon3(true);}} style={{ marginBottom: 10, position: 'relative', left: 40 }}>
+                            <div className="flexRow flexAlignCenter option hide-option" onClick={() => HideCard()} onMouseLeave={() => {setoption3(false); seticon3(true);}} style={{ marginBottom: 10, position: 'relative', left: 40 }}>
                                 <img src={hidden} alt="hide" style={{height:30, width: 30, marginRight: 10}} />
                                 <p className="options-text">Hide</p>
                             </div>
