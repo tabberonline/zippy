@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import '../../styles/HelperStyles.css';
 import './PortfolioScreen.css';
 import Footer from '../../components/Footer/Footer';
-import StudentA from '../../assets/Datafiles/StudentA';
 import CodingCard from '../../components/CodingCard/CodingCard';
 import ContestCard from '../../components/ContestCard/ContestCard';
 import ProjectCard from '../../components/ProjectCard/ProjectCard';
@@ -105,77 +104,75 @@ function PortfolioScreen() {
       <ShareModal id={getItem('user_id')} />
       <div className="mw1100">
         <div className="p-40 flexColumn portfolio-section">
-          {StudentA.map(student => (
-            <div className="flexColumn">
-              <div className="flexRow flexCenter flexAlignCenter">
-                <input type="text" autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" className="title" defaultValue={title} onBlur={(event) => updateTitle(event)} placeholder="Portfolio Title" readOnly />
-                <div className="flexRow flexCenter flexAlignCenter iconcontainer1">
-                  <AiOutlineEdit className="portfolio-icon" size="20" onClick={()=>Edit1()} />
-                </div>
+          <div className="flexColumn">
+            <div className="flexRow flexCenter flexAlignCenter">
+              <input type="text" autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" className="title" defaultValue={title} onBlur={(event) => updateTitle(event)} placeholder="Portfolio Title" readOnly />
+              <div className="flexRow flexCenter flexAlignCenter iconcontainer1">
+                <AiOutlineEdit className="portfolio-icon" size="20" onClick={()=>Edit1()} />
               </div>
-              <hr style={{color : '#717070', width: '80%', margin: 'auto', marginTop: 10}} />
-              <div className="flexColumn" style={{margin: 40, marginLeft: 0, marginBottom: 0}}>
-                <p className="name mb-20 pl-20">Hello! I am <strong>{name}</strong></p>
-                <div className="flexRow">
-                  <textarea autocomplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" rows="5" className="desc" defaultValue={desc} onBlur={(event) => updateDesc(event)} readOnly placeholder="Enter your College and profile description here" />
-                  <div className="flexRow flexCenter flexAlignCenter iconcontainer1" style={{left: -15, top: -15}}>
-                    <AiOutlineEdit className="portfolio-icon" size="20" onClick={()=>Edit2()} />
-                  </div>
-                </div>
-              </div>
-              <div className="coding-profile mv-20">
-                <p className="card-heading mb-20">Coding Profile</p>
-                <div className="flexRow flexWrap">
-                  { rankWidgets !== [''] ?
-                      (
-                        rankWidgets.map(profile => (
-                          <CodingCard name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} hide={profile.invisible} />
-                        ))
-                      ) : null
-                  }
-                  {
-                    rankWidgets.length <= 5 ? (
-                      <CodingProfileModal />
-                    ) : null
-                  }
-                </div>
-              </div>
-              <div className="coding-profile mv-20">
-                <p className="card-heading mb-20">Contests Won</p>
-                <div className="flexRow flexWrap">
-                  { contestWidgets !== [''] ?
-                      (
-                        contestWidgets.map(profile => (
-                          <ContestCard card_id={profile.id} name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} contest={profile.contest_name} hide={profile.invisible} />
-                        ))
-                      ) : null
-                  }
-                  {
-                    contestWidgets.length <= 5 ? (
-                      <ContestProfileModal />
-                    ) : null
-                  }
-                </div>
-              </div>
-              <div className="coding-profile mv-20">
-                <p className="card-heading mb-20">Personal Projects</p>
-                <div className="flexRow flexWrap">
-                  { projectWidgets !== [''] ?
-                      (
-                        projectWidgets.map(project => (
-                          <ProjectCard name={project.title} img="" url={project.link} id={project.id} hide={project.invisible} />
-                        ))
-                      ) : null
-                  }   
-                  {
-                    projectWidgets.length <= 5 ? ( 
-                      <ProjectModal />
-                    ) : null
-                  }             
+            </div>
+            <hr style={{color : '#717070', width: '80%', margin: 'auto', marginTop: 10}} />
+            <div className="flexColumn" style={{margin: 40, marginLeft: 0, marginBottom: 0}}>
+              <p className="name mb-20 pl-20">Hello! I am <strong>{name}</strong></p>
+              <div className="flexRow">
+                <textarea autocomplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" rows="5" className="desc" defaultValue={desc} onBlur={(event) => updateDesc(event)} readOnly placeholder="Enter your College and profile description here" />
+                <div className="flexRow flexCenter flexAlignCenter iconcontainer1" style={{left: -15, top: -15}}>
+                  <AiOutlineEdit className="portfolio-icon" size="20" onClick={()=>Edit2()} />
                 </div>
               </div>
             </div>
-          ))}
+            <div className="coding-profile mv-20">
+              <p className="card-heading mb-20">Coding Profile</p>
+              <div className="flexRow flexWrap">
+                { rankWidgets !== [''] ?
+                    (
+                      rankWidgets.map(profile => (
+                        <CodingCard name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} hide={profile.invisible} />
+                      ))
+                    ) : null
+                }
+                {
+                  rankWidgets.length <= 5 ? (
+                    <CodingProfileModal />
+                  ) : null
+                }
+              </div>
+            </div>
+            <div className="coding-profile mv-20">
+              <p className="card-heading mb-20">Contests Won</p>
+              <div className="flexRow flexWrap">
+                { contestWidgets !== [''] ?
+                    (
+                      contestWidgets.map(profile => (
+                        <ContestCard card_id={profile.id} name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} contest={profile.contest_name} hide={profile.invisible} />
+                      ))
+                    ) : null
+                }
+                {
+                  contestWidgets.length <= 5 ? (
+                    <ContestProfileModal />
+                  ) : null
+                }
+              </div>
+            </div>
+            <div className="coding-profile mv-20">
+              <p className="card-heading mb-20">Personal Projects</p>
+              <div className="flexRow flexWrap">
+                { projectWidgets !== [''] ?
+                    (
+                      projectWidgets.map(project => (
+                        <ProjectCard name={project.title} img="" url={project.link} id={project.id} hide={project.invisible} />
+                      ))
+                    ) : null
+                }   
+                {
+                  projectWidgets.length <= 5 ? ( 
+                    <ProjectModal />
+                  ) : null
+                }             
+              </div>
+            </div>
+          </div>
           <div className="flexRow flexCenter ph-20 flexAlignCenter mv-40">
             <hr style={{width: '35%', color: 'rgba(154,154,154,1)'}} />
             <p className="end-text">Thats all folks</p>
