@@ -119,7 +119,7 @@ export default function ProjectModal() {
 
   return (
     <>
-      <div className="flexColumn flexCenter flexAlignCenter add-card" style={{height: 250}}>
+      <div className="flexColumn flexCenter flexAlignCenter add-card" style={{height: 280}}>
         <button onClick={() => setModalShow(true)}>
           <AiOutlinePlusCircle style={{fontSize: 80, color: '#C0C0C0'}} />
         </button>

@@ -133,7 +133,11 @@ function PortfolioScreen() {
                         ))
                       ) : null
                   }
-                  <CodingProfileModal />
+                  {
+                    rankWidgets.length <= 5 ? (
+                      <CodingProfileModal />
+                    ) : null
+                  }
                 </div>
               </div>
               <div className="coding-profile mv-20">
@@ -146,7 +150,11 @@ function PortfolioScreen() {
                         ))
                       ) : null
                   }
-                  <ContestProfileModal />
+                  {
+                    contestWidgets.length <= 5 ? (
+                      <ContestProfileModal />
+                    ) : null
+                  }
                 </div>
               </div>
               <div className="coding-profile mv-20">
@@ -158,8 +166,12 @@ function PortfolioScreen() {
                           <ProjectCard name={project.title} img="" url={project.link} id={project.id} />
                         ))
                       ) : null
-                  }                 
-                  <ProjectModal />
+                  }   
+                  {
+                    projectWidgets.length <= 5 ? ( 
+                      <ProjectModal />
+                    ) : null
+                  }             
                 </div>
               </div>
             </div>
