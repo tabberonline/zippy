@@ -41,6 +41,9 @@ export default {
   },
   getUserDataById: async(id) => {
     return DataService.get(`/user/resume?id=${id}`);
+  },
+  sendMail: async (data) => {
+    return DataService.post('/email', data);
   }
   // forgotPassword: async (data) => {
   //   return  DataService.post(`/auth/forgot_password`,data);
