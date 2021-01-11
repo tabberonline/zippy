@@ -29,7 +29,6 @@ export default function ContestProfileModal() {
       }
       AdminService.createContestWidget(contestWidgetData)
         .then(response => {
-          console.log(response);
           toast.success('Details Entered!', {
             position: "top-center",
             autoClose: 2000,
