@@ -13,8 +13,6 @@ function App() {
     setItem('rank', []);
     setItem('contest', []);
   }, []);
-
-  console.log(getItem('login'));
   return (
     <div className="App">
       <HomeScreen />
