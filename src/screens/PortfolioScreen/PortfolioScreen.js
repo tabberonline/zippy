@@ -16,6 +16,9 @@ import { getItem, setItem, ReversePortalMap } from '../../utility/localStorageCo
 import AdminService from '../../AdminServices/AdminService';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {isMobile} from 'react-device-detect';
+const API_KEY = 'AFjzy7b0VSvCEJhKDtcQ6z';
+const processAPI = 'https://cdn.filestackcontent.com';
 
 function PortfolioScreen() {
   const [name, setname] = useState(getItem('name'));
@@ -161,7 +164,7 @@ function PortfolioScreen() {
                 { projectWidgets !== [''] ?
                     (
                       projectWidgets.map(project => (
-                        <ProjectCard name={project.title} url={project.link} id={project.id} hide={project.invisible} />
+                        <ProjectCard name={project.title} url={project.link} img={`${processAPI}/${API_KEY}/urlscreenshot=agent:${isMobile ? 'mobile' : 'desktop'}/${project.link}`} id={project.id} hide={project.invisible} />
                       ))
                     ) : null
                 }   
