@@ -9,23 +9,24 @@ import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
 import UpdateProject from '../UpdateModals/UpdateProject';
 import hidecards from '../../assets/images/hiddeeen.png';
-import Pageres from 'pageres';
+import {isMobile} from 'react-device-detect';
+const API_KEY = 'AFjzy7b0VSvCEJhKDtcQ6z';
+const processAPI = 'https://cdn.filestackcontent.com';
 
 export default function ProjectCard({name, url, id, hide}){
-    var img = "";
     var invisible = hide;
     const [namecard, setcard] = useState(true);
     const [detailcard, setdetail] = useState(false);
+    var img = `${processAPI}/${API_KEY}/urlscreenshot=agent:${isMobile ? 'mobile' : 'desktop'}/${url}`;
 
-    useEffect(() => {
-        const getImage = async () => {
-            await new Pageres({delay: 0.2})
-                .src(url, ['1024x768'], {crop: true})
-                .dest('../../assets/images')
-                .run();
-        }
-
-    })
+    // useEffect(() => {
+    //     var imgPortal = "";
+    //     url.length > 0 
+    //         ? (imgPortal = `${processAPI}/${API_KEY}/urlscreenshot=agent:${isMobile ? 'mobile' : 'desktop'}/${url}`) 
+    //         : (imgPortal = "")
+    // })    
+    
+    // console.log(url, img);
 
     const HideCard = () => {
         invisible = true;
