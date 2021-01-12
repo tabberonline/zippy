@@ -17,16 +17,14 @@ import AdminService from '../../AdminServices/AdminService';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {isMobile} from 'react-device-detect';
+import { useStateValue } from '../../utility/StateProvider';
 const API_KEY = 'AFjzy7b0VSvCEJhKDtcQ6z';
 const processAPI = 'https://cdn.filestackcontent.com';
 
 function PortfolioScreen() {
-  const [name, setname] = useState(getItem('name'));
+  const[{ name, rankWidgets, contestWidgets, projects }, dispatch] = useStateValue();
   const [title, settitle] = useState(getItem('titlePortfolio'));
   const [desc, setdesc] = useState(getItem('descPortfolio'));
-  const [rankWidgets, setrankwidgets] = useState(getItem('rankWidgets'));
-  const [contestWidgets, setcontestwidgets] = useState(getItem('contestWidgets'));
-  const [projectWidgets, setprojectwidgets] = useState(getItem('projectWidgets'));
   const Edit1 = () => {
     console.log('edittable1')
     $(".title").prop("readonly", false);
@@ -161,15 +159,15 @@ function PortfolioScreen() {
             <div className="coding-profile mv-20">
               <p className="card-heading mb-20">Personal Projects</p>
               <div className="flexRow flexWrap">
-                { projectWidgets !== [''] ?
+                { projects !== [''] ?
                     (
-                      projectWidgets.map(project => (
+                      projects.map(project => (
                         <ProjectCard name={project.title} url={project.link} img={`${processAPI}/${API_KEY}/urlscreenshot=agent:${isMobile ? 'mobile' : 'desktop'}/${project.link}`} id={project.id} hide={project.invisible} />
                       ))
                     ) : null
                 }   
                 {
-                  projectWidgets.length <= 5 ? ( 
+                  projects.length <= 5 ? ( 
                     <ProjectModal />
                   ) : null
                 }             
