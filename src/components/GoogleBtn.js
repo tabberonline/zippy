@@ -1,41 +1,31 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { Component } from 'react'
+import React from 'react'
 import { GoogleLogin } from 'react-google-login';
-import { getItem, setItem } from '../utility/localStorageControl';
 import Axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PortfolioModal from '../components/modals/PortfolioModal';
 import AdminService from '../AdminServices/AdminService';
+import { useStateValue } from '../utility/StateProvider';
 
 const CLIENT_ID = '148434873376-a1k8ubdj3g3oqkh53an00v8angbj2itd.apps.googleusercontent.com';
 const API_ENDPOINT = 'https://whispering-eyrie-04211.herokuapp.com';
-class GoogleBtn extends Component {
-   constructor(props) {
-    super(props);
 
-    this.state = {
-      isLogin: getItem('login'),
-      accessToken: '',
-    };
+const GoogleBtn = () => {
+  const [{login, token}, dispatch] = useStateValue();
 
-    this.login = this.login.bind(this);
-    this.handleLoginFailure = this.handleLoginFailure.bind(this);
-  }
-
-  login (response) {
+  const loginSuccess = (response) => {
     if(response.tokenId){
-      this.setState(state => ({
-        isLogin: true,
-        accessToken: response.tokenId,
-      }));
-
-      const idToken = this.state.accessToken;
-
-      Axios.post(`${API_ENDPOINT}/login?idTokenString=${idToken}`)
-        .then(function (response) {
-          setItem('login', true);
-          setItem('access_token', response.data.access_token);  
+      Axios.post(`${API_ENDPOINT}/login?idTokenString=${response.tokenId}`)
+        .then(function (response) {          
+          dispatch({
+            type: "SET_LOGIN",
+            login: true,
+          });
+          dispatch({
+            type: "SET_TOKEN",
+            token: response.data.access_token
+          });  
           toast.success('Login Successful!', {
             position: "top-center",
             autoClose: 2000,
@@ -46,14 +36,39 @@ class GoogleBtn extends Component {
             progress: undefined,
           });
           AdminService.getUserData()
-            .then(resp => {
-              setItem('user_id', resp.data.user_id);
-              setItem('name', resp.data.name);
-              setItem('image', resp.data.picture_url);
-              setItem('portfolio', resp.data.resume_present);
-              setItem('projectWidgets', resp.data.personal_projects);
-              setItem('rankWidgets', resp.data.rank_widgets);
-              setItem('contestWidgets', resp.data.contest_widgets);
+            .then(response => {
+              dispatch({
+                type: "SET_USERID",
+                user_id: response.data.user_id
+              });
+              dispatch({
+                type: "SET_TOKEN",
+                token: response.data.access_token
+              }); 
+              dispatch({
+                type: "SET_NAME",
+                token: response.data.name
+              });  
+              dispatch({
+                type: "SET_IMAGE",
+                token: response.data.image
+              }); 
+              dispatch({
+                type: "SET_PORTFOLIO",
+                token: response.data.resume_present
+              }); 
+              dispatch({
+                type: "SET_RANK_WIDGETS",
+                token: response.data.rank_widgets
+              }); 
+              dispatch({
+                type: "SET_CONTEST_WIDGETS",
+                token: response.data.contest_widgets
+              }); 
+              dispatch({
+                type: "SET_PROJECTS",
+                token: response.data.personal_projects
+              }); 
             })
             .catch(err => console.log(err));
 
@@ -72,9 +87,9 @@ class GoogleBtn extends Component {
         });
 
     }
-  }
+  } 
 
-  handleLoginFailure (response) {
+  const loginFailure = (response) => {
     toast.error('Login Failed, Retry!', {
       position: "top-center",
       autoClose: 2000,
@@ -86,11 +101,9 @@ class GoogleBtn extends Component {
     });
   }
 
-  render() {
-
-    return (
+  return (
     <div>
-      { this.state.isLogin ?(
+      { login ? (
         <>
           <PortfolioModal home={false} />
           <ToastContainer
@@ -111,8 +124,8 @@ class GoogleBtn extends Component {
           <GoogleLogin
             clientId={ CLIENT_ID }
             buttonText='Sign in with Google'
-            onSuccess={ this.login }
-            onFailure={ this.handleLoginFailure }
+            onSuccess={ loginSuccess }
+            onFailure={ loginFailure }
             cookiePolicy={ 'single_host_origin' }
             responseType='code,token'
             className="google-button"
@@ -120,8 +133,7 @@ class GoogleBtn extends Component {
         )
       }
     </div>
-    )
-  }
+  );
 }
 
 export default GoogleBtn;
