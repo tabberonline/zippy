@@ -1,18 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/HelperStyles.css';
 import './ProjectCard.css';
-import {isMobile} from 'react-device-detect';
-const API_KEY = 'Anj637BlDTyMhOXjonqruz';
-const processAPI = 'https://process.filestackapi.com';
 
-export default function ProjectCardDisplay({name, url}){
+export default function ProjectCardDisplay({name, img, url}){
     const [namecard, setcard] = useState(true);
-    var img = "";
-    useEffect(() => {
-        url.length > 0 
-            ? (img = `${processAPI}/${API_KEY}/urlscreenshot=agent:${isMobile ? 'mobile' : 'desktop'}/${url}`) 
-            : (img = "")
-    })
     return(
         <div className="flexColumn project-card flexEnd" 
             style={{  
