@@ -22,7 +22,7 @@ const API_KEY = 'AFjzy7b0VSvCEJhKDtcQ6z';
 const processAPI = 'https://cdn.filestackcontent.com';
 
 function PortfolioScreen() {
-  const[{ name, rankWidgets, contestWidgets, projects }, dispatch] = useStateValue();
+  const[{ name, rankWidgets, contestWidgets, projects, user_id }, dispatch] = useStateValue();
   const [title, settitle] = useState(getItem('titlePortfolio'));
   const [desc, setdesc] = useState(getItem('descPortfolio'));
   const Edit1 = () => {
@@ -102,7 +102,7 @@ function PortfolioScreen() {
         pauseOnHover
       />
       <Header1 />
-      <ShareModal id={getItem('user_id')} />
+      <ShareModal id={user_id} />
       <div className="mw1100">
         <div className="p-40 flexColumn portfolio-section">
           <div className="flexColumn">

@@ -7,17 +7,17 @@ import { getItem, setItem } from '../../utility/localStorageControl';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
+import { useStateValue } from '../../utility/StateProvider';
   
   export default function PortfolioModal({home}) {
+    const [{token, image, login, portfolio, name}, dispatch] = useStateValue();
     const [modalShow, setModalShow] = useState(false);
     const [apicall, setcall] = useState('');
-    var name = '';
     var title = '';
     var desc = '';    
 
     const createPortfolio = async () => {
-      const accessToken = getItem('access_token');
-      if(accessToken === ""){
+      if(token === ""){
         toast.error('Access Token not Retrieved!', {
           position: "top-center",
           autoClose: 2000,
@@ -31,7 +31,7 @@ import AdminService from '../../AdminServices/AdminService';
         if(title.length > 0 && desc.length > 0){
           const portfolioData = {
               'title': getItem('titlePortfolio'),
-              'picture_url': getItem('image'),
+              'picture_url': image,
               'description': getItem('descPortfolio')
           };
           AdminService.createPortfolio(portfolioData)
@@ -48,7 +48,10 @@ import AdminService from '../../AdminServices/AdminService';
               setcall('Success');
               AdminService.getUserData()
                 .then(resp => {
-                  setItem('portfolio', resp.data.resume_present);
+                  dispatch({
+                    type: "SET_PORTFOLIO",
+                    portfolio: resp.data.resume_present
+                  }); 
                   setModalShow(false);
                 })
                 .catch(err => console.log(err));
@@ -79,7 +82,10 @@ import AdminService from '../../AdminServices/AdminService';
     };  
 
     const Add = () => {
-      setItem('name', name);
+      dispatch({
+        type: "SET_NAME",
+        name: name
+      });  
       setItem('titlePortfolio', title);
       setItem('descPortfolio', desc);
       createPortfolio();
@@ -108,7 +114,11 @@ import AdminService from '../../AdminServices/AdminService';
             <Form>
               <Form.Group controlId="formBasic1" className="mb-20">
                 <Form.Label>Your Name<span style={{color: 'red'}}>*</span> </Form.Label>
-                <Form.Control type="text" defaultValue={name} onChange={(e) => name = (e.target.value)} placeholder="Eg. Aarav Bansal" />
+                <Form.Control type="text" defaultValue={name} onChange={(e) => {dispatch({
+                      type: "SET_NAME",
+                      name: e.target.value
+                    });  
+                  }} placeholder="Eg. Aarav Bansal" />
               </Form.Group>    
               <Form.Group controlId="formBasic1" className="mb-20">
                 <Form.Label>Your Portfolio Title<span style={{color: 'red'}}>*</span> </Form.Label>
@@ -134,8 +144,8 @@ import AdminService from '../../AdminServices/AdminService';
         {
           home ? (
             <a style={{cursor: 'pointer'}} onClick={() => {
-              if(getItem('login')){
-                if(getItem('portfolio')){
+              if(login){
+                if(portfolio){
                   window.open('/portfolio', '_self');
                 } else {
                   setModalShow(true);
@@ -158,7 +168,7 @@ import AdminService from '../../AdminServices/AdminService';
           ) :
             (
               <button onClick={() => {
-                  getItem('portfolio') ? window.open('/portfolio', '_self') : ModalOpen()
+                  portfolio ? window.open('/portfolio', '_self') : ModalOpen()
                 }} 
                 className="edit-your-portfolio grow1"
               >

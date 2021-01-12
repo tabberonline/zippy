@@ -8,8 +8,10 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
 import edited from '../../assets/images/Edit-Icon.png';
+import { useStateValue } from '../../utility/StateProvider';
 
 export default function UpdateProject(projectName, projectlink, projectImage, projectId) {
+  const [{projects}, dispatch] = useStateValue();
   const [modalShow, setModalShow] = React.useState(false);
   var project1 = projectName;
   var url = project1.projectlink;
@@ -35,8 +37,10 @@ export default function UpdateProject(projectName, projectlink, projectImage, pr
           });
           AdminService.getUserData()
             .then(resp => {
-                setItem('projectWidgets', resp.data.personal_projects);
-                window.open('/portfolio', '_self')
+              dispatch({
+                type: "SET_PROJECTS",
+                projects: response.data.personal_projects
+              }); 
                 setModalShow(false);
             })
             .catch(err => console.log(err));

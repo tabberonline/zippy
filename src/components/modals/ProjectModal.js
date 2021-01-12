@@ -7,8 +7,10 @@ import { setItem, getItem } from '../../utility/localStorageControl';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
+import { useStateValue } from '../../utility/StateProvider';
 
 export default function ProjectModal() {
+  const [{projects}, dispatch] = useStateValue();
   const [modalShow, setModalShow] = React.useState(false);
   var url = '';
   var project = '';
@@ -33,8 +35,10 @@ export default function ProjectModal() {
           });
           AdminService.getUserData()
             .then(resp => {
-              setItem('projectWidgets', resp.data.personal_projects);
-              window.open('/portfolio', '_self');
+              dispatch({
+                type: "SET_PROJECTS",
+                projects: response.data.personal_projects
+              }); 
               setModalShow(false);
             })
             .catch(err => console.log(err));

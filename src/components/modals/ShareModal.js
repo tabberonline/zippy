@@ -9,12 +9,11 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function ShareModal({id}) {
   const [modalShow, setModalShow] = React.useState(false);
-  var user_id = id;
   const [url, setUrl] = useState('');
   const textAreaRef = useRef(null);
 
   const ShareLink = async () => {
-    AdminService.getUserDataById(user_id)
+    AdminService.getUserDataById(id)
       .then(resp => {
         const AccessID = resp.data.user_id;      
         setUrl(`http://localhost:3000/d/${AccessID}`); 
