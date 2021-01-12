@@ -8,6 +8,10 @@ import CodingCardDisplay from '../../components/CodingCard/CodingCardDisplay';
 import ContestCardDisplay from '../../components/ContestCard/ContestCardDisplay';
 import ProjectCardDisplay from '../../components/ProjectCard/ProjectCardDisplay';
 import AdminService from '../../AdminServices/AdminService';
+import {isMobile} from 'react-device-detect';
+const API_KEY = 'AFjzy7b0VSvCEJhKDtcQ6z';
+const processAPI = 'https://cdn.filestackcontent.com';
+
 
 function DisplayScreen() {
 
@@ -80,7 +84,7 @@ function DisplayScreen() {
                       { 
                         user.personal_projects.map(project => (
                           project.invisible ? null :
-                            <ProjectCardDisplay name={project.title} img="" url={project.link} id={project.id} hide={project.invisible} />
+                            <ProjectCardDisplay name={project.title} img={`${processAPI}/${API_KEY}/urlscreenshot=agent:${isMobile ? 'mobile' : 'desktop'}/${project.link}`} url={project.link} id={project.id} hide={project.invisible} />
                         ))
                       }
                     </div>
