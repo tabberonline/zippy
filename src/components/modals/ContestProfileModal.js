@@ -7,8 +7,10 @@ import { PortalMap, setItem, getItem } from '../../utility/localStorageControl';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
+import { useStateValue } from '../../utility/StateProvider';
 
 export default function ContestProfileModal() {
+  const [{contestWidgets}, dispatch] = useStateValue();
   const [modalShow, setModalShow] = React.useState(false);
   var portal = '';
   var contest = '';
@@ -40,8 +42,10 @@ export default function ContestProfileModal() {
           });
           AdminService.getUserData()
             .then(resp => {
-              setItem('contestWidgets', resp.data.contest_widgets);
-              window.open('/portfolio', '_self');
+              dispatch({
+                type: "SET_CONTEST_WIDGETS",
+                contestWidgets: response.data.contest_widgets
+              }); 
               setModalShow(false);
             })
             .catch(err => console.log(err));

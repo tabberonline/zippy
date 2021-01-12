@@ -47,27 +47,27 @@ const GoogleBtn = () => {
               }); 
               dispatch({
                 type: "SET_NAME",
-                token: response.data.name
+                name: response.data.name
               });  
               dispatch({
                 type: "SET_IMAGE",
-                token: response.data.image
+                image: response.data.image
               }); 
               dispatch({
                 type: "SET_PORTFOLIO",
-                token: response.data.resume_present
+                portfolio: response.data.resume_present
               }); 
               dispatch({
                 type: "SET_RANK_WIDGETS",
-                token: response.data.rank_widgets
+                rankWidgets: response.data.rank_widgets
               }); 
               dispatch({
                 type: "SET_CONTEST_WIDGETS",
-                token: response.data.contest_widgets
+                contestWidgets: response.data.contest_widgets
               }); 
               dispatch({
                 type: "SET_PROJECTS",
-                token: response.data.personal_projects
+                projects: response.data.personal_projects
               }); 
             })
             .catch(err => console.log(err));
