@@ -1,14 +1,17 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import '../../styles/HelperStyles.css'
 import { Modal, Form } from 'react-bootstrap';
 import {AiOutlineCloseCircle} from 'react-icons/ai';
 import AdminService from '../../AdminServices/AdminService';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function ShareModal({id}) {
   const [modalShow, setModalShow] = React.useState(false);
   var user_id = id;
   const [url, setUrl] = useState('');
+  const textAreaRef = useRef(null);
 
   const ShareLink = async () => {
     AdminService.getUserDataById(user_id)
@@ -18,6 +21,21 @@ export default function ShareModal({id}) {
         setModalShow(true);
       })
       .catch(err => console.log(err));
+  }
+
+  const CopyText = (e) => {
+    textAreaRef.current.select();
+    document.execCommand('copy');
+    toast.success('Link Copied!', {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    setModalShow(false);
   }
 
   function MyVerticallyCenteredModal(props) {
@@ -39,12 +57,12 @@ export default function ShareModal({id}) {
           <Form>
             <Form.Group controlId="formBasicEmail" className="flexColumn mb-20">
               <Form.Label>Just copy and share this simple link !</Form.Label>
-              <input type="text" class="form-control" defaultValue={url} placeholder="https://tabber.com/123" readOnly />
+              <input type="text" class="form-control" ref={textAreaRef} defaultValue={url} placeholder="https://tabber.com/123" readOnly />
             </Form.Group>
           </Form>
   
           <div className="share" style={{justifyContent: 'center'}}>
-            <a onClick={props.onHide} className="flexAlignCenter modal-button">Copy Link</a>
+            <a onClick={(e) => CopyText(e)} className="flexAlignCenter modal-button">Copy Link</a>
           </div>
   
         </div>
