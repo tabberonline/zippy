@@ -28,7 +28,7 @@ ReactDOM.render(
             <Route exact path="/" component={App} />
             <Route exact path="/home" component={HomeScreen} /> 
             <Route exact path="/portfolio" component={PortfolioScreen} /> 
-            <Route exact path="/display" component={DisplayScreen} /> 
+            <Route exact path="/d" component={DisplayScreen} /> 
             <Route exact path="/about" component={AboutScreen} /> 
             <Route exact path="/contact" component={ContactScreen} />
         </Switch>            

@@ -17,7 +17,7 @@ export default function ShareModal({id}) {
     AdminService.getUserDataById(user_id)
       .then(resp => {
         const AccessID = resp.data.user_id;      
-        setUrl(`http://localhost:3000/display?id=${AccessID}`); 
+        setUrl(`http://localhost:3000/d/${AccessID}`); 
         setModalShow(true);
       })
       .catch(err => console.log(err));
