@@ -8,6 +8,7 @@ import Header1 from '../../components/Header/Header1';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
+import { Animated } from 'react-animated-css';
 
 function ContactScreen() {
     const [name, setName] = useState('');
@@ -68,9 +69,11 @@ function ContactScreen() {
         <Header1 />
         <div id="intro-section">
           <div className="mw1100 flexColumn">
-            <div className="flexColumn flexAlignCenter flexCenter mh-20" style={{height: 300, borderRadius: 8}}>
-                <img src={contactimg} alt="" style={{width: '90%'}} />
-            </div>
+            <Animated isVisible={true} animationIn="slideInUp">
+                <div className="flexColumn flexAlignCenter flexCenter mh-20" style={{height: 300, borderRadius: 8}}>
+                    <img src={contactimg} alt="" style={{width: '90%'}} />
+                </div>
+            </Animated>
             <ToastContainer
                 position="top-center"
                 autoClose={3000}
@@ -82,36 +85,38 @@ function ContactScreen() {
                 draggable
                 pauseOnHover
             />
-            <div className="flexColumn contact-section">
-                <h1 className="contact-heading">Have anything to ask?</h1>
-                <div className="flexColumn flexAround flexAlignCenter mv-40">
-                    <Form style={{width: '60%'}}>
-                        <Form.Group controlId="formBasicEmail" className="mb-20">
-                            <Form.Label>Name*</Form.Label>
-                            <Form.Control type="name" defaultValue={name} onChange={(e) => setName(e.target.value)} />
-                        </Form.Group>
+            <Animated isVisible={true} animationIn="slideInUp">
+                <div className="flexColumn contact-section">
+                    <h1 className="contact-heading">Have anything to ask?</h1>
+                    <div className="flexColumn flexAround flexAlignCenter mv-40">
+                        <Form style={{width: '60%'}}>
+                            <Form.Group controlId="formBasicEmail" className="mb-20">
+                                <Form.Label>Name*</Form.Label>
+                                <Form.Control type="name" defaultValue={name} onChange={(e) => setName(e.target.value)} />
+                            </Form.Group>
 
-                        <Form.Group controlId="formBasicPassword" className="mb-20">
-                            <Form.Label>Email* </Form.Label>
-                            <Form.Control type="text" defaultValue={email} onChange={(e) => setEmail(e.target.value)} />
-                        </Form.Group>
+                            <Form.Group controlId="formBasicPassword" className="mb-20">
+                                <Form.Label>Email* </Form.Label>
+                                <Form.Control type="text" defaultValue={email} onChange={(e) => setEmail(e.target.value)} />
+                            </Form.Group>
 
-                        <Form.Group controlId="formBasicPassword2" className="mb-20">
-                            <Form.Label>Subject*</Form.Label>
-                            <Form.Control type="text" defaultValue={subject} onChange={(e) => setSubject(e.target.value)} />
-                        </Form.Group>
+                            <Form.Group controlId="formBasicPassword2" className="mb-20">
+                                <Form.Label>Subject*</Form.Label>
+                                <Form.Control type="text" defaultValue={subject} onChange={(e) => setSubject(e.target.value)} />
+                            </Form.Group>
 
-                        <Form.Group controlId="formBasicPassword3">
-                            <Form.Label>Message*</Form.Label>
-                            <Form.Control as="textarea" rows={5} defaultValue={message} onChange={(e) => setMessage(e.target.value)} />
-                        </Form.Group>
+                            <Form.Group controlId="formBasicPassword3">
+                                <Form.Label>Message*</Form.Label>
+                                <Form.Control as="textarea" rows={5} defaultValue={message} onChange={(e) => setMessage(e.target.value)} />
+                            </Form.Group>
 
-                        <div className="share" onClick={() => SendMail()} style={{justifyContent: 'flex-start', paddingLeft: 0, paddingTop: 30}}>
-                            <a className="flexAlignCenter modal-button">Send</a>
-                        </div>
-                    </Form>
+                            <div className="share" onClick={() => SendMail()} style={{justifyContent: 'flex-start', paddingLeft: 0, paddingTop: 30}}>
+                                <a className="flexAlignCenter modal-button">Send</a>
+                            </div>
+                        </Form>
+                    </div>
                 </div>
-            </div>
+            </Animated>
           </div>
       </div>
         <Footer />

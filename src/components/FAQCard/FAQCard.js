@@ -8,7 +8,7 @@ function FAQCard({ques, ans}){
     const [isOpen, setOpen] = useState(false);
     return (
         <div>
-            <div onClick={() => setOpen(!isOpen)} className='faq-card' style={{backgroundColor: isOpen ? '#F2B630' : '#F2D492'}}>
+            <div onClick={() => setOpen(!isOpen)} className='faq-card grow5' style={{backgroundColor: isOpen ? '#F2B630' : '#F2D492'}}>
                 <div className="flexRow flexAlignCenter flexBetween">
                     <h1 className="faq-ques">{ques}</h1>
                     {

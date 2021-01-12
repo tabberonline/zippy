@@ -6,6 +6,9 @@
     z-index: 1000;
     position: relative;
 }
+.faq-card:hover{
+    background: #F2B630 !important;
+}
 .faq-ques{
     font: 20px 'Poppins', sans-serif;
     font-weight: 400;
