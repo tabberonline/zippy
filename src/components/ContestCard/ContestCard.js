@@ -11,9 +11,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
 import UpdateContestProfile from '../UpdateModals/UpdateContestProfile';
+import { useStateValue } from '../../utility/StateProvider';
 
-export default function ContestCard({name, rank, id, logo, contest, card_id, hide}){
-
+export default function ContestCard({name, rank, id, logo, contest, card_id, hide}){       
+    const [{contestWidgets}, dispatch] = useStateValue;
     const [ bullets, setbullets ] = useState(true);
     const [ drawer, setdrawer ] = useState(false);
     const [option1, setoption1] = useState(false);
@@ -62,8 +63,10 @@ export default function ContestCard({name, rank, id, logo, contest, card_id, hid
             });
             AdminService.getUserData()
               .then(resp => {
-                setItem('contestWidgets', resp.data.contest_widgets);
-                window.open('/portfolio', '_self')
+                dispatch({
+                    type: "SET_CONTEST_WIDGETS",
+                    contestWidgets: response.data.contest_widgets
+                  }); 
               })
               .catch(err => console.log(err));
           })
@@ -105,8 +108,10 @@ export default function ContestCard({name, rank, id, logo, contest, card_id, hid
                 });
                 AdminService.getUserData()
                     .then(resp => {
-                      setItem('contestWidgets', resp.data.contest_widgets);
-                      window.open('/portfolio', '_self')
+                        dispatch({
+                            type: "SET_CONTEST_WIDGETS",
+                            contestWidgets: response.data.contest_widgets
+                          }); 
                     })
                     .catch(err => console.log(err));
                 })

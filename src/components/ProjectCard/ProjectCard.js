@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import '../../styles/HelperStyles.css';
 import './ProjectCard.css';
 import deleted from '../../assets/images/Bin-Icon.png';
 import hidden from '../../assets/images/Hide-Icon.png';
-import {setItem} from '../../utility/localStorageControl';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
 import UpdateProject from '../UpdateModals/UpdateProject';
 import hidecards from '../../assets/images/hiddeeen.png';
+import { useStateValue } from '../../utility/StateProvider';
 
 export default function ProjectCard({name, url, id, img, hide}){
+    const [{projects}, dispatch] = useStateValue(); 
     var invisible = hide;
     const [namecard, setcard] = useState(true);
     const [detailcard, setdetail] = useState(false);
@@ -44,8 +45,10 @@ export default function ProjectCard({name, url, id, img, hide}){
               });
               AdminService.getUserData()
                 .then(resp => {
-                    setItem('projectWidgets', resp.data.personal_projects);
-                    window.open('/portfolio', '_self')
+                    dispatch({
+                        type: "SET_PROJECTS",
+                        projects: response.data.personal_projects
+                      }); 
                 })
                 .catch(err => console.log(err));
             })
@@ -76,8 +79,10 @@ export default function ProjectCard({name, url, id, img, hide}){
                 });
                 AdminService.getUserData()
                     .then(resp => {
-                        setItem('projectWidgets', resp.data.personal_projects);
-                        window.open('/portfolio', '_self')
+                        dispatch({
+                            type: "SET_PROJECTS",
+                            projects: response.data.personal_projects
+                          }); 
                     })
                     .catch(err => console.log(err));
                 })

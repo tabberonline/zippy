@@ -14,7 +14,6 @@ const processAPI = 'https://cdn.filestackcontent.com';
 
 
 function DisplayScreen() {
-
   const [userData, setData] = useState([]);
 
   useEffect(() => {

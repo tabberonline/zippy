@@ -11,8 +11,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
 import UpdateCodingProfile from '../UpdateModals/UpdateCodingProfile';
+import { useStateValue } from '../../utility/StateProvider';
 
 export default function CodingCard({name, rank, id, logo, hide}){        
+    const [{rankWidgets}, dispatch] = useStateValue();
     var invisible = hide;
     const [ bullets, setbullets ] = useState(true);
     const [ drawer, setdrawer ] = useState(false);
@@ -45,7 +47,6 @@ export default function CodingCard({name, rank, id, logo, hide}){
             'username': id,
             'invisible' : invisible,
           }
-          console.log(rankWidgetData);
           AdminService.updateRankWidget(rankWidgetData)
             .then(response => {
               toast.success('Card Updated!', {
@@ -59,8 +60,10 @@ export default function CodingCard({name, rank, id, logo, hide}){
               });
               AdminService.getUserData()
                 .then(resp => {
-                  setItem('rankWidgets', resp.data.rank_widgets);
-                  window.open('/portfolio', '_self')
+                  dispatch({
+                    type: "SET_RANK_WIDGETS",
+                    token: response.data.rank_widgets
+                  })
                 })
                 .catch(err => console.log(err));
             })
@@ -104,8 +107,10 @@ export default function CodingCard({name, rank, id, logo, hide}){
                 });
                 AdminService.getUserData()
                     .then(resp => {
-                      setItem('rankWidgets', resp.data.rank_widgets);
-                      window.open('/portfolio', '_self')
+                        dispatch({
+                            type: "SET_RANK_WIDGETS",
+                            token: response.data.rank_widgets
+                        })
                     })
                     .catch(err => console.log(err));
                 })
