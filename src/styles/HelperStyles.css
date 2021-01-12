@@ -203,3 +203,7 @@
     font-weight: 400;
     width: 100%;
   }
+  .grow5, .grow1, .grow2 { transition: all .2s ease-in-out; }
+  .grow1:hover { transform: scale(1.1); }
+  .grow2:hover { transform: scale(1.2); }
+  .grow5:hover { transform: scale(1.05); }

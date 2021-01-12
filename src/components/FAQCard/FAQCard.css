@@ -10,12 +10,14 @@
     font: 20px 'Poppins', sans-serif;
     font-weight: 400;
 }
-.ans-card{
+.ans-card{ 
     background: #FFFFFF;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
     padding: 40px;
     position: relative;
+    transition: all .5s ease-in-out;
+    overflow: hidden;
     top: -20px;
     z-index: 1;
 }

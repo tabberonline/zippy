@@ -4,7 +4,7 @@ import '../../styles/HelperStyles.css';
 
 function AchievementCard({name, image, desc}){
     return (
-        <div className='achievement-card'>
+        <div className='grow1 achievement-card'>
             <div className="flexRow flexAlignCenter flexAround">
                 <img src={image} alt="achievement" />
                 <div className="flexColumn">

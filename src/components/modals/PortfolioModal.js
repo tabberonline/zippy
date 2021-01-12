@@ -133,7 +133,7 @@ import AdminService from '../../AdminServices/AdminService';
       <>
         {
           home ? (
-            <a onClick={() => {
+            <a style={{cursor: 'pointer'}} onClick={() => {
               if(getItem('login')){
                 if(getItem('portfolio')){
                   window.open('/portfolio', '_self');
@@ -151,7 +151,7 @@ import AdminService from '../../AdminServices/AdminService';
                   progress: undefined,
                 });
               }
-            }} className="flexAlignCenter intro-button"
+            }} className="flexAlignCenter intro-button grow1"
           >
             Get Started
           </a>
@@ -160,7 +160,7 @@ import AdminService from '../../AdminServices/AdminService';
               <button onClick={() => {
                   getItem('portfolio') ? window.open('/portfolio', '_self') : ModalOpen()
                 }} 
-                className="edit-your-portfolio"
+                className="edit-your-portfolio grow1"
               >
                 {apicall === 'Success' || getItem('portfolio') ? 'Move to your Portfolio' : 'Edit your Portfolio'}
               </button>

@@ -15,9 +15,9 @@ function Header1(){
                 </Navbar.Brand>
                 <Navbar.Collapse id="basic-navbar-nav" className="w100 flexRow flexAlignCenter flexBetween">
                     <Nav className="mr-auto">
-                        <Nav.Link href="/about">About</Nav.Link>
-                        <Nav.Link href="/home#faq">FAQ</Nav.Link>
-                        <Nav.Link href="/contact">Contact</Nav.Link>
+                        <Nav.Link className="grow2" href="/home#faq">FAQ</Nav.Link>
+                        <Nav.Link className="grow2" href="/contact">Contact</Nav.Link>
+                        <Nav.Link className="grow2" href="/about">About</Nav.Link>
                     </Nav>
                     {getItem('login') ? (
                         <div className="avatar">

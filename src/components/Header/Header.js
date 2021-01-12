@@ -13,9 +13,9 @@ function Header(){
                 </Navbar.Brand>
                 <div className="w100 flexRow flexAlignCenter flexBetween">
                     <Nav className="mr-auto flexRow">
-                        <Nav.Link href="/about">About</Nav.Link>
-                        <Nav.Link href="/home#faq">FAQ</Nav.Link>
-                        <Nav.Link href="/contact">Contact</Nav.Link>
+                        <Nav.Link className="grow2" href="/about">About</Nav.Link>
+                        <Nav.Link className="grow2" href="/home#faq">FAQ</Nav.Link>
+                        <Nav.Link className="grow2" href="/contact">Contact</Nav.Link>
                     </Nav>
                     <GoogleBtn />
                 </div>
