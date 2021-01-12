@@ -41,6 +41,9 @@
     box-shadow: none !important;
     border-radius: 10px !important;
 }
+.google-button:focus{
+    outline: none;
+}
 .google-logo{
     background-color: rgba(143,210,248,1) !important;
     border-radius: 10px !important;

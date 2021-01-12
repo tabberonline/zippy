@@ -11,14 +11,6 @@ import ContactScreen from './screens/ContactScreen/ContactScreen';
 import DisplayScreen from './screens/DisplayScreen/DisplayScreen';
 import { StateProvider } from './utility/StateProvider';
 import reducer, { initialState } from './utility/reducer';
-// import { createStore, applyMiddleware } from 'redux'
-// import { Provider } from 'react-redux'
-// import thunk from 'redux-thunk'
-// import { logger } from 'redux-logger'
-
-// const store = createStore(
-//   applyMiddleware(thunk, logger)
-// )
 
 ReactDOM.render(
   <React.StrictMode>
