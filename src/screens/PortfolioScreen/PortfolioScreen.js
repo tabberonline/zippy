@@ -161,7 +161,7 @@ function PortfolioScreen() {
                 { projectWidgets !== [''] ?
                     (
                       projectWidgets.map(project => (
-                        <ProjectCard name={project.title} img="" url={project.link} id={project.id} hide={project.invisible} />
+                        <ProjectCard name={project.title} url={project.link} id={project.id} hide={project.invisible} />
                       ))
                     ) : null
                 }   

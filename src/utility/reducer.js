@@ -1,5 +1,6 @@
 export const initialState = {
     user_id: null,
+    user: [],
     token: null,
     login: false,
     rankWidgets: [],

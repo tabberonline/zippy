@@ -9,18 +9,20 @@ import PortfolioScreen from './screens/PortfolioScreen/PortfolioScreen';
 import AboutScreen from './screens/AboutScreen/AboutScreen';
 import ContactScreen from './screens/ContactScreen/ContactScreen';
 import DisplayScreen from './screens/DisplayScreen/DisplayScreen';
-import { createStore, applyMiddleware } from 'redux'
-import { Provider } from 'react-redux'
-import thunk from 'redux-thunk'
-import { logger } from 'redux-logger'
+import { StateProvider } from './utility/StateProvider';
+import reducer, { initialState } from './utility/reducer';
+// import { createStore, applyMiddleware } from 'redux'
+// import { Provider } from 'react-redux'
+// import thunk from 'redux-thunk'
+// import { logger } from 'redux-logger'
 
-const store = createStore(
-  applyMiddleware(thunk, logger)
-)
+// const store = createStore(
+//   applyMiddleware(thunk, logger)
+// )
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
+    <StateProvider initialState={initialState} reducer={reducer} >
       <Router>
         <Switch>
             <Route exact path="/" component={App} />
@@ -31,7 +33,7 @@ ReactDOM.render(
             <Route exact path="/contact" component={ContactScreen} />
         </Switch>            
       </Router>
-    </Provider>
+    </StateProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

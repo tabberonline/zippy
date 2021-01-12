@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../styles/HelperStyles.css';
 import './ProjectCard.css';
 import deleted from '../../assets/images/Bin-Icon.png';
@@ -9,11 +9,23 @@ import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
 import UpdateProject from '../UpdateModals/UpdateProject';
 import hidecards from '../../assets/images/hiddeeen.png';
+import Pageres from 'pageres';
 
-export default function ProjectCard({name, img, url, id, hide}){
+export default function ProjectCard({name, url, id, hide}){
+    var img = "";
     var invisible = hide;
     const [namecard, setcard] = useState(true);
     const [detailcard, setdetail] = useState(false);
+
+    useEffect(() => {
+        const getImage = async () => {
+            await new Pageres({delay: 0.2})
+                .src(url, ['1024x768'], {crop: true})
+                .dest('../../assets/images')
+                .run();
+        }
+
+    })
 
     const HideCard = () => {
         invisible = true;
