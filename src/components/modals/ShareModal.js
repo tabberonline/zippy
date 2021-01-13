@@ -5,8 +5,7 @@ import { Modal, Form } from 'react-bootstrap';
 import {AiOutlineCloseCircle} from 'react-icons/ai';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Axios from 'axios';
-const API_ENDPOINT = 'https://whispering-eyrie-04211.herokuapp.com';
+import AdminService from '../../AdminServices/AdminService';
 
 export default function ShareModal({id}) {
   const [modalShow, setModalShow] = React.useState(false);
@@ -15,7 +14,7 @@ export default function ShareModal({id}) {
   const textAreaRef = useRef(null);
 
   const ShareLink = async () => {
-    Axios.post(`${API_ENDPOINT}/user/guest/resume?id=${user_id}`)
+    AdminService.getUserDataById(user_id)
       .then(resp => {
         const AccessID = resp.data.user_id;      
         setUrl(`http://localhost:3000/d?id=${AccessID}`); 
