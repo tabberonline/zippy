@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../styles/HelperStyles.css';
 import './ProjectCard.css';
 import deleted from '../../assets/images/Bin-Icon.png';
 import hidden from '../../assets/images/Hide-Icon.png';
+import {setItem} from '../../utility/localStorageControl';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
 import UpdateProject from '../UpdateModals/UpdateProject';
 import hidecards from '../../assets/images/hiddeeen.png';
-import { useStateValue } from '../../utility/StateProvider';
 
 export default function ProjectCard({name, url, id, img, hide}){
-    const [{projects}, dispatch] = useStateValue(); 
     var invisible = hide;
     const [namecard, setcard] = useState(true);
     const [detailcard, setdetail] = useState(false);
@@ -45,10 +44,8 @@ export default function ProjectCard({name, url, id, img, hide}){
               });
               AdminService.getUserData()
                 .then(resp => {
-                    dispatch({
-                        type: "SET_PROJECTS",
-                        projects: response.data.personal_projects
-                      }); 
+                    setItem('projectWidgets', resp.data.personal_projects);
+                    window.open('/portfolio', '_self')
                 })
                 .catch(err => console.log(err));
             })
@@ -79,10 +76,8 @@ export default function ProjectCard({name, url, id, img, hide}){
                 });
                 AdminService.getUserData()
                     .then(resp => {
-                        dispatch({
-                            type: "SET_PROJECTS",
-                            projects: response.data.personal_projects
-                          }); 
+                        setItem('projectWidgets', resp.data.personal_projects);
+                        window.open('/portfolio', '_self')
                     })
                     .catch(err => console.log(err));
                 })
@@ -103,7 +98,7 @@ export default function ProjectCard({name, url, id, img, hide}){
         <>
             {
                 invisible ? (
-                    <div className="flexColumn project-card flexEnd" 
+                    <div className="grow1 flexColumn project-card flexEnd" 
                         style={{  
                             backgroundImage: img === "" ? null : `url("${img}")`,
                             backgroundColor: 'rgba(219,219,219,1)',
@@ -117,21 +112,10 @@ export default function ProjectCard({name, url, id, img, hide}){
                         </div>                    
                         <div onMouseEnter={() => {setcard(false); setdetail(true);}} className="flexColumn flexCenter flexAlignCenter project-textbox">
                             <p className="project-name">{ name.length > 0 ? name : "Sample Webpage"}</p>
-                            <ToastContainer
-                                position="top-center"
-                                autoClose={3000}
-                                hideProgressBar={true}
-                                newestOnTop={false}
-                                closeOnClick
-                                rtl={false}
-                                pauseOnFocusLoss
-                                draggable
-                                pauseOnHover
-                            />
                         </div>
                     </div>  
                 ) : (
-                    <div className="flexColumn project-card flexEnd" 
+                    <div className="grow1 flexColumn project-card flexEnd" 
                         style={{  
                             backgroundImage: img === "" ? null : `url("${img}")`,
                             backgroundColor: 'rgba(219,219,219,1)',
@@ -150,17 +134,6 @@ export default function ProjectCard({name, url, id, img, hide}){
                             detailcard ? (
                                 <div onMouseLeave={() => {setdetail(false); setcard(true);}} className="flexColumn flexCenter flexAlignCenter project-textbox1">
                                     <p className="project-name">{ name.length > 0 ? name : "Sample Webpage"}</p>
-                                    <ToastContainer
-                                        position="top-center"
-                                        autoClose={3000}
-                                        hideProgressBar={true}
-                                        newestOnTop={false}
-                                        closeOnClick
-                                        rtl={false}
-                                        pauseOnFocusLoss
-                                        draggable
-                                        pauseOnHover
-                                    />
                                     <div className="flexRow flexAround flexAlignCenter" style={{position: 'absolute', bottom: 30, width: '75%'}}>
                                         <img src={deleted} onClick={() => DeleteCard(id)} alt="delete" className="delete-card-icon" style={{height:30, width: 30, marginBottom: 10}} />
                                         <UpdateProject projectName={name} projectlink={url} projectImage={img} projectId={id}/>

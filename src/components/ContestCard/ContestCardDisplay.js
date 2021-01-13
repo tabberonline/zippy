@@ -4,7 +4,7 @@ import './ContestCard.css';
 
 export default function ContestCardDisplay({name, rank, id, logo, contest}){
     return(
-        <div className="card11 flexColumn achievement-card">
+        <div className="grow1 card11 flexColumn achievement-card">
             <div className="flexRow flexCenter" style={{position: 'relative'}}>
                 {logo === "" ? (
                     <div className="flexRow flexCenter flexAlignCenter empty-logo">

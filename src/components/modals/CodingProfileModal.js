@@ -7,11 +7,9 @@ import { PortalMap, setItem, getItem } from '../../utility/localStorageControl';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
-import { useStateValue } from '../../utility/StateProvider';
 
   export default function CodingProfileModal() {
     const [modalShow, setModalShow] = React.useState(false);
-    const [{rankWidgets}, dispatch] = useStateValue();
     var portal = "";
     var username = "";
     var rank = "";
@@ -40,10 +38,8 @@ import { useStateValue } from '../../utility/StateProvider';
             });
             AdminService.getUserData()
               .then(resp => {
-                dispatch({
-                  type: "SET_RANK_WIDGETS",
-                  rankWidgets: response.data.rank_widgets
-                }); 
+                setItem('rankWidgets', resp.data.rank_widgets);
+                window.open('/portfolio', '_self');
                 setModalShow(false);
               })
               .catch(err => console.log(err));
@@ -133,7 +129,7 @@ import { useStateValue } from '../../utility/StateProvider';
   
     return (
       <>
-        <div className="flexColumn flexCenter flexAlignCenter add-card" style={{height: 250}}>
+        <div className="grow1 flexColumn flexCenter flexAlignCenter add-card" style={{height: 250}}>
             <button onClick={() => setModalShow(true)}>
                 <AiOutlinePlusCircle style={{fontSize: 80, color: '#C0C0C0'}} />
             </button>

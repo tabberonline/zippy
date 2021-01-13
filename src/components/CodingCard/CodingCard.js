@@ -11,10 +11,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
 import UpdateCodingProfile from '../UpdateModals/UpdateCodingProfile';
-import { useStateValue } from '../../utility/StateProvider';
 
 export default function CodingCard({name, rank, id, logo, hide}){        
-    const [{rankWidgets}, dispatch] = useStateValue();
     var invisible = hide;
     const [ bullets, setbullets ] = useState(true);
     const [ drawer, setdrawer ] = useState(false);
@@ -47,6 +45,7 @@ export default function CodingCard({name, rank, id, logo, hide}){
             'username': id,
             'invisible' : invisible,
           }
+          console.log(rankWidgetData);
           AdminService.updateRankWidget(rankWidgetData)
             .then(response => {
               toast.success('Card Updated!', {
@@ -60,10 +59,8 @@ export default function CodingCard({name, rank, id, logo, hide}){
               });
               AdminService.getUserData()
                 .then(resp => {
-                  dispatch({
-                    type: "SET_RANK_WIDGETS",
-                    token: response.data.rank_widgets
-                  })
+                  setItem('rankWidgets', resp.data.rank_widgets);
+                  window.open('/portfolio', '_self')
                 })
                 .catch(err => console.log(err));
             })
@@ -107,10 +104,8 @@ export default function CodingCard({name, rank, id, logo, hide}){
                 });
                 AdminService.getUserData()
                     .then(resp => {
-                        dispatch({
-                            type: "SET_RANK_WIDGETS",
-                            token: response.data.rank_widgets
-                        })
+                      setItem('rankWidgets', resp.data.rank_widgets);
+                      window.open('/portfolio', '_self')
                     })
                     .catch(err => console.log(err));
                 })
@@ -128,7 +123,7 @@ export default function CodingCard({name, rank, id, logo, hide}){
     }
 
     return(
-            <div className="card11 flexColumn profile-card" onMouseLeave={() => CloseOptionDrawer()}>
+            <div className="grow1 card11 flexColumn profile-card" onMouseLeave={() => CloseOptionDrawer()}>
                 {
                     invisible ? (
                         <div id="overlay" onClick={() => unHideCard(name)} className="flexColumn flexCenter flexAlignCenter">
@@ -181,17 +176,6 @@ export default function CodingCard({name, rank, id, logo, hide}){
                         ) : null
                     }
                 </div>
-                <ToastContainer
-                    position="top-center"
-                    autoClose={3000}
-                    hideProgressBar={true}
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                />
                 <p className="profile-name pl-20 mb-10"> {name === "" ? "Company Name" : name}</p>
                 <p className="profile-name ph-20 mb-10"><span className="profile-heading">ID:</span> {id === "" ?  "Id here" : id }</p>
                 <p className="profile-name ph-20 mb-10"><span className="profile-heading">Rank:</span> {rank === "" ?  "?" : rank  }</p>

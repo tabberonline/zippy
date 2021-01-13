@@ -7,10 +7,8 @@ import { setItem, getItem } from '../../utility/localStorageControl';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
-import { useStateValue } from '../../utility/StateProvider';
 
 export default function ProjectModal() {
-  const [{projects}, dispatch] = useStateValue();
   const [modalShow, setModalShow] = React.useState(false);
   var url = '';
   var project = '';
@@ -35,10 +33,8 @@ export default function ProjectModal() {
           });
           AdminService.getUserData()
             .then(resp => {
-              dispatch({
-                type: "SET_PROJECTS",
-                projects: response.data.personal_projects
-              }); 
+              setItem('projectWidgets', resp.data.personal_projects);
+              window.open('/portfolio', '_self');
               setModalShow(false);
             })
             .catch(err => console.log(err));
@@ -123,7 +119,7 @@ export default function ProjectModal() {
 
   return (
     <>
-      <div className="flexColumn flexCenter flexAlignCenter add-card" style={{height: 280}}>
+      <div className="grow1 flexColumn flexCenter flexAlignCenter add-card" style={{height: 280}}>
         <button onClick={() => setModalShow(true)}>
           <AiOutlinePlusCircle style={{fontSize: 80, color: '#C0C0C0'}} />
         </button>

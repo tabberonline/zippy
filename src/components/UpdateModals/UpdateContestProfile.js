@@ -8,10 +8,8 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
 import edited from '../../assets/images/Edit-Icon.png';
-import { useStateValue } from '../../utility/StateProvider';
 
 export default function UpdateContestProfile(portalName, Rank, userName, id, ContestName) {
-  const [{contestWidgets}, dispatch] = useStateValue();
   const [modalShow, setModalShow] = React.useState(false);
   var portal1 = portalName;
   var portal = portal1.portalName;
@@ -45,10 +43,8 @@ export default function UpdateContestProfile(portalName, Rank, userName, id, Con
           });
           AdminService.getUserData()
             .then(resp => {
-              dispatch({
-                type: "SET_CONTEST_WIDGETS",
-                contestWidgets: response.data.contest_widgets
-              }); 
+              setItem('contestWidgets', resp.data.contest_widgets);
+              window.open('/portfolio', '_self')
               setModalShow(false);
             })
             .catch(err => console.log(err));

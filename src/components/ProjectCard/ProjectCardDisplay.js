@@ -5,7 +5,7 @@ import './ProjectCard.css';
 export default function ProjectCardDisplay({name, img, url}){
     const [namecard, setcard] = useState(true);
     return(
-        <div className="flexColumn project-card flexEnd" 
+        <div className="grow1 flexColumn project-card flexEnd" 
             style={{  
                 backgroundImage: img === "" ? null : `url("${img}")`,
                 backgroundColor: 'rgba(219,219,219,1)',

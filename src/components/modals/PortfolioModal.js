@@ -7,17 +7,17 @@ import { getItem, setItem } from '../../utility/localStorageControl';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
-import { useStateValue } from '../../utility/StateProvider';
   
   export default function PortfolioModal({home}) {
-    const [{token, image, login, portfolio, name}, dispatch] = useStateValue();
     const [modalShow, setModalShow] = useState(false);
     const [apicall, setcall] = useState('');
+    var name = '';
     var title = '';
     var desc = '';    
 
     const createPortfolio = async () => {
-      if(token === ""){
+      const accessToken = getItem('access_token');
+      if(accessToken === ""){
         toast.error('Access Token not Retrieved!', {
           position: "top-center",
           autoClose: 2000,
@@ -31,7 +31,7 @@ import { useStateValue } from '../../utility/StateProvider';
         if(title.length > 0 && desc.length > 0){
           const portfolioData = {
               'title': getItem('titlePortfolio'),
-              'picture_url': image,
+              'picture_url': getItem('image'),
               'description': getItem('descPortfolio')
           };
           AdminService.createPortfolio(portfolioData)
@@ -48,11 +48,7 @@ import { useStateValue } from '../../utility/StateProvider';
               setcall('Success');
               AdminService.getUserData()
                 .then(resp => {
-                  console.log(resp);
-                  dispatch({
-                    type: "SET_PORTFOLIO",
-                    portfolio: resp.data.resume_present
-                  }); 
+                  setItem('portfolio', resp.data.resume_present);
                   setModalShow(false);
                 })
                 .catch(err => console.log(err));
@@ -83,10 +79,7 @@ import { useStateValue } from '../../utility/StateProvider';
     };  
 
     const Add = () => {
-      dispatch({
-        type: "SET_NAME",
-        name: name
-      });  
+      setItem('name', name);
       setItem('titlePortfolio', title);
       setItem('descPortfolio', desc);
       createPortfolio();
@@ -115,11 +108,7 @@ import { useStateValue } from '../../utility/StateProvider';
             <Form>
               <Form.Group controlId="formBasic1" className="mb-20">
                 <Form.Label>Your Name<span style={{color: 'red'}}>*</span> </Form.Label>
-                <Form.Control type="text" defaultValue={name} onChange={(e) => {dispatch({
-                      type: "SET_NAME",
-                      name: e.target.value
-                    });  
-                  }} placeholder="Eg. Aarav Bansal" />
+                <Form.Control type="text" defaultValue={name} onChange={(e) => name = (e.target.value)} placeholder="Eg. Aarav Bansal" />
               </Form.Group>    
               <Form.Group controlId="formBasic1" className="mb-20">
                 <Form.Label>Your Portfolio Title<span style={{color: 'red'}}>*</span> </Form.Label>
@@ -145,8 +134,8 @@ import { useStateValue } from '../../utility/StateProvider';
         {
           home ? (
             <a style={{cursor: 'pointer'}} onClick={() => {
-              if(login){
-                if(portfolio){
+              if(getItem('login')){
+                if(getItem('portfolio')){
                   window.open('/portfolio', '_self');
                 } else {
                   setModalShow(true);
@@ -162,18 +151,18 @@ import { useStateValue } from '../../utility/StateProvider';
                   progress: undefined,
                 });
               }
-            }} className="flexAlignCenter intro-button grow1"
+            }} className="grow1 flexAlignCenter intro-button"
           >
             Get Started
           </a>
           ) :
             (
               <button onClick={() => {
-                  portfolio ? window.open('/portfolio', '_self') : ModalOpen()
+                  getItem('portfolio') ? window.open('/portfolio', '_self') : ModalOpen()
                 }} 
                 className="edit-your-portfolio grow1"
               >
-                {apicall === 'Success' || portfolio ? 'Move to your Portfolio' : 'Edit your Portfolio'}
+                {apicall === 'Success' || getItem('portfolio') ? 'Move to your Portfolio' : 'Edit your Portfolio'}
               </button>
             )
         }

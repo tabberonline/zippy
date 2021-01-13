@@ -4,7 +4,7 @@ import './CodingCard.css';
 
 export default function CodingCardDisplay({name, rank, id, logo}){
     return(
-            <div className="card11 flexColumn profile-card">
+            <div className="grow1 card11 flexColumn profile-card">
                 <div className="flexRow flexCenter" style={{position: 'relative'}}>
                     {logo === "" ? (
                         <div className="flexRow flexCenter flexAlignCenter empty-logo">

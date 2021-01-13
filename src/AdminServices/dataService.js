@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { getItem } from '../utility/localStorageControl';
+
 const API_ENDPOINT = 'https://whispering-eyrie-04211.herokuapp.com';
 
 const authHeader = () => ({

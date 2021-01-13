@@ -5,6 +5,7 @@
     margin: 15px 0;
     z-index: 1000;
     position: relative;
+    cursor: pointer
 }
 .faq-card:hover{
     background: #F2B630 !important;

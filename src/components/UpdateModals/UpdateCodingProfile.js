@@ -8,10 +8,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
 import edited from '../../assets/images/Edit-Icon.png';
-import { useStateValue } from '../../utility/StateProvider';
 
   export default function UpdateCodingProfile(portalName, Rank, userName) {
-    const [{rankWidgets}, dispatch] = useStateValue();
     const [modalShow, setModalShow] = React.useState(false);
     var portal1 = portalName;
     var portal = portal1.portalName
@@ -42,10 +40,8 @@ import { useStateValue } from '../../utility/StateProvider';
             });
             AdminService.getUserData()
               .then(resp => {
-                dispatch({
-                  type: "SET_RANK_WIDGETS",
-                  rankWidgets: response.data.rank_widgets
-                }); 
+                setItem('rankWidgets', resp.data.rank_widgets);
+                window.open('/portfolio', '_self')
                 setModalShow(false);
               })
               .catch(err => console.log(err));

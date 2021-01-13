@@ -7,14 +7,14 @@ import {ReversePortalMap} from '../../utility/localStorageControl';
 import CodingCardDisplay from '../../components/CodingCard/CodingCardDisplay';
 import ContestCardDisplay from '../../components/ContestCard/ContestCardDisplay';
 import ProjectCardDisplay from '../../components/ProjectCard/ProjectCardDisplay';
+import AdminService from '../../AdminServices/AdminService';
 import {isMobile} from 'react-device-detect';
-import Axios from 'axios';
 const API_KEY = 'AFjzy7b0VSvCEJhKDtcQ6z';
 const processAPI = 'https://cdn.filestackcontent.com';
-const API_ENDPOINT = 'https://whispering-eyrie-04211.herokuapp.com';
 
 
 function DisplayScreen() {
+
   const [userData, setData] = useState([]);
 
   useEffect(() => {
@@ -22,9 +22,8 @@ function DisplayScreen() {
       return window.location.href.split('?')[1].split('=')[1];
     };
     const user_id = getIDFromURL();
-    console.log(user_id)
 
-    Axios.get(`${API_ENDPOINT}/user/guest/resume?id=${user_id}`)
+    AdminService.getUserDataById(user_id)
       .then(resp => resp.data)
         .then(data => {
           setData([data]);

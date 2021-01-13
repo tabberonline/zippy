@@ -33,7 +33,7 @@ function AboutScreen() {
               </div>
             </Animated>
           </div>
-      </div>
+        </div>
         <Footer />
     </div>
   );

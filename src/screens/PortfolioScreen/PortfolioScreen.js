@@ -17,14 +17,16 @@ import AdminService from '../../AdminServices/AdminService';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {isMobile} from 'react-device-detect';
-import { useStateValue } from '../../utility/StateProvider';
 const API_KEY = 'AFjzy7b0VSvCEJhKDtcQ6z';
 const processAPI = 'https://cdn.filestackcontent.com';
 
 function PortfolioScreen() {
-  const[{ name, rankWidgets, contestWidgets, projects, user_id }, dispatch] = useStateValue();
+  const [name, setname] = useState(getItem('name'));
   const [title, settitle] = useState(getItem('titlePortfolio'));
   const [desc, setdesc] = useState(getItem('descPortfolio'));
+  const [rankWidgets, setrankwidgets] = useState(getItem('rankWidgets'));
+  const [contestWidgets, setcontestwidgets] = useState(getItem('contestWidgets'));
+  const [projectWidgets, setprojectwidgets] = useState(getItem('projectWidgets'));
   const Edit1 = () => {
     console.log('edittable1')
     $(".title").prop("readonly", false);
@@ -102,14 +104,14 @@ function PortfolioScreen() {
         pauseOnHover
       />
       <Header1 />
-      <ShareModal id={user_id} />
+      <ShareModal id={getItem('user_id')} />
       <div className="mw1100">
         <div className="p-40 flexColumn portfolio-section">
           <div className="flexColumn">
             <div className="flexRow flexCenter flexAlignCenter">
               <input type="text" autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" className="title" defaultValue={title} onBlur={(event) => updateTitle(event)} placeholder="Portfolio Title" readOnly />
               <div className="flexRow flexCenter flexAlignCenter iconcontainer1">
-                <AiOutlineEdit className="portfolio-icon" size="20" onClick={()=>Edit1()} />
+                <AiOutlineEdit className="portfolio-icon" size="20" onClick={()=>Edit1()} style={{cursor: 'pointer'}} />
               </div>
             </div>
             <hr style={{color : '#717070', width: '80%', margin: 'auto', marginTop: 10}} />
@@ -118,7 +120,7 @@ function PortfolioScreen() {
               <div className="flexRow">
                 <textarea autocomplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" rows="5" className="desc" defaultValue={desc} onBlur={(event) => updateDesc(event)} readOnly placeholder="Enter your College and profile description here" />
                 <div className="flexRow flexCenter flexAlignCenter iconcontainer1" style={{left: -15, top: -15}}>
-                  <AiOutlineEdit className="portfolio-icon" size="20" onClick={()=>Edit2()} />
+                  <AiOutlineEdit className="portfolio-icon" size="20" onClick={()=>Edit2()} style={{cursor: 'pointer'}} />
                 </div>
               </div>
             </div>
@@ -159,15 +161,15 @@ function PortfolioScreen() {
             <div className="coding-profile mv-20">
               <p className="card-heading mb-20">Personal Projects</p>
               <div className="flexRow flexWrap">
-                { projects !== [''] ?
+                { projectWidgets !== [''] ?
                     (
-                      projects.map(project => (
+                      projectWidgets.map(project => (
                         <ProjectCard name={project.title} url={project.link} img={`${processAPI}/${API_KEY}/urlscreenshot=agent:${isMobile ? 'mobile' : 'desktop'}/${project.link}`} id={project.id} hide={project.invisible} />
                       ))
                     ) : null
                 }   
                 {
-                  projects.length <= 5 ? ( 
+                  projectWidgets.length <= 5 ? ( 
                     <ProjectModal />
                   ) : null
                 }             

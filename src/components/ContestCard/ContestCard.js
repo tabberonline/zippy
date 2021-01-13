@@ -11,10 +11,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
 import UpdateContestProfile from '../UpdateModals/UpdateContestProfile';
-import { useStateValue } from '../../utility/StateProvider';
 
-export default function ContestCard({name, rank, id, logo, contest, card_id, hide}){       
-    const [{contestWidgets}, dispatch] = useStateValue;
+export default function ContestCard({name, rank, id, logo, contest, card_id, hide}){
+
     const [ bullets, setbullets ] = useState(true);
     const [ drawer, setdrawer ] = useState(false);
     const [option1, setoption1] = useState(false);
@@ -63,10 +62,8 @@ export default function ContestCard({name, rank, id, logo, contest, card_id, hid
             });
             AdminService.getUserData()
               .then(resp => {
-                dispatch({
-                    type: "SET_CONTEST_WIDGETS",
-                    contestWidgets: response.data.contest_widgets
-                  }); 
+                setItem('contestWidgets', resp.data.contest_widgets);
+                window.open('/portfolio', '_self')
               })
               .catch(err => console.log(err));
           })
@@ -108,10 +105,8 @@ export default function ContestCard({name, rank, id, logo, contest, card_id, hid
                 });
                 AdminService.getUserData()
                     .then(resp => {
-                        dispatch({
-                            type: "SET_CONTEST_WIDGETS",
-                            contestWidgets: response.data.contest_widgets
-                          }); 
+                      setItem('contestWidgets', resp.data.contest_widgets);
+                      window.open('/portfolio', '_self')
                     })
                     .catch(err => console.log(err));
                 })
@@ -129,7 +124,7 @@ export default function ContestCard({name, rank, id, logo, contest, card_id, hid
     }
 
     return(
-        <div className="card11 flexColumn achievement-card" onMouseLeave={() => CloseOptionDrawer()}>
+        <div className="grow1 card11 flexColumn achievement-card" onMouseLeave={() => CloseOptionDrawer()}>
             {
                 invisible ? (
                     <div id="overlay" onClick={() => unHideCard()} className="flexColumn flexCenter flexAlignCenter">
@@ -182,17 +177,6 @@ export default function ContestCard({name, rank, id, logo, contest, card_id, hid
                     ) : null
                 }
             </div>
-            <ToastContainer
-                position="top-center"
-                autoClose={3000}
-                hideProgressBar={true}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-            />
             <p className="profile-name pl-20 mb-10"> {name === "" ? "Company Name" : name}</p>
             <div className="flexRow flexBetween"> 
                 <p className="profile-name ph-20 mb-10"><span className="profile-heading">ID:</span> {id === "" ?  "Id here" : id }</p>

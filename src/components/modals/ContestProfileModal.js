@@ -7,10 +7,8 @@ import { PortalMap, setItem, getItem } from '../../utility/localStorageControl';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
-import { useStateValue } from '../../utility/StateProvider';
 
 export default function ContestProfileModal() {
-  const [{contestWidgets}, dispatch] = useStateValue();
   const [modalShow, setModalShow] = React.useState(false);
   var portal = '';
   var contest = '';
@@ -42,10 +40,8 @@ export default function ContestProfileModal() {
           });
           AdminService.getUserData()
             .then(resp => {
-              dispatch({
-                type: "SET_CONTEST_WIDGETS",
-                contestWidgets: response.data.contest_widgets
-              }); 
+              setItem('contestWidgets', resp.data.contest_widgets);
+              window.open('/portfolio', '_self');
               setModalShow(false);
             })
             .catch(err => console.log(err));
@@ -141,7 +137,7 @@ export default function ContestProfileModal() {
 
   return (
     <>
-      <div className="flexColumn flexCenter flexAlignCenter add-card" style={{height: 250}}>
+      <div className="grow1 flexColumn flexCenter flexAlignCenter add-card" style={{height: 250}}>
         <button onClick={() => setModalShow(true)}>
           <AiOutlinePlusCircle style={{fontSize: 80, color: '#C0C0C0'}} />
         </button>
