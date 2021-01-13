@@ -48,6 +48,7 @@ import { useStateValue } from '../../utility/StateProvider';
               setcall('Success');
               AdminService.getUserData()
                 .then(resp => {
+                  console.log(resp);
                   dispatch({
                     type: "SET_PORTFOLIO",
                     portfolio: resp.data.resume_present
@@ -172,24 +173,13 @@ import { useStateValue } from '../../utility/StateProvider';
                 }} 
                 className="edit-your-portfolio grow1"
               >
-                {apicall === 'Success' || getItem('portfolio') ? 'Move to your Portfolio' : 'Edit your Portfolio'}
+                {apicall === 'Success' || portfolio ? 'Move to your Portfolio' : 'Edit your Portfolio'}
               </button>
             )
         }
         <MyVerticallyCenteredModal
           show={modalShow}
           onHide={() => setModalShow(false)}
-        />
-        <ToastContainer
-          position="top-center"
-          autoClose={3000}
-          hideProgressBar={true}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
         />
       </>
     );

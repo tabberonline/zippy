@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import PortfolioModal from '../components/modals/PortfolioModal';
 import AdminService from '../AdminServices/AdminService';
 import { useStateValue } from '../utility/StateProvider';
+import { setItem } from '../utility/localStorageControl';
 
 const CLIENT_ID = '148434873376-a1k8ubdj3g3oqkh53an00v8angbj2itd.apps.googleusercontent.com';
 const API_ENDPOINT = 'https://whispering-eyrie-04211.herokuapp.com';
@@ -26,6 +27,7 @@ const GoogleBtn = () => {
             type: "SET_TOKEN",
             token: response.data.access_token
           });  
+          setItem('access_token', response.data.access_token);
           toast.success('Login Successful!', {
             position: "top-center",
             autoClose: 2000,
@@ -41,10 +43,6 @@ const GoogleBtn = () => {
                 type: "SET_USERID",
                 user_id: response.data.user_id
               });
-              dispatch({
-                type: "SET_TOKEN",
-                token: response.data.access_token
-              }); 
               dispatch({
                 type: "SET_NAME",
                 name: response.data.name
@@ -106,17 +104,6 @@ const GoogleBtn = () => {
       { login ? (
         <>
           <PortfolioModal home={false} />
-          <ToastContainer
-            position="top-center"
-            autoClose={3000}
-            hideProgressBar={true}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-          />
         </>
         )
         : 
