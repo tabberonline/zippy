@@ -10,7 +10,8 @@ import AdminService from '../../AdminServices/AdminService';
 
 export default function ContestProfileModal() {
   const [modalShow, setModalShow] = React.useState(false);
-  var portal = '';
+  var portal = "Eg. GeeksforGeeks, CodeChef";
+  const data = ['Geeks for Geeks', 'CodeChef', 'CodeForces', 'HackerRank', 'TopCoder', 'LeetCode'];
   var contest = '';
   var rank = '';
   var username = '';
@@ -104,9 +105,14 @@ export default function ContestProfileModal() {
             </button>
           </div>
           <Form>
-            <Form.Group controlId="formBasicEmail" className="mb-20">
+            <Form.Group controlId="formBasicEmail" className=" flexColumn mb-20">
               <Form.Label>Website Name</Form.Label>
-              <Form.Control type="text" placeholder="Eg. GeeksforGeeks, CodeChef" defaultValue={portal} onChange={(e) => portal = (e.target.value)} />
+              <select defaultValue={portal} onChange={(e) => portal = (e.target.value)}>
+                <option value="Eg. GeeksforGeeks, CodeChef" disabled>Eg. GeeksforGeeks, CodeChef</option>
+                {data.map(platform => (
+                  <option value={platform}>{platform}</option>
+                ))}
+              </select>
             </Form.Group>
   
             <Form.Group controlId="formBasicPassword1" className="mb-20">
