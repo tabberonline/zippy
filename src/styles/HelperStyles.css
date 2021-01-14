@@ -143,7 +143,7 @@
     font-weight: 400;
     color: #3D3D3D;
 }
-.modal .form-group input{
+.modal .form-group input, .modal .form-group select{
     background: #F4F4F4;
     border: 1px solid #C9C9C9;
     box-sizing: border-box;
@@ -155,7 +155,10 @@
     box-shadow: none !important;
     padding: 20px;
 }
-.modal .form-group input:focus{
+.form-group select{
+    padding: 5px 20px !important;
+}
+.modal .form-group input:focus, .modal .form-group select:focus{
     background: #FFFFFF;
     border: 1px solid #00E6D8;
     box-sizing: border-box;

@@ -6,13 +6,15 @@ import {AiOutlineCloseCircle, AiOutlinePlusCircle} from 'react-icons/ai';
 import { PortalMap, setItem, getItem } from '../../utility/localStorageControl';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { DropdownButton, Dropdown } from 'react-bootstrap';
 import AdminService from '../../AdminServices/AdminService';
 
   export default function CodingProfileModal() {
     const [modalShow, setModalShow] = React.useState(false);
-    var portal = "";
     var username = "";
     var rank = "";
+    var portal = "Eg. GeeksforGeeks, CodeChef";
+    const data = ['Geeks for Geeks', 'CodeChef', 'CodeForces', 'HackerRank', 'TopCoder', 'LeetCode'];
 
     const formatPortal = portal => {
       return portal.split(' ').join('').toLowerCase();
@@ -101,10 +103,21 @@ import AdminService from '../../AdminServices/AdminService';
             </button>
           </div>
           <Form>
-            <Form.Group controlId="formBasicEmail" className="mb-20">
+
+            <Form.Group controlId="formBasicEmail" className=" flexColumn mb-20">
+              <Form.Label>Website Name</Form.Label>
+              <select defaultValue={portal} onChange={(e) => portal = (e.target.value)}>
+                <option value="Eg. GeeksforGeeks, CodeChef" disabled>Eg. GeeksforGeeks, CodeChef</option>
+                {data.map(platform => (
+                  <option value={platform}>{platform}</option>
+                ))}
+              </select>
+            </Form.Group>
+
+            {/* <Form.Group controlId="formBasicEmail" className="mb-20">
               <Form.Label>Website Name</Form.Label>
               <Form.Control placeholder="Eg. GeeksforGeeks, CodeChef" type="text" defaultValue={portal} onChange={(e) => portal = (e.target.value)} />
-            </Form.Group>
+            </Form.Group> */}
   
             <Form.Group controlId="formBasicPassword" className="mb-20">
               <Form.Label>Your Profile Username </Form.Label>
