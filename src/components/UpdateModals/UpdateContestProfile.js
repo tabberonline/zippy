@@ -13,6 +13,7 @@ export default function UpdateContestProfile(portalName, Rank, userName, id, Con
   const [modalShow, setModalShow] = React.useState(false);
   var portal1 = portalName;
   var portal = portal1.portalName;
+  const data = ['Geeks for Geeks', 'CodeChef', 'CodeForces', 'HackerRank', 'TopCoder', 'LeetCode'];
   var contest = portal1.ContestName;
   var rank = portal1.Rank;
   var username = portal1.userName;
@@ -108,9 +109,14 @@ export default function UpdateContestProfile(portalName, Rank, userName, id, Con
             </button>
           </div>
           <Form>
-            <Form.Group controlId="formBasicEmail" className="mb-20">
+            <Form.Group controlId="formBasicEmail" className=" flexColumn mb-20">
               <Form.Label>Website Name</Form.Label>
-              <Form.Control type="text" placeholder="Eg. GeeksforGeeks, CodeChef" defaultValue={portal} onChange={(e) => portal = (e.target.value)} readOnly />
+              <select defaultValue={portal} onChange={(e) => portal = (e.target.value)}>
+                <option value="Eg. GeeksforGeeks, CodeChef" disabled>Eg. GeeksforGeeks, CodeChef</option>
+                {data.map(platform => (
+                  <option value={platform}>{platform}</option>
+                ))}
+              </select>
             </Form.Group>
   
             <Form.Group controlId="formBasicPassword1" className="mb-20">
