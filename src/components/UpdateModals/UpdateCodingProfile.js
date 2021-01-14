@@ -12,7 +12,8 @@ import edited from '../../assets/images/Edit-Icon.png';
   export default function UpdateCodingProfile(portalName, Rank, userName) {
     const [modalShow, setModalShow] = React.useState(false);
     var portal1 = portalName;
-    var portal = portal1.portalName
+    var portal = portal1.portalName;
+    const data = ['Geeks for Geeks', 'CodeChef', 'CodeForces', 'HackerRank', 'TopCoder', 'LeetCode'];
     var username = portal1.userName;
     var rank = portal1.Rank;
 
@@ -103,9 +104,14 @@ import edited from '../../assets/images/Edit-Icon.png';
             </button>
           </div>
           <Form>
-            <Form.Group controlId="formBasicEmail" className="mb-20">
+            <Form.Group controlId="formBasicEmail" className=" flexColumn mb-20">
               <Form.Label>Website Name</Form.Label>
-              <Form.Control placeholder="Eg. GeeksforGeeks, CodeChef" type="text" defaultValue={portal} onChange={(e) => portal = (e.target.value)} readOnly />
+              <select defaultValue={portal} onChange={(e) => portal = (e.target.value)}>
+                <option value="Eg. GeeksforGeeks, CodeChef" disabled>Eg. GeeksforGeeks, CodeChef</option>
+                {data.map(platform => (
+                  <option value={platform}>{platform}</option>
+                ))}
+              </select>
             </Form.Group>
   
             <Form.Group controlId="formBasicPassword" className="mb-20">
