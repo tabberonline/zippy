@@ -10,25 +10,34 @@ import FeaturesList from '../../assets/Datafiles/FeaturesList';
 import FeatureCard from '../../components/FeatureCard/FeatureCard';
 import AchievementsList from '../../assets/Datafiles/AchievementsList';
 import AchievementCard from '../../components/AchievementCard/AchievementCard';
-import QnA from '../../assets/Datafiles/QnA';
 import FAQCard from '../../components/FAQCard/FAQCard';
 import Footer from '../../components/Footer/Footer';
 import 'react-toastify/dist/ReactToastify.css';
 import PortfolioModal from '../../components/modals/PortfolioModal';
 import { Animated } from 'react-animated-css';
 import Axios from 'axios';
-import { getItem, setItem } from '../../utility/localStorageControl';
+import users from '../../assets/images/users.png';
+import links from '../../assets/images/links.png';
+import review from '../../assets/images/Review.png';
+import onpoint from '../../assets/images/OnPoint.png';
+import modify from '../../assets/images/Modifiable.png';
+import nolimit from '../../assets/images/NoLimit.png';
+import projects from '../../assets/images/Projects.png';
+import achievements from '../../assets/images/Achievements.png';
+
 const API_ENDPOINT = 'https://whispering-eyrie-04211.herokuapp.com';
 
 function HomeScreen() {
-  var QnA = [];
+  const [QnA, setQnA] = useState([]);
+  const [Achievements, setAments] = useState([]);
   useEffect(() => {
-    Axios.get(`${API_ENDPOINT}/fe/get?page_type=homepage&key=qna`)
+    Axios.get(`${API_ENDPOINT}/fe/get?page_type=Home&key=QnA`)
       .then(resp => {
-        QnA = resp.data.value;
-        [QnA].map(ques => (
-          console.log(ques.ans)
-        ))
+        setQnA(resp.data.value)
+      })
+    Axios.get(`${API_ENDPOINT}/fe/get?page_type=Home&key=Achievements`)
+      .then(resp => {
+        setAments(resp.data.value)
       })
   }, [QnA])
   return (
@@ -80,8 +89,8 @@ function HomeScreen() {
         <div className="mw1100 pl-40 flexColumn">
           <h1 className="achievements-heading">Achievements we have made, so far</h1>
           <div className="flexRow flexCenter" style={{flexWrap: 'wrap'}}>
-              {AchievementsList.map(achievement => (
-                  <AchievementCard key={achievement.sr} name={achievement.name} desc={achievement.desc} image={achievement.image} />
+              {Achievements.map(achievement => (
+                  <AchievementCard key={achievement.sr} name={achievement.name} desc={achievement.desc} image={achievement.sr === 1 ? users : links} />
               ))}
           </div>
         </div>
