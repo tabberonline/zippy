@@ -27,20 +27,6 @@ function PortfolioScreen() {
   const [rankWidgets, setrankwidgets] = useState(getItem('rankWidgets'));
   const [contestWidgets, setcontestwidgets] = useState(getItem('contestWidgets'));
   const [projectWidgets, setprojectwidgets] = useState(getItem('projectWidgets'));
-  
-    // const renderData = () => {
-    //   AdminService.getUserData()
-    //     .then(resp => {
-    //       setprojectwidgets(resp.data.personal_projects);
-    //       setrankwidgets(resp.data.rank_widgets);
-    //       setcontestwidgets(resp.data.contest_widgets);
-    //     })
-    //     .catch(err => console.log(err));
-    //   }
-
-    //   if(getItem('rankWidgets') !== rankWidgets || getItem('contestWidgets') !== contestWidgets || getItem('projectWidgets')!== projectWidgets ){
-    //     renderData();
-    //   }
 
   const Edit1 = () => {
     console.log('edittable1')
