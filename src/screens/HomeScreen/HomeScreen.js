@@ -32,17 +32,6 @@ function HomeScreen() {
                     Improve your chances of getting hired, just Tab it for 
                     <span style={{color: 'rgba(0,229,216,1)'}}> FREE</span>
                 </h1>
-                <ToastContainer
-                  position="top-center"
-                  autoClose={3000}
-                  hideProgressBar={true}
-                  newestOnTop={false}
-                  closeOnClick
-                  rtl={false}
-                  pauseOnFocusLoss
-                  draggable
-                  pauseOnHover
-                />
                 <PortfolioModal home={true} />
             </div>
           </div>
