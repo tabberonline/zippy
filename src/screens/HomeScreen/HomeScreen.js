@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import '../../styles/HelperStyles.css';
 import './HomeScreen.css';
 import Header from '../../components/Header/Header';
@@ -13,13 +13,24 @@ import AchievementCard from '../../components/AchievementCard/AchievementCard';
 import QnA from '../../assets/Datafiles/QnA';
 import FAQCard from '../../components/FAQCard/FAQCard';
 import Footer from '../../components/Footer/Footer';
-import { setItem, getItem } from '../../utility/localStorageControl';
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PortfolioModal from '../../components/modals/PortfolioModal';
 import { Animated } from 'react-animated-css';
+import Axios from 'axios';
+import { getItem, setItem } from '../../utility/localStorageControl';
+const API_ENDPOINT = 'https://whispering-eyrie-04211.herokuapp.com';
 
 function HomeScreen() {
+  var QnA = [];
+  useEffect(() => {
+    Axios.get(`${API_ENDPOINT}/fe/get?page_type=homepage&key=qna`)
+      .then(resp => {
+        QnA = resp.data.value;
+        [QnA].map(ques => (
+          console.log(ques.ans)
+        ))
+      })
+  }, [QnA])
   return (
     <div className="#home-screen">
       <Header />
