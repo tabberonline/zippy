@@ -6,9 +6,7 @@ import Header from '../../components/Header/Header';
 import introimg from '../../assets/images/handshake-colour.png';
 import whytabber from '../../assets/images/drawkit-content-man-colour.png'
 import {BiCheckCircle} from 'react-icons/bi';
-import FeaturesList from '../../assets/Datafiles/FeaturesList';
 import FeatureCard from '../../components/FeatureCard/FeatureCard';
-import AchievementsList from '../../assets/Datafiles/AchievementsList';
 import AchievementCard from '../../components/AchievementCard/AchievementCard';
 import FAQCard from '../../components/FAQCard/FAQCard';
 import Footer from '../../components/Footer/Footer';
