@@ -24,7 +24,6 @@ import modify from '../../assets/images/Modifiable.png';
 import nolimit from '../../assets/images/NoLimit.png';
 import projects from '../../assets/images/Projects.png';
 import achievements from '../../assets/images/Achievements.png';
-
 const API_ENDPOINT = 'https://whispering-eyrie-04211.herokuapp.com';
 
 function HomeScreen() {
