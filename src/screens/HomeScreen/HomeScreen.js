@@ -29,6 +29,7 @@ const API_ENDPOINT = 'https://whispering-eyrie-04211.herokuapp.com';
 function HomeScreen() {
   const [QnA, setQnA] = useState([]);
   const [Achievements, setAments] = useState([]);
+  const [Features, setFeatures] = useState([]);
   useEffect(() => {
     Axios.get(`${API_ENDPOINT}/fe/get?page_type=Home&key=QnA`)
       .then(resp => {
@@ -37,6 +38,10 @@ function HomeScreen() {
     Axios.get(`${API_ENDPOINT}/fe/get?page_type=Home&key=Achievements`)
       .then(resp => {
         setAments(resp.data.value)
+      })
+    Axios.get(`${API_ENDPOINT}/fe/get?page_type=Home&key=Features`)
+      .then(resp => {
+        setFeatures(resp.data.value)
       })
   }, [QnA])
   return (
@@ -76,8 +81,14 @@ function HomeScreen() {
         <div className="mw1100 pl-40 flexColumn">
           <h1 className="tabberfeatures-heading">What we got you</h1>
           <div className="flexRow flexBetween" style={{flexWrap: 'wrap'}}>
-              {FeaturesList.map(feature => (
-                  <FeatureCard key={feature.sr} name={feature.name} desc={feature.desc} img={feature.img} />
+              {Features.map(feature => (
+                  <FeatureCard key={feature.sr} name={feature.name} desc={feature.desc} 
+                    img={feature.sr === 1 ? review :
+                      feature.sr === 2 ? onpoint : 
+                      feature.sr === 3 ? modify : 
+                      feature.sr === 4 ? nolimit :
+                      feature.sr === 5 ? projects : achievements} 
+                  />
               ))}
           </div>
         </div>
