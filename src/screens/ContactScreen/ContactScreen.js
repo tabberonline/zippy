@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
 import '../../styles/HelperStyles.css';
 import './ContactScreen.css';
@@ -15,7 +14,6 @@ function ContactScreen() {
     const [name, setName] = useState('');
     const [subject, setSubject] = useState('');
     const [message, setMessage] = useState('');
-    const [clear, setclear] = useState(true);
 
     const SendMail = async () => {
         if(name.length > 0 && subject.length > 0 && message.length > 0){
@@ -34,6 +32,7 @@ function ContactScreen() {
                         draggable: true,
                         progress: undefined,
                     });
+                    window.open('/contact', '_self')
                 })
                 .catch(err => {
                     toast.error('Invalid entries!', {
@@ -57,8 +56,8 @@ function ContactScreen() {
                 progress: undefined,
               });
         }
-    }
 
+    }
   return (
     <div className="contact-screen">
         <Header1 />
@@ -87,17 +86,17 @@ function ContactScreen() {
                         <Form style={{width: '60%'}}>
                             <Form.Group controlId="formBasicEmail" className="mb-20">
                                 <Form.Label>Name*</Form.Label>
-                                <Form.Control type="name" defaultValue={clear ? null : name} onChange={(e) => setName(e.target.value)} />
+                                <Form.Control type="name" defaultValue={name} onChange={(e) => setName(e.target.value)} />
                             </Form.Group>
 
                             <Form.Group controlId="formBasicPassword2" className="mb-20">
                                 <Form.Label>Subject*</Form.Label>
-                                <Form.Control type="text" defaultValue={clear ? null : subject} onChange={(e) => setSubject(e.target.value)} />
+                                <Form.Control type="text" defaultValue={subject} onChange={(e) => setSubject(e.target.value)} />
                             </Form.Group>
 
                             <Form.Group controlId="formBasicPassword3">
                                 <Form.Label>Message*</Form.Label>
-                                <Form.Control as="textarea" rows={5} defaultValue={clear ? null : message} onChange={(e) => setMessage(e.target.value)} />
+                                <Form.Control as="textarea" rows={5} defaultValue={message} onChange={(e) => setMessage(e.target.value)} />
                             </Form.Group>
 
                             <div className="share" onClick={() => SendMail()} style={{cursor: 'pointer', justifyContent: 'flex-start', paddingLeft: 0, paddingTop: 30}}>
