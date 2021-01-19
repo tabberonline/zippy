@@ -19,7 +19,7 @@ function ContactScreen() {
         if(name.length > 0 && subject.length > 0 && message.length > 0){
             const mailContent = {
                 'subject': subject,
-                'message': message
+                'text': message
             }
             AdminService.sendMail(mailContent)
                 .then(resp => {
