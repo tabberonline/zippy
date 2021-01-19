@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import './App.css';
 import HomeScreen from './screens/HomeScreen/HomeScreen';
 import {setItem, getItem} from './utility/localStorageControl';
 
