@@ -8,7 +8,7 @@ function Header(){
     return (
         <header className="header">
             <Navbar sticky="top" expand="lg" className="flexRow flexAlignCenter navbar">
-                <Navbar.Brand href="/home">
+                <Navbar.Brand className="flexColumn flexAlignCenter" href="/home">
                     <img src={splashlogo} width="150" height="30" className="d-inline-block mr-80" alt="logo" />
                 </Navbar.Brand>
                 <div className="w100 flexRow flexAlignCenter flexBetween">
