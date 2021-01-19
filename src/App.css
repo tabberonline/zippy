@@ -1,7 +1,15 @@
 /* Header */
-@media (min-width: 768px) and (max-width: 992px){
+@media (min-width: 992px){
+    .header .navbar-nav .nav-link{
+        font-size: 1.25rem !important;
+    }
     .header .w100{
-        width: auto !important;
+        width: 100% !important;
+    }
+}
+@media (min-width: 768px) and (max-width: 991px){
+    .header .w100{
+        width: 70% !important;
     }
     .header .navbar-brand{
         margin-right: 0;
@@ -9,9 +17,100 @@
     .header .mr-80{
         margin-right: 20px;
     }
+    .header .navbar-nav .nav-link{
+        font-size: 1rem !important;
+    }
+}
+@media (min-width: 690px) and (max-width: 768px){    
+    .navbar-expand-lg .navbar-nav .nav-link {
+        padding-left: 0.75rem !important;
+        padding-right: 0.75rem !important;
+    }
 }
 @media (min-width: 600px) and (max-width: 768px){
-    
+    .header .navbar-brand{
+        margin-right: 0;
+    }
+    .header .mr-80{
+        margin-right: 20px;
+    }
+    .header .navbar-nav .nav-link{
+        font-size: 1rem !important;
+    }
+    .header .w100{
+        width: 70% !important;
+    }
+    .header .navbar-brand img{
+        height: 20px !important;
+        width: 100px !important;
+    }
+    .header button{
+        height: 40px !important;
+        width: 160px !important;
+    }
+    .header .google-button{
+        font-size: 11px !important;
+        font-weight: 400;
+    }
+}
+@media (min-width: 600px) and (max-width: 690px){    
+    .navbar-expand-lg .navbar-nav .nav-link {
+        padding-left: 0.6rem !important;
+        padding-right: 0.6rem !important;
+    }
+}
+@media (min-width: 480px) and (max-width: 600px){
+    .header .navbar-brand{
+        margin-right: 0;
+    }
+    .header .mr-80{
+        margin-right: 20px;
+    }
+    .header .navbar-nav{
+        display: none !important;
+    }
+    .header .navbar-brand img{
+        height: 20px !important;
+        width: 100px !important;
+    }
+    .header button{
+        height: 40px !important;
+        width: 160px !important;
+    }
+    .header .google-button{
+        font-size: 11px !important;
+        font-weight: 400;
+        margin-left: auto !important;
+    }
+    .header .w100{
+        width: auto !important;
+    }
+}
+@media (max-width: 480px){
+    .header .navbar-brand{
+        margin-right: 0;
+    }
+    .header .mr-80{
+        margin-right: 20px;
+    }
+    .header .navbar-nav{
+        display: none !important;
+    }
+    .header .navbar-brand img{
+        height: 20px !important;
+        width: 100px !important;
+    }
+    .header button{
+        height: 40px !important;
+        width: 160px !important;
+    }
+    .header .google-button{
+        font-size: 11px !important;
+        font-weight: 400;
+    }
+    .header .w100{
+        width: auto !important;
+    }
 }
 
 
