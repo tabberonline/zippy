@@ -28,6 +28,7 @@ function HomeScreen() {
   const [QnA, setQnA] = useState([]);
   const [Achievements, setAments] = useState([]);
   const [Features, setFeatures] = useState([]);
+
   useEffect(() => {
     Axios.get(`${API_ENDPOINT}/fe/get?page_type=Home&key=QnA`)
       .then(resp => {
@@ -41,7 +42,8 @@ function HomeScreen() {
       .then(resp => {
         setFeatures(resp.data.value)
       })
-  }, [QnA])
+  }, [QnA, Achievements, Features]);
+  
   return (
     <div className="#home-screen">
       <Header />
