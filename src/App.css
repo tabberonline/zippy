@@ -115,16 +115,151 @@
 
 /* HomeScreen */
 @media only screen and (max-width: 480px) {
-
+    #intro-section img, #why-tabber img{
+        width: 40% !important;
+    }
+    #why-tabber .whytabber-heading, .tabberfeatures-heading, .achievements-heading, .tabberfeatures-heading{
+        font: 18px 'Poppins', sans-serif !important;
+        font-weight: 600 !important;
+    }
+    #intro-section .mw1100, #why-tabber .mw1100, #tabberfeatures .mw1100, #achievements .mw1100, #faq .mw1100 {
+        max-width: 90% !important;
+        margin: 0 auto;
+    }
+    .mw600 {
+        max-width: 50% !important;
+    }
+    #why-tabber .whytabber-text, .whytabber-point {
+        font: 11px 'Poppins', sans-serif !important;
+        font-weight: 400;
+    }
+    #intro-section .intro-text {
+        font: 24px 'Gilroy', sans-serif !important;
+        font-weight: 700 !important;
+    }
+    #intro-section .intro-button {
+        width: 90% !important;
+    }
+    #tabberfeatures .pl-40, #achievements .pl-40{
+        padding-left: 0 !important;
+    }
+    #faq .ph-40{
+        padding: 0 0 !important;
+    }
+    #intro-section .intro-button{
+        font-size: 14px !important;
+    }
+    #why-tabber .whytabber-features {
+        font: 16px 'Poppins', sans-serif !important;
+    }
 }
-@media only screen and (min-width: 480px) {
-
+@media (min-width: 480px) and (max-width: 599px) {
+    #intro-section img, #why-tabber img{
+        width: 40% !important;
+    }
+    #why-tabber .whytabber-heading, .tabberfeatures-heading, .achievements-heading, .tabberfeatures-heading{
+        font: 22px 'Poppins', sans-serif !important;
+        font-weight: 600 !important;
+    }
+    #intro-section .mw1100, #why-tabber .mw1100, #tabberfeatures .mw1100, #achievements .mw1100, #faq .mw1100 {
+        max-width: 90% !important;
+        margin: 0 auto;
+    }
+    .mw600 {
+        max-width: 50% !important;
+    }
+    #why-tabber .whytabber-text, .whytabber-point {
+        font: 12px 'Poppins', sans-serif !important;
+        font-weight: 400;
+    }
+    #intro-section .intro-text {
+        font: 28px 'Gilroy', sans-serif !important;
+        font-weight: 700 !important;
+    }
+    #intro-section .intro-button {
+        width: 80% !important;
+    }
+    #tabberfeatures .pl-40, #achievements .pl-40{
+        padding-left: 0 !important;
+    }
+    #faq .ph-40{
+        padding: 0 0 !important;
+    }
+    #intro-section .intro-button{
+        font-size: 16px !important;
+    }
+    #why-tabber .whytabber-features {
+        font: 18px 'Poppins', sans-serif !important;
+    }
 }
-@media only screen and (min-width: 600px) {
-
+@media (min-width: 600px) and (max-width: 767px) {
+    #intro-section img, #why-tabber img{
+        width: 45% !important;
+    }
+    #why-tabber .whytabber-heading, .tabberfeatures-heading, .achievements-heading, .tabberfeatures-heading{
+        font: 30px 'Poppins', sans-serif !important;
+        font-weight: 600 !important;
+    }
+    #intro-section .mw1100, #why-tabber .mw1100, #tabberfeatures .mw1100, #achievements .mw1100, #faq .mw1100 {
+        max-width: 90% !important;
+        margin: 0 auto;
+    }
+    .mw600 {
+        max-width: 43% !important;
+    }
+    #why-tabber .whytabber-text, .whytabber-point {
+        font: 14px 'Poppins', sans-serif !important;
+        font-weight: 400;
+    }
+    #intro-section .intro-text {
+        font: 36px 'Gilroy', sans-serif !important;
+        font-weight: 700 !important;
+    }
+    #intro-section .intro-button {
+        width: 80% !important;
+    }
+    #tabberfeatures .pl-40, #achievements .pl-40{
+        padding-left: 0 !important;
+    }
+    #faq .ph-40{
+        padding: 0 0 !important;
+    }
+    #intro-section .intro-button{
+        font-size: 18px !important;
+    }
 }
-@media only screen and (min-width: 768px) {
-    
+@media (min-width: 768px) and (max-width: 991px) {
+    #intro-section img, #why-tabber img{
+        width: 45% !important;
+    }
+    #why-tabber .whytabber-heading, .tabberfeatures-heading, .achievements-heading, .tabberfeatures-heading{
+        font: 36px 'Poppins', sans-serif !important;
+        font-weight: 600 !important;
+    }
+    #intro-section .mw1100, #why-tabber .mw1100, #tabberfeatures .mw1100, #achievements .mw1100, #faq .mw1100 {
+        max-width: 90% !important;
+        margin: 0 auto;
+    }
+    .mw600 {
+        max-width: 43% !important;
+    }
+    #why-tabber .whytabber-text, .whytabber-point {
+        font: 18px 'Poppins', sans-serif !important;
+        font-weight: 400;
+    }
+    #intro-section .intro-text {
+        font: 40px 'Gilroy', sans-serif !important;
+        font-weight: 700 !important;
+    }
+    #intro-section .intro-button {
+        width: 60% !important;
+    }
+    #tabberfeatures .pl-40, #achievements .pl-40{
+        padding-left: 0 !important;
+    }
+    #faq .ph-40{
+        padding: 0 0 !important;
+    }
 }
 @media (min-width: 992px) and (max-width: 1199px) {
     #intro-section .mw1100, #why-tabber .mw1100, #tabberfeatures .mw1100, #achievements .mw1100, #faq .mw1100 {
@@ -163,3 +298,15 @@
         width: 80% !important;
     }
 }
+@media (min-width: 768px) and (max-width: 910px){
+    #why-tabber .whytabber-heading, .tabberfeatures-heading, .achievements-heading, .tabberfeatures-heading{
+        font: 34px 'Poppins', sans-serif !important;
+        font-weight: 600 !important;
+    }
+    #why-tabber .whytabber-text, .whytabber-point {
+        font: 16px 'Poppins', sans-serif !important;
+        font-weight: 400;
+    }
+}
+
+/* Footer */
