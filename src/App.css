@@ -1,5 +1,25 @@
+/* Header */
+@media (min-width: 768px) and (max-width: 992px){
+    .header .w100{
+        width: auto !important;
+    }
+    .header .navbar-brand{
+        margin-right: 0;
+    }
+    .header .mr-80{
+        margin-right: 20px;
+    }
+}
+@media (min-width: 600px) and (max-width: 768px){
+    
+}
+
+
 @media (min-width: 992px) and (max-width: 1100px){
     .intro-section .intro-text{
         
     }
+}
+@media (min-width: 768px) and (max-width: 992px){
+    
 }
