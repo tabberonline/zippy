@@ -22,6 +22,7 @@ import modify from '../../assets/images/Modifiable.png';
 import nolimit from '../../assets/images/NoLimit.png';
 import projects from '../../assets/images/Projects.png';
 import achievements from '../../assets/images/Achievements.png';
+import {setItem, getItem} from '../../utility/localStorageControl'
 const API_ENDPOINT = 'https://whispering-eyrie-04211.herokuapp.com';
 
 function HomeScreen() {
@@ -30,18 +31,22 @@ function HomeScreen() {
   const [Features, setFeatures] = useState([]);
 
   useEffect(() => {
-    Axios.get(`${API_ENDPOINT}/fe/get?page_type=Home&key=QnA`)
-      .then(resp => {
-        setQnA(resp.data.value)
-      })
-    Axios.get(`${API_ENDPOINT}/fe/get?page_type=Home&key=Achievements`)
-      .then(resp => {
-        setAments(resp.data.value)
-      })
-    Axios.get(`${API_ENDPOINT}/fe/get?page_type=Home&key=Features`)
-      .then(resp => {
-        setFeatures(resp.data.value)
-      })
+    const getData = async () =>{
+      Axios.get(`${API_ENDPOINT}/fe/get?page_type=Home&key=QnA`)
+        .then(resp => {
+          setQnA(resp.data.value);
+        })
+      Axios.get(`${API_ENDPOINT}/fe/get?page_type=Home&key=Achievements`)
+        .then(resp => {
+          setAments(resp.data.value)
+        })
+      Axios.get(`${API_ENDPOINT}/fe/get?page_type=Home&key=Features`)
+        .then(resp => {
+          setFeatures(resp.data.value)
+        })
+    }
+
+    getData();
   }, [QnA, Achievements, Features]);
   
   return (
