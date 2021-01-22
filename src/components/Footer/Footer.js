@@ -9,8 +9,8 @@ function Footer(){
                 <div className="flexRow flexBetween ">
                     <a href="/about" className="grow2 footer-links">About</a>
                     <a href="/contact" className="grow2 footer-links mh-40">Contact</a>
-                    <a href="/" className="grow2 footer-links mr-40">T&C</a>
-                    <a href="/" className="grow2 footer-links">Privacy Policy</a>
+                    <a href="/terms" className="grow2 footer-links mr-40">T&C</a>
+                    <a href="/policy" className="grow2 footer-links">Privacy Policy</a>
                 </div>
             </div>
         </footer>
