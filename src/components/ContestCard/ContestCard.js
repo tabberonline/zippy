@@ -177,7 +177,7 @@ export default function ContestCard({name, rank, id, logo, contest, card_id, hid
                     ) : null
                 }
             </div>
-            <p className="profile-name pl-20 mb-10"> {name === "" ? "Company Name" : name}</p>
+            <p className="profile-head mb-10"> {name === "" ? "Company Name" : name}</p>
             <div className="flexRow flexBetween conv"> 
                 <p className="profile-name ph-20 mb-10"><span className="profile-heading">ID:</span> {id === "" ?  "Id here" : id }</p>
                 <p className="profile-name ph-20 mb-10"><span className="profile-heading">Rank:</span> {rank === "" ?  "?" : rank  }</p>

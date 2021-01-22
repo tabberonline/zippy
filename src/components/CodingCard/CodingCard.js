@@ -176,7 +176,7 @@ export default function CodingCard({name, rank, id, logo, hide}){
                         ) : null
                     }
                 </div>
-                <p className="profile-name pl-20 mb-10"> {name === "" ? "Company Name" : name}</p>
+                <p className="profile-head mb-10"> {name === "" ? "Company Name" : name}</p>
                 <p className="profile-name ph-20 mb-10"><span className="profile-heading">ID:</span> {id === "" ?  "Id here" : id }</p>
                 <p className="profile-name ph-20 mb-10"><span className="profile-heading">Rank:</span> {rank === "" ?  "?" : rank  }</p>
             </div>

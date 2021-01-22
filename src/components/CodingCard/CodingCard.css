@@ -18,6 +18,10 @@
     font-weight: 600;
     color: #3D3D3D;
 }
+.profile-head{
+    font: 26px 'Poppins', sans-serif;
+    font-weight: 400;
+}
 .profile-name{
     font: 20px 'Poppins', sans-serif;
     font-weight: 400;

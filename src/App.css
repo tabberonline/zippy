@@ -680,6 +680,9 @@
     .add-card button svg, .add-card1 button svg{
         font-size: 40px !important;
     }
+    .profile-head{
+        font-size: 16px !important;
+    }
 }
 @media (min-width: 480px) and (max-width: 599px){
     .portfolio-section {
@@ -799,23 +802,377 @@
     }
     .add-card button svg, .add-card1 button svg{
         font-size: 60px !important;
+    }    
+    .profile-head{
+        font-size: 18px !important;
     }
 }
 @media (min-width: 600px) and (max-width: 767px){
-    .portfolio-section .title{
-        font: 40px 'Poppins', sans-serif !important;
+    .portfolio-section {
+        margin: 0 10px 30px 10px;
+        padding: 20px !important;
+    }
+    .share{
+        padding: 20px !important
+    }
+    .info-sec{
+        margin: 15px 0 !important;
+    }
+    .share .share-button {
+        padding: 5px 20px !important;
+        font: 14px 'Poppins', sans-serif !important;
         font-weight: 500 !important;
     }
+    .portfolio-section .title{
+        font: 24px 'Poppins', sans-serif !important;
+        font-weight: 500 !important;
+    }
+    .portfolio-section .name {
+        font: 18px 'Poppins', sans-serif !important;
+        font-weight: 400 !important;
+        padding-left: 10px !important;
+    }
+    .portfolio-section .desc{
+        font: 18px 'Poppins', sans-serif !important;
+        font-weight: 400 !important;
+        padding: 10px !important;
+        height: 70px !important;
+    }
+    .iconcontainer1, .iconcontainer{
+        height: 28px !important;
+        width: 28px !important;
+    }
+    .portfolio-icon{
+        font-size: 18px !important;
+    }
     .portfolio-section .add-card{
-        width: 40% !important;
+        margin: 15px !important;
+        width: 45% !important;
+        height: 180px !important;
+    }
+    .portfolio-section .add-card1{
+        margin: 15px !important;
+        width: 45% !important;
+        height: 200px !important;
+    }
+    .portfolio-section .card-heading{
+        font: 24px 'Poppins', sans-serif !important;
+        font-weight: 500 !important;
+        margin-bottom: 5px !important;
+    }
+    .end-text{
+        font: 18px 'Poppins', sans-serif !important;
+        font-weight: 500 !important;
+    } 
+    .end-section{
+        padding: 0 !important;
+    }
+    .profile-card{
+        width: 45% !important;
+        padding-bottom: 10px !important;
+        margin: 15px !important;
+    }
+    .logo{
+        height: 30px !important;
+        width: 108px !important;
+        margin-bottom: 20px !important;
+    }
+    .profile-heading{
+        font: 18px 'Poppins', sans-serif !important;
+        font-weight: 600 !important;
+        padding: 0 !important;
+        margin-bottom: 5px !important;
+    }
+    .profile-name{
+        font: 16px 'Poppins', sans-serif !important;
+        font-weight: 400 !important;
+        padding: 0 !important;
+        margin-bottom: 5px !important;
+    }
+    .project-card{
+        width: 45% !important;
+        height: 180px !important;
+        margin: 15px !important;
+    }
+    .achievement-card{
+        width: 45% !important;
+        padding-bottom: 10px !important;
+        margin: 15px !important;
+    }
+    .project-textbox{
+        height: 80px !important;
+    }
+    .project-name{
+        font: 20px 'Poppins', sans-serif !important;
+        font-weight: 700 !important;
+    }
+    .profile-head{
+        font-size: 20px !important;
+    }
+    /* .conv{
+        display: flex !important;
+        flex-direction: column !important;
+    } */
+    .delete-icon, .edit-icon, .hide-icon{
+        height: 28px !important;
+        width: 28px !important;
+    }
+    .modal-head{
+        font-size: 32px !important;
+    }
+    .modal .form-group .form-label {
+        font: 20px 'Poppins', sans-serif !important;
+    }
+    .modal .form-group input, .modal .form-group select, option {
+        font: 20px 'Poppins', sans-serif !important;
+    }
+    .add-card button svg, .add-card1 button svg{
+        font-size: 70px !important;
     }
 }
 @media (min-width: 768px) and (max-width: 991px){
-    .portfolio-section .title{
-        font: 40px 'Poppins', sans-serif !important;
+    .portfolio-section {
+        margin: 0 10px 30px 10px;
+        padding: 20px !important;
+    }
+    .share{
+        padding: 20px !important
+    }
+    .info-sec{
+        margin: 15px 0 !important;
+    }
+    .share .share-button {
+        padding: 7px 24px !important;
+        font: 16px 'Poppins', sans-serif !important;
         font-weight: 500 !important;
     }
-    .portfolio-section .add-card{
-        width: 40% !important;
+    .portfolio-section .title{
+        font: 28px 'Poppins', sans-serif !important;
+        font-weight: 500 !important;
     }
+    .portfolio-section .name {
+        font: 20px 'Poppins', sans-serif !important;
+        font-weight: 400 !important;
+        padding-left: 10px !important;
+    }
+    .portfolio-section .desc{
+        font: 22px 'Poppins', sans-serif !important;
+        font-weight: 400 !important;
+        padding: 20px !important;
+        height: 100px !important;
+    }
+    .iconcontainer1, .iconcontainer{
+        height: 30px !important;
+        width: 30px !important;
+    }
+    .portfolio-icon{
+        font-size: 20px !important;
+    }
+    .portfolio-section .add-card{
+        margin: 15px !important;
+        width: 45% !important;
+        height: 200px !important;
+    }
+    .portfolio-section .add-card1{
+        margin: 15px !important;
+        width: 45% !important;
+        height: 230px !important;
+    }
+    .portfolio-section .card-heading{
+        font: 26px 'Poppins', sans-serif !important;
+        font-weight: 500 !important;
+        margin-bottom: 5px !important;
+    }
+    .end-text{
+        font: 20px 'Poppins', sans-serif !important;
+        font-weight: 500 !important;
+    } 
+    .end-section{
+        padding: 0 !important;
+    }
+    .profile-card{
+        width: 45% !important;
+        padding-bottom: 10px !important;
+        margin: 15px !important;
+    }
+    .logo{
+        height: 40px !important;
+        width: 144px !important;
+        margin-bottom: 20px !important;
+    }
+    .profile-heading{
+        font: 20px 'Poppins', sans-serif !important;
+        font-weight: 600 !important;
+        padding: 0 !important;
+        margin-bottom: 5px !important;
+    }
+    .profile-name{
+        font: 18px 'Poppins', sans-serif !important;
+        font-weight: 400 !important;
+        padding: 0 !important;
+        margin-bottom: 5px !important;
+    }
+    .project-card{
+        width: 45% !important;
+        height: 200px !important;
+        margin: 15px !important;
+    }
+    .achievement-card{
+        width: 45% !important;
+        padding-bottom: 10px !important;
+        margin: 15px !important;
+    }
+    .project-textbox{
+        height: 90px !important;
+    }
+    .project-name{
+        font: 20px 'Poppins', sans-serif !important;
+        font-weight: 700 !important;
+    }
+    .profile-head{
+        font-size: 20px !important;
+    }
+    /* .conv{
+        display: flex !important;
+        flex-direction: column !important;
+    } */
+    .delete-icon, .edit-icon, .hide-icon{
+        height: 30px !important;
+        width: 30px !important;
+    }
+    .modal-head{
+        font-size: 36px !important;
+    }
+    .modal .form-group .form-label {
+        font: 24px 'Poppins', sans-serif !important;
+    }
+    .modal .form-group input, .modal .form-group select, option {
+        font: 24px 'Poppins', sans-serif !important;
+    }
+    .add-card button svg, .add-card1 button svg{
+        font-size: 70px !important;
+    }
+}
+@media (min-width: 992px) and (max-width: 1100px){
+    .portfolio-section {
+        margin: 0 10px 30px 10px;
+        padding: 20px !important;
+    }
+    .share{
+        padding: 20px !important
+    }
+    .info-sec{
+        margin: 15px 0 !important;
+    }
+    .share .share-button {
+        padding: 7px 24px !important;
+        font: 20px 'Poppins', sans-serif !important;
+        font-weight: 500 !important;
+    }
+    .portfolio-section .title{
+        font: 28px 'Poppins', sans-serif !important;
+        font-weight: 500 !important;
+    }
+    .portfolio-section .name {
+        font: 20px 'Poppins', sans-serif !important;
+        font-weight: 400 !important;
+        padding-left: 10px !important;
+    }
+    .portfolio-section .desc{
+        font: 22px 'Poppins', sans-serif !important;
+        font-weight: 400 !important;
+        padding: 20px !important;
+        height: 100px !important;
+    }
+    .iconcontainer1, .iconcontainer{
+        height: 30px !important;
+        width: 30px !important;
+    }
+    .portfolio-icon{
+        font-size: 20px !important;
+    }
+    .portfolio-section .add-card{
+        margin: 15px !important;
+        width: 45% !important;
+        height: 200px !important;
+    }
+    .portfolio-section .add-card1{
+        margin: 15px !important;
+        width: 45% !important;
+        height: 230px !important;
+    }
+    .portfolio-section .card-heading{
+        font: 26px 'Poppins', sans-serif !important;
+        font-weight: 500 !important;
+        margin-bottom: 5px !important;
+    }
+    .end-text{
+        font: 20px 'Poppins', sans-serif !important;
+        font-weight: 500 !important;
+    } 
+    .end-section{
+        padding: 0 !important;
+    }
+    .profile-card{
+        width: 45% !important;
+        padding-bottom: 10px !important;
+        margin: 15px !important;
+    }
+    .logo{
+        height: 40px !important;
+        width: 144px !important;
+        margin-bottom: 20px !important;
+    }
+    .profile-heading{
+        font: 20px 'Poppins', sans-serif !important;
+        font-weight: 600 !important;
+        padding: 0 !important;
+        margin-bottom: 5px !important;
+    }
+    .profile-name{
+        font: 18px 'Poppins', sans-serif !important;
+        font-weight: 400 !important;
+        padding: 0 !important;
+        margin-bottom: 5px !important;
+    }
+    .project-card{
+        width: 45% !important;
+        height: 200px !important;
+        margin: 15px !important;
+    }
+    .achievement-card{
+        width: 45% !important;
+        padding-bottom: 10px !important;
+        margin: 15px !important;
+    }
+    .project-textbox{
+        height: 90px !important;
+    }
+    .project-name{
+        font: 20px 'Poppins', sans-serif !important;
+        font-weight: 700 !important;
+    }
+    .profile-head{
+        font-size: 20px !important;
+    }
+    /* .conv{
+        display: flex !important;
+        flex-direction: column !important;
+    } */
+    .delete-icon, .edit-icon, .hide-icon{
+        height: 30px !important;
+        width: 30px !important;
+    }
+    .modal-head{
+        font-size: 36px !important;
+    }
+    .modal .form-group .form-label {
+        font: 24px 'Poppins', sans-serif !important;
+    }
+    .modal .form-group input, .modal .form-group select, option {
+        font: 24px 'Poppins', sans-serif !important;
+    }
+    .add-card button svg, .add-card1 button svg{
+        font-size: 70px !important;
+    }    
 }
