@@ -11,6 +11,7 @@ import AdminService from '../../AdminServices/AdminService';
 
   export default function CodingProfileModal() {
     const [modalShow, setModalShow] = React.useState(false);
+    const [rankWidgets, setrankWidgets] = React.useState(getItem('rankWidgets'));
     var username = "";
     var rank = "";
     var portal = "Eg. GeeksforGeeks, CodeChef";
@@ -21,44 +22,13 @@ import AdminService from '../../AdminServices/AdminService';
     }
 
     const createRankWidget = async () => {
-      if(portal.length > 0 && username.length > 0 && rank.length > 0){
-        const rankWidgetData = {
-          'rank' : getItem('Codingrank'),
-          'website_id' : getItem('website_id'),
-          'username' : getItem('Codingusername'),
-        }
-        AdminService.createRankWidget(rankWidgetData)
-          .then(response => {
-            toast.success('Details Entered!', {
-              position: "top-center",
-              autoClose: 2000,
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            });
-            AdminService.getUserData()
-              .then(resp => {
-                setItem('rankWidgets', resp.data.rank_widgets);
-                window.open('/portfolio', '_self');
-                setModalShow(false);
-              })
-              .catch(err => console.log(err));
-          })
-          .catch(error => {
-            toast.error('Error, Enter correct details!', {
-              position: "top-center",
-              autoClose: 2000,
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            });
-          });
-      } else {
-        toast.error('Error, Fields cannot be empty!', {
+      var portalsArray = [];
+      rankWidgets.map(rank => (
+        portalsArray.push((rank.website_id))
+      ))
+      var exist = portalsArray.includes(getItem('website_id'));
+      if(exist){
+        toast.error('Error, Site already exists!', {
           position: "top-center",
           autoClose: 2000,
           hideProgressBar: true,
@@ -66,7 +36,55 @@ import AdminService from '../../AdminServices/AdminService';
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-        });
+        });setModalShow(false);
+      } else{
+        if(portal.length > 0 && username.length > 0 && rank.length > 0){
+          const rankWidgetData = {
+            'rank' : getItem('Codingrank'),
+            'website_id' : getItem('website_id'),
+            'username' : getItem('Codingusername'),
+          }
+          AdminService.createRankWidget(rankWidgetData)
+            .then(response => {
+              toast.success('Details Entered!', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+              AdminService.getUserData()
+                .then(resp => {
+                  setItem('rankWidgets', resp.data.rank_widgets);
+                  setModalShow(false);
+                  window.open('/portfolio', '_self');
+                })
+                .catch(err => console.log(err));
+            })
+            .catch(error => {
+              toast.error('Error, Enter correct details!', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+            });
+        } else {
+          toast.error('Error, Fields cannot be empty!', {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        }
       }
     }
 
