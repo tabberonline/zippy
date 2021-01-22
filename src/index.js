@@ -11,6 +11,7 @@ import ContactScreen from './screens/ContactScreen/ContactScreen';
 import DisplayScreen from './screens/DisplayScreen/DisplayScreen';
 import { Provider } from 'react-redux';
 import PolicyScreen from './screens/PolicyScreen/PolicyScreen';
+import TermsScreen from './screens/TermsScreen/TermsScreen';
 // import { StateProvider } from './utility/StateProvider';
 // import reducer, { initialState } from './utility/reducer';
 import { createStore, applyMiddleware } from 'redux'
@@ -34,6 +35,7 @@ ReactDOM.render(
             <Route exact path="/about" component={AboutScreen} /> 
             <Route exact path="/contact" component={ContactScreen} />
             <Route exact path="/policy" component={PolicyScreen} />
+            <Route exact path="/terms" component={TermsScreen} />
         </Switch>            
       </Router>
     </Provider>

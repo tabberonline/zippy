@@ -1,11 +1,11 @@
 import React from 'react';
 import '../../styles/HelperStyles.css';
-import './PolicyScreen.css';
+import './TermsScreen.css';
 import Header1 from '../../components/Header/Header1';
 import Footer from '../../components/Footer/Footer';
 import { Animated } from 'react-animated-css';
 
-function PolicyScreen() {
+function TermsScreen() {
   return (
     <div className="policy-screen">
         <Header1 />
@@ -92,4 +92,4 @@ function PolicyScreen() {
   );
 }
 
-export default PolicyScreen;
+export default TermsScreen;
