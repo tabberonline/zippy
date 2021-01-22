@@ -310,3 +310,113 @@
 }
 
 /* Footer */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .footer{
+        padding: 80px 40px !important
+    }
+    .footer .mw1100{
+        max-width: 90% !important;
+    }
+    .footer-logo {
+        font: 36px 'Poppins', sans-serif !important;
+        font-weight: 700 !important;
+    }
+    .footer-links {
+        font: 16px 'Poppins', sans-serif !important;
+        font-weight: 400 !important;
+    }
+    .mh-40{
+        margin: 0 40px !important;
+    }
+    .mr-40{
+        margin-right: 40px !important;
+    }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+    .footer{
+        padding: 80px 20px !important
+    }
+    .footer .mw1100{
+        max-width: 90% !important;
+    }
+    .footer-logo {
+        font: 36px 'Poppins', sans-serif !important;
+        font-weight: 700 !important;
+    }
+    .footer-links {
+        font: 16px 'Poppins', sans-serif !important;
+        font-weight: 400 !important;
+    }
+    .mh-40{
+        margin: 0 30px !important;
+    }
+    .mr-40{
+        margin-right: 30px !important;
+    }
+}
+@media (min-width: 600px) and (max-width: 767px) {
+    .footer{
+        padding: 60px 0 !important
+    }
+    .footer .mw1100{
+        max-width: 90% !important;
+    }
+    .footer-logo {
+        font: 30px 'Poppins', sans-serif !important;
+        font-weight: 700 !important;
+    }
+    .footer-links {
+        font: 14px 'Poppins', sans-serif !important;
+        font-weight: 400 !important;
+    }
+    .mh-40{
+        margin: 0 20px !important;
+    }
+    .mr-40{
+        margin-right: 20px !important;
+    }
+}
+@media (min-width: 480px) and (max-width: 599px) {
+    .footer{
+        padding: 60px 0 !important
+    }
+    .footer .mw1100{
+        max-width: 90% !important;
+    }
+    .footer-logo {
+        font: 24px 'Poppins', sans-serif !important;
+        font-weight: 700 !important;
+    }
+    .footer-links {
+        font: 12px 'Poppins', sans-serif !important;
+        font-weight: 400 !important;
+    }
+    .mh-40{
+        margin: 0 15px !important;
+    }
+    .mr-40{
+        margin-right: 15px !important;
+    }
+}
+@media (max-width: 479px) {
+    .footer{
+        padding: 50px 0 !important
+    }
+    .footer .mw1100{
+        max-width: 90% !important;
+    }
+    .footer-logo {
+        font: 18px 'Poppins', sans-serif !important;
+        font-weight: 700 !important;
+    }
+    .footer-links {
+        font: 10px 'Poppins', sans-serif !important;
+        font-weight: 400 !important;
+    }
+    .mh-40{
+        margin: 0 7px !important;
+    }
+    .mr-40{
+        margin-right: 7px !important;
+    }
+}
