@@ -11,17 +11,17 @@ function AboutScreen() {
   return (
     <div className="about-screen">
         <Header1 />
-        <div id="intro-section">
+        <div id="about-section">
           <div className="mw1100 flexColumn">
             <Animated isVisible={true} animationIn="slideInUp">
-              <div className="flexColumn flexAlignCenter flexCenter mh-20" style={{backgroundColor: '#00e5d8', height: 300, borderRadius: 8}}>
-                  <img src={aboutimg} alt="" style={{width: '90%'}} />
+              <div className="flexColumn flexAlignCenter flexCenter mh-20 about-header">
+                  <img className="about-tabber" src={aboutimg} alt="" style={{width: '90%'}} />
               </div>
             </Animated>
             <Animated isVisible={true} animationIn="slideInUp">
               <div className="flexColumn about-section">
                   <h1 className="about-heading">How it all began</h1>
-                  <div className="flexRow flexAround flexAlignCenter dividerBottom pb-100">
+                  <div className="flexRow flexAround flexAlignCenter dividerBottom pb-100 main-about">
                       <div className="mw500 flexColumn mv-20">
                           <p className="about-text">
                               Lorem ipsum dolor sit amet,consectetur adipiscing elit.Dignissim sem dolor sit feugiat purus magnis. A nisi, tincidunt id quis et. Velit adipiscing a, scelerisque velit velit ipsum scelerisque augue at. <br />
