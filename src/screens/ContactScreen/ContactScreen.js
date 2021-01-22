@@ -61,10 +61,10 @@ function ContactScreen() {
   return (
     <div className="contact-screen">
         <Header1 />
-        <div id="intro-section">
+        <div id="contact-section">
           <div className="mw1100 flexColumn">
             <Animated isVisible={true} animationIn="slideInUp">
-                <div className="flexColumn flexAlignCenter flexCenter mh-20" style={{height: 300, borderRadius: 8}}>
+                <div className="flexColumn flexAlignCenter flexCenter mh-20 contact-header">
                     <img src={contactimg} alt="" style={{width: '90%'}} />
                 </div>
             </Animated>
@@ -83,7 +83,7 @@ function ContactScreen() {
                 <div className="flexColumn contact-section">
                     <h1 className="contact-heading">Have anything to ask?</h1>
                     <div className="flexColumn flexAround flexAlignCenter mv-40">
-                        <Form style={{width: '60%'}}>
+                        <Form style={{width: '75%'}}>
                             <Form.Group controlId="formBasicEmail" className="mb-20">
                                 <Form.Label>Name*</Form.Label>
                                 <Form.Control type="name" defaultValue={name} onChange={(e) => setName(e.target.value)} />
