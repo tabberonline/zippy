@@ -51,7 +51,7 @@ textarea{
     overflow: hidden;
     resize: none;
 }
-.portfolio-section .add-card{
+.portfolio-section .add-card, .portfolio-section .add-card1{
     background-color: white;
     width: 44%;
     padding: 20px;
