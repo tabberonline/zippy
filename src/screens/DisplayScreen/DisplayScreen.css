@@ -23,7 +23,7 @@
     font-weight: 400;
     border: none;
     height: 100px;
-    width: 650px;
+    max-width: 650px;
     padding: 10px 20px;
 }
 .display-section .card-heading{
@@ -35,3 +35,12 @@
     font-weight: 500;
     color: rgba(154,154,154,1);
 } 
+
+@media (max-width: 480px){
+    .mb-20{
+        margin-bottom: 5px !important;
+    }
+    .display-section .info-sec{
+        margin: 20px 0 0 0 !important
+    }
+}

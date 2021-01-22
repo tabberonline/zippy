@@ -44,7 +44,7 @@ function DisplayScreen() {
             <div className="flexColumn" key={user.user_id}>
               <p className="title">{user.portfolio.title}</p>
               <hr style={{color : '#717070', width: '80%', margin: 'auto', marginTop: 10}} />
-              <div className="flexColumn" style={{margin: 40, marginLeft: -20, marginBottom: 0}}>
+              <div className="flexColumn info-sec">
                 <p className="name mb-20 pl-20">Hello! I am <strong>{user.name}</strong></p>
                 <p className="desc">{user.portfolio.description}</p>
               </div>
@@ -95,7 +95,7 @@ function DisplayScreen() {
               }
             </div>
           ))}
-          <div className="flexRow flexCenter ph-20 flexAlignCenter mv-40">
+          <div className="flexRow end-section flexCenter ph-20 flexAlignCenter mv-40">
             <hr style={{width: '35%', color: 'rgba(154,154,154,1)'}} />
             <p className="end-text">Thats all folks</p>
             <hr style={{width: '35%', color: 'rgba(154,154,154,1)'}} />
