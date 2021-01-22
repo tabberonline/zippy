@@ -143,7 +143,7 @@ export default function ContestCard({name, rank, id, logo, contest, card_id, hid
                 )}
                 { bullets ? (
                     <div onClick={() => OptionDrawer()} className="flexRow option-drawer flexCenter flexAlignCenter iconcontainer">
-                        <BsThreeDotsVertical className="portfolio-icon" size="20" />                    
+                        <BsThreeDotsVertical className="portfolio-icon" />                    
                     </div>
                     ) : null 
                 }

@@ -99,4 +99,8 @@ input:focus, textarea:focus{
 }
 .portfolio-icon{
     color: rgba(170,170,170,1);
+    font-size: 20px;
+}
+.info-sec{
+    margin: 40px 0;
 }

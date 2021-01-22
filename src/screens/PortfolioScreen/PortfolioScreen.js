@@ -111,17 +111,17 @@ function PortfolioScreen() {
           <div className="flexColumn">
             <div className="flexRow flexCenter flexAlignCenter">
               <input type="text" autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" className="title" defaultValue={title} onBlur={(event) => updateTitle(event)} placeholder="Portfolio Title" readOnly />
-              <div className="flexRow flexCenter flexAlignCenter iconcontainer1">
-                <AiOutlineEdit className="portfolio-icon" size="20" onClick={()=>Edit1()} style={{cursor: 'pointer'}} />
+              <div className="flexRow flexCenter flexAlignCenter iconcontainer1" style={{left: -15, top: -15}}>
+                <AiOutlineEdit className="portfolio-icon" onClick={()=>Edit1()} style={{cursor: 'pointer'}} />
               </div>
             </div>
             <hr style={{color : '#717070', width: '80%', margin: 'auto', marginTop: 10}} />
-            <div className="flexColumn" style={{margin: 40, marginLeft: 0, marginBottom: 0}}>
+            <div className="flexColumn info-sec">
               <p className="name mb-20 pl-20">Hello! I am <strong>{name}</strong></p>
               <div className="flexRow">
                 <textarea autocomplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" rows="5" className="desc" defaultValue={desc} onBlur={(event) => updateDesc(event)} readOnly placeholder="Enter your College and profile description here" />
                 <div className="flexRow flexCenter flexAlignCenter iconcontainer1" style={{left: -15, top: -15}}>
-                  <AiOutlineEdit className="portfolio-icon" size="20" onClick={()=>Edit2()} style={{cursor: 'pointer'}} />
+                  <AiOutlineEdit className="portfolio-icon" onClick={()=>Edit2()} style={{cursor: 'pointer'}} />
                 </div>
               </div>
             </div>
@@ -177,7 +177,7 @@ function PortfolioScreen() {
               </div>
             </div>
           </div>
-          <div className="flexRow flexCenter ph-20 flexAlignCenter mv-40">
+          <div className="flexRow flexCenter end-section ph-20 flexAlignCenter mv-40">
             <hr style={{width: '35%', color: 'rgba(154,154,154,1)'}} />
             <p className="end-text">Thats all folks</p>
             <hr style={{width: '35%', color: 'rgba(154,154,154,1)'}} />

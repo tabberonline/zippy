@@ -142,7 +142,7 @@ export default function CodingCard({name, rank, id, logo, hide}){
                     )}
                     { bullets ? (
                         <div onClick={() => OptionDrawer()} className="flexRow option-drawer flexCenter flexAlignCenter iconcontainer">
-                            <BsThreeDotsVertical className="portfolio-icon" size="20" />                    
+                            <BsThreeDotsVertical className="portfolio-icon" />                    
                         </div>
                         ) : null 
                     }
