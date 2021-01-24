@@ -4,7 +4,7 @@ import '../../styles/HelperStyles.css'
 import { Form, Modal } from 'react-bootstrap';
 import {AiOutlineCloseCircle} from 'react-icons/ai';
 import { getItem, setItem } from '../../utility/localStorageControl';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
   
@@ -151,7 +151,7 @@ import AdminService from '../../AdminServices/AdminService';
                   progress: undefined,
                 });
               }
-            }} className="grow1 flexAlignCenter intro-button"
+            }} className="flexAlignCenter intro-button"
           >
             Get Started
           </a>
