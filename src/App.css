@@ -1181,3 +1181,12 @@
 }
 
 /* DISPLAY SCREEN */
+@media(max-width: 480px){
+    .mobile-column{
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    .cardw100{
+        width: 100% !important;
+    }
+}

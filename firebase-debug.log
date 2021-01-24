@@ -1,0 +1,43 @@
+[debug] [2021-01-24T15:56:27.278Z] ----------------------------------------------------------------------
+[debug] [2021-01-24T15:56:27.280Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\hp\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2021-01-24T15:56:27.280Z] CLI Version:   9.1.0
+[debug] [2021-01-24T15:56:27.280Z] Platform:      win32
+[debug] [2021-01-24T15:56:27.280Z] Node Version:  v14.12.0
+[debug] [2021-01-24T15:56:27.281Z] Time:          Sun Jan 24 2021 21:26:27 GMT+0530 (India Standard Time)
+[debug] [2021-01-24T15:56:27.282Z] ----------------------------------------------------------------------
+[debug] [2021-01-24T15:56:27.282Z] 
+[debug] [2021-01-24T15:56:27.287Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-01-24T15:56:27.287Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  F:\Github\zippy1
+
+Before we get started, keep in mind:
+
+  * You are initializing in an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  .firebaserc already has a default project, using tabber7-d6029. 
+[debug] [2021-01-24T15:56:31.483Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/tabber7-d6029  
+ 
+[debug] [2021-01-24T15:56:32.131Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 27 Jan 2021 15:56:41 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] 
+=== Hosting Setup
+[info] 
+[info] Your public directory is the folder (relative to your project directory) that
+[info] will contain Hosting assets to be uploaded with firebase deploy. If you
+[info] have a build process for your assets, use your build's output directory.
+[info] 
