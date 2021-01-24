@@ -75,17 +75,6 @@ const GoogleBtn = () => {
       { isLogin ?(
         <>
           <PortfolioModal home={false} />
-          <ToastContainer
-            position="top-center"
-            autoClose={3000}
-            hideProgressBar={true}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-          />
         </>
         )
         : 
