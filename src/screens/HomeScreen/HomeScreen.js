@@ -30,24 +30,24 @@ function HomeScreen() {
   const [Achievements, setAments] = useState([]);
   const [Features, setFeatures] = useState([]);
 
-  useEffect(() => {
-    const getData = async () =>{
-      Axios.get(`${API_ENDPOINT}/fe/get?page_type=Home&key=QnA`)
-        .then(resp => {
-          setQnA(resp.data.value);
-        })
-      Axios.get(`${API_ENDPOINT}/fe/get?page_type=Home&key=Achievements`)
-        .then(resp => {
-          setAments(resp.data.value)
-        })
-      Axios.get(`${API_ENDPOINT}/fe/get?page_type=Home&key=Features`)
-        .then(resp => {
-          setFeatures(resp.data.value)
-        })
-    }
+  const getData = async () =>{
+    Axios.get(`${API_ENDPOINT}/fe/get?page_type=Home&key=QnA`)
+      .then(resp => {
+        setQnA(resp.data.value);
+      })
+    Axios.get(`${API_ENDPOINT}/fe/get?page_type=Home&key=Achievements`)
+      .then(resp => {
+        setAments(resp.data.value)
+      })
+    Axios.get(`${API_ENDPOINT}/fe/get?page_type=Home&key=Features`)
+      .then(resp => {
+        setFeatures(resp.data.value)
+      })
+  }
 
+  window.onload = () => {
     getData();
-  }, [QnA, Achievements, Features]);
+  }
   
   return (
     <div className="#home-screen">
