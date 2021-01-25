@@ -23,6 +23,7 @@ import nolimit from '../../assets/images/NoLimit.png';
 import projects from '../../assets/images/Projects.png';
 import achievements from '../../assets/images/Achievements.png';
 import {setItem, getItem} from '../../utility/localStorageControl'
+import { ToastContainer } from 'react-toastify';
 const API_ENDPOINT = 'https://whispering-eyrie-04211.herokuapp.com';
 
 function HomeScreen() {
@@ -54,9 +55,9 @@ function HomeScreen() {
       <Header />
       <Animated animationIn="slideInUp" isVisible={true}>
         <div id="intro-section">
-          <div className="mw1100 flexRow flexAround flexAlignCenter">
+          <div className="mw1100 mobile-column flexRow flexAround flexAlignCenter">
             <img className="intro-img" src={introimg} alt="intro" />
-            <div className="mw600 flexColumn">
+            <div className="mw600 mobile-center flexColumn">
                 <h1 className="intro-text">
                     Improve your chances of getting hired, just Tab it for 
                     <span style={{color: 'rgba(0,229,216,1)'}}> FREE</span>
@@ -66,9 +67,20 @@ function HomeScreen() {
           </div>
         </div>
       </Animated>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <Animated animationIn="slideInUp" isVisible={true}>
       <div id="why-tabber">
-        <div className="mw1100 flexRow flexAround flexAlignCenter">
+        <div className="mw1100 flexRow mobile-column flexAround flexAlignCenter">
           <div className="mw600 flexColumn mv-40">
               <h1 className="whytabber-heading">Why <span style={{color: '#077A73'}}>tabber?</span></h1>
               <p className="whytabber-text">Are you tired of sending <strong>each and every link</strong> to recruiters taking the hassle of mentioning each and every <strong>rank</strong>? Say no more! because Tabber is here to make this a possibility.</p>
