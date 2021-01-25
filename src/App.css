@@ -155,26 +155,33 @@
         width: 40% !important;
     }
     #why-tabber .whytabber-heading, .tabberfeatures-heading, .achievements-heading, .tabberfeatures-heading{
-        font: 18px 'Poppins', sans-serif !important;
+        font: 28px 'Poppins', sans-serif !important;
+        margin-bottom: 10px !important;
         font-weight: 600 !important;
     }
     #intro-section .mw1100, #why-tabber .mw1100, #tabberfeatures .mw1100, #achievements .mw1100, #faq .mw1100 {
         max-width: 90% !important;
         margin: 0 auto;
     }
-    .mw600 {
+    /* .mw600 {
         max-width: 50% !important;
-    }
-    #why-tabber .whytabber-text, .whytabber-point {
-        font: 11px 'Poppins', sans-serif !important;
+    } */
+    #why-tabber .whytabber-text {
+        font: 16px 'Poppins', sans-serif !important;
         font-weight: 400;
+    }
+    #why-tabber .whytabber-point{
+        font: 14px 'Poppins', sans-serif !important;
+    }
+    .mt-50{
+        margin-top: 20px !important
     }
     #intro-section .intro-text {
         font: 24px 'Gilroy', sans-serif !important;
         font-weight: 700 !important;
     }
     #intro-section .intro-button {
-        width: 90% !important;
+        width: 75% !important;
     }
     #tabberfeatures .pl-40, #achievements .pl-40{
         padding-left: 0 !important;
@@ -654,8 +661,36 @@
         height: 200px !important;
     }
     .achievement-card{
-        width: 90% !important;
+        width: 100% !important;
         padding-bottom: 10px !important;
+    }
+    .achievement-heading {
+        font: 36px 'Gilroy', sans-serif !important;
+        font-weight: 800 !important;
+        margin-bottom: 0px !important;
+    }
+    .achievement-text {
+        font: 16px 'Poppins', sans-serif !important;
+        font-weight: 400 !important;
+    }
+    .achievement-card img{
+        height: 75px !important;
+        width: 75px !important;
+    }
+    .faq-ques {
+        font: 16px 'Poppins', sans-serif !important;
+        font-weight: 400 !important;
+    }
+    .faq-card svg{
+        margin-bottom: 8px !important;
+        margin-left: 5px !important
+    }
+    .ans-card{
+        padding: 20px !important;
+    }
+    .ans {
+        font: 16px 'Poppins', sans-serif !important;
+        font-weight: 400 !important;
     }
     .project-textbox{
         height: 60px !important;
@@ -1188,5 +1223,23 @@
     }
     .cardw100{
         width: 100% !important;
+    }
+    #tabberfeatures{
+        padding: 40px 20px !important;
+    }
+    #intro-section img, #why-tabber img {
+        width: 80% !important;
+    }    
+    .mw600{
+        width: 80% !important;
+    }
+    .mobile-center{
+        padding-top: 20px !important;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+    }
+    .pb-100{
+        padding-bottom: 20px !important;
     }
 }
