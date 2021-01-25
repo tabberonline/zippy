@@ -50,6 +50,7 @@ import AdminService from '../../AdminServices/AdminService';
                 .then(resp => {
                   setItem('portfolio', resp.data.resume_present);
                   setModalShow(false);
+                  window.open('/portfolio', '_self');                  
                 })
                 .catch(err => console.log(err));
             })
