@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from 'react';
 import '../../styles/HelperStyles.css';
 import './ProjectCard.css';
@@ -9,11 +10,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
 import UpdateProject from '../UpdateModals/UpdateProject';
 import hidecards from '../../assets/images/hiddeeen.png';
+import { Form, Modal } from 'react-bootstrap';
+import { AiOutlineCloseCircle } from 'react-icons/ai';
 
 export default function ProjectCard({name, url, id, img, hide}){
     var invisible = hide;
     const [namecard, setcard] = useState(true);
     const [detailcard, setdetail] = useState(false);
+    const [modalShow, setModalShow] = useState(false);
 
     const HideCard = () => {
         invisible = true;
@@ -62,6 +66,38 @@ export default function ProjectCard({name, url, id, img, hide}){
             });
         }
 
+        function DeleteModal(props) {
+            return (
+              <Modal
+                {...props}
+                size="lg"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+              >
+                <div className="flexColumn">
+                  <div className="flexRow flexBetween flexAlignCenter mb-40">
+                    <div style={{width: 20}}></div>
+                    <h2 className="modal-head">Delete Card</h2>
+                    <button onClick={props.onHide}>
+                      <AiOutlineCloseCircle style={{fontSize: 40, color: 'black'}} />
+                    </button>
+                  </div>
+                  <Form>
+                    <Form.Group controlId="formBasicEmail" className="flexColumn mb-20">
+                      <Form.Label style={{textAlign: 'center'}}>Are you sure you want to delete this card?</Form.Label>
+                    </Form.Group>
+                  </Form>
+          
+                  <div className="share" style={{justifyContent: 'center'}}>
+                    <a onClick={(e) => DeleteCard(id)} className="flexAlignCenter modal-button" style={{marginRight: 10}}>Delete</a>
+                    <a onClick={props.onHide} className="flexAlignCenter modal-button">Cancel</a>
+                  </div>
+          
+                </div>
+              </Modal>
+            );
+          }
+
     const DeleteCard = async (project_id) => {        
         AdminService.deleteProjectWidget(project_id)
             .then(response => {
@@ -94,8 +130,16 @@ export default function ProjectCard({name, url, id, img, hide}){
             });
     }
 
+    const DeleteCardPortal = (id) => {
+        setModalShow(true);
+    }
+
     return(
         <>
+            <DeleteModal
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+            />
             {
                 invisible ? (
                     <div className="grow1 flexColumn project-card flexEnd" 
@@ -135,7 +179,7 @@ export default function ProjectCard({name, url, id, img, hide}){
                                 <div onMouseLeave={() => {setdetail(false); setcard(true);}} className="flexColumn flexCenter flexAlignCenter project-textbox1">
                                     <p className="project-name">{ name.length > 0 ? name : "Sample Webpage"}</p>
                                     <div className="flexRow flexAround flexAlignCenter" style={{position: 'absolute', bottom: 30, width: '75%'}}>
-                                        <img src={deleted} onClick={() => DeleteCard(id)} alt="delete" className="delete-card-icon" style={{height:30, width: 30, marginBottom: 10}} />
+                                        <img src={deleted} onClick={() => DeleteCardPortal(id)} alt="delete" className="delete-card-icon" style={{height:30, width: 30, marginBottom: 10}} />
                                         <UpdateProject projectName={name} projectlink={url} projectImage={img} projectId={id}/>
                                         <img src={hidden} onClick={() => HideCard()} alt="hidden" className="delete-card-icon" style={{height:30, width: 30, marginBottom: 10}} />
                                     </div>
