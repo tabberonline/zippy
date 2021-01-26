@@ -639,7 +639,7 @@
         width: 90% !important;
         padding-bottom: 10px !important;
     }
-    .logo{
+    .achievement-card .logo, .logo{
         height: 30px !important;
         width: 108px !important;
         margin-bottom: 20px !important;
@@ -673,7 +673,7 @@
         font: 16px 'Poppins', sans-serif !important;
         font-weight: 400 !important;
     }
-    .achievement-card img{
+    .achievement-card .achievement-logo{
         height: 75px !important;
         width: 75px !important;
     }
@@ -699,7 +699,7 @@
         font: 14px 'Poppins', sans-serif !important;
         font-weight: 700 !important;
     }
-    .delete-icon, .edit-icon, .hide-icon{
+    .delete-icon, .edit-icon, .hide-icon, .achievement-card .delete-icon, .achievement-card .edit-icon, .achievement-card .hide-icon{
         height: 20px !important;
         width: 20px !important;
     }
