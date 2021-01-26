@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
 import '../../styles/HelperStyles.css';
 import './CodingCard.css';
@@ -11,6 +12,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
 import UpdateCodingProfile from '../UpdateModals/UpdateCodingProfile';
+import { Modal } from 'react-bootstrap';
+import { AiOutlineCloseCircle } from 'react-icons/ai';
+import { Form } from 'react-bootstrap';
 
 export default function CodingCard({name, rank, id, logo, hide}){        
     var invisible = hide;
@@ -22,6 +26,7 @@ export default function CodingCard({name, rank, id, logo, hide}){
     const [icon1, seticon1] = useState(true);
     const [icon2, seticon2] = useState(true);
     const [icon3, seticon3] = useState(true);
+    const [modalShow, setModalShow] = React.useState(false);
 
     const OptionDrawer = () => {
         setdrawer(true);
@@ -87,6 +92,38 @@ export default function CodingCard({name, rank, id, logo, hide}){
         updateRankWidget(name)
       }
 
+      function DeleteModal(props) {
+        return (
+          <Modal
+            {...props}
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+          >
+            <div className="flexColumn">
+              <div className="flexRow flexBetween flexAlignCenter mb-40">
+                <div style={{width: 20}}></div>
+                <h2 className="modal-head">Delete Card</h2>
+                <button onClick={props.onHide}>
+                  <AiOutlineCloseCircle style={{fontSize: 40, color: 'black'}} />
+                </button>
+              </div>
+              <Form>
+                <Form.Group controlId="formBasicEmail" className="flexColumn mb-20">
+                  <Form.Label style={{textAlign: 'center'}}>Are you sure you want to delete this card?</Form.Label>
+                </Form.Group>
+              </Form>
+      
+              <div className="share" style={{justifyContent: 'center'}}>
+                <a onClick={(e) => {DeleteCard(name); setModalShow(false); }} style={{marginRight: 10}} className="flexAlignCenter modal-button">Delete</a>
+                <a onClick={props.onHide} className="flexAlignCenter modal-button">Cancel</a>
+              </div>
+      
+            </div>
+          </Modal>
+        );
+      }
+
     const DeleteCard = async (name) => {
         var website_name = formatPortal(name);
         var website_id = PortalMap.get(website_name).id;
@@ -122,6 +159,10 @@ export default function CodingCard({name, rank, id, logo, hide}){
             });
     }
 
+    const DeleteCardPortal = (name) => {
+        setModalShow(true);
+    }
+
     return(
             <div className="grow1 card11 flexColumn profile-card" onMouseLeave={() => CloseOptionDrawer()}>
                 {
@@ -148,9 +189,9 @@ export default function CodingCard({name, rank, id, logo, hide}){
                     }
                     { drawer ? (
                         <div className="flexColumn flexStart options" style={{position: 'absolute', top: '-15%', right:'-2%'}}>
-                            {icon1 ? (<img src={deleted} alt="delete" onMouseEnter={() => {setoption1(true); seticon1(false);}} onClick={() => DeleteCard(name)} className="delete-icon" style={{height:30, width: 30, marginBottom: 10, marginLeft: option2 ? 50 : null || option3 ? 50 : null}} />) : null }
+                            {icon1 ? (<img src={deleted} alt="delete" onMouseEnter={() => {setoption1(true); seticon1(false);}} onClick={() => DeleteCardPortal(name)} className="delete-icon" style={{height:30, width: 30, marginBottom: 10, marginLeft: option2 ? 50 : null || option3 ? 50 : null}} />) : null }
                             { option1 ? (
-                                <div className="flexRow flexAlignCenter option delete-option" onClick={() => DeleteCard(name)} onMouseLeave={() => {setoption1(false); seticon1(true);}} style={{ marginBottom: 10, position: 'relative', left: 40 }}>
+                                <div className="flexRow flexAlignCenter option delete-option" onClick={() => DeleteCardPortal(name)} onMouseLeave={() => {setoption1(false); seticon1(true);}} style={{ marginBottom: 10, position: 'relative', left: 40 }}>
                                     <img src={deleted} alt="delete" style={{height:30, width: 30, marginRight: 10}} />
                                     <p className="options-text">Delete</p>
                                 </div>                            
@@ -176,6 +217,10 @@ export default function CodingCard({name, rank, id, logo, hide}){
                         ) : null
                     }
                 </div>
+                <DeleteModal
+                    show={modalShow}
+                    onHide={() => setModalShow(false)}
+                />
                 <p className="profile-head mb-10"> {name === "" ? "Company Name" : name}</p>
                 <p className="profile-name ph-20 mb-10"><span className="profile-heading">ID:</span> {id === "" ?  "Id here" : id }</p>
                 <p className="profile-name ph-20 mb-10"><span className="profile-heading">Rank:</span> {rank === "" ?  "?" : rank  }</p>
