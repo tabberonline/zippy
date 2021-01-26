@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
 import '../../styles/HelperStyles.css';
 import './ContestCard.css';
@@ -11,6 +12,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
 import UpdateContestProfile from '../UpdateModals/UpdateContestProfile';
+import { Form, Modal } from 'react-bootstrap';
+import { AiOutlineCloseCircle } from 'react-icons/ai';
 
 export default function ContestCard({name, rank, id, logo, contest, card_id, hide}){
 
@@ -21,9 +24,9 @@ export default function ContestCard({name, rank, id, logo, contest, card_id, hid
     const [option3, setoption3] = useState(false);
     const [icon1, seticon1] = useState(true);
     const [icon2, seticon2] = useState(true);
-    const [icon3, seticon3] = useState(true);     
+    const [icon3, seticon3] = useState(true); 
+    const [modalShow, setModalShow] = useState(false);    
     var invisible = hide;
-    console.log(card_id);
 
     const OptionDrawer = () => {
         setdrawer(true);
@@ -90,6 +93,38 @@ export default function ContestCard({name, rank, id, logo, contest, card_id, hid
       updateWidget()
     }
 
+    function DeleteModal(props) {
+        return (
+          <Modal
+            {...props}
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+          >
+            <div className="flexColumn">
+              <div className="flexRow flexBetween flexAlignCenter mb-40">
+                <div style={{width: 20}}></div>
+                <h2 className="modal-head">Delete Card</h2>
+                <button onClick={props.onHide}>
+                  <AiOutlineCloseCircle style={{fontSize: 40, color: 'black'}} />
+                </button>
+              </div>
+              <Form>
+                <Form.Group controlId="formBasicEmail" className="flexColumn mb-20">
+                  <Form.Label style={{textAlign: 'center'}}>Are you sure you want to delete this card?</Form.Label>
+                </Form.Group>
+              </Form>
+      
+              <div className="share" style={{justifyContent: 'center'}}>
+                <a onClick={(e) => DeleteCard(card_id)} style={{marginRight: 10}} className="flexAlignCenter modal-button">Delete</a>
+                <a onClick={props.onHide} className="flexAlignCenter modal-button">Cancel</a>
+              </div>
+      
+            </div>
+          </Modal>
+        );
+      }
+
     const DeleteCard = async (card_id) => {
         
         AdminService.deleteContestWidget(card_id)
@@ -123,6 +158,10 @@ export default function ContestCard({name, rank, id, logo, contest, card_id, hid
             });
     }
 
+    const DeleteCardPortal = (card_id) => {
+        setModalShow(true);
+    }
+
     return(
         <div className="grow1 card11 flexColumn achievement-card" onMouseLeave={() => CloseOptionDrawer()}>
             {
@@ -151,7 +190,7 @@ export default function ContestCard({name, rank, id, logo, contest, card_id, hid
                     <div className="flexColumn flexStart options" style={{position: 'absolute', top: '-15%', right:'-2%'}}>
                         {icon1 ? (<img src={deleted} alt="delete" onMouseEnter={() => {setoption1(true); seticon1(false);}} className="delete-icon" style={{height:30, width: 30, marginBottom: 10, marginLeft: option2 ? 50 : null || option3 ? 50 : null}} />) : null }
                         { option1 ? (
-                            <div className="flexRow flexAlignCenter option delete-option" onClick={() => DeleteCard(card_id)} onMouseLeave={() => {setoption1(false); seticon1(true);}} style={{ marginBottom: 10, position: 'relative', left: 40 }}>
+                            <div className="flexRow flexAlignCenter option delete-option" onClick={() => DeleteCardPortal(card_id)} onMouseLeave={() => {setoption1(false); seticon1(true);}} style={{ marginBottom: 10, position: 'relative', left: 40 }}>
                                 <img src={deleted} alt="delete" style={{height:30, width: 30, marginRight: 10}} />
                                 <p className="options-text">Delete</p>
                             </div>                            
@@ -177,6 +216,10 @@ export default function ContestCard({name, rank, id, logo, contest, card_id, hid
                     ) : null
                 }
             </div>
+            <DeleteModal
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+            />
             <p className="profile-head mb-10"> {name === "" ? "Company Name" : name}</p>
             <div className="flexRow flexBetween conv"> 
                 <p className="profile-name ph-20 mb-10"><span className="profile-heading">ID:</span> {id === "" ?  "Id here" : id }</p>
