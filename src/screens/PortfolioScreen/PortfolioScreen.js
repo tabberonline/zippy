@@ -9,7 +9,7 @@ import CodingProfileModal from '../../components/modals/CodingProfileModal';
 import ContestProfileModal from '../../components/modals/ContestProfileModal';
 import ProjectModal from '../../components/modals/ProjectModal';
 import ShareModal from '../../components/modals/ShareModal';
-import {AiOutlineEdit} from 'react-icons/ai';
+import { AiOutlineCheck, AiOutlineEdit} from 'react-icons/ai';
 import $ from 'jquery';
 import Header1 from '../../components/Header/Header1';
 import { getItem, setItem, ReversePortalMap } from '../../utility/localStorageControl';
@@ -22,40 +22,42 @@ const processAPI = 'https://cdn.filestackcontent.com';
 
 function PortfolioScreen() {
   const [name, setname] = useState(getItem('name'));
-  const [title, settitle] = useState(getItem('titlePortfolio'));
-  const [desc, setdesc] = useState(getItem('descPortfolio'));
+  var title = getItem('titlePortfolio');
+  var desc = getItem('descPortfolio');
+  const [edit1, setedit] = useState(true);
+  const [edit2, setedit2] = useState(true);
   const [rankWidgets, setrankwidgets] = useState(getItem('rankWidgets'));
   const [contestWidgets, setcontestwidgets] = useState(getItem('contestWidgets'));
   const [projectWidgets, setprojectwidgets] = useState(getItem('projectWidgets'));
 
   const Edit1 = () => {
-    console.log('edittable1')
     $(".title").prop("readonly", false);
+    setedit(false);
   } 
   const Edit2 = () => {
-    console.log('edittable2')
     $(".desc").prop("readonly", false);
+    setedit2(false);
   } 
-  const updateTitle = (event) => {
-    settitle(event.target.value);
+  const Save1 = () => {
+    $(".title").prop("readonly", true);
+    setedit(true);
     setItem('titlePortfolio', title);
     UpdatePortfolio();
-  }
-  const updateDesc = (event) => {
-    setdesc(event.target.value);
+  } 
+  const Save2 = () => {
+    $(".desc").prop("readonly", true);
+    setedit2(true);
     setItem('descPortfolio', desc);
     UpdatePortfolio();
-  }
+  } 
   const UpdatePortfolio = async () =>{
     if(desc.length > 0 && title.length > 0){
       const UpdatePortfolioData = {
-        'title': getItem('titlePortfolio'),
-        'description': getItem('descPortfolio'),
+        'title': title,
+        'description': desc,
       }
-      console.log(UpdatePortfolioData);
       AdminService.updatePortfolio(UpdatePortfolioData)
         .then(resp => {
-          console.log('Response', resp);
           toast.success('Details Updated!', {
             position: "top-center",
             autoClose: 2000,
@@ -110,18 +112,24 @@ function PortfolioScreen() {
         <div className="p-40 flexColumn portfolio-section">
           <div className="flexColumn">
             <div className="flexRow flexCenter flexAlignCenter">
-              <input type="text" autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" className="title" defaultValue={title} onBlur={(event) => updateTitle(event)} placeholder="Portfolio Title" readOnly />
+              <input type="text" autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" className="title" defaultValue={title} onChange={(event) => title = event.target.value} placeholder="Portfolio Title" readOnly />
               <div className="flexRow flexCenter flexAlignCenter iconcontainer1" style={{left: -15, top: -15}}>
-                <AiOutlineEdit className="portfolio-icon" onClick={()=>Edit1()} style={{cursor: 'pointer'}} />
+                {
+                  edit1 ? <AiOutlineEdit className="portfolio-icon" onClick={()=>Edit1()} style={{cursor: 'pointer'}} />
+                  : <AiOutlineCheck className="portfolio-icon" onClick={()=>Save1()} style={{cursor: 'pointer'}} />
+                }
               </div>
             </div>
             <hr style={{color : '#717070', width: '80%', margin: 'auto', marginTop: 10}} />
             <div className="flexColumn info-sec">
               <p className="name mb-20 pl-20">Hello! I am <strong>{name}</strong></p>
               <div className="flexRow">
-                <textarea autocomplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" rows="5" className="desc" defaultValue={desc} onBlur={(event) => updateDesc(event)} readOnly placeholder="Enter your College and profile description here" />
+                <textarea autocomplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" rows="5" className="desc" defaultValue={desc} onChange={(event) => desc = event.target.value} readOnly placeholder="Enter your College and profile description here" />
                 <div className="flexRow flexCenter flexAlignCenter iconcontainer1" style={{left: -15, top: -15}}>
-                  <AiOutlineEdit className="portfolio-icon" onClick={()=>Edit2()} style={{cursor: 'pointer'}} />
+                {
+                  edit2 ?<AiOutlineEdit className="portfolio-icon" onClick={()=>Edit2()} style={{cursor: 'pointer'}} />
+                  : <AiOutlineCheck className="portfolio-icon" onClick={()=>Save2()} style={{cursor: 'pointer'}} />
+                }
                 </div>
               </div>
             </div>
