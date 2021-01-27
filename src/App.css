@@ -692,6 +692,15 @@
         margin-bottom: 8px !important;
         margin-left: 5px !important
     }
+    .faq-card{
+        padding: 10px !important
+    }
+    #achievements{
+        padding: 60px 20px !important
+    }
+    #faq{
+        padding: 40px 20px !important;
+    }
     .ans-card{
         padding: 20px !important;
     }
