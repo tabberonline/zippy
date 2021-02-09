@@ -94,6 +94,9 @@
 .flexEnd{
     justify-content: flex-end;
 }
+.flexEvenly{
+    justify-content: space-evenly;
+}
 .modal-head{
     font: 32px 'Poppins', sans-serif;
     font-weight: 700;
@@ -229,4 +232,51 @@
     box-sizing: border-box;
     border-radius: 8px;
     margin: 30px 0;
+}
+.mailcontent-header{
+    font: 20px 'Poppins', sans-serif;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+}
+.profile-pic{
+    height: 140px;
+    width: 140px;
+    border-radius: 75px;
+}
+.mailcontent-name{
+    font: 24px 'Poppins', sans-serif;
+    font-weight: 500;
+    color: #443E00;
+}
+.mailcontent-mail{
+    font: 20px 'Poppins', sans-serif;
+    font-weight: 500;
+    color: black;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #D1D51A;
+}
+.mailcontent-sec{
+    font: 16px 'Poppins', sans-serif;
+    font-weight: 500;
+    color: black;
+}
+.mailcontent-number{
+    font: 42px 'Poppins', sans-serif;
+    font-weight: 700;
+    color: black;
+}
+
+.attach-resume{
+    background: #FFFFFF;
+    box-shadow: 0px 4px 8px 2px rgba(230, 230, 230, 0.25);
+    border-radius: 8px;
+    padding: 25px;
+    width: 40%;
+    margin: 20px
+}
+.resume-head{
+    color: '#C0C0C0';
+    font: 20px 'Poppins', sans-serif;
+
 }

@@ -5,24 +5,12 @@ import { Modal, Form } from 'react-bootstrap';
 import {AiOutlineCloseCircle} from 'react-icons/ai';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import AdminService from '../../AdminServices/AdminService';
-
-import splashlogo from '../../assets/images/logo.png';
+import MailPreview from '../MailPreview/MailPreview';
 
 export default function SendViaEmail() {
   const [modalShow, setModalShow] = React.useState(false);
      var mails = "";
      var resume = "";
-
-//   const ShareLink = async () => {
-//     AdminService.getUserDataById(user_id)
-//       .then(resp => {
-//         const AccessID = resp.data.user_id;      
-//         setUrl(`http://localhost:3000/d?id=${AccessID}`); 
-//         setModalShow(true);
-//       })
-//       .catch(err => console.log(err));
-//   }
 
   function MyVerticallyCenteredModal(props) {
     return (
@@ -45,7 +33,7 @@ export default function SendViaEmail() {
                 <Form.Label>Enter the mail ID you would like to send the mail to<span style={{color: 'red'}}>*</span> </Form.Label>
                 <Form.Control type="text" defaultValue={mails} onChange={(e) => mails = (e.target.value)} placeholder="example: anything@gmail.com" />
               </Form.Group>    
-              <Form.Group controlId="formBasic1" className="mb-20">
+              <Form.Group controlId="formBasic12" className="mb-20">
                 <Form.Label>Upload Resume (Optional)</Form.Label>
                 <Form.Control type="text" defaultValue={resume} onChange={(e) => resume = (e.target.value)} placeholder="Click on Upload to attach resume" />
               </Form.Group>   
@@ -71,20 +59,7 @@ export default function SendViaEmail() {
                 <hr style={{width: '35%', color: 'rgba(154,154,154,1)'}} />
             </div>
 
-            <div className="mail-box">
-                <img src={splashlogo} width="200" height="40" style={{alignSelf: 'center'}} className="d-inline-block" alt="logo" />
-                <div className="mail-content-box">
-                    <div style={{backgroundColor: 'rgba(255,217,135,1)'}}>
-                        <h6 className="mailcontent-header"></h6>
-                    </div>
-                    <div style={{padding: 20, gap: 30}} className="flexRow">
-
-                    </div>
-                </div>
-                <div className="share" style={{justifyContent: 'center'}}>
-                    <a onClick className="flexAlignCenter modal-button">Visit Profile</a>
-                </div>
-            </div>
+            <MailPreview />
         </div>
       </Modal>
     );

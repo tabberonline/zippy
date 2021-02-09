@@ -33,6 +33,7 @@ const GoogleBtn = () => {
           });
           AdminService.getUserData()
             .then(resp => {
+              console.log(resp);
               setItem('user_id', resp.data.user_id);
               setItem('name', resp.data.name);
               setItem('image', resp.data.picture_url);
@@ -40,6 +41,7 @@ const GoogleBtn = () => {
               setItem('projectWidgets', resp.data.personal_projects);
               setItem('rankWidgets', resp.data.rank_widgets);
               setItem('contestWidgets', resp.data.contest_widgets);
+              setItem('email', resp.data.email);
             })
             .catch(err => console.log(err));
         })
