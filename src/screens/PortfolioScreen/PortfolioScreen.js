@@ -17,6 +17,7 @@ import AdminService from '../../AdminServices/AdminService';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {isMobile} from 'react-device-detect';
+import SentHistoryModal from '../../components/modals/SentHistoryModal';
 const API_KEY = 'AFjzy7b0VSvCEJhKDtcQ6z';
 const processAPI = 'https://cdn.filestackcontent.com';
 
@@ -107,7 +108,10 @@ function PortfolioScreen() {
         pauseOnHover
       />
       <Header1 />
-      <ShareModal id={getItem('user_id')} />
+      <div className="flexRow" style={{gap: 20, marginLeft: 'auto'}}>
+        <SentHistoryModal />
+        <ShareModal id={getItem('user_id')} />
+      </div>
       <div className="mw1100">
         <div className="p-40 flexColumn portfolio-section">
           <div className="flexColumn">

@@ -102,7 +102,7 @@ export default function ProjectModal() {
               <Form.Control type="text" placeholder="Click on “upload cover” to upload an image of less than 2MB for your website cover." />
             </Form.Group>
   
-            <div className="share">
+            <div className="grow5 share">
               <a className="flexAlignCenter upload-button">Upload Cover</a>
             </div>
   

@@ -96,8 +96,14 @@
 }
 .modal-head{
     font: 32px 'Poppins', sans-serif;
-    font-weight: 500;
+    font-weight: 700;
     margin: 0;
+}
+.modal-list{
+    font: 16px 'Poppins', sans-serif;
+    font-weight: 400;
+    color: rgba(131,131,131,1);
+
 }
 .modal-content {
     position: relative;
@@ -143,7 +149,7 @@
     font-weight: 400;
     color: #3D3D3D;
 }
-.modal .form-group input, .modal .form-group select{
+.modal .form-group input, .modal .form-group select, .modal .form-group textarea{
     background: #F4F4F4;
     border: 1px solid #C9C9C9;
     box-sizing: border-box;
@@ -209,4 +215,18 @@
 .grow5:hover { transform: scale(1.05); }
 .google-button:focus{
     outline: none;
+}
+
+.mail-box{
+    background-color: rgba(255,249,190,1);
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+}
+.mail-content-box{
+    background: #F2D492;
+    border: 1px solid #FFF9BE;
+    box-sizing: border-box;
+    border-radius: 8px;
+    margin: 30px 0;
 }

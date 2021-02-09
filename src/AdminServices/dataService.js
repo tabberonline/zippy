@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getItem } from '../utility/localStorageControl';
 
-const API_ENDPOINT = 'https://whispering-eyrie-04211.herokuapp.com';
+const API_ENDPOINT = 'http://stg-api.tabber.online';
 
 const authHeader = () => ({
   Authorization: `${getItem('access_token')}`,
