@@ -9,7 +9,7 @@ import CodingProfileModal from '../../components/modals/CodingProfileModal';
 import ContestProfileModal from '../../components/modals/ContestProfileModal';
 import ProjectModal from '../../components/modals/ProjectModal';
 import ShareModal from '../../components/modals/ShareModal';
-import { AiOutlineCheck, AiOutlineEdit} from 'react-icons/ai';
+import { AiOutlineCheck, AiOutlineEdit, AiOutlinePlusCircle} from 'react-icons/ai';
 import $ from 'jquery';
 import Header1 from '../../components/Header/Header1';
 import { getItem, setItem, ReversePortalMap } from '../../utility/localStorageControl';
@@ -17,7 +17,7 @@ import AdminService from '../../AdminServices/AdminService';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {isMobile} from 'react-device-detect';
-import SentHistoryModal from '../../components/modals/SentHistoryModal';
+import AttachResumeModal from '../../components/modals/AttachResume';
 const API_KEY = 'AFjzy7b0VSvCEJhKDtcQ6z';
 const processAPI = 'https://cdn.filestackcontent.com';
 
@@ -109,7 +109,11 @@ function PortfolioScreen() {
       />
       <Header1 />
       <div className="flexRow" style={{gap: 20, marginLeft: 'auto'}}>
-        <SentHistoryModal />
+        <div className="mw1100 history">
+          <button className="flexAlignCenter history-button" style={{outline: 'none'}} >
+              View Sent History        
+          </button>
+        </div>
         <ShareModal id={getItem('user_id')} />
       </div>
       <div className="mw1100">
@@ -136,6 +140,10 @@ function PortfolioScreen() {
                 }
                 </div>
               </div>
+            </div>
+            <div className="flexColumn mv-20">
+              <p className="card-heading mb-20">Resume</p>
+              <AttachResumeModal />
             </div>
             <div className="coding-profile mv-20">
               <p className="card-heading mb-20">Coding Profile</p>
