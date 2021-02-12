@@ -9,6 +9,7 @@ import CodingProfileModal from '../../components/modals/CodingProfileModal';
 import ContestProfileModal from '../../components/modals/ContestProfileModal';
 import ProjectModal from '../../components/modals/ProjectModal';
 import ShareModal from '../../components/modals/ShareModal';
+import SentHistoryModal from '../../components/modals/SentHistory';
 import { AiOutlineCheck, AiOutlineEdit, AiOutlinePlusCircle} from 'react-icons/ai';
 import $ from 'jquery';
 import Header1 from '../../components/Header/Header1';
@@ -108,12 +109,8 @@ function PortfolioScreen() {
         pauseOnHover
       />
       <Header1 />
-      <div className="flexRow" style={{gap: 20, marginLeft: 'auto'}}>
-        <div className="mw1100 history">
-          <button className="flexAlignCenter history-button" style={{outline: 'none'}} >
-              View Sent History        
-          </button>
-        </div>
+      <div className="flexRow mw1100 flexEnd" style={{ marginLeft: 'auto'}}>
+        <SentHistoryModal />
         <ShareModal id={getItem('user_id')} />
       </div>
       <div className="mw1100">

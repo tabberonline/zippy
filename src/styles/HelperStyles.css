@@ -224,6 +224,7 @@
     background-color: rgba(255,249,190,1);
     display: flex;
     flex-direction: column;
+    justify-content: center;
     padding: 50px;
 }
 .mail-content-box{
@@ -279,4 +280,54 @@
     color: '#C0C0C0';
     font: 20px 'Poppins', sans-serif;
 
+}
+.table-head{
+    font: 20px 'Poppins', sans-serif;
+    font-weight: 700;
+    background-color: white;
+    border: 1px solid rgba(203,203,203,1);
+}
+.table-date{
+    font: 20px 'Poppins', sans-serif;
+    font-weight: 500;
+    color: rgba(122,118,118,1);
+    background-color: white;
+    border: 1px solid rgba(203,203,203,1);
+}
+.table-element{
+    font: 20px 'Poppins', sans-serif;
+    font-weight: 500;
+    background-color: white;
+    border: 1px solid rgba(203,203,203,1);
+}
+.pageNumbers{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 10px 0;
+}
+.page-item{
+    margin: 0 3px;
+}
+.page-item .page-link{
+    color: black;
+    background-color: #F4F4F4;
+    font: 16px 'Poppins', sans-serif;
+    border: none;
+    box-shadow: none !important;
+    border-radius: 10px !important;
+}
+.page-item.active .page-link{
+    background-color: #00E5D8 !important;
+    color: black !important;
+    border: none !important;
+    font: 16px 'Poppins', sans-serif;
+    box-shadow: none !important;
+    outline: none !important;
+}
+.table-bordered thead td, .table-bordered thead th, .table-bordered td, .table-bordered th{
+    border: 1px solid rgba(203,203,203,1) !important;
+}
+.table{
+    border-radius: 8px;
 }
