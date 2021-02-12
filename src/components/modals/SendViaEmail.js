@@ -1,17 +1,31 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {useState, useRef} from 'react';
+import React, {useState} from 'react';
 import '../../styles/HelperStyles.css'
 import { Modal, Form } from 'react-bootstrap';
 import {AiOutlineCloseCircle} from 'react-icons/ai';
-import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import MailPreview from '../MailPreview/MailPreview';
+import { getItem, setItem } from '../../utility/localStorageControl';
+import AdminService from '../../AdminServices/AdminService';
 
 export default function SendViaEmail() {
   const [modalShow, setModalShow] = React.useState(false);
      var mails = "";
      var resume = "";
 
+    const UploadResume = () => {
+      setItem('resumeLink', resume.name);
+      console.log(getItem('resumeLink'))
+    }
+
+    const SendMail =  async () => {
+      const data = {
+        'file' : getItem('resumeLink'),
+      }
+      AdminService.sendMailwithAttachment(mails, data)
+        .then(resp => console.log(resp))
+        .catch(err => console.log(err));
+    }
   function MyVerticallyCenteredModal(props) {
     return (
       <Modal
@@ -31,11 +45,11 @@ export default function SendViaEmail() {
             <Form>
               <Form.Group controlId="formBasic1" className="mb-20">
                 <Form.Label>Enter the mail ID you would like to send the mail to<span style={{color: 'red'}}>*</span> </Form.Label>
-                <Form.Control type="text" defaultValue={mails} onChange={(e) => mails = (e.target.value)} placeholder="example: anything@gmail.com" />
+                <Form.Control type="text" defaultValue={mails} onChange={(event) => mails = (event.target.value)} placeholder="example: anything@gmail.com" />
               </Form.Group>    
               <Form.Group controlId="formBasic12" className="mb-20">
                 <Form.Label>Upload Resume (Optional)</Form.Label>
-                <Form.Control type="text" defaultValue={resume} onChange={(e) => resume = (e.target.value)} placeholder="Click on Upload to attach resume" />
+                <Form.Control type="file" defaultValue={resume} onChange={(event) => resume = event.target.files[0]} placeholder="Click on Upload to attach resume" />
               </Form.Group>   
             </Form>
 
@@ -45,12 +59,12 @@ export default function SendViaEmail() {
                     <span className="modal-list">• File should be in PDF format.</span>
                 </div>
                 <div className="grow5 share">
-                    <a className="flexAlignCenter upload-button" onClick={props.onHide}>Upload</a>
+                    <a className="flexAlignCenter upload-button" onClick={UploadResume}>Upload</a>
                 </div>
             </div>
     
             <div className="share" style={{justifyContent: 'center'}}>
-              <a onClick className="flexAlignCenter modal-button">Send Mail</a>
+              <a onClick={SendMail} className="flexAlignCenter modal-button">Send Mail</a>
             </div>
 
             <div className="flexRow flexCenter end-section ph-20 flexAlignCenter mv-40">
