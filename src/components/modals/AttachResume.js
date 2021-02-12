@@ -2,7 +2,7 @@
 import React, {useState} from 'react';
 import '../../styles/HelperStyles.css'
 import { Modal, Form } from 'react-bootstrap';
-import {AiOutlineCloseCircle, AiOutlinePlusCircle} from 'react-icons/ai';
+import {AiOutlinePlusCircle, AiOutlineCloseCircle, AiOutlineCloudDownload} from 'react-icons/ai';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
@@ -12,15 +12,13 @@ export default function AttachResumeModal() {
   const [modalShow, setModalShow] = React.useState(false);
   var url = "";
 
-//   const ShareLink = async () => {
-//     AdminService.getUserDataById(user_id)
-//       .then(resp => {
-//         const AccessID = resp.data.user_id;      
-//         setUrl(`http://localhost:3000/d?id=${AccessID}`); 
-//         setModalShow(true);
-//       })
-//       .catch(err => console.log(err));
-//   }
+  const ResumeAttach = async () => {
+    AdminService.AttachResume(url)
+      .then(resp => {
+        console.log(resp)
+      })
+      .catch(err => console.log(err));
+  }
 
   function MyVerticallyCenteredModal(props) {
     return (
@@ -41,12 +39,16 @@ export default function AttachResumeModal() {
           <Form>
             <Form.Group controlId="formBasicEmail" className="flexColumn mb-20">
               <Form.Label style={{fontStyle: 'Poppins'}}>Enter your Resume link in the form of PDF below</Form.Label>
-              <textarea style={{fontStyle: 'Poppins', borderRadius: 32, margin: '10px 0'}} rows={5} type="text" class="form-control" defaultValue={url} placeholder="Example https://www.gdrive.com/profile/abc,.pdf" onChange={(text) => url = text} />
+              <textarea style={{fontStyle: 'Poppins', borderRadius: 32, margin: '10px 0'}} rows={5} type="text" class="form-control" defaultValue={url} placeholder="Example https://www.gdrive.com/profile/abc,.pdf" onChange={(event) => url = event.target.value} />
             </Form.Group>
           </Form>
 
           <span className="modal-list">• Enter a proper Gdrive/Dropbox or any cloud link.</span>
           <span className="modal-list">• Upload the file in cloud in pdf format (Recommended).</span>
+
+          <div className="share" style={{justifyContent: 'center'}}>
+            <a className="flexAlignCenter modal-button" onClick={() => ResumeAttach()}>Add to profile</a>
+          </div>
   
           <SendViaEmail />
   
@@ -58,8 +60,10 @@ export default function AttachResumeModal() {
   return (
     <>
       <div className="grow1 attach-resume flexRow flexAlignCenter flexEvenly">
-        <p className="resume-head">Attach your Resume</p>
-        <AiOutlinePlusCircle onClick={() => setModalShow(true)} className="grow2" style={{fontSize: 40, color: '#C0C0C0'}} />
+        <p className="resume-head">{url.length > 0 ? 'View attached PDF' : 'Attach your Resume'}</p>
+        {url.length > 0 ?
+        (<AiOutlineCloudDownload onClick={() => setModalShow(true)} className="grow2" style={{fontSize: 40, color: '#C0C0C0'}} />) :
+        (<AiOutlinePlusCircle onClick={() => setModalShow(true)} className="grow2" style={{fontSize: 40, color: '#C0C0C0'}} />)}
       </div>
 
       <MyVerticallyCenteredModal
