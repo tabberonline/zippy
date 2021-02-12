@@ -72,8 +72,8 @@ export default function ShareModal({id}) {
 
   return (
     <>
-      <div className="mw1100 share">
-        <button className="flexAlignCenter share-button" style={{outline: 'none'}} onClick={() => ShareLink()}>
+      <div className="share">
+        <button className="flexAlignCenter share-button" style={{outline: 'none'}} onClick={() => {setModalShow(true); ShareLink();}}>
           Share        
         </button>
       </div>
