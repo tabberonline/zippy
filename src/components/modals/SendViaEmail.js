@@ -12,18 +12,21 @@ export default function SendViaEmail() {
   const [modalShow, setModalShow] = React.useState(false);
      var mails = "";
      var resume = "";
+     const resumeData = new FormData();
+
+     const handleInput = (event) => {
+      resume = event.target.files[0]
+     }
 
     const UploadResume = () => {
-      setItem('resumeLink', resume.name);
+      resumeData.append('file', resume)
+      setItem('resumeLink', resume);
       console.log(getItem('resumeLink'))
     }
 
     const SendMail =  async () => {
-      const data = {
-        'file' : getItem('resumeLink'),
-      }
-      AdminService.sendMailwithAttachment(mails, data)
-        .then(resp => console.log(resp))
+      AdminService.sendMailwithAttachment(mails, resumeData)
+        .then(resp => setModalShow(false))
         .catch(err => console.log(err));
     }
   function MyVerticallyCenteredModal(props) {
@@ -49,7 +52,7 @@ export default function SendViaEmail() {
               </Form.Group>    
               <Form.Group controlId="formBasic12" className="mb-20">
                 <Form.Label>Upload Resume (Optional)</Form.Label>
-                <Form.Control type="file" defaultValue={resume} onChange={(event) => resume = event.target.files[0]} placeholder="Click on Upload to attach resume" />
+                <Form.Control type="file" defaultValue={resume} onChange={(event) => handleInput(event)} placeholder="Click on Upload to attach resume" />
               </Form.Group>   
             </Form>
 
@@ -82,7 +85,7 @@ export default function SendViaEmail() {
   return (
     <>
       <div className="share" style={{justifyContent: 'center'}}>
-        <a className="flexAlignCenter modal-button" onClick={() => setModalShow(true)}>Add to profile</a>
+        <a className="flexAlignCenter modal-button" onClick={() => setModalShow(true)}>Send Emai with Profile</a>
       </div>
 
       <MyVerticallyCenteredModal

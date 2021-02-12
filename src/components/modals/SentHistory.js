@@ -5,68 +5,32 @@ import { Modal, Form, Table, Pagination } from 'react-bootstrap';
 import {AiOutlineCloseCircle} from 'react-icons/ai';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
+import { setItem, getItem } from '../../utility/localStorageControl';
 
 export default function SentHistoryModal() {
     const [modalShow, setModalShow] = React.useState(false);
     const [active, setActive] = useState(1);
+    var history = [];
     let items = [];
     for (let number = 1; number <= 10; number++) {
     items.push(
         <Pagination.Item key={number} active={number === active} onClick={() => {
-          // GetHistory(active, 5); 
           setActive(number);}}>
         {number}
         </Pagination.Item>,
     );
     }
 
-    var history = [];
-
     const GetHistory = async (page, item) => {
       AdminService.SentHistory(page, item)
         .then(resp => {
-          history = resp.data;
+          history = resp.data.mail_history;
+          setItem('history', history)
         })
         .catch(err => console.log(err));
     }
 
-    GetHistory(active ,5)
-
-    const data = [
-        {
-            sr : 1,
-            date : '11/29/2020',
-            id : 'orn.jamaal@hudson.com'
-        }, {
-            sr : 2,
-            date : '11/29/2020',
-            id : 'orn.jamaal@hudson.com'
-        }, {
-            sr : 3,
-            date : '11/29/2020',
-            id : 'orn.jamaal@hudson.com'
-        }, {
-            sr : 4,
-            date : '11/29/2020',
-            id : 'orn.jamaal@hudson.com'
-        }, {
-            sr : 5,
-            date : '11/29/2020',
-            id : 'orn.jamaal@hudson.com'
-        }, {
-            sr : 6,
-            date : '11/29/2020',
-            id : 'orn.jamaal@hudson.com'
-        }, {
-            sr : 7,
-            date : '11/29/2020',
-            id : 'orn.jamaal@hudson.com'
-        }, {
-            sr : 8,
-            date : '11/29/2020',
-            id : 'orn.jamaal@hudson.com'
-        }, 
-    ]
+  GetHistory(active ,5);
 
   function MyVerticallyCenteredModal(props) {
     return (
@@ -92,10 +56,10 @@ export default function SentHistoryModal() {
                     </tr>
                 </thead>
                 <tbody>
-                {history.map((table, index) => (
-                    <tr key={index}>
-                        <td className="table-date">{table.date}</td>
-                        <td className="table-element">{table.id}</td>
+                {getItem('history').map((table) => (
+                    <tr>
+                        <td className="table-date">{table.date.split(' ')[0]}</td>
+                        <td className="table-element">{table.email}</td>
                     </tr>
                 ))}
                 </tbody>
@@ -104,14 +68,12 @@ export default function SentHistoryModal() {
                 <Pagination className="pageNumbers">
                   <Pagination.Item key="First" active={1 === active} disabled={active===1 ? true : false} onClick={() => {
                     setActive(1); 
-                    // GetHistory(1, 5);
                   }}>
                     First
                   </Pagination.Item>
                   {items}
                   <Pagination.Item key="Next" active={true} disabled={active===10 ? true : false} onClick={() => {
                     setActive(active+1); 
-                    // GetHistory(active+1, 5)
                   }}>
                     Next
                   </Pagination.Item>

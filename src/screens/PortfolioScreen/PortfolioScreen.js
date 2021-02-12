@@ -19,6 +19,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {isMobile} from 'react-device-detect';
 import AttachResumeModal from '../../components/modals/AttachResume';
+import SendViaEmail from '../../components/modals/SendViaEmail';
 const API_KEY = 'AFjzy7b0VSvCEJhKDtcQ6z';
 const processAPI = 'https://cdn.filestackcontent.com';
 
@@ -110,6 +111,7 @@ function PortfolioScreen() {
       />
       <Header1 />
       <div className="flexRow mw1100 flexEnd" style={{ marginLeft: 'auto'}}>
+        <SendViaEmail />
         <SentHistoryModal />
         <ShareModal id={getItem('user_id')} />
       </div>

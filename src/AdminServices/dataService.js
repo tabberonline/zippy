@@ -5,7 +5,7 @@ const API_ENDPOINT = 'http://stg-api.tabber.online';
 
 const authHeader = () => ({
   Authorization: `${getItem('access_token')}`,
-  'Content-Type': 'application/json',
+  'Content-Type': 'multipart/form-data; boundary=<calculated when request is sent>',
    'Accept': 'application/json',
 });
 

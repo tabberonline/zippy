@@ -15,7 +15,7 @@ export default function AttachResumeModal() {
   const ResumeAttach = async () => {
     AdminService.AttachResume(url)
       .then(resp => {
-        console.log(resp)
+        setModalShow(false);
       })
       .catch(err => console.log(err));
   }
@@ -49,8 +49,6 @@ export default function AttachResumeModal() {
           <div className="share" style={{justifyContent: 'center'}}>
             <a className="flexAlignCenter modal-button" onClick={() => ResumeAttach()}>Add to profile</a>
           </div>
-  
-          <SendViaEmail />
   
         </div>
       </Modal>
