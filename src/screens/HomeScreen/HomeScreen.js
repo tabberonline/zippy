@@ -24,7 +24,7 @@ import projects from '../../assets/images/Projects.png';
 import achievements from '../../assets/images/Achievements.png';
 import {setItem, getItem} from '../../utility/localStorageControl'
 import { ToastContainer } from 'react-toastify';
-const API_ENDPOINT = 'http://stg-api.tabber.online';
+const API_ENDPOINT = 'https://whispering-eyrie-04211.herokuapp.com';
 
 function HomeScreen() {
   const [QnA, setQnA] = useState([]);
