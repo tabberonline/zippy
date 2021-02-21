@@ -9,7 +9,7 @@ import ContestCardDisplay from '../../components/ContestCard/ContestCardDisplay'
 import ProjectCardDisplay from '../../components/ProjectCard/ProjectCardDisplay';
 import {isMobile} from 'react-device-detect';
 import Axios from 'axios';
-const API_ENDPOINT = 'https://whispering-eyrie-04211.herokuapp.com';
+import {API_ENDPOINT} from '../../AdminServices/baseUrl';
 const API_KEY = 'AFjzy7b0VSvCEJhKDtcQ6z';
 const processAPI = 'https://cdn.filestackcontent.com';
 

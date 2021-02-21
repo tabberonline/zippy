@@ -66,7 +66,6 @@ export default function ContestCard({name, rank, id, logo, contest, card_id, hid
             AdminService.getUserData()
               .then(resp => {
                 setItem('contestWidgets', resp.data.contest_widgets);
-                window.open('/portfolio', '_self')
               })
               .catch(err => console.log(err));
           })
@@ -141,7 +140,6 @@ export default function ContestCard({name, rank, id, logo, contest, card_id, hid
                 AdminService.getUserData()
                     .then(resp => {
                       setItem('contestWidgets', resp.data.contest_widgets);
-                      window.open('/portfolio', '_self')
                     })
                     .catch(err => console.log(err));
                 })

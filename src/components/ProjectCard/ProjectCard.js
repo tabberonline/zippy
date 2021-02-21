@@ -49,7 +49,6 @@ export default function ProjectCard({name, url, id, img, hide}){
               AdminService.getUserData()
                 .then(resp => {
                     setItem('projectWidgets', resp.data.personal_projects);
-                    window.open('/portfolio', '_self')
                 })
                 .catch(err => console.log(err));
             })
@@ -113,7 +112,6 @@ export default function ProjectCard({name, url, id, img, hide}){
                 AdminService.getUserData()
                     .then(resp => {
                         setItem('projectWidgets', resp.data.personal_projects);
-                        window.open('/portfolio', '_self')
                     })
                     .catch(err => console.log(err));
                 })

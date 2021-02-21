@@ -65,7 +65,6 @@ export default function CodingCard({name, rank, id, logo, hide}){
               AdminService.getUserData()
                 .then(resp => {
                   setItem('rankWidgets', resp.data.rank_widgets);
-                  window.open('/portfolio', '_self')
                 })
                 .catch(err => console.log(err));
             })
@@ -142,7 +141,6 @@ export default function CodingCard({name, rank, id, logo, hide}){
                 AdminService.getUserData()
                     .then(resp => {
                       setItem('rankWidgets', resp.data.rank_widgets);
-                      window.open('/portfolio', '_self')
                     })
                     .catch(err => console.log(err));
                 })

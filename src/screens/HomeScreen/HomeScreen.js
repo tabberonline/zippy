@@ -24,7 +24,7 @@ import projects from '../../assets/images/Projects.png';
 import achievements from '../../assets/images/Achievements.png';
 import {setItem, getItem} from '../../utility/localStorageControl'
 import { ToastContainer } from 'react-toastify';
-const API_ENDPOINT = 'https://whispering-eyrie-04211.herokuapp.com';
+import {API_ENDPOINT} from '../../AdminServices/baseUrl';
 
 function HomeScreen() {
   const [QnA, setQnA] = useState([]);
