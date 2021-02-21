@@ -6,15 +6,27 @@ import {AiOutlinePlusCircle, AiOutlineCloseCircle, AiOutlineCloudDownload} from 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
-import SendViaEmail from './SendViaEmail';
+import { getItem, setItem } from '../../utility/localStorageControl';
 
 export default function AttachResumeModal() {
   const [modalShow, setModalShow] = React.useState(false);
-  var url = "";
+  var url = getItem('resumeLink');
 
   const ResumeAttach = async () => {
+    if(url !== getItem('resumeLink')){
+      setItem('resumeLink', url)
+    }
     AdminService.AttachResume(url)
       .then(resp => {
+        toast.success('Resume Link Added!', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
         setModalShow(false);
       })
       .catch(err => console.log(err));

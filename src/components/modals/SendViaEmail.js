@@ -85,7 +85,7 @@ export default function SendViaEmail() {
   return (
     <>
       <div className="share" style={{justifyContent: 'center'}}>
-        <a className="flexAlignCenter modal-button" onClick={() => setModalShow(true)}>Send Emai with Profile</a>
+        <a className="flexAlignCenter modal-button" onClick={() => setModalShow(true)}>Send Email with Profile</a>
       </div>
 
       <MyVerticallyCenteredModal

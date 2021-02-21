@@ -110,7 +110,7 @@ function PortfolioScreen() {
         pauseOnHover
       />
       <Header1 />
-      <div className="flexRow mw1100 flexEnd" style={{ marginLeft: 'auto'}}>
+      <div className="flexRow mw1100 flexBetween" style={{}}>
         <SendViaEmail />
         <SentHistoryModal />
         <ShareModal id={getItem('user_id')} />
