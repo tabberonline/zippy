@@ -49,7 +49,7 @@ export default {
     return DataService.post(`/share/email?email_to=${email}`, data)
   },
   AttachResume: async (link) => {
-    return DataService.post(`/portfolio/upload/crlink?cloud_link==${link}`)
+    return DataService.post(`/portfolio/upload/crlink?cloud_link=${link}`)
   },
   SentHistory: async (page, items) => {
     return DataService.get(`/email/history?page_no=${page}&items_per_page=${items}`)
