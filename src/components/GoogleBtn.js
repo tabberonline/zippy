@@ -42,8 +42,10 @@ const GoogleBtn = () => {
               setItem('rankWidgets', resp.data.rank_widgets);
               setItem('contestWidgets', resp.data.contest_widgets);
               setItem('email', resp.data.email);
-              if(resp.data.portfolio.cloud_resume_link.length > 0){
-                setItem('resumeLink', resp.data.portfolio.cloud_resume_link);
+              if(resp.data.portfolio){
+                if(resp.data.portfolio.cloud_resume_link){
+                  setItem('resumeLink', resp.data.portfolio.cloud_resume_link);
+                }
               }
             })
             .catch(err => console.log(err));

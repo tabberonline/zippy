@@ -36,6 +36,7 @@ import AdminService from '../../AdminServices/AdminService';
           };
           AdminService.createPortfolio(portfolioData)
             .then(resp => {
+              console.log(portfolioData, resp);
               toast.success('Details Entered!', {
                 position: "top-center",
                 autoClose: 2000,
@@ -50,7 +51,7 @@ import AdminService from '../../AdminServices/AdminService';
                 .then(resp => {
                   setItem('portfolio', resp.data.resume_present);
                   setModalShow(false);
-                  window.open('/portfolio', '_self');                  
+                  // window.open('/portfolio', '_self');                  
                 })
                 .catch(err => console.log(err));
             })
