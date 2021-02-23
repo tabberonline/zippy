@@ -65,6 +65,7 @@ export default function CodingCard({name, rank, id, logo, hide}){
               AdminService.getUserData()
                 .then(resp => {
                   setItem('rankWidgets', resp.data.rank_widgets);
+                  window.open('/portfolio', '_self')
                 })
                 .catch(err => console.log(err));
             })
@@ -141,6 +142,7 @@ export default function CodingCard({name, rank, id, logo, hide}){
                 AdminService.getUserData()
                     .then(resp => {
                       setItem('rankWidgets', resp.data.rank_widgets);
+                      window.open('/portfolio', '_self')
                     })
                     .catch(err => console.log(err));
                 })
@@ -187,25 +189,25 @@ export default function CodingCard({name, rank, id, logo, hide}){
                     }
                     { drawer ? (
                         <div className="flexColumn flexStart options" style={{position: 'absolute', top: '-15%', right:'-2%'}}>
-                            {icon1 ? (<img src={deleted} alt="delete" onMouseEnter={() => {setoption1(true); seticon1(false);}} onClick={() => DeleteCardPortal(name)} className="delete-icon" style={{height:30, width: 30, marginBottom: 10, marginLeft: option2 ? 50 : null || option3 ? 50 : null}} />) : null }
+                            {icon1 ? (<img src={deleted} alt="delete" onMouseEnter={() => {setoption1(true); seticon1(false);}} onClick={() => DeleteCardPortal(name)} className="delete-icon" style={{height:30, width: 30, marginBottom: 10, cursor: 'pointer', marginLeft: option2 ? 50 : null || option3 ? 50 : null}} />) : null }
                             { option1 ? (
-                                <div className="flexRow flexAlignCenter option delete-option" onClick={() => DeleteCardPortal(name)} onMouseLeave={() => {setoption1(false); seticon1(true);}} style={{ marginBottom: 10, position: 'relative', left: 40 }}>
+                                <div className="flexRow flexAlignCenter option delete-option" onClick={() => DeleteCardPortal(name)} onMouseLeave={() => {setoption1(false); seticon1(true);}} style={{ marginBottom: 10, position: 'relative', left: 40, cursor: 'pointer' }}>
                                     <img src={deleted} alt="delete" style={{height:30, width: 30, marginRight: 10}} />
                                     <p className="options-text">Delete</p>
                                 </div>                            
                                 ) : null
                             }
-                            {icon2 ? (<img src={edited} alt="edit" onMouseEnter={() => {setoption2(true); seticon2(false);}} className="edit-icon" style={{height:30, width: 30, marginBottom: 10, marginLeft: option1 ? 50 : null || option3 ? 50 : null}} />) : null}
+                            {icon2 ? (<img src={edited} alt="edit" onMouseEnter={() => {setoption2(true); seticon2(false);}} className="edit-icon" style={{height:30, width: 30, marginBottom: 10, cursor: 'pointer', marginLeft: option1 ? 50 : null || option3 ? 50 : null}} />) : null}
                             { option2 ? (
-                                <div className="flexRow flexAlignCenter option edit-option" onMouseLeave={() => {setoption2(false); seticon2(true);}} style={{ marginBottom: 10, position: 'relative', left: 40 }}>
+                                <div className="flexRow flexAlignCenter option edit-option" onMouseLeave={() => {setoption2(false); seticon2(true);}} style={{ marginBottom: 10, position: 'relative', left: 40, cursor: 'pointer' }}>
                                     <UpdateCodingProfile portalName={name} Rank={rank} userName={id} />
                                     <p className="options-text">Edit</p>
                                 </div>
                                 ) : null
                             }
-                            {icon3 ? (<img src={hidden} alt="hide" onMouseEnter={() => {setoption3(true); seticon3(false);}} className="hide-icon" style={{height:30, width: 30, marginBottom: 10, marginLeft: option2 ? 50 : null || option1 ? 50 : null}} />) : null}
+                            {icon3 ? (<img src={hidden} alt="hide" onMouseEnter={() => {setoption3(true); seticon3(false);}} className="hide-icon" style={{height:30, width: 30, marginBottom: 10, cursor: 'pointer', marginLeft: option2 ? 50 : null || option1 ? 50 : null}} />) : null}
                             { option3 ? (
-                                <div className="flexRow flexAlignCenter option hide-option" onClick={() => HideCard(name)} onMouseLeave={() => {setoption3(false); seticon3(true);}} style={{ marginBottom: 10, position: 'relative', left: 40 }}>
+                                <div className="flexRow flexAlignCenter option hide-option" onClick={() => HideCard(name)} onMouseLeave={() => {setoption3(false); seticon3(true);}} style={{ marginBottom: 10, position: 'relative', left: 40, cursor: 'pointer' }}>
                                     <img src={hidden} alt="hide" style={{height:30, width: 30, marginRight: 10}} />
                                     <p className="options-text">Hide</p>
                                 </div>
