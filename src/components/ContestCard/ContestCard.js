@@ -66,6 +66,7 @@ export default function ContestCard({name, rank, id, logo, contest, card_id, hid
             AdminService.getUserData()
               .then(resp => {
                 setItem('contestWidgets', resp.data.contest_widgets);
+                window.open('/portfolio', '_self')
               })
               .catch(err => console.log(err));
           })
@@ -115,7 +116,7 @@ export default function ContestCard({name, rank, id, logo, contest, card_id, hid
               </Form>
       
               <div className="share" style={{justifyContent: 'center'}}>
-                <a onClick={(e) => DeleteCard(card_id)} style={{marginRight: 10}} className="flexAlignCenter modal-button">Delete</a>
+                <a onClick={(e) => {DeleteCard(card_id); setModalShow(false);}} style={{marginRight: 10}} className="flexAlignCenter modal-button">Delete</a>
                 <a onClick={props.onHide} className="flexAlignCenter modal-button">Cancel</a>
               </div>
       
@@ -140,6 +141,7 @@ export default function ContestCard({name, rank, id, logo, contest, card_id, hid
                 AdminService.getUserData()
                     .then(resp => {
                       setItem('contestWidgets', resp.data.contest_widgets);
+                      window.open('/portfolio', '_self')
                     })
                     .catch(err => console.log(err));
                 })
@@ -186,25 +188,25 @@ export default function ContestCard({name, rank, id, logo, contest, card_id, hid
                 }
                 { drawer ? (
                     <div className="flexColumn flexStart options" style={{position: 'absolute', top: '-15%', right:'-2%'}}>
-                        {icon1 ? (<img src={deleted} alt="delete" onMouseEnter={() => {setoption1(true); seticon1(false);}} className="delete-icon" style={{height:30, width: 30, marginBottom: 10, marginLeft: option2 ? 50 : null || option3 ? 50 : null}} />) : null }
+                        {icon1 ? (<img src={deleted} alt="delete" onMouseEnter={() => {setoption1(true); seticon1(false);}} className="delete-icon" style={{height:30, width: 30, marginBottom: 10, marginLeft: option2 ? 50 : null || option3 ? 50 : null, cursor: 'pointer'}} />) : null }
                         { option1 ? (
-                            <div className="flexRow flexAlignCenter option delete-option" onClick={() => DeleteCardPortal(card_id)} onMouseLeave={() => {setoption1(false); seticon1(true);}} style={{ marginBottom: 10, position: 'relative', left: 40 }}>
+                            <div className="flexRow flexAlignCenter option delete-option" onClick={() => DeleteCardPortal(card_id)} onMouseLeave={() => {setoption1(false); seticon1(true);}} style={{ marginBottom: 10, position: 'relative', left: 40, cursor: 'pointer' }}>
                                 <img src={deleted} alt="delete" style={{height:30, width: 30, marginRight: 10}} />
                                 <p className="options-text">Delete</p>
                             </div>                            
                             ) : null
                         }
-                        {icon2 ? (<img src={edited} alt="edit" onMouseEnter={() => {setoption2(true); seticon2(false);}} className="edit-icon" style={{height:30, width: 30, marginBottom: 10, marginLeft: option1 ? 50 : null || option3 ? 50 : null}} />) : null}
+                        {icon2 ? (<img src={edited} alt="edit" onMouseEnter={() => {setoption2(true); seticon2(false);}} className="edit-icon" style={{height:30, width: 30, marginBottom: 10, cursor: 'pointer', marginLeft: option1 ? 50 : null || option3 ? 50 : null}} />) : null}
                         { option2 ? (
-                            <div className="flexRow flexAlignCenter option edit-option" onMouseLeave={() => {setoption2(false); seticon2(true);}} style={{ marginBottom: 10, position: 'relative', left: 40 }}>
+                            <div className="flexRow flexAlignCenter option edit-option" onMouseLeave={() => {setoption2(false); seticon2(true);}} style={{ marginBottom: 10, position: 'relative', left: 40, cursor: 'pointer' }}>
                                 <UpdateContestProfile portalName={name} Rank={rank} userName={id} id={card_id} ContestName={contest} />
                                 <p className="options-text">Edit</p>
                             </div>
                             ) : null
                         }
-                        {icon3 ? (<img src={hidden} alt="hide" onMouseEnter={() => {setoption3(true); seticon3(false);}} className="hide-icon" style={{height:30, width: 30, marginBottom: 10, marginLeft: option2 ? 50 : null || option1 ? 50 : null}} />) : null}
+                        {icon3 ? (<img src={hidden} alt="hide" onMouseEnter={() => {setoption3(true); seticon3(false);}} className="hide-icon" style={{height:30, width: 30, marginBottom: 10, cursor: 'pointer', marginLeft: option2 ? 50 : null || option1 ? 50 : null}} />) : null}
                         { option3 ? (
-                            <div className="flexRow flexAlignCenter option hide-option" onClick={() => HideCard()} onMouseLeave={() => {setoption3(false); seticon3(true);}} style={{ marginBottom: 10, position: 'relative', left: 40 }}>
+                            <div className="flexRow flexAlignCenter option hide-option" onClick={() => HideCard()} onMouseLeave={() => {setoption3(false); seticon3(true);}} style={{ marginBottom: 10, position: 'relative', left: 40, cursor: 'pointer' }}>
                                 <img src={hidden} alt="hide" style={{height:30, width: 30, marginRight: 10}} />
                                 <p className="options-text">Hide</p>
                             </div>
