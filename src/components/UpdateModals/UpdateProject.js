@@ -99,19 +99,10 @@ export default function UpdateProject(projectName, projectlink, projectImage, pr
               <Form.Control type="text" placeholder="http://www.google.com/" defaultValue={url} onChange={(e) => url = (e.target.value)} />
             </Form.Group>
   
-            <Form.Group controlId="formBasicPassword2" className="mb-20">
-              <Form.Label>Cover Image</Form.Label>
-              <Form.Control type="text" placeholder="Click on “upload cover” to upload an image of less than 2MB for your website cover." />
-            </Form.Group>
-  
-            <div className="share">
-              <a className="flexAlignCenter upload-button">Upload Cover</a>
-            </div>
-  
           </Form>
   
           <div className="share" style={{justifyContent: 'center'}}>
-            <a onClick={() => UpdateCard(project_id)} className="flexAlignCenter modal-button">Update</a>
+            <a onClick={() => UpdateCard(project_id)} className="flexAlignCenter modal-button">Update Portfolio</a>
           </div>
   
         </div>
@@ -121,7 +112,7 @@ export default function UpdateProject(projectName, projectlink, projectImage, pr
 
   return (
     <>
-        <img src={edited} alt="hidden" onClick={() => setModalShow(true)} className="edit-card-icon" style={{height:30, width: 30, marginBottom: 10}} />
+        <img src={edited} alt="hidden" onClick={() => setModalShow(true)} className="edit-card-icon" style={{height:30, width: 30, marginBottom: 10, cursor: 'pointer'}} />
   
         <MyVerticallyCenteredModal
             show={modalShow}

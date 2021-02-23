@@ -24,7 +24,7 @@ export default function UpdateContestProfile(portalName, Rank, userName, id, Con
   }
 
   const updateWidget = async (card_id) => {
-    if(portal.length > 0 && username.length > 0 && rank.length > 0 && contest.length > 0){
+    if(portal && username && rank && contest){
       const updateWidgetData = {
         'rank' : getItem('Contestrank'),
         'website_id' : getItem('website_id'),
@@ -103,7 +103,7 @@ export default function UpdateContestProfile(portalName, Rank, userName, id, Con
         <div className="flexColumn">
           <div className="flexRow flexBetween flexAlignCenter mb-40">
             <div style={{width: 20}}></div>
-            <h2 className="modal-head">Add Contests won</h2>
+            <h2 className="modal-head">Update Contests won</h2>
             <button onClick={props.onHide}>
               <AiOutlineCloseCircle style={{fontSize: 40, color: 'black'}} />
             </button>
@@ -137,7 +137,7 @@ export default function UpdateContestProfile(portalName, Rank, userName, id, Con
           </Form>
   
           <div className="share" style={{justifyContent: 'center'}}>
-            <a onClick={() => UpdateCard(card_id)} className="flexAlignCenter modal-button">Add to Profile</a>
+            <a onClick={() => UpdateCard(card_id)} className="flexAlignCenter modal-button">Update Profile</a>
           </div>
   
         </div>

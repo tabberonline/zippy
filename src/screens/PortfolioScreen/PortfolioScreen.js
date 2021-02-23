@@ -155,7 +155,7 @@ function PortfolioScreen() {
                     ) : null
                 }
                 {
-                  rankWidgets.length <= 5 ? (
+                  rankWidgets.length < 3 ? (
                     <CodingProfileModal />
                   ) : null
                 }
@@ -172,7 +172,7 @@ function PortfolioScreen() {
                     ) : null
                 }
                 {
-                  contestWidgets.length <= 5 ? (
+                  contestWidgets.length < 3 ? (
                     <ContestProfileModal />
                   ) : null
                 }
@@ -189,7 +189,7 @@ function PortfolioScreen() {
                     ) : null
                 }   
                 {
-                  projectWidgets.length <= 5 ? ( 
+                  projectWidgets.length < 3 ? ( 
                     <ProjectModal />
                   ) : null
                 }             

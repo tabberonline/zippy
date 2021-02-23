@@ -34,7 +34,7 @@ export default function ProjectModal() {
           AdminService.getUserData()
             .then(resp => {
               setItem('projectWidgets', resp.data.personal_projects);
-              window.open('/portfolio', '_self');
+              // window.open('/portfolio', '_self');
               setModalShow(false);
             })
             .catch(err => console.log(err));
@@ -96,15 +96,6 @@ export default function ProjectModal() {
               <Form.Label>Project URL</Form.Label>
               <Form.Control type="text" placeholder="http://www.google.com/" defaultValue={url} onChange={(e) => url = (e.target.value)} />
             </Form.Group>
-  
-            <Form.Group controlId="formBasicPassword2" className="mb-20">
-              <Form.Label>Cover Image</Form.Label>
-              <Form.Control type="text" placeholder="Click on “upload cover” to upload an image of less than 2MB for your website cover." />
-            </Form.Group>
-  
-            <div className="grow5 share">
-              <a className="flexAlignCenter upload-button">Upload Cover</a>
-            </div>
   
           </Form>
   

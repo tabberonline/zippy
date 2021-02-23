@@ -22,12 +22,13 @@ import edited from '../../assets/images/Edit-Icon.png';
     }
 
     const updateRankWidget = async () => {
-      if(portal.length > 0 && username.length > 0 && rank.length > 0){
+      if(portal && username && rank){
         const rankWidgetData = {
           'rank' : getItem('Codingrank'),
           'website_id' : getItem('website_id'),
           'username': getItem('Codingusername'),
         }
+        console.log(rankWidgetData);
         AdminService.updateRankWidget(rankWidgetData)
           .then(response => {
             toast.success('Card Updated!', {
@@ -127,7 +128,7 @@ import edited from '../../assets/images/Edit-Icon.png';
           </Form>
   
           <div className="share" style={{justifyContent: 'center'}}>
-            <a onClick={() => UpdateCard() } className="flexAlignCenter modal-button">Update</a>
+            <a onClick={() => UpdateCard() } className="flexAlignCenter modal-button">Update Profile</a>
           </div>
   
         </div>
