@@ -5,7 +5,7 @@ import {API_ENDPOINT} from './baseUrl';
 
 const authHeader = () => ({
   Authorization: `${getItem('access_token')}`,
-  'Content-Type': 'multipart/form-data; boundary=<calculated when request is sent>',
+  'Content-Type': 'application/json',
    'Accept': 'application/json',
 });
 

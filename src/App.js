@@ -13,6 +13,8 @@ function App() {
     setItem('projects', []);
     setItem('rank', []);
     setItem('contest', []);
+    setItem('resumeLink', '');
+    
   }, []);
   return (
     <div className="App">

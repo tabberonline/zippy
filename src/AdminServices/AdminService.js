@@ -45,8 +45,8 @@ export default {
   sendMail: async (data) => {
     return DataService.post('/email', data);
   },
-  sendMailwithAttachment: async (email, data) => {
-    return DataService.post(`/share/email?email_to=${email}`, data)
+  sendMailwithAttachment: async (email, data, optionalHeader) => {
+    return DataService.post(`/share/email?email_to=${email}`, data, optionalHeader)
   },
   AttachResume: async (link) => {
     return DataService.post(`/portfolio/upload/crlink?cloud_link=${link}`)
