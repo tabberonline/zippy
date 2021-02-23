@@ -49,6 +49,7 @@ export default function ProjectCard({name, url, id, img, hide}){
               AdminService.getUserData()
                 .then(resp => {
                     setItem('projectWidgets', resp.data.personal_projects);
+                    window.open('/portfolio', '_self')
                 })
                 .catch(err => console.log(err));
             })
@@ -112,6 +113,7 @@ export default function ProjectCard({name, url, id, img, hide}){
                 AdminService.getUserData()
                     .then(resp => {
                         setItem('projectWidgets', resp.data.personal_projects);
+                        window.open('/portfolio', '_self')
                     })
                     .catch(err => console.log(err));
                 })
@@ -177,9 +179,9 @@ export default function ProjectCard({name, url, id, img, hide}){
                                 <div onMouseLeave={() => {setdetail(false); setcard(true);}} className="flexColumn flexCenter flexAlignCenter project-textbox1">
                                     <p className="project-name">{ name.length > 0 ? name : "Sample Webpage"}</p>
                                     <div className="flexRow flexAround flexAlignCenter" style={{position: 'absolute', bottom: 30, width: '75%'}}>
-                                        <img src={deleted} onClick={() => DeleteCardPortal(id)} alt="delete" className="delete-card-icon" style={{height:30, width: 30, marginBottom: 10}} />
+                                        <img src={deleted} onClick={() => DeleteCardPortal(id)} alt="delete" className="delete-card-icon" style={{height:30, width: 30, marginBottom: 10, cursor: 'pointer'}} />
                                         <UpdateProject projectName={name} projectlink={url} projectImage={img} projectId={id}/>
-                                        <img src={hidden} onClick={() => HideCard()} alt="hidden" className="delete-card-icon" style={{height:30, width: 30, marginBottom: 10}} />
+                                        <img src={hidden} onClick={() => HideCard()} alt="hidden" className="delete-card-icon" style={{height:30, width: 30, marginBottom: 10, cursor: 'pointer'}} />
                                     </div>
                                 </div>
                             ) : null
