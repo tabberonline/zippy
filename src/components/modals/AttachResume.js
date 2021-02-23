@@ -10,6 +10,7 @@ import { getItem, setItem } from '../../utility/localStorageControl';
 
 export default function AttachResumeModal() {
   const [modalShow, setModalShow] = React.useState(false);
+  console.log(getItem('resumeLink'));
   var url = getItem('resumeLink');
 
   const ResumeAttach = async () => {
@@ -70,10 +71,10 @@ export default function AttachResumeModal() {
   return (
     <>
       <div className="grow1 attach-resume flexRow flexAlignCenter flexEvenly">
-        <p className="resume-head">{url.length > 0 ? 'View attached PDF' : 'Attach your Resume'}</p>
+        <p className="resume-head">{url ? 'View attached PDF' : 'Attach your Resume'}</p>
         {url.length > 0 ?
-        (<AiOutlineCloudDownload onClick={() => setModalShow(true)} className="grow2" style={{fontSize: 40, color: '#C0C0C0'}} />) :
-        (<AiOutlinePlusCircle onClick={() => setModalShow(true)} className="grow2" style={{fontSize: 40, color: '#C0C0C0'}} />)}
+        (<AiOutlineCloudDownload onClick={() => setModalShow(true)} className="grow2" style={{fontSize: 40, color: '#C0C0C0', cursor: 'pointer'}} />) :
+        (<AiOutlinePlusCircle onClick={() => setModalShow(true)} className="grow2" style={{fontSize: 40, color: '#C0C0C0', cursor: 'pointer'}} />)}
       </div>
 
       <MyVerticallyCenteredModal

@@ -34,7 +34,7 @@ export default function ProjectModal() {
           AdminService.getUserData()
             .then(resp => {
               setItem('projectWidgets', resp.data.personal_projects);
-              // window.open('/portfolio', '_self');
+              window.open('/portfolio', '_self');
               setModalShow(false);
             })
             .catch(err => console.log(err));

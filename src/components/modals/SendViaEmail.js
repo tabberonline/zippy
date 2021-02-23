@@ -6,6 +6,7 @@ import {AiOutlineCloseCircle} from 'react-icons/ai';
 import 'react-toastify/dist/ReactToastify.css';
 import MailPreview from '../MailPreview/MailPreview';
 import { getItem, setItem } from '../../utility/localStorageControl';
+import { ToastContainer, toast } from 'react-toastify';
 import AdminService from '../../AdminServices/AdminService';
 
 export default function SendViaEmail() {
@@ -13,6 +14,10 @@ export default function SendViaEmail() {
      var mails = "";
      var resume = "";
      const resumeData = new FormData();
+
+     const OptionalHeader = {
+      'Content-Type': 'multipart/form-data; boundary=<calculated when request is sent>',
+     }
 
      const handleInput = (event) => {
       resume = event.target.files[0]
@@ -25,8 +30,19 @@ export default function SendViaEmail() {
     }
 
     const SendMail =  async () => {
-      AdminService.sendMailwithAttachment(mails, resumeData)
-        .then(resp => setModalShow(false))
+      AdminService.sendMailwithAttachment(mails, resumeData, OptionalHeader)
+        .then(resp => {
+          toast.success('Details Entered!', {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+          window.open('/portfolio', '_self')
+        })
         .catch(err => console.log(err));
     }
   function MyVerticallyCenteredModal(props) {
@@ -85,7 +101,7 @@ export default function SendViaEmail() {
   return (
     <>
       <div className="share" style={{justifyContent: 'center'}}>
-        <a className="flexAlignCenter modal-button" onClick={() => setModalShow(true)}>Send Email with Profile</a>
+        <a className="flexAlignCenter modal-button" style={{cursor: 'pointer'}} onClick={() => setModalShow(true)}>Send Email with Profile</a>
       </div>
 
       <MyVerticallyCenteredModal

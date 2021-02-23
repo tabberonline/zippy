@@ -15,7 +15,8 @@ export default function SentHistoryModal() {
     for (let number = 1; number <= 10; number++) {
     items.push(
         <Pagination.Item key={number} active={number === active} onClick={() => {
-          setActive(number);}}>
+          setActive(number);
+          GetHistory(number, 5)}}>
         {number}
         </Pagination.Item>,
     );
@@ -25,12 +26,12 @@ export default function SentHistoryModal() {
       AdminService.SentHistory(page, item)
         .then(resp => {
           history = resp.data.mail_history;
-          setItem('history', history)
+          console.log(history);
+          setItem('history', history)          
+          console.log(getItem('history'));
         })
         .catch(err => console.log(err));
     }
-
-  GetHistory(active ,5);
 
   function MyVerticallyCenteredModal(props) {
     return (
@@ -56,7 +57,7 @@ export default function SentHistoryModal() {
                     </tr>
                 </thead>
                 <tbody>
-                {getItem('history').map((table) => (
+                {props.history.map((table) => (
                     <tr>
                         <td className="table-date">{table.date.split(' ')[0]}</td>
                         <td className="table-element">{table.email}</td>
@@ -68,12 +69,14 @@ export default function SentHistoryModal() {
                 <Pagination className="pageNumbers">
                   <Pagination.Item key="First" active={1 === active} disabled={active===1 ? true : false} onClick={() => {
                     setActive(1); 
+                    GetHistory(1,5);
                   }}>
                     First
                   </Pagination.Item>
                   {items}
                   <Pagination.Item key="Next" active={true} disabled={active===10 ? true : false} onClick={() => {
                     setActive(active+1); 
+                    GetHistory(active+1,5);
                   }}>
                     Next
                   </Pagination.Item>
@@ -87,7 +90,7 @@ export default function SentHistoryModal() {
   return (
     <>
       <div className="history">
-          <button className="flexAlignCenter history-button" style={{outline: 'none'}} onClick={() => setModalShow(true)} >
+          <button className="flexAlignCenter history-button" style={{outline: 'none'}} onClick={() => {setModalShow(true); GetHistory(1, 5);}} >
               View Sent History        
           </button>
         </div>
@@ -95,6 +98,7 @@ export default function SentHistoryModal() {
       <MyVerticallyCenteredModal
         show={modalShow}
         onHide={() => setModalShow(false)}
+        history = {getItem('history')}
       />
     </>
   );

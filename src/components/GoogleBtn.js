@@ -45,6 +45,7 @@ const GoogleBtn = () => {
               if(resp.data.portfolio){
                 if(resp.data.portfolio.cloud_resume_link){
                   setItem('resumeLink', resp.data.portfolio.cloud_resume_link);
+                  console.log(getItem('resumeLink'));
                 }
               }
             })
