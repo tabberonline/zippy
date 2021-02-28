@@ -6,13 +6,16 @@ import {AiOutlineCloseCircle} from 'react-icons/ai';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
 import { setItem, getItem } from '../../utility/localStorageControl';
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function SentHistoryModal() {
     const [modalShow, setModalShow] = React.useState(false);
     const [active, setActive] = useState(1);
     var history = [];
     let items = [];
-    for (let number = 1; number <= 10; number++) {
+    var totalmails = 0;
+    const pages = totalmails/5 + 1;
+    for (let number = 1; number <= pages; number++) {
     items.push(
         <Pagination.Item key={number} active={number === active} onClick={() => {
           setActive(number);
@@ -26,11 +29,20 @@ export default function SentHistoryModal() {
       AdminService.SentHistory(page, item)
         .then(resp => {
           history = resp.data.mail_history;
+          totalmails = resp.data.total_items;
           console.log(history);
           setItem('history', history)          
           console.log(getItem('history'));
         })
-        .catch(err => console.log(err));
+        .catch(err => {toast.error("Some Error Occured.", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });});
     }
 
   function MyVerticallyCenteredModal(props) {
