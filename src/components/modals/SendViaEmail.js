@@ -23,27 +23,44 @@ export default function SendViaEmail() {
       resume = event.target.files[0]
      }
 
-    const UploadResume = () => {
+    const SendMail =  async () => {
       resumeData.append('file', resume)
       setItem('resumeLink', resume);
-      console.log(getItem('resumeLink'))
-    }
-
-    const SendMail =  async () => {
       AdminService.sendMailwithAttachment(mails, resumeData, OptionalHeader)
         .then(resp => {
-          toast.success('Details Entered!', {
-            position: "top-center",
-            autoClose: 2000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-          window.open('/portfolio', '_self')
+          if(resp.data.status === "success"){
+            toast.success('Email Succesfully Sent!', {
+              position: "top-center",
+              autoClose: 2000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+            window.open('/portfolio', '_self')
+          } else{
+            toast.error(resp.data.message, {
+              position: "top-center",
+              autoClose: 2000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+          }
         })
-        .catch(err => console.log(err));
+        .catch(err => toast.error(
+          "Some Error occured.", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }));
     }
   function MyVerticallyCenteredModal(props) {
     return (
@@ -76,9 +93,6 @@ export default function SendViaEmail() {
                 <div className="flexColumn">
                     <span className="modal-list">• File size should not more than 10 MB.</span>
                     <span className="modal-list">• File should be in PDF format.</span>
-                </div>
-                <div className="grow5 share">
-                    <a className="flexAlignCenter upload-button" onClick={UploadResume}>Upload</a>
                 </div>
             </div>
     
