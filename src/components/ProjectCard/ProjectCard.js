@@ -51,7 +51,15 @@ export default function ProjectCard({name, url, id, img, hide}){
                     setItem('projectWidgets', resp.data.personal_projects);
                     window.open('/portfolio', '_self')
                 })
-                .catch(err => console.log(err));
+                .catch(err => toast.error("Some Error Occured.", {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  }));
             })
             .catch(error => {
               toast.error('Error updating, Retry!', {
@@ -115,7 +123,15 @@ export default function ProjectCard({name, url, id, img, hide}){
                         setItem('projectWidgets', resp.data.personal_projects);
                         window.open('/portfolio', '_self')
                     })
-                    .catch(err => console.log(err));
+                    .catch(err => toast.error("Some Error Occured.", {
+                        position: "top-center",
+                        autoClose: 2000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                      }));
                 })
             .catch(error => {
                 toast.error('Error, Cannot delete this card!', {

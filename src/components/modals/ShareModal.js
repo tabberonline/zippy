@@ -20,7 +20,15 @@ export default function ShareModal({id}) {
         setUrl(`http://localhost:3000/d?id=${AccessID}`); 
         setModalShow(true);
       })
-      .catch(err => console.log(err));
+      .catch(err => toast.error("Some Error Occured.", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      }));
   }
 
   const CopyText = (e) => {

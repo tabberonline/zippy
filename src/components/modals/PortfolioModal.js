@@ -52,7 +52,15 @@ import AdminService from '../../AdminServices/AdminService';
                   setModalShow(false);
                   window.open('/portfolio', '_self');                  
                 })
-                .catch(err => console.log(err));
+                .catch(err => toast.error("Some Error Occured.", {
+                  position: "top-center",
+                  autoClose: 2000,
+                  hideProgressBar: true,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                }));
             })
             .catch(err => {
               toast.error('Error, One User, One Portfolio!', {

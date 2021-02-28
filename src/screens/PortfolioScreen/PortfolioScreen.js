@@ -72,7 +72,6 @@ function PortfolioScreen() {
           });
         })
         .catch(err => {
-          console.log('Error', err);
           toast.error('Error, Please retry!', {
             position: "top-center",
             autoClose: 2000,

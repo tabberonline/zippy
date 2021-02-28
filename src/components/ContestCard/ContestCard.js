@@ -68,7 +68,15 @@ export default function ContestCard({name, rank, id, logo, contest, card_id, hid
                 setItem('contestWidgets', resp.data.contest_widgets);
                 window.open('/portfolio', '_self')
               })
-              .catch(err => console.log(err));
+              .catch(err => toast.error("Some Error Occured.", {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              }));
           })
           .catch(error => {
             toast.error('Error updating!', {

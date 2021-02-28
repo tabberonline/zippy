@@ -23,7 +23,7 @@ import nolimit from '../../assets/images/NoLimit.png';
 import projects from '../../assets/images/Projects.png';
 import achievements from '../../assets/images/Achievements.png';
 import {setItem, getItem} from '../../utility/localStorageControl'
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import {API_ENDPOINT} from '../../AdminServices/baseUrl';
 
 function HomeScreen() {
@@ -36,14 +36,39 @@ function HomeScreen() {
       .then(resp => {
         setQnA(resp.data.value);
       })
+    .catch(err => toast.error("Some Error Occured.", {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    }))
     Axios.get(`${API_ENDPOINT}/fe/get?page_type=Home&key=Achievements`)
       .then(resp => {
         setAments(resp.data.value)
-      })
+      }).catch(err => toast.error("Some Error Occured.", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      }))
     Axios.get(`${API_ENDPOINT}/fe/get?page_type=Home&key=Features`)
       .then(resp => {
         setFeatures(resp.data.value)
-      })
+      }).catch(err => toast.error("Some Error Occured.", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      }))
   }
 
   window.onload = () => {

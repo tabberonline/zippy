@@ -49,7 +49,15 @@ const GoogleBtn = () => {
                 }
               }
             })
-            .catch(err => console.log(err));
+            .catch(err => toast.error("Some Error Occured.", {
+              position: "top-center",
+              autoClose: 2000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            }));
         })
         .catch(function (error) {
           console.log(error);

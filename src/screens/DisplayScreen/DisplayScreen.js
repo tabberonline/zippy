@@ -10,6 +10,7 @@ import ProjectCardDisplay from '../../components/ProjectCard/ProjectCardDisplay'
 import {isMobile} from 'react-device-detect';
 import Axios from 'axios';
 import {API_ENDPOINT} from '../../AdminServices/baseUrl';
+import { toast } from 'react-toastify';
 const API_KEY = 'AFjzy7b0VSvCEJhKDtcQ6z';
 const processAPI = 'https://cdn.filestackcontent.com';
 
@@ -30,7 +31,15 @@ function DisplayScreen() {
         .then(data => {
           setData([data]);
         })
-      .catch(error => console.log(error))
+      .catch(error => toast.error("Some Error Occured.", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      }))
   }, [])
 
   console.log('bbbbbbbb', userData);
