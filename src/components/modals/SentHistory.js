@@ -80,10 +80,10 @@ export default function SentHistoryModal() {
             <div>
                 <Pagination className="pageNumbers">
                   <Pagination.Item key="First" active={1 === active} disabled={active===1 ? true : false} onClick={() => {
-                    setActive(1); 
-                    GetHistory(1,5);
+                    setActive(active === 1 ? 1 : active-1); 
+                    GetHistory(active === 1 ? 1 : active-1,5);
                   }}>
-                    First
+                    Prev
                   </Pagination.Item>
                   {items}
                   <Pagination.Item key="Next" active={true} disabled={active===10 ? true : false} onClick={() => {
