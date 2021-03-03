@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import HomeScreen from './screens/HomeScreen/HomeScreen';
 import PortfolioScreen from './screens/PortfolioScreen/PortfolioScreen';
@@ -17,15 +16,18 @@ import TermsScreen from './screens/TermsScreen/TermsScreen';
 import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import { logger } from 'redux-logger'
-
-const store = createStore(
-  applyMiddleware(thunk, logger)
-)
+import { UserProvider } from './utility/userContext';
+// import store from "./store";
+// const store = createStore(
+//   applyMiddleware(thunk, logger)
+// )
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <StateProvider initialState={ initialState } reducer={ reducer } > */}
-    <Provider store={store}>
+    {/* <Provider 
+      store={store}
+    > */}
+    <UserProvider>
       <Router>
         <Switch>
             <Route exact path="/" component={App} />
@@ -38,9 +40,8 @@ ReactDOM.render(
             <Route exact path="/terms" component={TermsScreen} />
         </Switch>            
       </Router>
-    </Provider>
-    {/* </StateProvider> */}
+    </UserProvider>
+    {/* </Provider> */}
   </React.StrictMode>,
   document.getElementById('root')
 );
-reportWebVitals();
