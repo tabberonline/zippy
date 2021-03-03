@@ -22,7 +22,6 @@ import modify from '../../assets/images/Modifiable.png';
 import nolimit from '../../assets/images/NoLimit.png';
 import projects from '../../assets/images/Projects.png';
 import achievements from '../../assets/images/Achievements.png';
-import {setItem, getItem} from '../../utility/localStorageControl'
 import { toast, ToastContainer } from 'react-toastify';
 import {API_ENDPOINT} from '../../AdminServices/baseUrl';
 
