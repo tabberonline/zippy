@@ -15,9 +15,6 @@ const CLIENT_ID = '148434873376-a1k8ubdj3g3oqkh53an00v8angbj2itd.apps.googleuser
 const GoogleBtn = () => {
   const [user, setUser] = useContext(ProgrammerContext);
   const [isLogin, setLogin] = useState(user.login);
-  
-  useEffect(() => { console.log(user) }, [user]);
-
   const loginSuccess = (response) => {
     if(response.tokenId){
       Axios.post(`${API_ENDPOINT}/login?idTokenString=${response.tokenId}`)
@@ -44,7 +41,7 @@ const GoogleBtn = () => {
                 portfolio: resp.data.portfolio,
                 rank_widgets: resp.data.rank_widgets,
                 contest_widgets: resp.data.contest_widgets,
-                personal_projects: resp.data.project_widgets,
+                project_widgets: resp.data.personal_projects,
               }));
               if(resp.data.portfolio){
                 if(resp.data.portfolio.cloud_resume_link){
@@ -91,7 +88,7 @@ const GoogleBtn = () => {
   }
     return (
     <div>
-      { isLogin ? (
+      { user.login ? (
         <>
           <PortfolioModal home={false} />
         </>
