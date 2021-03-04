@@ -16,9 +16,7 @@ const processAPI = 'https://cdn.filestackcontent.com';
 
 
 function DisplayScreen() {
-
   const [userData, setData] = useState([]);
-
   useEffect(() => {
     const getIDFromURL = () => {
       return window.location.href.split('?')[1].split('=')[1];
