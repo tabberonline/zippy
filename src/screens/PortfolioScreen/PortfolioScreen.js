@@ -131,7 +131,7 @@ function PortfolioScreen() {
         <div className="p-40 flexColumn portfolio-section">
           <div className="flexColumn">
             <div className="flexRow flexCenter flexAlignCenter">
-              <input type="text" style={{backgroundColor: edit1 ? 'inherit' : 'white'}} autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" className="title" defaultValue={title} onChange={(event) => title = event.target.value} placeholder="Portfolio Title" readOnly />
+              <input type="text" style={{backgroundColor: edit1 ? 'inherit' : 'white', width: '75%'}} autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" className="title" defaultValue={title} onChange={(event) => title = event.target.value} placeholder="Portfolio Title" readOnly />
               <div className="flexRow flexCenter flexAlignCenter iconcontainer1" style={{left: -15, top: -15}}>
                 {
                   edit1 ? <AiOutlineEdit className="portfolio-icon" onClick={()=>Edit1()} style={{cursor: 'pointer'}} />
@@ -161,7 +161,7 @@ function PortfolioScreen() {
               <div className="flexRow flexWrap">
                 { user.rank_widgets !== [''] ?
                     (
-                      [user.rank_widgets].map(profile => (
+                      user.rank_widgets.map(profile => (
                         <CodingCard name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} hide={profile.invisible} />
                       ))
                     ) : null
@@ -173,7 +173,7 @@ function PortfolioScreen() {
                 }
               </div>
             </div>
-            {/* <div className="coding-profile mv-20">
+            <div className="coding-profile mv-20">
               <p className="card-heading mb-20">Contests Won</p>
               <div className="flexRow flexWrap">
                 { user.contest_widgets !== [''] ?
@@ -206,7 +206,7 @@ function PortfolioScreen() {
                   ) : null
                 }             
               </div>
-            </div> */}
+            </div>
           </div>
           <div className="flexRow flexCenter end-section ph-20 flexAlignCenter mv-40">
             <hr style={{width: '35%', color: 'rgba(154,154,154,1)'}} />
