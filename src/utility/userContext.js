@@ -1,9 +1,9 @@
-import React, {useState, createContext} from 'react';
-
+import React, {useState, createContext, useEffect} from 'react';
+import { setItem, getItem } from './localStorageControl';
 export const ProgrammerContext = createContext();
 
 export const UserProvider = (props) => {
-    const [user, setUser] = useState({
+    const [user, setUser] = useState(getItem('user') || {
         login: false,
         token: null,
         user_id: null,
@@ -14,9 +14,19 @@ export const UserProvider = (props) => {
         portfolio: [],
         rank_widgets: [],
         contest_widgets: [],
-        personal_projects: [],
+        project_widgets: [],
         resumeLink: '',
+        sent_history: [],
+        total_mails_sent: '',
     });
+    
+    useEffect(() => {
+        setItem('user', user)
+    }, [user])
+
+    console.log('beh', user);
+    console.log('localStorage', getItem('user'))
+
     return(
         <ProgrammerContext.Provider value={[user, setUser]}>
             {props.children}
