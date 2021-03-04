@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import '../../styles/HelperStyles.css';
 import './ContestCard.css';
 import {BsThreeDotsVertical} from 'react-icons/bs';
@@ -14,9 +14,10 @@ import AdminService from '../../AdminServices/AdminService';
 import UpdateContestProfile from '../UpdateModals/UpdateContestProfile';
 import { Form, Modal } from 'react-bootstrap';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
+import { ProgrammerContext } from '../../utility/userContext';
 
-export default function ContestCard({name, rank, id, logo, contest, card_id, hide}){
-
+export default function ContestCard({name, rank, id, logo, contest, card_id, hide}){ 
+    const [user, setUser] = useContext(ProgrammerContext); 
     const [ bullets, setbullets ] = useState(true);
     const [ drawer, setdrawer ] = useState(false);
     const [option1, setoption1] = useState(false);
@@ -65,8 +66,9 @@ export default function ContestCard({name, rank, id, logo, contest, card_id, hid
             });
             AdminService.getUserData()
               .then(resp => {
-                setItem('contestWidgets', resp.data.contest_widgets);
-                window.open('/portfolio', '_self')
+                setUser(prevUser => ({...prevUser,
+                  contest_widgets: resp.data.contest_widgets,
+                }));
               })
               .catch(err => toast.error("Some Error Occured.", {
                 position: "top-center",
@@ -148,8 +150,9 @@ export default function ContestCard({name, rank, id, logo, contest, card_id, hid
                 });
                 AdminService.getUserData()
                     .then(resp => {
-                      setItem('contestWidgets', resp.data.contest_widgets);
-                      window.open('/portfolio', '_self')
+                      setUser(prevUser => ({...prevUser,
+                        contest_widgets: resp.data.contest_widgets,
+                      }));
                     })
                     .catch(err => console.log(err));
                 })

@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import '../../styles/HelperStyles.css';
 import './CodingCard.css';
 import {BsThreeDotsVertical} from 'react-icons/bs';
@@ -15,8 +15,10 @@ import UpdateCodingProfile from '../UpdateModals/UpdateCodingProfile';
 import { Modal } from 'react-bootstrap';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { Form } from 'react-bootstrap';
+import { ProgrammerContext } from '../../utility/userContext';
 
-export default function CodingCard({name, rank, id, logo, hide}){        
+export default function CodingCard({name, rank, id, logo, hide}){       
+  const [user, setUser] = useContext(ProgrammerContext); 
     var invisible = hide;
     const [ bullets, setbullets ] = useState(true);
     const [ drawer, setdrawer ] = useState(false);
@@ -64,8 +66,9 @@ export default function CodingCard({name, rank, id, logo, hide}){
               });
               AdminService.getUserData()
                 .then(resp => {
-                  setItem('rankWidgets', resp.data.rank_widgets);
-                  window.open('/portfolio', '_self')
+                  setUser(prevUser => ({...prevUser,
+                    rank_widgets: resp.data.rank_widgets,
+                  }));
                 })
                 .catch(err => toast.error("Some Error Occured.", {
                   position: "top-center",
@@ -149,8 +152,9 @@ export default function CodingCard({name, rank, id, logo, hide}){
                 });
                 AdminService.getUserData()
                     .then(resp => {
-                      setItem('rankWidgets', resp.data.rank_widgets);
-                      window.open('/portfolio', '_self')
+                      setUser(prevUser => ({...prevUser,
+                        rank_widgets: resp.data.rank_widgets,
+                      }));
                     })
                     .catch(err => console.log(err));
                 })
