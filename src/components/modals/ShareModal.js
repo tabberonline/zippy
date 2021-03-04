@@ -1,35 +1,18 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useContext} from 'react';
 import '../../styles/HelperStyles.css'
 import { Modal, Form } from 'react-bootstrap';
 import {AiOutlineCloseCircle} from 'react-icons/ai';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
+import { ProgrammerContext } from '../../utility/userContext';
 
 export default function ShareModal({id}) {
+  const [user, setUser] = useContext(ProgrammerContext);
   const [modalShow, setModalShow] = React.useState(false);
-  var user_id = id;
-  const [url, setUrl] = useState('');
+  const url = `http://localhost:3000/d?id=${user.user_id}`;
   const textAreaRef = useRef(null);
-
-  const ShareLink = async () => {
-    AdminService.getUserDataById(user_id)
-      .then(resp => {
-        const AccessID = resp.data.user_id;      
-        setUrl(`http://localhost:3000/d?id=${AccessID}`); 
-        setModalShow(true);
-      })
-      .catch(err => toast.error("Some Error Occured.", {
-        position: "top-center",
-        autoClose: 2000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      }));
-  }
 
   const CopyText = (e) => {
     textAreaRef.current.select();
@@ -81,7 +64,7 @@ export default function ShareModal({id}) {
   return (
     <>
       <div className="share">
-        <button className="flexAlignCenter share-button" style={{outline: 'none'}} onClick={() => {setModalShow(true); ShareLink();}}>
+        <button className="flexAlignCenter share-button" style={{outline: 'none'}} onClick={() => {setModalShow(true);}}>
           Share        
         </button>
       </div>

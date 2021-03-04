@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react';
+import React, { useContext } from 'react';
 import '../../styles/HelperStyles.css'
 import { Modal, Form } from 'react-bootstrap';
 import {AiOutlineCloseCircle} from 'react-icons/ai';
@@ -8,8 +8,10 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
 import edited from '../../assets/images/Edit-Icon.png';
+import { ProgrammerContext } from '../../utility/userContext';
 
 export default function UpdateProject(projectName, projectlink, projectImage, projectId) {
+  const [user, setUser] = useContext(ProgrammerContext);
   const [modalShow, setModalShow] = React.useState(false);
   var project1 = projectName;
   var url = project1.projectlink;
@@ -35,9 +37,10 @@ export default function UpdateProject(projectName, projectlink, projectImage, pr
           });
           AdminService.getUserData()
             .then(resp => {
-                setItem('projectWidgets', resp.data.personal_projects);
-                window.open('/portfolio', '_self')
-                setModalShow(false);
+              setUser(prevUser => ({...prevUser,
+                project_widgets: resp.data.personal_projects,
+              }));
+              setModalShow(false);
             })
             .catch(err => toast.error("Some Error Occured.", {
               position: "top-center",

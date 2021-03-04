@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react';
+import React, { useContext } from 'react';
 import '../../styles/HelperStyles.css'
 import { Form, Modal } from 'react-bootstrap';
 import {AiOutlineCloseCircle} from 'react-icons/ai';
@@ -8,8 +8,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
 import edited from '../../assets/images/Edit-Icon.png';
+import { ProgrammerContext } from '../../utility/userContext';
 
   export default function UpdateCodingProfile(portalName, Rank, userName) {
+    const [user, setUser] = useContext(ProgrammerContext);
     const [modalShow, setModalShow] = React.useState(false);
     var portal1 = portalName;
     var portal = portal1.portalName;
@@ -42,8 +44,9 @@ import edited from '../../assets/images/Edit-Icon.png';
             });
             AdminService.getUserData()
               .then(resp => {
-                setItem('rankWidgets', resp.data.rank_widgets);
-                window.open('/portfolio', '_self')
+                setUser(prevUser => ({...prevUser,
+                    rank_widgets: resp.data.rank_widgets,
+                }));
                 setModalShow(false);
               })
               .catch(err => toast.error("Some Error Occured.", {

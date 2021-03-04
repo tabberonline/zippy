@@ -1,14 +1,16 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react';
+import React, { useContext } from 'react';
 import '../../styles/HelperStyles.css'
 import { Modal, Form } from 'react-bootstrap';
 import {AiOutlineCloseCircle, AiOutlinePlusCircle} from 'react-icons/ai';
 import { PortalMap, setItem, getItem } from '../../utility/localStorageControl';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
+import { ProgrammerContext } from '../../utility/userContext';
 
 export default function ContestProfileModal() {
+  const [user, setUser] = useContext(ProgrammerContext);
   const [modalShow, setModalShow] = React.useState(false);
   var portal = "Eg. GeeksforGeeks, CodeChef";
   const data = ['Geeks for Geeks', 'CodeChef', 'CodeForces', 'HackerRank', 'TopCoder', 'LeetCode'];
@@ -41,8 +43,9 @@ export default function ContestProfileModal() {
           });
           AdminService.getUserData()
             .then(resp => {
-              setItem('contestWidgets', resp.data.contest_widgets);
-              window.open('/portfolio', '_self');
+              setUser(prevUser => ({...prevUser,
+                contest_widgets: resp.data.contest_widgets,
+              }));
               setModalShow(false);
             })
             .catch(err => toast.error("Some Error Occured.", {

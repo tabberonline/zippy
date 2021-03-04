@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react';
+import React, { useContext } from 'react';
 import '../../styles/HelperStyles.css'
 import { Modal, Form } from 'react-bootstrap';
 import {AiOutlineCloseCircle} from 'react-icons/ai';
@@ -8,8 +8,10 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
 import edited from '../../assets/images/Edit-Icon.png';
+import { ProgrammerContext } from '../../utility/userContext';
 
 export default function UpdateContestProfile(portalName, Rank, userName, id, ContestName) {
+  const [user, setUser] = useContext(ProgrammerContext);
   const [modalShow, setModalShow] = React.useState(false);
   var portal1 = portalName;
   var portal = portal1.portalName;
@@ -44,8 +46,9 @@ export default function UpdateContestProfile(portalName, Rank, userName, id, Con
           });
           AdminService.getUserData()
             .then(resp => {
-              setItem('contestWidgets', resp.data.contest_widgets);
-              window.open('/portfolio', '_self')
+              setUser(prevUser => ({...prevUser,
+                contest_widgets: resp.data.contest_widgets,
+              }));
               setModalShow(false);
             })
             .catch(err => toast.error("Some Error Occured.", {

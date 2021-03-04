@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import '../../styles/HelperStyles.css'
 import { Modal, Form, Table, Pagination } from 'react-bootstrap';
 import {AiOutlineCloseCircle} from 'react-icons/ai';
@@ -7,14 +7,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
 import { setItem, getItem } from '../../utility/localStorageControl';
 import { ToastContainer, toast } from 'react-toastify';
+import { ProgrammerContext } from '../../utility/userContext';
 
 export default function SentHistoryModal() {
+    const [user, setUser] = useContext(ProgrammerContext);
     const [modalShow, setModalShow] = React.useState(false);
     const [active, setActive] = useState(1);
-    var history = [];
     let items = [];
-    var totalmails = 0;
-    const pages = totalmails/5 + 1;
+    const pages = user.total_mails_sent/5 + 1;
     for (let number = 1; number <= pages; number++) {
     items.push(
         <Pagination.Item key={number} active={number === active} onClick={() => {
@@ -28,11 +28,10 @@ export default function SentHistoryModal() {
     const GetHistory = async (page, item) => {
       AdminService.SentHistory(page, item)
         .then(resp => {
-          history = resp.data.mail_history;
-          totalmails = resp.data.total_items;
-          console.log(history);
-          setItem('history', history)          
-          console.log(getItem('history'));
+          setUser(prevUser => ({...prevUser,
+            sent_history: resp.data.mail_history,
+            total_mails_sent: resp.data.total_items
+          }));          
         })
         .catch(err => {toast.error("Some Error Occured.", {
           position: "top-center",
@@ -110,7 +109,7 @@ export default function SentHistoryModal() {
       <MyVerticallyCenteredModal
         show={modalShow}
         onHide={() => setModalShow(false)}
-        history = {getItem('history')}
+        history = {user.sent_history}
       />
     </>
   );
