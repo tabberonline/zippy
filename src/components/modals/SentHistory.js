@@ -14,12 +14,13 @@ export default function SentHistoryModal() {
     const [modalShow, setModalShow] = React.useState(false);
     const [active, setActive] = useState(1);
     let items = [];
-    const pages = user.total_mails_sent/5 + 1;
+    const pages = Math.floor(user.total_mails_sent/5) + 1;
     for (let number = 1; number <= pages; number++) {
     items.push(
         <Pagination.Item key={number} active={number === active} onClick={() => {
           setActive(number);
-          GetHistory(number, 5)}}>
+          GetHistory(number, 5)
+          console.log(pages, active, user.sent_history);}} style={{cursor: 'pointer'}}>
         {number}
         </Pagination.Item>,
     );
@@ -81,17 +82,19 @@ export default function SentHistoryModal() {
             </Table>
             <div>
                 <Pagination className="pageNumbers">
-                  <Pagination.Item key="First" active={1 === active} disabled={active===1 ? true : false} onClick={() => {
+                  <Pagination.Item key="First" active={1 === active} disabled={active === 1 ? true : false} onClick={() => {
                     setActive(active === 1 ? 1 : active-1); 
                     GetHistory(active === 1 ? 1 : active-1,5);
-                  }}>
+                    console.log(pages, active, user.sent_history);
+                  }} style={{cursor: 'pointer'}}>
                     Prev
                   </Pagination.Item>
                   {items}
-                  <Pagination.Item key="Next" active={true} disabled={active===10 ? true : false} onClick={() => {
-                    setActive(active+1); 
+                  <Pagination.Item key="Next" active={true} disabled={active === pages ? true : false} onClick={() => {
+                    setActive(active+1);
                     GetHistory(active+1,5);
-                  }}>
+                    console.log(pages, active, user.sent_history); 
+                  }} style={{cursor: 'pointer'}}>
                     Next
                   </Pagination.Item>
                 </Pagination>
