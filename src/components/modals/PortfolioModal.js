@@ -173,7 +173,7 @@ import { ProgrammerContext } from '../../utility/userContext';
                 }} 
                 className="edit-your-portfolio grow1"
               >
-                {apicall === 'Success' || user.portfolio !==[] ? 'Move to your Portfolio' : 'Edit your Portfolio'}
+                {apicall === 'Success' || user.portfolio ? 'Move to your Portfolio' : 'Edit your Portfolio'}
               </button>
             )
         }
