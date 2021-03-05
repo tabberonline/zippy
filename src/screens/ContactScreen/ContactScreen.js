@@ -21,8 +21,10 @@ function ContactScreen() {
                 'subject': subject,
                 'text': message
             }
+            console.log(mailContent);
             AdminService.sendMail(mailContent)
                 .then(resp => {
+                    console.log(resp);
                     toast.success('Mail Sent!', {
                         position: "top-center",
                         autoClose: 2000,
@@ -32,10 +34,10 @@ function ContactScreen() {
                         draggable: true,
                         progress: undefined,
                     });
-                    window.open('/contact', '_self')
                 })
                 .catch(err => {
-                    toast.error('Invalid entries!', {
+                    console.log(err);
+                    toast.error('Some Error Occured!', {
                         position: "top-center",
                         autoClose: 2000,
                         hideProgressBar: true,
