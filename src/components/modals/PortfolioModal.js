@@ -51,8 +51,7 @@ import { ProgrammerContext } from '../../utility/userContext';
                 .then(resp => {
                   setUser(prevUser => ({...prevUser,
                     portfolio: resp.data.portfolio,
-                  }));  
-                  setModalShow(false);              
+                  }));              
                 })
                 .catch(err => toast.error("Some Error Occured.", {
                   position: "top-center",
@@ -94,6 +93,7 @@ import { ProgrammerContext } from '../../utility/userContext';
       setItem('titlePortfolio', title);
       setItem('descPortfolio', desc);
       createPortfolio();
+      setModalShow(false);  
     }
 
     const ModalOpen = () => {

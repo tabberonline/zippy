@@ -11,6 +11,7 @@ import {isMobile} from 'react-device-detect';
 import Axios from 'axios';
 import {API_ENDPOINT} from '../../AdminServices/baseUrl';
 import { toast } from 'react-toastify';
+import Header1 from '../../components/Header/Header1';
 const API_KEY = 'AFjzy7b0VSvCEJhKDtcQ6z';
 const processAPI = 'https://cdn.filestackcontent.com';
 
@@ -44,7 +45,7 @@ function DisplayScreen() {
 
   return (
     <div className="#display-screen">
-      <Header />
+      <Header1 />
       <div className="mw1100">
         <div className="p-40 flexColumn display-section">
           {userData.map(user => (

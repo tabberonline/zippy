@@ -19,6 +19,7 @@ export default function AttachResumeModal() {
     if(url !== user.resumeLink){
       setUser(prevUser => ({...prevUser, resumeLink: url}));
     }
+    setModalShow(false);
     AdminService.AttachResume(url)
       .then(resp => {
         toast.success('Resume Link Added!', {
@@ -30,7 +31,6 @@ export default function AttachResumeModal() {
           draggable: true,
           progress: undefined,
         });
-        setModalShow(false);
       })
       .catch(err => toast.error("Some Error Occured.", {
         position: "top-center",
