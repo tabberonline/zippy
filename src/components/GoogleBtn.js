@@ -22,6 +22,7 @@ const GoogleBtn = () => {
         .then(function (response) {
           setLogin(true);
           setUser(prevUser => ({...prevUser, login: true, token: response.data.access_token }));
+          setItem('accessToken', response.data.access_token);
           toast.success('Login Successful!', {
             position: "top-center",
             autoClose: 2000,
