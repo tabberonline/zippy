@@ -16,6 +16,7 @@ const GoogleBtn = () => {
   const [user, setUser] = useContext(ProgrammerContext);
   const [isLogin, setLogin] = useState(user.login);
   const loginSuccess = (response) => {
+    console.log(response);
     if(response.tokenId){
       Axios.post(`${API_ENDPOINT}/login?idTokenString=${response.tokenId}`)
         .then(function (response) {
