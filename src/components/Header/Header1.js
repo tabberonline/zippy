@@ -10,7 +10,6 @@ import {ProgrammerContext} from '../../utility/userContext';
 
 function Header1(){
     const [user, setUser] = useContext(ProgrammerContext);  
-
     const SignOut = () => {
         toast.success('Successfully Logged Out!', {
             position: "top-center",
@@ -34,7 +33,9 @@ function Header1(){
             contest_widgets: [],
             project_widgets: [],
             resumeLink: '',
-          }));
+        }));
+        setItem('user', user);
+        setItem('accessToken', user.token);
         setTimeout(() => {
             window.open('/home', '_self');
         }, [500])
