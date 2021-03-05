@@ -68,12 +68,15 @@ export default function SentHistoryModal() {
                     </tr>
                 </thead>
                 <tbody>
-                {props.history.map((table) => (
+                {
+                  props.history ? (
+                  props.history.map((table) => (
                     <tr>
                         <td className="table-date">{table.date.split(' ')[0]}</td>
                         <td className="table-element">{table.email}</td>
                     </tr>
-                ))}
+                  ))) : null
+                }
                 </tbody>
             </Table>
             <div>
