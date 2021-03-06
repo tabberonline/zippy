@@ -32,7 +32,6 @@ function ContactScreen() {
                         draggable: true,
                         progress: undefined,
                     });
-                    window.open('/contact', '_self')
                 })
                 .catch(err => {
                     toast.error('Invalid entries!', {
