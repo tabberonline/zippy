@@ -9,6 +9,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
 import { Animated } from 'react-animated-css';
+import {API_ENDPOINT} from '../../AdminServices/baseUrl';
+import Axios from 'axios';
 
 function ContactScreen() {
     const [name, setName] = useState('');
@@ -21,7 +23,7 @@ function ContactScreen() {
                 'subject': subject,
                 'text': message
             }
-            AdminService.sendMail(mailContent)
+            Axios.post(`${API_ENDPOINT}/email`, mailContent)
                 .then(resp => {
                     toast.success('Mail Sent!', {
                         position: "top-center",
