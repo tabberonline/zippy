@@ -9,20 +9,24 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
 import { Animated } from 'react-animated-css';
+import Axios from 'axios';
+import {API_ENDPOINT} from '../../AdminServices/baseUrl';
 
 function ContactScreen() {
     const [name, setName] = useState('');
     const [subject, setSubject] = useState('');
     const [message, setMessage] = useState('');
+    const [email, setEmail] = useState('');
 
     const SendMail = async () => {
-        if(name.length > 0 && subject.length > 0 && message.length > 0){
+        if(subject && message && email){
             const mailContent = {
                 'subject': subject,
-                'text': message
+                'text': message,
+                'email': email,
             }
             console.log(mailContent);
-            AdminService.sendMail(mailContent)
+            Axios.post(`${API_ENDPOINT}/email`, mailContent)
                 .then(resp => {
                     console.log(resp);
                     toast.success('Mail Sent!', {
@@ -89,6 +93,11 @@ function ContactScreen() {
                             <Form.Group controlId="formBasicEmail" className="mb-20">
                                 <Form.Label>Name*</Form.Label>
                                 <Form.Control type="name" defaultValue={name} onChange={(e) => setName(e.target.value)} />
+                            </Form.Group>
+
+                            <Form.Group controlId="formBasicEmail" className="mb-20">
+                                <Form.Label>Email*</Form.Label>
+                                <Form.Control type="email" defaultValue={email} onChange={(e) => setEmail(e.target.value)} />
                             </Form.Group>
 
                             <Form.Group controlId="formBasicPassword2" className="mb-20">
