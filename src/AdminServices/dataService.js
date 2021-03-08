@@ -4,7 +4,7 @@ import { getItem } from '../utility/localStorageControl';
 import {API_ENDPOINT} from './baseUrl';
 
 const authHeader = () => ({
-  Authorization: `${getItem('access_token')}`,
+  Authorization: `${getItem('accessToken')}`,
   'Content-Type': 'application/json',
    'Accept': 'application/json',
 });

@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import '../../styles/HelperStyles.css';
 import './ProjectCard.css';
 import deleted from '../../assets/images/Bin-Icon.png';
@@ -12,8 +12,10 @@ import UpdateProject from '../UpdateModals/UpdateProject';
 import hidecards from '../../assets/images/hiddeeen.png';
 import { Form, Modal } from 'react-bootstrap';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
+import { ProgrammerContext } from '../../utility/userContext';
 
 export default function ProjectCard({name, url, id, img, hide}){
+    const [user, setUser] = useContext(ProgrammerContext);
     var invisible = hide;
     const [namecard, setcard] = useState(true);
     const [detailcard, setdetail] = useState(false);
@@ -48,8 +50,10 @@ export default function ProjectCard({name, url, id, img, hide}){
               });
               AdminService.getUserData()
                 .then(resp => {
-                    setItem('projectWidgets', resp.data.personal_projects);
-                    window.open('/portfolio', '_self')
+                    setUser(prevUser => ({...prevUser,
+                        project_widgets: resp.data.personal_projects,
+                    }));
+                    setModalShow(false);
                 })
                 .catch(err => toast.error("Some Error Occured.", {
                     position: "top-center",
@@ -120,8 +124,10 @@ export default function ProjectCard({name, url, id, img, hide}){
                 });
                 AdminService.getUserData()
                     .then(resp => {
-                        setItem('projectWidgets', resp.data.personal_projects);
-                        window.open('/portfolio', '_self')
+                        setUser(prevUser => ({...prevUser,
+                            project_widgets: resp.data.personal_projects,
+                        }));
+                        setModalShow(false);
                     })
                     .catch(err => toast.error("Some Error Occured.", {
                         position: "top-center",

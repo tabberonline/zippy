@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import '../../styles/HelperStyles.css';
 import './PortfolioScreen.css';
 import Footer from '../../components/Footer/Footer';
@@ -20,18 +20,16 @@ import 'react-toastify/dist/ReactToastify.css';
 import {isMobile} from 'react-device-detect';
 import AttachResumeModal from '../../components/modals/AttachResume';
 import SendViaEmail from '../../components/modals/SendViaEmail';
+import { ProgrammerContext } from '../../utility/userContext';
 const API_KEY = 'AFjzy7b0VSvCEJhKDtcQ6z';
 const processAPI = 'https://cdn.filestackcontent.com';
 
 function PortfolioScreen() {
-  const [name, setname] = useState(getItem('name'));
-  var title = getItem('titlePortfolio');
-  var desc = getItem('descPortfolio');
+  const [user, setUser] = useContext(ProgrammerContext);
+  var title = user.portfolio.title;
+  var desc = user.portfolio.description;
   const [edit1, setedit] = useState(true);
   const [edit2, setedit2] = useState(true);
-  const [rankWidgets, setrankwidgets] = useState(getItem('rankWidgets'));
-  const [contestWidgets, setcontestwidgets] = useState(getItem('contestWidgets'));
-  const [projectWidgets, setprojectwidgets] = useState(getItem('projectWidgets'));
 
   const Edit1 = () => {
     $(".title").prop("readonly", false);
@@ -70,6 +68,21 @@ function PortfolioScreen() {
             draggable: true,
             progress: undefined,
           });
+          AdminService.getUserData()
+            .then(resp => {
+              setUser(prevUser => ({...prevUser,
+                portfolio: resp.data.portfolio,
+              }));
+            })
+            .catch(err => toast.error("Some Error Occured.", {
+              position: "top-center",
+              autoClose: 2000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            }));
         })
         .catch(err => {
           toast.error('Error, Please retry!', {
@@ -118,7 +131,7 @@ function PortfolioScreen() {
         <div className="p-40 flexColumn portfolio-section">
           <div className="flexColumn">
             <div className="flexRow flexCenter flexAlignCenter">
-              <input type="text" style={{backgroundColor: edit1 ? 'inherit' : 'white'}} autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" className="title" defaultValue={title} onChange={(event) => title = event.target.value} placeholder="Portfolio Title" readOnly />
+              <input type="text" style={{backgroundColor: edit1 ? 'inherit' : 'white', width: '75%'}} autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" className="title" defaultValue={title} onChange={(event) => title = event.target.value} placeholder="Portfolio Title" readOnly />
               <div className="flexRow flexCenter flexAlignCenter iconcontainer1" style={{left: -15, top: -15}}>
                 {
                   edit1 ? <AiOutlineEdit className="portfolio-icon" onClick={()=>Edit1()} style={{cursor: 'pointer'}} />
@@ -128,7 +141,7 @@ function PortfolioScreen() {
             </div>
             <hr style={{color : '#717070', width: '80%', margin: 'auto', marginTop: 10}} />
             <div className="flexColumn info-sec">
-              <p className="name mb-20 pl-20">Hello! I am <strong>{name}</strong></p>
+              <p className="name mb-20 pl-20">Hello! I am <strong>{user.name}</strong></p>
               <div className="flexRow">
                 <textarea style={{backgroundColor: edit2 ? 'inherit' : 'white'}} autocomplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" rows="5" className="desc" defaultValue={desc} onChange={(event) => desc = event.target.value} readOnly placeholder="Enter your College and profile description here" />
                 <div className="flexRow flexCenter flexAlignCenter iconcontainer1" style={{left: -15, top: -15}}>
@@ -146,15 +159,15 @@ function PortfolioScreen() {
             <div className="coding-profile mv-20">
               <p className="card-heading mb-20">Coding Profile</p>
               <div className="flexRow flexWrap">
-                { rankWidgets !== [''] ?
+                { user.rank_widgets !== [''] ?
                     (
-                      rankWidgets.map(profile => (
+                      user.rank_widgets.map(profile => (
                         <CodingCard name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} hide={profile.invisible} />
                       ))
                     ) : null
                 }
                 {
-                  rankWidgets.length < 3 ? (
+                  user.rank_widgets.length < 3 ? (
                     <CodingProfileModal />
                   ) : null
                 }
@@ -163,15 +176,15 @@ function PortfolioScreen() {
             <div className="coding-profile mv-20">
               <p className="card-heading mb-20">Contests Won</p>
               <div className="flexRow flexWrap">
-                { contestWidgets !== [''] ?
+                { user.contest_widgets !== [''] ?
                     (
-                      contestWidgets.map(profile => (
+                      user.contest_widgets.map(profile => (
                         <ContestCard card_id={profile.id} name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} contest={profile.contest_name} hide={profile.invisible} />
                       ))
                     ) : null
                 }
                 {
-                  contestWidgets.length < 3 ? (
+                  user.contest_widgets.length < 3 ? (
                     <ContestProfileModal />
                   ) : null
                 }
@@ -180,15 +193,15 @@ function PortfolioScreen() {
             <div className="coding-profile mv-20">
               <p className="card-heading mb-20">Personal Projects</p>
               <div className="flexRow flexWrap">
-                { projectWidgets !== [''] ?
+                { user.project_widgets !== [''] ?
                     (
-                      projectWidgets.map(project => (
+                      user.project_widgets.map(project => (
                         <ProjectCard name={project.title} url={project.link} img={`${processAPI}/${API_KEY}/urlscreenshot=agent:${isMobile ? 'mobile' : 'desktop'}/${project.link}`} id={project.id} hide={project.invisible} />
                       ))
                     ) : null
                 }   
                 {
-                  projectWidgets.length < 3 ? ( 
+                  user.project_widgets.length < 3 ? ( 
                     <ProjectModal />
                   ) : null
                 }             

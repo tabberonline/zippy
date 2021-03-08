@@ -1,17 +1,17 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react';
+import React, { useContext } from 'react';
 import '../../styles/HelperStyles.css'
 import { Form, Modal } from 'react-bootstrap';
 import {AiOutlineCloseCircle, AiOutlinePlusCircle} from 'react-icons/ai';
 import { PortalMap, setItem, getItem } from '../../utility/localStorageControl';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { DropdownButton, Dropdown } from 'react-bootstrap';
 import AdminService from '../../AdminServices/AdminService';
+import { ProgrammerContext } from '../../utility/userContext';
 
   export default function CodingProfileModal() {
+    const [user, setUser] = useContext(ProgrammerContext);
     const [modalShow, setModalShow] = React.useState(false);
-    const [rankWidgets, setrankWidgets] = React.useState(getItem('rankWidgets'));
     var username = "";
     var rank = "";
     var portal = "Eg. GeeksforGeeks, CodeChef";
@@ -23,7 +23,7 @@ import AdminService from '../../AdminServices/AdminService';
 
     const createRankWidget = async () => {
       var portalsArray = [];
-      rankWidgets.map(rank => (
+      user.rank_widgets.map(rank => (
         portalsArray.push((rank.website_id))
       ))
       var exist = portalsArray.includes(getItem('website_id'));
@@ -57,9 +57,10 @@ import AdminService from '../../AdminServices/AdminService';
               });
               AdminService.getUserData()
                 .then(resp => {
-                  setItem('rankWidgets', resp.data.rank_widgets);
+                  setUser(prevUser => ({...prevUser,
+                    rank_widgets: resp.data.rank_widgets,
+                  }));
                   setModalShow(false);
-                  window.open('/portfolio', '_self');
                 })
                 .catch(err => toast.error("Some Error Occured.", {
                   position: "top-center",
@@ -139,11 +140,6 @@ import AdminService from '../../AdminServices/AdminService';
                 ))}
               </select>
             </Form.Group>
-
-            {/* <Form.Group controlId="formBasicEmail" className="mb-20">
-              <Form.Label>Website Name</Form.Label>
-              <Form.Control placeholder="Eg. GeeksforGeeks, CodeChef" type="text" defaultValue={portal} onChange={(e) => portal = (e.target.value)} />
-            </Form.Group> */}
   
             <Form.Group controlId="formBasicPassword" className="mb-20">
               <Form.Label>Your Profile Username </Form.Label>

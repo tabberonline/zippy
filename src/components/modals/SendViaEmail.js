@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import '../../styles/HelperStyles.css'
 import { Modal, Form } from 'react-bootstrap';
 import {AiOutlineCloseCircle} from 'react-icons/ai';
@@ -8,8 +8,10 @@ import MailPreview from '../MailPreview/MailPreview';
 import { getItem, setItem } from '../../utility/localStorageControl';
 import { ToastContainer, toast } from 'react-toastify';
 import AdminService from '../../AdminServices/AdminService';
+import { ProgrammerContext } from '../../utility/userContext';
 
 export default function SendViaEmail() {
+  const [user, setUser] = useContext(ProgrammerContext);
   const [modalShow, setModalShow] = React.useState(false);
      var mails = "";
      var resume = "";
@@ -25,7 +27,6 @@ export default function SendViaEmail() {
 
     const SendMail =  async () => {
       resumeData.append('file', resume)
-      setItem('resumeLink', resume);
       AdminService.sendMailwithAttachment(mails, resumeData, OptionalHeader)
         .then(resp => {
           if(resp.data.status === "success"){
@@ -38,7 +39,7 @@ export default function SendViaEmail() {
               draggable: true,
               progress: undefined,
             });
-            window.open('/portfolio', '_self')
+            setModalShow(false);
           } else{
             toast.error(resp.data.message, {
               position: "top-center",

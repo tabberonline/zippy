@@ -1,14 +1,16 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import '../../styles/HelperStyles.css'
 import { Form, Modal } from 'react-bootstrap';
 import {AiOutlineCloseCircle} from 'react-icons/ai';
 import { getItem, setItem } from '../../utility/localStorageControl';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
+import { ProgrammerContext } from '../../utility/userContext';
   
   export default function PortfolioModal({home}) {
+    const [user, setUser] = useContext(ProgrammerContext);
     const [modalShow, setModalShow] = useState(false);
     const [apicall, setcall] = useState('');
     var name = '';
@@ -16,8 +18,7 @@ import AdminService from '../../AdminServices/AdminService';
     var desc = '';    
 
     const createPortfolio = async () => {
-      const accessToken = getItem('access_token');
-      if(accessToken === ""){
+      if(user.token === ""){
         toast.error('Access Token not Retrieved!', {
           position: "top-center",
           autoClose: 2000,
@@ -48,9 +49,9 @@ import AdminService from '../../AdminServices/AdminService';
               setcall('Success');
               AdminService.getUserData()
                 .then(resp => {
-                  setItem('portfolio', resp.data.resume_present);
-                  setModalShow(false);
-                  window.open('/portfolio', '_self');                  
+                  setUser(prevUser => ({...prevUser,
+                    portfolio: resp.data.portfolio,
+                  }));              
                 })
                 .catch(err => toast.error("Some Error Occured.", {
                   position: "top-center",
@@ -92,6 +93,7 @@ import AdminService from '../../AdminServices/AdminService';
       setItem('titlePortfolio', title);
       setItem('descPortfolio', desc);
       createPortfolio();
+      setModalShow(false);  
     }
 
     const ModalOpen = () => {
@@ -143,8 +145,8 @@ import AdminService from '../../AdminServices/AdminService';
         {
           home ? (
             <a style={{cursor: 'pointer'}} onClick={() => {
-              if(getItem('login')){
-                if(getItem('portfolio')){
+              if(user.login){
+                if(user.portfolio){
                   window.open('/portfolio', '_self');
                 } else {
                   setModalShow(true);
@@ -167,11 +169,11 @@ import AdminService from '../../AdminServices/AdminService';
           ) :
             (
               <button onClick={() => {
-                  getItem('portfolio') ? window.open('/portfolio', '_self') : ModalOpen()
+                  user.portfolio ? window.open('/portfolio', '_self') : ModalOpen()
                 }} 
                 className="edit-your-portfolio grow1"
               >
-                {apicall === 'Success' || getItem('portfolio') ? 'Move to your Portfolio' : 'Edit your Portfolio'}
+                {apicall === 'Success' || user.portfolio ? 'Move to your Portfolio' : 'Edit your Portfolio'}
               </button>
             )
         }

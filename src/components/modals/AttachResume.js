@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import '../../styles/HelperStyles.css'
 import { Modal, Form } from 'react-bootstrap';
 import {AiOutlinePlusCircle, AiOutlineCloseCircle, AiOutlineCloudDownload} from 'react-icons/ai';
@@ -8,16 +8,18 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
 import { getItem, setItem } from '../../utility/localStorageControl';
+import { ProgrammerContext } from '../../utility/userContext';
 
 export default function AttachResumeModal() {
+  const [user, setUser] = useContext(ProgrammerContext);
   const [modalShow, setModalShow] = React.useState(false);
-  console.log(getItem('resumeLink'));
-  var url = getItem('resumeLink');
+  var url = user.resumeLink;
 
   const ResumeAttach = async () => {
-    if(url !== getItem('resumeLink')){
-      setItem('resumeLink', url)
+    if(url !== user.resumeLink){
+      setUser(prevUser => ({...prevUser, resumeLink: url}));
     }
+    setModalShow(false);
     AdminService.AttachResume(url)
       .then(resp => {
         toast.success('Resume Link Added!', {
@@ -29,7 +31,6 @@ export default function AttachResumeModal() {
           draggable: true,
           progress: undefined,
         });
-        setModalShow(false);
       })
       .catch(err => toast.error("Some Error Occured.", {
         position: "top-center",

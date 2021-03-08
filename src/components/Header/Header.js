@@ -3,6 +3,7 @@ import './Header.css';
 import { Navbar, Nav } from 'react-bootstrap';
 import splashlogo from '../../assets/images/logo.png';
 import GoogleBtn from '../GoogleBtn';
+import Hello from '../../screens/HomeScreen/Hello';
 
 function Header(){
     return (

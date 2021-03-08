@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react';
+import React, {useContext} from 'react';
 import '../../styles/HelperStyles.css'
 import { Modal, Form } from 'react-bootstrap';
 import {AiOutlineCloseCircle, AiOutlinePlusCircle} from 'react-icons/ai';
@@ -7,8 +7,10 @@ import { setItem, getItem } from '../../utility/localStorageControl';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
+import { ProgrammerContext } from '../../utility/userContext';
 
 export default function ProjectModal() {
+  const [user, setUser] = useContext(ProgrammerContext);
   const [modalShow, setModalShow] = React.useState(false);
   var url = '';
   var project = '';
@@ -33,8 +35,9 @@ export default function ProjectModal() {
           });
           AdminService.getUserData()
             .then(resp => {
-              setItem('projectWidgets', resp.data.personal_projects);
-              window.open('/portfolio', '_self');
+              setUser(prevUser => ({...prevUser,
+                project_widgets: resp.data.personal_projects,
+              }));
               setModalShow(false);
             })
             .catch(err => toast.error("Some Error Occured.", {
