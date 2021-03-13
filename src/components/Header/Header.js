@@ -5,7 +5,7 @@ import splashlogo from '../../assets/images/logo.png';
 import GoogleBtn from '../GoogleBtn';
 import Hello from '../../screens/HomeScreen/Hello';
 
-function Header(){
+function Header({open, close}){
     return (
         <header className="header">
             <Navbar sticky="top" expand="lg" className="flexRow flexAlignCenter navbar">
@@ -18,7 +18,7 @@ function Header(){
                         <Nav.Link className="grow2" href="/home#faq">FAQ</Nav.Link>
                         <Nav.Link className="grow2" href="/contact">Contact</Nav.Link>
                     </Nav>
-                    <GoogleBtn />
+                    <GoogleBtn open={open} close={close} />
                 </div>
             </Navbar>
         </header>

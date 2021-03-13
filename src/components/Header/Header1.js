@@ -8,9 +8,10 @@ import { getItem, setItem } from '../../utility/localStorageControl';
 import { toast } from 'react-toastify';
 import {ProgrammerContext} from '../../utility/userContext';
 
-function Header1(){
+function Header1({open, close}){
     const [user, setUser] = useContext(ProgrammerContext);  
     const SignOut = () => {
+        open();
         toast.success('Successfully Logged Out!', {
             position: "top-center",
             autoClose: 2000,
@@ -37,6 +38,7 @@ function Header1(){
         setItem('user', user);
         setItem('accessToken', user.token);
         setTimeout(() => {
+            close();
             window.open('/home', '_self');
         }, [500])
     }
@@ -63,12 +65,12 @@ function Header1(){
                             </button>
                         ) : (                            
                             <div className="avatar" style={{cursor: 'pointer'}} onClick={() => setdropdown(true)}>
-                                <Avatar alt="img" src={getItem('image')} />
-                                <p className="avatar-name">Welcome<br/><p className="name">{getItem('name')}</p></p>
+                                <Avatar alt="img" src={user.image} />
+                                <p className="avatar-name">Welcome<br/><p className="name">{user.name}</p></p>
                             </div>
                         )
                     ) : (
-                        <GoogleBtn />
+                        <GoogleBtn open={open} close={close} />
                     )}
                 </div>
             </Navbar>
