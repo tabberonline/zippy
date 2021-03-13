@@ -51,7 +51,7 @@ function DisplayScreen() {
   return (
     <div className="#display-screen">
     {loader ? <Loader /> : null}
-      <Header1 />
+      <Header1 open={() => setloader(true)} close={() => setloader(false)} />
       <div className="mw1100">
         <div className="p-40 flexColumn display-section">
           {userData.map(user => (

@@ -84,7 +84,7 @@ function HomeScreen() {
   return (
     <div className="#home-screen">
       {loader ? <Loader /> : null}
-      <Header />
+      <Header open={() => setloader(true)} close={() => setloader(false)} />
       <Animated animationIn="slideInUp" isVisible={true}>
         <div id="intro-section">
           <div className="mw1100 mobile-column flexRow flexAround flexAlignCenter">
