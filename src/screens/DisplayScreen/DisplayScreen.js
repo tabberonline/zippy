@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import '../../styles/HelperStyles.css';
 import './DisplayScreen.css';
-import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import {ReversePortalMap} from '../../utility/localStorageControl';
 import CodingCardDisplay from '../../components/CodingCard/CodingCardDisplay';
@@ -12,39 +11,46 @@ import Axios from 'axios';
 import {API_ENDPOINT} from '../../AdminServices/baseUrl';
 import { toast } from 'react-toastify';
 import Header1 from '../../components/Header/Header1';
+import Loader from '../../components/Loader/Loader';
 const API_KEY = 'AFjzy7b0VSvCEJhKDtcQ6z';
 const processAPI = 'https://cdn.filestackcontent.com';
 
 
 function DisplayScreen() {
   const [userData, setData] = useState([]);
+  const [loader, setloader] = useState(false);
   useEffect(() => {
     const getIDFromURL = () => {
+      setloader(true);
       return window.location.href.split('?')[1].split('=')[1];
     };
     const user_id = getIDFromURL();
-    console.log(user_id)
 
     Axios.get(`${API_ENDPOINT}/user/guest/resume?id=${user_id}`)
       .then(resp => resp.data)
         .then(data => {
           setData([data]);
+          setloader(false);
         })
-      .catch(error => toast.error("Some Error Occured.", {
-        position: "top-center",
-        autoClose: 2000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      }))
+      .catch(error => {
+        toast.error("Some Error Occured.", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+        setloader(false);
+      })
   }, [])
 
   console.log('bbbbbbbb', userData);
 
   return (
     <div className="#display-screen">
+    {loader ? <Loader /> : null}
       <Header1 />
       <div className="mw1100">
         <div className="p-40 flexColumn display-section">

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import '../../styles/HelperStyles.css';
 import './PortfolioScreen.css';
 import Footer from '../../components/Footer/Footer';
@@ -10,7 +10,7 @@ import ContestProfileModal from '../../components/modals/ContestProfileModal';
 import ProjectModal from '../../components/modals/ProjectModal';
 import ShareModal from '../../components/modals/ShareModal';
 import SentHistoryModal from '../../components/modals/SentHistory';
-import { AiOutlineCheck, AiOutlineEdit, AiOutlinePlusCircle} from 'react-icons/ai';
+import { AiOutlineCheck, AiOutlineEdit} from 'react-icons/ai';
 import $ from 'jquery';
 import Header1 from '../../components/Header/Header1';
 import { getItem, setItem, ReversePortalMap } from '../../utility/localStorageControl';
@@ -20,6 +20,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import {isMobile} from 'react-device-detect';
 import AttachResumeModal from '../../components/modals/AttachResume';
 import SendViaEmail from '../../components/modals/SendViaEmail';
+import Loader from '../../components/Loader/Loader';
 import { ProgrammerContext } from '../../utility/userContext';
 const API_KEY = 'AFjzy7b0VSvCEJhKDtcQ6z';
 const processAPI = 'https://cdn.filestackcontent.com';
@@ -30,6 +31,7 @@ function PortfolioScreen() {
   var desc = user.portfolio.description;
   const [edit1, setedit] = useState(true);
   const [edit2, setedit2] = useState(true);
+  const [loader, setloader] = useState(false);
 
   const Edit1 = () => {
     $(".title").prop("readonly", false);
@@ -43,12 +45,14 @@ function PortfolioScreen() {
     $(".title").prop("readonly", true);
     setedit(true);
     setItem('titlePortfolio', title);
+    setloader(true);
     UpdatePortfolio();
   } 
   const Save2 = () => {
     $(".desc").prop("readonly", true);
     setedit2(true);
     setItem('descPortfolio', desc);
+    setloader(true);
     UpdatePortfolio();
   } 
   const UpdatePortfolio = async () =>{
@@ -70,19 +74,23 @@ function PortfolioScreen() {
           });
           AdminService.getUserData()
             .then(resp => {
+              setloader(false);
               setUser(prevUser => ({...prevUser,
                 portfolio: resp.data.portfolio,
               }));
             })
-            .catch(err => toast.error("Some Error Occured.", {
-              position: "top-center",
-              autoClose: 2000,
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            }));
+            .catch(err => {
+              toast.error("Some Error Occured.", {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              })
+              setloader(false);
+            });
         })
         .catch(err => {
           toast.error('Error, Please retry!', {
@@ -94,6 +102,7 @@ function PortfolioScreen() {
             draggable: true,
             progress: undefined,
           });
+          setloader(false);
         });
     } else {
       toast.error('Error, Fields cannot be empty!', {
@@ -105,11 +114,13 @@ function PortfolioScreen() {
         draggable: true,
         progress: undefined,
       });
+      setloader(false);
     }
   }
 
   return (
-    <div className="#portfolio-screen">      
+    <div className="#portfolio-screen">    
+    {loader ? <Loader /> : null}  
       <ToastContainer
         position="top-center"
         autoClose={3000}

@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import '../../styles/HelperStyles.css';
 import './HomeScreen.css';
 import Header from '../../components/Header/Header';
@@ -24,13 +24,16 @@ import projects from '../../assets/images/Projects.png';
 import achievements from '../../assets/images/Achievements.png';
 import { toast, ToastContainer } from 'react-toastify';
 import {API_ENDPOINT} from '../../AdminServices/baseUrl';
+import Loader from '../../components/Loader/Loader';
 
 function HomeScreen() {
   const [QnA, setQnA] = useState([]);
   const [Achievements, setAments] = useState([]);
   const [Features, setFeatures] = useState([]);
+  const [loader, setloader] = useState(false);
 
   const getData = async () =>{
+    setloader(true);
     Axios.get(`${API_ENDPOINT}/fe/get?page_type=Home&key=QnA`)
       .then(resp => {
         setQnA(resp.data.value);
@@ -58,16 +61,20 @@ function HomeScreen() {
       }))
     Axios.get(`${API_ENDPOINT}/fe/get?page_type=Home&key=Features`)
       .then(resp => {
-        setFeatures(resp.data.value)
-      }).catch(err => toast.error("Some Error Occured.", {
-        position: "top-center",
-        autoClose: 2000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      }))
+        setFeatures(resp.data.value);
+        setloader(false);
+      }).catch(err => {
+        toast.error("Some Error Occured.", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+        setloader(false);
+      })
   }
 
   window.onload = () => {
@@ -76,6 +83,7 @@ function HomeScreen() {
   
   return (
     <div className="#home-screen">
+      {loader ? <Loader /> : null}
       <Header />
       <Animated animationIn="slideInUp" isVisible={true}>
         <div id="intro-section">
