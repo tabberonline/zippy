@@ -12,11 +12,11 @@ import {ProgrammerContext} from '../utility/userContext';
 
 const CLIENT_ID = '148434873376-a1k8ubdj3g3oqkh53an00v8angbj2itd.apps.googleusercontent.com';
 
-const GoogleBtn = () => {
+const GoogleBtn = ({open, close}) => {
   const [user, setUser] = useContext(ProgrammerContext);
   const [isLogin, setLogin] = useState(user.login);
   const loginSuccess = (response) => {
-    console.log(response);
+    open();
     if(response.tokenId){
       Axios.post(`${API_ENDPOINT}/login?idTokenString=${response.tokenId}`)
         .then(function (response) {
@@ -50,19 +50,22 @@ const GoogleBtn = () => {
                   setUser(prevUser => ({...prevUser, resumeLink: resp.data.portfolio.cloud_resume_link}));
                 }
               }
+              close();
             })
-            .catch(err => toast.error("Some Error Occured.", {
-              position: "top-center",
-              autoClose: 2000,
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            }));
+            .catch(err => {
+              toast.error("Some Error Occured.", {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              })
+              close();
+            });
         })
         .catch(function (error) {
-          console.log(error);
           toast.error('Login Failed, Retry!', {
             position: "top-center",
             autoClose: 2000,
@@ -72,12 +75,14 @@ const GoogleBtn = () => {
             draggable: true,
             progress: undefined,
           });
+          close();
         });
 
     }
   }
 
   const loginFailure = (response) => {
+    open();
     toast.error('Login Failed, Retry!', {
       position: "top-center",
       autoClose: 2000,
@@ -87,6 +92,7 @@ const GoogleBtn = () => {
       draggable: true,
       progress: undefined,
     });
+    close();
   }
     return (
     <div>
