@@ -14,7 +14,7 @@ import { Form, Modal } from 'react-bootstrap';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { ProgrammerContext } from '../../utility/userContext';
 
-export default function ProjectCard({name, url, id, img, hide}){
+export default function ProjectCard({name, url, id, img, hide, open, close}){
     const [user, setUser] = useContext(ProgrammerContext);
     var invisible = hide;
     const [namecard, setcard] = useState(true);
@@ -22,11 +22,13 @@ export default function ProjectCard({name, url, id, img, hide}){
     const [modalShow, setModalShow] = useState(false);
 
     const HideCard = () => {
+        open();
         invisible = true;
         updateWidget();
     }
 
     const unHideCard = () => {
+        open();
         invisible = false;
         updateWidget();
     }
@@ -53,17 +55,21 @@ export default function ProjectCard({name, url, id, img, hide}){
                     setUser(prevUser => ({...prevUser,
                         project_widgets: resp.data.personal_projects,
                     }));
+                    close();
                     setModalShow(false);
                 })
-                .catch(err => toast.error("Some Error Occured.", {
-                    position: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                  }));
+                .catch(err => {
+                    toast.error("Some Error Occured.", {
+                        position: "top-center",
+                        autoClose: 2000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    })
+                    close();
+                });
             })
             .catch(error => {
               toast.error('Error updating, Retry!', {
@@ -75,6 +81,7 @@ export default function ProjectCard({name, url, id, img, hide}){
                 draggable: true,
                 progress: undefined,
               });
+              close();
             });
         }
 
@@ -110,7 +117,9 @@ export default function ProjectCard({name, url, id, img, hide}){
             );
           }
 
-    const DeleteCard = async (project_id) => {        
+    const DeleteCard = async (project_id) => {       
+        open(); 
+        setModalShow(false);
         AdminService.deleteProjectWidget(project_id)
             .then(response => {
                 toast.success('Card deleted successfully!', {
@@ -128,6 +137,7 @@ export default function ProjectCard({name, url, id, img, hide}){
                             project_widgets: resp.data.personal_projects,
                         }));
                         setModalShow(false);
+                        close();
                     })
                     .catch(err => toast.error("Some Error Occured.", {
                         position: "top-center",
@@ -138,6 +148,7 @@ export default function ProjectCard({name, url, id, img, hide}){
                         draggable: true,
                         progress: undefined,
                       }));
+                      close();
                 })
             .catch(error => {
                 toast.error('Error, Cannot delete this card!', {
@@ -149,6 +160,7 @@ export default function ProjectCard({name, url, id, img, hide}){
                     draggable: true,
                     progress: undefined,
                 })
+                close();
             });
     }
 
@@ -202,7 +214,7 @@ export default function ProjectCard({name, url, id, img, hide}){
                                     <p className="project-name">{ name.length > 0 ? name : "Sample Webpage"}</p>
                                     <div className="flexRow flexAround flexAlignCenter" style={{position: 'absolute', bottom: 30, width: '75%'}}>
                                         <img src={deleted} onClick={() => DeleteCardPortal(id)} alt="delete" className="delete-card-icon" style={{height:30, width: 30, marginBottom: 10, cursor: 'pointer'}} />
-                                        <UpdateProject projectName={name} projectlink={url} projectImage={img} projectId={id}/>
+                                        <UpdateProject open={open} close={close} projectName={name} projectlink={url} projectImage={img} projectId={id}/>
                                         <img src={hidden} onClick={() => HideCard()} alt="hidden" className="delete-card-icon" style={{height:30, width: 30, marginBottom: 10, cursor: 'pointer'}} />
                                     </div>
                                 </div>

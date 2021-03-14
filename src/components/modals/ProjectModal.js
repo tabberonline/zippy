@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
 import { ProgrammerContext } from '../../utility/userContext';
 
-export default function ProjectModal() {
+export default function ProjectModal({open, close}) {
   const [user, setUser] = useContext(ProgrammerContext);
   const [modalShow, setModalShow] = React.useState(false);
   var url = '';
@@ -38,17 +38,21 @@ export default function ProjectModal() {
               setUser(prevUser => ({...prevUser,
                 project_widgets: resp.data.personal_projects,
               }));
+              close();
               setModalShow(false);
             })
-            .catch(err => toast.error("Some Error Occured.", {
-              position: "top-center",
-              autoClose: 2000,
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            }));
+            .catch(err => {
+              toast.error("Some Error Occured.", {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              })
+              close();
+            });
         })
         .catch(error => {
           toast.error('Error, Enter correct details!', {
@@ -60,6 +64,7 @@ export default function ProjectModal() {
             draggable: true,
             progress: undefined,
           });
+          close();
         });
     } else {
       toast.error('Error, Fields cannot be empty!', {
@@ -71,10 +76,12 @@ export default function ProjectModal() {
         draggable: true,
         progress: undefined,
       });
+      close();
     }
   }
 
   const UpdateCard = () => {
+    open();
     setItem('Projectname', project);
     setItem('Projectid', url);
     createWidget();
