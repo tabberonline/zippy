@@ -267,6 +267,10 @@
     font-weight: 700;
     color: black;
 }
+.numbers__code{
+    gap: 50px;
+    align-items: baseline;
+}
 
 .attach-resume{
     background: #FFFFFF;
@@ -277,9 +281,13 @@
     margin: 20px
 }
 .resume-head{
-    color: '#C0C0C0';
+    color: #C0C0C0;
     font: 20px 'Poppins', sans-serif;
-
+}
+.attach-resume__icon{
+    font-size: 40px;
+    color: #C0C0C0;
+    cursor: pointer;
 }
 .table-head{
     font: 20px 'Poppins', sans-serif;
@@ -330,4 +338,18 @@
 }
 .table{
     border-radius: 8px;
+}
+.email-button{
+    background-color: #00E5D8;
+    border-radius: 8px;
+    border: none;
+    padding: 10px 30px;
+    font: 18px 'Poppins', sans-serif;
+    font-weight: 500;
+}
+.email-button:hover{
+    background-color: inherit;
+    color: #00E5D8;
+    border: 3px solid #00E5D8;
+    padding: 7px 27px;
 }
