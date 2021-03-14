@@ -134,9 +134,9 @@ function PortfolioScreen() {
       />
       <Header1 open={() => setloader(true)} close={() => setloader(false)} />
       <div className="flexRow mw1100 flexBetween" style={{}}>
-        <SendViaEmail />
-        <SentHistoryModal />
-        <ShareModal id={getItem('user_id')} />
+        <SendViaEmail open={() => setloader(true)} close={() => setloader(false)} />
+        <SentHistoryModal open={() => setloader(true)} close={() => setloader(false)} />
+        <ShareModal open={() => setloader(true)} close={() => setloader(false)} />
       </div>
       <div className="mw1100">
         <div className="p-40 flexColumn portfolio-section">
@@ -165,7 +165,7 @@ function PortfolioScreen() {
             </div>
             <div className="flexColumn mv-20">
               <p className="card-heading mb-20">Resume</p>
-              <AttachResumeModal />
+              <AttachResumeModal open={() => setloader(true)} close={() => setloader(false)} />
             </div>
             <div className="coding-profile mv-20">
               <p className="card-heading mb-20">Coding Profile</p>
@@ -173,13 +173,13 @@ function PortfolioScreen() {
                 { user.rank_widgets !== [''] ?
                     (
                       user.rank_widgets.map(profile => (
-                        <CodingCard name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} hide={profile.invisible} />
+                        <CodingCard open={() => setloader(true)} close={() => setloader(false)} name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} hide={profile.invisible} />
                       ))
                     ) : null
                 }
                 {
                   user.rank_widgets.length < 3 ? (
-                    <CodingProfileModal />
+                    <CodingProfileModal open={() => setloader(true)} close={() => setloader(false)} />
                   ) : null
                 }
               </div>
@@ -190,13 +190,13 @@ function PortfolioScreen() {
                 { user.contest_widgets !== [''] ?
                     (
                       user.contest_widgets.map(profile => (
-                        <ContestCard card_id={profile.id} name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} contest={profile.contest_name} hide={profile.invisible} />
+                        <ContestCard open={() => setloader(true)} close={() => setloader(false)} card_id={profile.id} name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} contest={profile.contest_name} hide={profile.invisible} />
                       ))
                     ) : null
                 }
                 {
                   user.contest_widgets.length < 3 ? (
-                    <ContestProfileModal />
+                    <ContestProfileModal open={() => setloader(true)} close={() => setloader(false)} />
                   ) : null
                 }
               </div>
@@ -207,13 +207,13 @@ function PortfolioScreen() {
                 { user.project_widgets !== [''] ?
                     (
                       user.project_widgets.map(project => (
-                        <ProjectCard name={project.title} url={project.link} img={`${processAPI}/${API_KEY}/urlscreenshot=agent:${isMobile ? 'mobile' : 'desktop'}/${project.link}`} id={project.id} hide={project.invisible} />
+                        <ProjectCard open={() => setloader(true)} close={() => setloader(false)} name={project.title} url={project.link} img={`${processAPI}/${API_KEY}/urlscreenshot=agent:${isMobile ? 'mobile' : 'desktop'}/${project.link}`} id={project.id} hide={project.invisible} />
                       ))
                     ) : null
                 }   
                 {
                   user.project_widgets.length < 3 ? ( 
-                    <ProjectModal />
+                    <ProjectModal open={() => setloader(true)} close={() => setloader(false)} />
                   ) : null
                 }             
               </div>
