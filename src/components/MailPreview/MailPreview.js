@@ -21,7 +21,7 @@ export default function MailPreview(){
                     <div className="flexColumn">
                         <h2 className="mailcontent-name">{user.name}</h2>
                         <h4 className="mailcontent-mail">{user.email}</h4>
-                        <div className="flexRow" style={{alignItems: 'baseline', gap: 50}}>
+                        <div className="flexRow numbers__code">
                             <div className="flexRow" style={{alignItems: 'baseline', gap: 10}}>
                                 <h1 className="mailcontent-number">{user.rank_widgets.length}</h1>
                                 <h5 className="mailcontent-sec">Profiles</h5>
