@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
 import { ProgrammerContext } from '../../utility/userContext';
 
-export default function ContestProfileModal() {
+export default function ContestProfileModal({open, close}) {
   const [user, setUser] = useContext(ProgrammerContext);
   const [modalShow, setModalShow] = React.useState(false);
   var portal = "Eg. GeeksforGeeks, CodeChef";
@@ -46,6 +46,7 @@ export default function ContestProfileModal() {
               setUser(prevUser => ({...prevUser,
                 contest_widgets: resp.data.contest_widgets,
               }));
+              close();
               setModalShow(false);
             })
             .catch(err => toast.error("Some Error Occured.", {
@@ -57,6 +58,7 @@ export default function ContestProfileModal() {
               draggable: true,
               progress: undefined,
             }));
+            close();
         })
         .catch(error => {
           toast.error('Error, Enter correct details!', {
@@ -68,6 +70,7 @@ export default function ContestProfileModal() {
             draggable: true,
             progress: undefined,
           });
+          close();
         });
     } else {
       toast.error('Error, Fields cannot be empty!', {
@@ -79,6 +82,7 @@ export default function ContestProfileModal() {
         draggable: true,
         progress: undefined,
       });
+      close();
     }
   }
 
@@ -91,6 +95,8 @@ export default function ContestProfileModal() {
   }
 
   const UpdateCard = () => {
+    setModalShow(false);
+    open();
     setItem('Contestportal', portal);
     getPortalDetails(formatPortal(getItem('Contestportal')));
     setItem('Contestusername', username);
