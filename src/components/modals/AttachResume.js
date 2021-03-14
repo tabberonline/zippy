@@ -7,15 +7,15 @@ import {BsFillEyeFill} from 'react-icons/bs'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
-import { getItem, setItem } from '../../utility/localStorageControl';
 import { ProgrammerContext } from '../../utility/userContext';
 
-export default function AttachResumeModal() {
+export default function AttachResumeModal({open, close}) {
   const [user, setUser] = useContext(ProgrammerContext);
   const [modalShow, setModalShow] = React.useState(false);
   var url = user.resumeLink;
 
   const ResumeAttach = async () => {
+    open();
     if(url !== user.resumeLink){
       setUser(prevUser => ({...prevUser, resumeLink: url}));
     }
@@ -31,16 +31,20 @@ export default function AttachResumeModal() {
           draggable: true,
           progress: undefined,
         });
+        close();
       })
-      .catch(err => toast.error("Some Error Occured.", {
-        position: "top-center",
-        autoClose: 2000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      }));
+      .catch(err => {
+        toast.error("Some Error Occured.", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+        close();
+      });
   }
 
   function MyVerticallyCenteredModal(props) {
@@ -84,11 +88,11 @@ export default function AttachResumeModal() {
         <p className="resume-head">{url ? 'View attached PDF' : 'Attach your Resume'}</p>
         {url.length > 0 ?
         (<div style={{display: 'flex', gap: 20}}>
-          <AiOutlineCloudDownload onClick={() => setModalShow(true)} className="grow2" style={{fontSize: 40, color: '#C0C0C0', cursor: 'pointer'}} />
-          <BsFillEyeFill onClick={() => window.open(url)} className="grow2" style={{fontSize: 40, color: '#C0C0C0', cursor: 'pointer'}} />
+          <AiOutlineCloudDownload onClick={() => setModalShow(true)} className="grow2 attach-resume__icon" />
+          <BsFillEyeFill onClick={() => window.open(url)} className="grow2 attach-resume__icon" />
         </div>) :
         (
-          <AiOutlinePlusCircle onClick={() => setModalShow(true)} className="grow2" style={{fontSize: 40, color: '#C0C0C0', cursor: 'pointer'}} />
+          <AiOutlinePlusCircle onClick={() => setModalShow(true)} className="grow2 attach-resume__icon"/>
         )}
       </div>
 
