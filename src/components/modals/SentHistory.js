@@ -9,7 +9,7 @@ import { setItem, getItem } from '../../utility/localStorageControl';
 import { ToastContainer, toast } from 'react-toastify';
 import { ProgrammerContext } from '../../utility/userContext';
 
-export default function SentHistoryModal() {
+export default function SentHistoryModal({open, close}) {
     const [user, setUser] = useContext(ProgrammerContext);
     const [modalShow, setModalShow] = React.useState(false);
     const [active, setActive] = useState(1);
@@ -27,22 +27,27 @@ export default function SentHistoryModal() {
     }
 
     const GetHistory = async (page, item) => {
+      open();
       AdminService.SentHistory(page, item)
         .then(resp => {
           setUser(prevUser => ({...prevUser,
             sent_history: resp.data.mail_history,
             total_mails_sent: resp.data.total_items
           }));          
+          close();
         })
-        .catch(err => {toast.error("Some Error Occured.", {
-          position: "top-center",
-          autoClose: 2000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });});
+        .catch(err => {
+          toast.error("Some Error Occured.", {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          })
+          close();
+      });
     }
 
   function MyVerticallyCenteredModal(props) {
@@ -107,7 +112,7 @@ export default function SentHistoryModal() {
   return (
     <>
       <div className="history">
-          <button className="flexAlignCenter history-button" style={{outline: 'none'}} onClick={() => {setModalShow(true); GetHistory(1, 5);}} >
+          <button className="flexAlignCenter history-button" style={{outline: 'none', marginRight: 0}} onClick={() => {setModalShow(true); GetHistory(1, 5);}} >
               View Sent History        
           </button>
         </div>

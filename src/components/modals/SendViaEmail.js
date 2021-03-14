@@ -10,7 +10,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import AdminService from '../../AdminServices/AdminService';
 import { ProgrammerContext } from '../../utility/userContext';
 
-export default function SendViaEmail() {
+export default function SendViaEmail({open, close}) {
   const [user, setUser] = useContext(ProgrammerContext);
   const [modalShow, setModalShow] = React.useState(false);
      var mails = "";
@@ -26,6 +26,8 @@ export default function SendViaEmail() {
      }
 
     const SendMail =  async () => {
+      setModalShow(false);
+      open();
       resumeData.append('file', resume)
       AdminService.sendMailwithAttachment(mails, resumeData, OptionalHeader)
         .then(resp => {
@@ -39,7 +41,7 @@ export default function SendViaEmail() {
               draggable: true,
               progress: undefined,
             });
-            setModalShow(false);
+            close();
           } else{
             toast.error(resp.data.message, {
               position: "top-center",
@@ -50,18 +52,22 @@ export default function SendViaEmail() {
               draggable: true,
               progress: undefined,
             });
+            close();
           }
         })
-        .catch(err => toast.error(
-          "Some Error occured.", {
-          position: "top-center",
-          autoClose: 2000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        }));
+        .catch(err => {
+          toast.error(
+            "Some Error occured.", {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          })
+          close();
+        });
     }
   function MyVerticallyCenteredModal(props) {
     return (
@@ -115,8 +121,8 @@ export default function SendViaEmail() {
 
   return (
     <>
-      <div className="share" style={{justifyContent: 'center'}}>
-        <a className="flexAlignCenter modal-button" style={{cursor: 'pointer'}} onClick={() => setModalShow(true)}>Send Email with Profile</a>
+      <div className="share">
+        <a className="flexRow flexAlignCenter email-button" style={{cursor: 'pointer'}} onClick={() => setModalShow(true)}>Send Email</a>
       </div>
 
       <MyVerticallyCenteredModal
