@@ -17,7 +17,7 @@ import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { Form } from 'react-bootstrap';
 import { ProgrammerContext } from '../../utility/userContext';
 
-export default function CodingCard({name, rank, id, logo, hide}){       
+export default function CodingCard({name, rank, id, logo, hide, open, close}){       
   const [user, setUser] = useContext(ProgrammerContext); 
     var invisible = hide;
     const [ bullets, setbullets ] = useState(true);
@@ -43,7 +43,8 @@ export default function CodingCard({name, rank, id, logo, hide}){
         return portal.split(' ').join('').toLowerCase();
     }
 
-    const updateRankWidget = async (name) => {        
+    const updateRankWidget = async (name) => { 
+          open();       
           var website_name = formatPortal(name);
           var website_id = PortalMap.get(website_name).id;
           const rankWidgetData = {
@@ -69,16 +70,20 @@ export default function CodingCard({name, rank, id, logo, hide}){
                   setUser(prevUser => ({...prevUser,
                     rank_widgets: resp.data.rank_widgets,
                   }));
+                  close();
                 })
-                .catch(err => toast.error("Some Error Occured.", {
-                  position: "top-center",
-                  autoClose: 2000,
-                  hideProgressBar: true,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                }));
+                .catch(err => {
+                  toast.error("Some Error Occured.", {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  })
+                  close();
+                });
             })
             .catch(error => {
               toast.error('Error updating!', {
@@ -90,15 +95,18 @@ export default function CodingCard({name, rank, id, logo, hide}){
                 draggable: true,
                 progress: undefined,
               });
+              close();
             });
         }
 
       const unHideCard = (name) => {
+        open();
         invisible = false;
         updateRankWidget(name);
       }
   
       const HideCard = (name) => {
+        open();
         invisible = true;
         updateRankWidget(name)
       }
@@ -136,6 +144,7 @@ export default function CodingCard({name, rank, id, logo, hide}){
       }
 
     const DeleteCard = async (name) => {
+        open();
         var website_name = formatPortal(name);
         var website_id = PortalMap.get(website_name).id;
 
@@ -155,8 +164,12 @@ export default function CodingCard({name, rank, id, logo, hide}){
                       setUser(prevUser => ({...prevUser,
                         rank_widgets: resp.data.rank_widgets,
                       }));
+                      close();
                     })
-                    .catch(err => console.log(err));
+                    .catch(err => {
+                        console.log(err);
+                        close();
+                      });
                 })
             .catch(error => {
                 toast.error('Error, Cannot delete this card!', {
@@ -168,6 +181,7 @@ export default function CodingCard({name, rank, id, logo, hide}){
                     draggable: true,
                     progress: undefined,
                 })
+                close();
             });
     }
 
@@ -212,7 +226,7 @@ export default function CodingCard({name, rank, id, logo, hide}){
                             {icon2 ? (<img src={edited} alt="edit" onMouseEnter={() => {setoption2(true); seticon2(false);}} className="edit-icon" style={{height:30, width: 30, marginBottom: 10, cursor: 'pointer', marginLeft: option1 ? 50 : null || option3 ? 50 : null}} />) : null}
                             { option2 ? (
                                 <div className="flexRow flexAlignCenter option edit-option" onMouseLeave={() => {setoption2(false); seticon2(true);}} style={{ marginBottom: 10, position: 'relative', left: 40, cursor: 'pointer' }}>
-                                    <UpdateCodingProfile portalName={name} Rank={rank} userName={id} />
+                                    <UpdateCodingProfile portalName={name} Rank={rank} userName={id} open={open} close={close} />
                                     <p className="options-text">Edit</p>
                                 </div>
                                 ) : null
