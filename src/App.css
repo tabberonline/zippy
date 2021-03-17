@@ -136,7 +136,6 @@
     }
     .header button{
         height: 40px !important;
-        width: 160px !important;
     }
     .header .google-button, .edit-your-portfolio{
         font-size: 11px !important;
@@ -796,7 +795,7 @@
         padding: 0 !important;
     }
     .profile-card{
-        width: 45% !important;
+        width: 44% !important;
         padding-bottom: 10px !important;
         margin: 10px !important;
     }
@@ -919,7 +918,7 @@
         padding: 0 !important;
     }
     .profile-card{
-        width: 45% !important;
+        width: 44% !important;
         padding-bottom: 10px !important;
         margin: 15px !important;
     }
@@ -1042,7 +1041,7 @@
         padding: 0 !important;
     }
     .profile-card{
-        width: 45% !important;
+        width: 44% !important;
         padding-bottom: 10px !important;
         margin: 15px !important;
     }
@@ -1165,7 +1164,7 @@
         padding: 0 !important;
     }
     .profile-card{
-        width: 45% !important;
+        width: 44% !important;
         margin: 20px !important;
     }
     .logo{
@@ -1257,5 +1256,321 @@
     }
     .pb-100{
         padding-bottom: 20px !important;
+    }
+}
+
+/* Modal Buttons */
+@media(max-width: 480px){
+    .email-button, .history-button, .share .share-button {
+        padding: 5px 15px !important;
+        font: 8px 'Poppins', sans-serif !important;
+        border-radius: 4px !important;
+    }
+    .share, .history{
+        padding: 10px 20px !important;
+    }
+    .attach-resume {
+        border-radius: 4px !important;
+        padding: 5px 15px !important;
+        width: auto !important;
+        margin: 20px !important;
+    }
+    .resume-head{
+        font: 12px 'Poppins', sans-serif !important;
+    }
+    .attach-resume__icon{
+        font-size: 25px !important;
+    }
+    .mail-box{
+        padding: 20px !important;
+    }
+    .mail-content-box{
+        border-radius: 4px !important;
+        margin: 20px 0 !important;
+    }
+    .mailcontent-header{
+        font: 15px 'Poppins', sans-serif !important;
+        font-weight: 700 !important;
+        padding: 5px !important;
+    }
+    .profile-pic{
+        display: none !important;
+    }
+    .mailcontent-name{
+        font: 14px 'Poppins', sans-serif !important;
+        font-weight: 700 !important;
+        margin-bottom: 0 !important;
+    }
+    .mailcontent-mail{
+        font: 14px 'Poppins', sans-serif !important;
+        font-weight: 500 !important;
+    }
+    .mailcontent-sec{
+        font: 14px 'Poppins', sans-serif !important;
+        font-weight: 500 !important;
+    }
+    .mailcontent-number{
+        font: 16px 'Poppins', sans-serif;
+        font-weight: 700 !important;
+    }
+    .numbers__code{
+        gap: 20px !important;
+    }
+    .table-head{
+        font: 14px 'Poppins', sans-serif !important;
+        font-weight: 700 !important;
+    }
+    .table-date{
+        font: 10px 'Poppins', sans-serif !important;
+        font-weight: 500 !important;
+    }
+    .table-element{
+        font: 12px 'Poppins', sans-serif !important;
+        font-weight: 500 !important;
+    }
+    .policyhead {
+        font: 24px 'Poppins', sans-serif !important;
+        font-weight: 700 !important;
+    }
+    .policy-screen #policy-section .policy-text {
+        font: 16px 'Poppins', sans-serif !important;
+        font-weight: 400 !important;
+    }
+}
+@media(min-width: 480px) and (max-width: 599px){
+    .email-button, .history-button, .share .share-button {
+        padding: 7px 19px !important;
+        font: 12px 'Poppins', sans-serif !important;
+        font-weight: 500 !important;
+        border-radius: 6px !important;
+    }
+    .share, .history{
+        padding: 20px !important;
+    }
+    .attach-resume {
+        border-radius: 6px !important;
+        padding: 7px 19px !important;
+        width: 60% !important;
+        margin: 20px !important;
+    }
+    .resume-head{
+        font: 16px 'Poppins', sans-serif !important;
+    }
+    .attach-resume__icon{
+        font-size: 30px !important;
+    }
+    .mail-box{
+        padding: 20px !important;
+    }
+    .mail-content-box{
+        border-radius: 4px !important;
+        margin: 20px 0 !important;
+    }
+    .mailcontent-header{
+        font: 18px 'Poppins', sans-serif !important;
+        font-weight: 700 !important;
+        padding: 10px !important;
+    }
+    .profile-pic{
+        height: 60px !important;
+        width: 60px !important;
+    }
+    .mailcontent-name{
+        font: 16px 'Poppins', sans-serif !important;
+        font-weight: 700 !important;
+        margin-bottom: 0 !important;
+    }
+    .mailcontent-mail{
+        font: 16px 'Poppins', sans-serif !important;
+        font-weight: 500 !important;
+    }
+    .mailcontent-sec{
+        font: 16px 'Poppins', sans-serif !important;
+        font-weight: 500 !important;
+    }
+    .mailcontent-number{
+        font: 18px 'Poppins', sans-serif;
+        font-weight: 700 !important;
+    }
+    .numbers__code{
+        gap: 20px !important;
+    }
+    .table-head{
+        font: 16px 'Poppins', sans-serif !important;
+        font-weight: 700 !important;
+    }
+    .table-date{
+        font: 13px 'Poppins', sans-serif !important;
+        font-weight: 500 !important;
+    }
+    .table-element{
+        font: 14px 'Poppins', sans-serif !important;
+        font-weight: 500 !important;
+    }
+    .policyhead {
+        font: 28px 'Poppins', sans-serif !important;
+        font-weight: 700 !important;
+    }
+    .policy-screen #policy-section .policy-text {
+        font: 18px 'Poppins', sans-serif !important;
+        font-weight: 400 !important;
+    }
+}
+@media(min-width: 600px) and (max-width: 767px){
+    .email-button, .history-button, .share .share-button {
+        padding: 7px 19px !important;
+        font: 18px 'Poppins', sans-serif !important;
+        font-weight: 500 !important;
+        border-radius: 6px !important;
+    }
+    .share, .history{
+        padding: 20px !important;
+    }
+    .attach-resume {
+        border-radius: 6px !important;
+        padding: 8px 24px !important;
+        width: 60% !important;
+        margin: 20px !important;
+    }
+    .resume-head{
+        font: 18px 'Poppins', sans-serif !important;
+    }
+    .attach-resume__icon{
+        font-size: 35px !important;
+    }
+    .mail-box{
+        padding: 20px !important;
+    }
+    .mail-content-box{
+        border-radius: 4px !important;
+        margin: 20px 0 !important;
+    }
+    .mailcontent-header{
+        font: 18px 'Poppins', sans-serif !important;
+        font-weight: 700 !important;
+        padding: 10px !important;
+    }
+    .profile-pic{
+        height: 60px !important;
+        width: 60px !important;
+    }
+    .mailcontent-name{
+        font: 16px 'Poppins', sans-serif !important;
+        font-weight: 700 !important;
+        margin-bottom: 0 !important;
+    }
+    .mailcontent-mail{
+        font: 16px 'Poppins', sans-serif !important;
+        font-weight: 500 !important;
+    }
+    .mailcontent-sec{
+        font: 16px 'Poppins', sans-serif !important;
+        font-weight: 500 !important;
+    }
+    .mailcontent-number{
+        font: 18px 'Poppins', sans-serif;
+        font-weight: 700 !important;
+    }
+    .numbers__code{
+        gap: 20px !important;
+    }
+    .table-head{
+        font: 16px 'Poppins', sans-serif !important;
+        font-weight: 700 !important;
+    }
+    .table-date{
+        font: 13px 'Poppins', sans-serif !important;
+        font-weight: 500 !important;
+    }
+    .table-element{
+        font: 14px 'Poppins', sans-serif !important;
+        font-weight: 500 !important;
+    }
+    .policyhead {
+        font: 36px 'Poppins', sans-serif !important;
+        font-weight: 700 !important;
+    }
+    .policy-screen #policy-section .policy-text {
+        font: 18px 'Poppins', sans-serif !important;
+        font-weight: 400 !important;
+    }
+}
+@media(min-width: 768px) and (max-width: 991px){
+    .email-button, .history-button, .share .share-button {
+        padding: 8px 24px !important;
+        font: 18px 'Poppins', sans-serif !important;
+        font-weight: 500 !important;
+        border-radius: 8px !important;
+    }
+    .share, .history{
+        padding: 30px 25px !important;
+    }
+    .attach-resume {
+        border-radius: 8px !important;
+        padding: 8px 24px !important;
+        width: 50% !important;
+        margin: 20px !important;
+    }
+    .resume-head{
+        font: 18px 'Poppins', sans-serif !important;
+    }
+    .attach-resume__icon{
+        font-size: 40px !important;
+    }
+    .mail-box{
+        padding: 30px 20px !important;
+    }
+    .mail-content-box{
+        border-radius: 8px !important;
+        margin: 30px 0 !important;
+    }
+    .mailcontent-header{
+        font: 20px 'Poppins', sans-serif !important;
+        font-weight: 700 !important;
+        padding: 15px !important;
+    }
+    .profile-pic{
+        height: 80px !important;
+        width: 80px !important;
+    }
+    .mailcontent-name{
+        font: 18px 'Poppins', sans-serif !important;
+        font-weight: 700 !important;
+        margin-bottom: 0 !important;
+    }
+    .mailcontent-mail{
+        font: 16px 'Poppins', sans-serif !important;
+        font-weight: 500 !important;
+    }
+    .mailcontent-sec{
+        font: 18px 'Poppins', sans-serif !important;
+        font-weight: 500 !important;
+    }
+    .mailcontent-number{
+        font: 20px 'Poppins', sans-serif;
+        font-weight: 700 !important;
+    }
+    .numbers__code{
+        gap: 20px !important;
+    }
+    .table-head{
+        font: 20px 'Poppins', sans-serif !important;
+        font-weight: 700 !important;
+    }
+    .table-date{
+        font: 16px 'Poppins', sans-serif !important;
+        font-weight: 500 !important;
+    }
+    .table-element{
+        font: 18px 'Poppins', sans-serif !important;
+        font-weight: 500 !important;
+    }
+    .policyhead {
+        font: 48px 'Poppins', sans-serif !important;
+        font-weight: 700 !important;
+    }
+    .policy-screen #policy-section .policy-text {
+        font: 20px 'Poppins', sans-serif !important;
+        font-weight: 400 !important;
     }
 }

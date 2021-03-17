@@ -8,13 +8,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
 import { ProgrammerContext } from '../../utility/userContext';
 
-export default function ShareModal({id}) {
+export default function ShareModal({id, open, close}) {
   const [user, setUser] = useContext(ProgrammerContext);
   const [modalShow, setModalShow] = React.useState(false);
   const url = `http://localhost:3000/d?id=${user.user_id}`;
   const textAreaRef = useRef(null);
 
   const CopyText = (e) => {
+    open();
     textAreaRef.current.select();
     document.execCommand('copy');
     toast.success('Link Copied!', {
@@ -27,6 +28,7 @@ export default function ShareModal({id}) {
       progress: undefined,
     });
     setModalShow(false);
+    close();
   }
 
   function MyVerticallyCenteredModal(props) {
@@ -64,7 +66,7 @@ export default function ShareModal({id}) {
   return (
     <>
       <div className="share">
-        <button className="flexAlignCenter share-button" style={{outline: 'none'}} onClick={() => {setModalShow(true);}}>
+        <button className="flexAlignCenter share-button" style={{outline: 'none', marginRight: 0}} onClick={() => {setModalShow(true);}}>
           Share        
         </button>
       </div>

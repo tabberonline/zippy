@@ -10,16 +10,15 @@ import AdminService from '../../AdminServices/AdminService';
 import edited from '../../assets/images/Edit-Icon.png';
 import { ProgrammerContext } from '../../utility/userContext';
 
-export default function UpdateContestProfile(portalName, Rank, userName, id, ContestName) {
+export default function UpdateContestProfile({portalName, Rank, userName, id, ContestName, open, close}) {
   const [user, setUser] = useContext(ProgrammerContext);
   const [modalShow, setModalShow] = React.useState(false);
-  var portal1 = portalName;
-  var portal = portal1.portalName;
+  var portal = portalName;
   const data = ['Geeks for Geeks', 'CodeChef', 'CodeForces', 'HackerRank', 'TopCoder', 'LeetCode'];
-  var contest = portal1.ContestName;
-  var rank = portal1.Rank;
-  var username = portal1.userName;
-  var card_id = portal1.id;
+  var contest = ContestName;
+  var rank = Rank;
+  var username = userName;
+  var card_id = id;
 
   const formatPortal = portal => {
     return portal.split(' ').join('').toLowerCase();
@@ -49,6 +48,7 @@ export default function UpdateContestProfile(portalName, Rank, userName, id, Con
               setUser(prevUser => ({...prevUser,
                 contest_widgets: resp.data.contest_widgets,
               }));
+              close();
               setModalShow(false);
             })
             .catch(err => toast.error("Some Error Occured.", {
@@ -60,6 +60,7 @@ export default function UpdateContestProfile(portalName, Rank, userName, id, Con
               draggable: true,
               progress: undefined,
             }));
+            close();
         })
         .catch(error => {
           toast.error('Error, Enter correct details!', {
@@ -71,6 +72,7 @@ export default function UpdateContestProfile(portalName, Rank, userName, id, Con
             draggable: true,
             progress: undefined,
           });
+          close();
         });
     } else {
       toast.error('Error, Fields cannot be empty!', {
@@ -82,6 +84,7 @@ export default function UpdateContestProfile(portalName, Rank, userName, id, Con
         draggable: true,
         progress: undefined,
       });
+      close();
     }
   }
 
@@ -95,6 +98,8 @@ export default function UpdateContestProfile(portalName, Rank, userName, id, Con
   }
 
   const UpdateCard = (card_id) => {
+    open();
+    setModalShow(false);
     setItem('Contestportal', portal);
     getPortalDetails(formatPortal(getItem('Contestportal')));
     setItem('Contestusername', username);

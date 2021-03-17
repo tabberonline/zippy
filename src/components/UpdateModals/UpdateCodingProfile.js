@@ -10,14 +10,13 @@ import AdminService from '../../AdminServices/AdminService';
 import edited from '../../assets/images/Edit-Icon.png';
 import { ProgrammerContext } from '../../utility/userContext';
 
-  export default function UpdateCodingProfile(portalName, Rank, userName) {
+  export default function UpdateCodingProfile({portalName, Rank, userName, open, close}) {
     const [user, setUser] = useContext(ProgrammerContext);
     const [modalShow, setModalShow] = React.useState(false);
-    var portal1 = portalName;
-    var portal = portal1.portalName;
+    var portal = portalName;
     const data = ['Geeks for Geeks', 'CodeChef', 'CodeForces', 'HackerRank', 'TopCoder', 'LeetCode'];
-    var username = portal1.userName;
-    var rank = portal1.Rank;
+    var username = userName;
+    var rank = Rank;
 
     const formatPortal = portal => {
       return portal.split(' ').join('').toLowerCase();
@@ -47,6 +46,7 @@ import { ProgrammerContext } from '../../utility/userContext';
                 setUser(prevUser => ({...prevUser,
                     rank_widgets: resp.data.rank_widgets,
                 }));
+                close();
                 setModalShow(false);
               })
               .catch(err => toast.error("Some Error Occured.", {
@@ -58,6 +58,7 @@ import { ProgrammerContext } from '../../utility/userContext';
                 draggable: true,
                 progress: undefined,
               }));
+              close();
           })
           .catch(error => {
             toast.error('Error, Enter correct details!', {
@@ -69,6 +70,7 @@ import { ProgrammerContext } from '../../utility/userContext';
               draggable: true,
               progress: undefined,
             });
+            close();
           });
       } else {
         toast.error('Error, Fields cannot be empty!', {
@@ -80,6 +82,7 @@ import { ProgrammerContext } from '../../utility/userContext';
           draggable: true,
           progress: undefined,
         });
+        close();
       }
     }
 
@@ -92,6 +95,8 @@ import { ProgrammerContext } from '../../utility/userContext';
     }
 
     const UpdateCard = () => {
+      open();
+      setModalShow(false);
       setItem('Codingportal', portal);
       getPortalDetails(formatPortal(getItem('Codingportal')));
       setItem('Codingusername', username);

@@ -16,7 +16,7 @@ import { Form, Modal } from 'react-bootstrap';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { ProgrammerContext } from '../../utility/userContext';
 
-export default function ContestCard({name, rank, id, logo, contest, card_id, hide}){ 
+export default function ContestCard({name, rank, id, logo, contest, card_id, hide, open, close}){ 
     const [user, setUser] = useContext(ProgrammerContext); 
     const [ bullets, setbullets ] = useState(true);
     const [ drawer, setdrawer ] = useState(false);
@@ -52,7 +52,6 @@ export default function ContestCard({name, rank, id, logo, contest, card_id, hid
             'contest_name' : contest,
             'invisible': invisible,
           }
-        console.log(updateWidgetData);
         AdminService.updateContestWidget(card_id, updateWidgetData)
           .then(response => {
             toast.success('Card Updated!', {
@@ -69,16 +68,20 @@ export default function ContestCard({name, rank, id, logo, contest, card_id, hid
                 setUser(prevUser => ({...prevUser,
                   contest_widgets: resp.data.contest_widgets,
                 }));
+                close();
               })
-              .catch(err => toast.error("Some Error Occured.", {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              }));
+              .catch(err => {
+                toast.error("Some Error Occured.", {
+                  position: "top-center",
+                  autoClose: 2000,
+                  hideProgressBar: true,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                })
+                close();
+              });
           })
           .catch(error => {
             toast.error('Error updating!', {
@@ -90,15 +93,18 @@ export default function ContestCard({name, rank, id, logo, contest, card_id, hid
               draggable: true,
               progress: undefined,
             });
+            close();
           });
       }
 
     const unHideCard = () => {
       invisible = false;
+      open();
       updateWidget();
     }
 
     const HideCard = () => {
+      open();
       invisible = true;
       updateWidget()
     }
@@ -136,7 +142,8 @@ export default function ContestCard({name, rank, id, logo, contest, card_id, hid
       }
 
     const DeleteCard = async (card_id) => {
-        
+        setModalShow(false);
+        open();        
         AdminService.deleteContestWidget(card_id)
             .then(response => {
                 toast.success('Card deleted successfully!', {
@@ -153,8 +160,10 @@ export default function ContestCard({name, rank, id, logo, contest, card_id, hid
                       setUser(prevUser => ({...prevUser,
                         contest_widgets: resp.data.contest_widgets,
                       }));
+                      close();
                     })
-                    .catch(err => console.log(err));
+                    .catch(err => {console.log(err);
+                      close();});
                 })
             .catch(error => {
                 toast.error('Error, Cannot delete this card!', {
@@ -166,6 +175,7 @@ export default function ContestCard({name, rank, id, logo, contest, card_id, hid
                     draggable: true,
                     progress: undefined,
                 })
+                close();
             });
     }
 
@@ -210,7 +220,7 @@ export default function ContestCard({name, rank, id, logo, contest, card_id, hid
                         {icon2 ? (<img src={edited} alt="edit" onMouseEnter={() => {setoption2(true); seticon2(false);}} className="edit-icon" style={{height:30, width: 30, marginBottom: 10, cursor: 'pointer', marginLeft: option1 ? 50 : null || option3 ? 50 : null}} />) : null}
                         { option2 ? (
                             <div className="flexRow flexAlignCenter option edit-option" onMouseLeave={() => {setoption2(false); seticon2(true);}} style={{ marginBottom: 10, position: 'relative', left: 40, cursor: 'pointer' }}>
-                                <UpdateContestProfile portalName={name} Rank={rank} userName={id} id={card_id} ContestName={contest} />
+                                <UpdateContestProfile open={open} close={close} portalName={name} Rank={rank} userName={id} id={card_id} ContestName={contest} />
                                 <p className="options-text">Edit</p>
                             </div>
                             ) : null

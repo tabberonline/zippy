@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
 import '../../styles/HelperStyles.css';
 import './ContactScreen.css';
@@ -7,28 +8,35 @@ import {Form} from 'react-bootstrap';
 import Header1 from '../../components/Header/Header1';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import AdminService from '../../AdminServices/AdminService';
 import { Animated } from 'react-animated-css';
 import Axios from 'axios';
 import {API_ENDPOINT} from '../../AdminServices/baseUrl';
+import Loader from '../../components/Loader/Loader';
 
 function ContactScreen() {
     const [name, setName] = useState('');
     const [subject, setSubject] = useState('');
     const [message, setMessage] = useState('');
     const [email, setEmail] = useState('');
+    const [loader, setloader] = useState(false);
+
+    const ClearFields = () => {
+        setName('');
+        setSubject('');
+        setMessage('');
+        setEmail('');
+    }
 
     const SendMail = async () => {
+        setloader(true);
         if(subject && message && email){
             const mailContent = {
                 'subject': subject,
                 'text': message,
                 'email': email,
             }
-            console.log(mailContent);
             Axios.post(`${API_ENDPOINT}/email`, mailContent)
                 .then(resp => {
-                    console.log(resp);
                     toast.success('Mail Sent!', {
                         position: "top-center",
                         autoClose: 2000,
@@ -38,9 +46,10 @@ function ContactScreen() {
                         draggable: true,
                         progress: undefined,
                     });
+                    setloader(false);
+                    ClearFields();
                 })
                 .catch(err => {
-                    console.log(err);
                     toast.error('Some Error Occured!', {
                         position: "top-center",
                         autoClose: 2000,
@@ -50,6 +59,7 @@ function ContactScreen() {
                         draggable: true,
                         progress: undefined,
                     });
+                    setloader(false);
                 })
         } else{
             toast.error('Error, Fields cannot be empty!', {
@@ -61,12 +71,14 @@ function ContactScreen() {
                 draggable: true,
                 progress: undefined,
               });
+              setloader(false);
         }
 
     }
   return (
     <div className="contact-screen">
-        <Header1 />
+        {loader ? <Loader /> : null}
+        <Header1 open={() => setloader(true)} close={() => setloader(false)} />
         <div id="contact-section">
           <div className="mw1100 flexColumn">
             <Animated isVisible={true} animationIn="slideInUp">

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import '../../styles/HelperStyles.css';
 import './PortfolioScreen.css';
 import Footer from '../../components/Footer/Footer';
@@ -10,7 +10,7 @@ import ContestProfileModal from '../../components/modals/ContestProfileModal';
 import ProjectModal from '../../components/modals/ProjectModal';
 import ShareModal from '../../components/modals/ShareModal';
 import SentHistoryModal from '../../components/modals/SentHistory';
-import { AiOutlineCheck, AiOutlineEdit, AiOutlinePlusCircle} from 'react-icons/ai';
+import { AiOutlineCheck, AiOutlineEdit} from 'react-icons/ai';
 import $ from 'jquery';
 import Header1 from '../../components/Header/Header1';
 import { getItem, setItem, ReversePortalMap } from '../../utility/localStorageControl';
@@ -20,6 +20,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import {isMobile} from 'react-device-detect';
 import AttachResumeModal from '../../components/modals/AttachResume';
 import SendViaEmail from '../../components/modals/SendViaEmail';
+import Loader from '../../components/Loader/Loader';
 import { ProgrammerContext } from '../../utility/userContext';
 const API_KEY = 'AFjzy7b0VSvCEJhKDtcQ6z';
 const processAPI = 'https://cdn.filestackcontent.com';
@@ -30,6 +31,7 @@ function PortfolioScreen() {
   var desc = user.portfolio.description;
   const [edit1, setedit] = useState(true);
   const [edit2, setedit2] = useState(true);
+  const [loader, setloader] = useState(false);
 
   const Edit1 = () => {
     $(".title").prop("readonly", false);
@@ -43,12 +45,14 @@ function PortfolioScreen() {
     $(".title").prop("readonly", true);
     setedit(true);
     setItem('titlePortfolio', title);
+    setloader(true);
     UpdatePortfolio();
   } 
   const Save2 = () => {
     $(".desc").prop("readonly", true);
     setedit2(true);
     setItem('descPortfolio', desc);
+    setloader(true);
     UpdatePortfolio();
   } 
   const UpdatePortfolio = async () =>{
@@ -70,19 +74,23 @@ function PortfolioScreen() {
           });
           AdminService.getUserData()
             .then(resp => {
+              setloader(false);
               setUser(prevUser => ({...prevUser,
                 portfolio: resp.data.portfolio,
               }));
             })
-            .catch(err => toast.error("Some Error Occured.", {
-              position: "top-center",
-              autoClose: 2000,
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            }));
+            .catch(err => {
+              toast.error("Some Error Occured.", {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              })
+              setloader(false);
+            });
         })
         .catch(err => {
           toast.error('Error, Please retry!', {
@@ -94,6 +102,7 @@ function PortfolioScreen() {
             draggable: true,
             progress: undefined,
           });
+          setloader(false);
         });
     } else {
       toast.error('Error, Fields cannot be empty!', {
@@ -105,11 +114,13 @@ function PortfolioScreen() {
         draggable: true,
         progress: undefined,
       });
+      setloader(false);
     }
   }
 
   return (
-    <div className="#portfolio-screen">      
+    <div className="#portfolio-screen">    
+    {loader ? <Loader /> : null}  
       <ToastContainer
         position="top-center"
         autoClose={3000}
@@ -121,11 +132,11 @@ function PortfolioScreen() {
         draggable
         pauseOnHover
       />
-      <Header1 />
+      <Header1 open={() => setloader(true)} close={() => setloader(false)} />
       <div className="flexRow mw1100 flexBetween" style={{}}>
-        <SendViaEmail />
-        <SentHistoryModal />
-        <ShareModal id={getItem('user_id')} />
+        <SendViaEmail open={() => setloader(true)} close={() => setloader(false)} />
+        <SentHistoryModal open={() => setloader(true)} close={() => setloader(false)} />
+        <ShareModal open={() => setloader(true)} close={() => setloader(false)} />
       </div>
       <div className="mw1100">
         <div className="p-40 flexColumn portfolio-section">
@@ -154,7 +165,7 @@ function PortfolioScreen() {
             </div>
             <div className="flexColumn mv-20">
               <p className="card-heading mb-20">Resume</p>
-              <AttachResumeModal />
+              <AttachResumeModal open={() => setloader(true)} close={() => setloader(false)} />
             </div>
             <div className="coding-profile mv-20">
               <p className="card-heading mb-20">Coding Profile</p>
@@ -162,13 +173,13 @@ function PortfolioScreen() {
                 { user.rank_widgets !== [''] ?
                     (
                       user.rank_widgets.map(profile => (
-                        <CodingCard name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} hide={profile.invisible} />
+                        <CodingCard open={() => setloader(true)} close={() => setloader(false)} name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} hide={profile.invisible} />
                       ))
                     ) : null
                 }
                 {
                   user.rank_widgets.length < 3 ? (
-                    <CodingProfileModal />
+                    <CodingProfileModal open={() => setloader(true)} close={() => setloader(false)} />
                   ) : null
                 }
               </div>
@@ -179,13 +190,13 @@ function PortfolioScreen() {
                 { user.contest_widgets !== [''] ?
                     (
                       user.contest_widgets.map(profile => (
-                        <ContestCard card_id={profile.id} name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} contest={profile.contest_name} hide={profile.invisible} />
+                        <ContestCard open={() => setloader(true)} close={() => setloader(false)} card_id={profile.id} name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} contest={profile.contest_name} hide={profile.invisible} />
                       ))
                     ) : null
                 }
                 {
                   user.contest_widgets.length < 3 ? (
-                    <ContestProfileModal />
+                    <ContestProfileModal open={() => setloader(true)} close={() => setloader(false)} />
                   ) : null
                 }
               </div>
@@ -196,13 +207,13 @@ function PortfolioScreen() {
                 { user.project_widgets !== [''] ?
                     (
                       user.project_widgets.map(project => (
-                        <ProjectCard name={project.title} url={project.link} img={`${processAPI}/${API_KEY}/urlscreenshot=agent:${isMobile ? 'mobile' : 'desktop'}/${project.link}`} id={project.id} hide={project.invisible} />
+                        <ProjectCard open={() => setloader(true)} close={() => setloader(false)} name={project.title} url={project.link} img={`${processAPI}/${API_KEY}/urlscreenshot=agent:${isMobile ? 'mobile' : 'desktop'}/${project.link}`} id={project.id} hide={project.invisible} />
                       ))
                     ) : null
                 }   
                 {
                   user.project_widgets.length < 3 ? ( 
-                    <ProjectModal />
+                    <ProjectModal open={() => setloader(true)} close={() => setloader(false)} />
                   ) : null
                 }             
               </div>

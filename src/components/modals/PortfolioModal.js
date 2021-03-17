@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
 import { ProgrammerContext } from '../../utility/userContext';
   
-  export default function PortfolioModal({home}) {
+  export default function PortfolioModal({home, open, close}) {
     const [user, setUser] = useContext(ProgrammerContext);
     const [modalShow, setModalShow] = useState(false);
     const [apicall, setcall] = useState('');
@@ -51,17 +51,21 @@ import { ProgrammerContext } from '../../utility/userContext';
                 .then(resp => {
                   setUser(prevUser => ({...prevUser,
                     portfolio: resp.data.portfolio,
-                  }));              
+                  }));    
+                  close();          
                 })
-                .catch(err => toast.error("Some Error Occured.", {
-                  position: "top-center",
-                  autoClose: 2000,
-                  hideProgressBar: true,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                }));
+                .catch(err => {
+                  toast.error("Some Error Occured.", {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  });
+                  close();
+                });
             })
             .catch(err => {
               toast.error('Error, One User, One Portfolio!', {
@@ -73,6 +77,7 @@ import { ProgrammerContext } from '../../utility/userContext';
                 draggable: true,
                 progress: undefined,
               });
+              close();
             });
         } else {
           toast.error('Error, Fields cannot be empty!', {
@@ -84,11 +89,13 @@ import { ProgrammerContext } from '../../utility/userContext';
             draggable: true,
             progress: undefined,
           });
+          close();
         }
       }
     };  
 
     const Add = () => {
+      open();
       setItem('name', name);
       setItem('titlePortfolio', title);
       setItem('descPortfolio', desc);

@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
 import { ProgrammerContext } from '../../utility/userContext';
 
-  export default function CodingProfileModal() {
+  export default function CodingProfileModal({open, close}) {
     const [user, setUser] = useContext(ProgrammerContext);
     const [modalShow, setModalShow] = React.useState(false);
     var username = "";
@@ -28,6 +28,7 @@ import { ProgrammerContext } from '../../utility/userContext';
       ))
       var exist = portalsArray.includes(getItem('website_id'));
       if(exist){
+        setModalShow(false);
         toast.error('Error, Site already exists!', {
           position: "top-center",
           autoClose: 2000,
@@ -36,7 +37,8 @@ import { ProgrammerContext } from '../../utility/userContext';
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-        });setModalShow(false);
+        });
+        close();
       } else{
         if(portal.length > 0 && username.length > 0 && rank.length > 0){
           const rankWidgetData = {
@@ -57,20 +59,24 @@ import { ProgrammerContext } from '../../utility/userContext';
               });
               AdminService.getUserData()
                 .then(resp => {
+                  setModalShow(false);
                   setUser(prevUser => ({...prevUser,
                     rank_widgets: resp.data.rank_widgets,
                   }));
-                  setModalShow(false);
+                  close();
                 })
-                .catch(err => toast.error("Some Error Occured.", {
-                  position: "top-center",
-                  autoClose: 2000,
-                  hideProgressBar: true,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                }));
+                .catch(err => {
+                  toast.error("Some Error Occured.", {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  })
+                  close();
+                });
             })
             .catch(error => {
               toast.error('Error, Enter correct details!', {
@@ -82,6 +88,7 @@ import { ProgrammerContext } from '../../utility/userContext';
                 draggable: true,
                 progress: undefined,
               });
+              close();
             });
         } else {
           toast.error('Error, Fields cannot be empty!', {
@@ -93,6 +100,7 @@ import { ProgrammerContext } from '../../utility/userContext';
             draggable: true,
             progress: undefined,
           });
+          close();
         }
       }
     }
@@ -106,6 +114,8 @@ import { ProgrammerContext } from '../../utility/userContext';
     }
 
     const UpdateCard = () => {
+      open();
+      setModalShow(false);
       setItem('Codingportal', portal);
       getPortalDetails(formatPortal(getItem('Codingportal')));
       setItem('Codingusername', username);

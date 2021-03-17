@@ -10,13 +10,12 @@ import AdminService from '../../AdminServices/AdminService';
 import edited from '../../assets/images/Edit-Icon.png';
 import { ProgrammerContext } from '../../utility/userContext';
 
-export default function UpdateProject(projectName, projectlink, projectImage, projectId) {
+export default function UpdateProject({projectName, projectlink, projectImage, projectId, open, close}) {
   const [user, setUser] = useContext(ProgrammerContext);
   const [modalShow, setModalShow] = React.useState(false);
-  var project1 = projectName;
-  var url = project1.projectlink;
-  var project = project1.projectName;
-  var project_id = project1.projectId;
+  var url = projectlink;
+  var project = projectName;
+  var project_id = projectId;
 
   const updateWidget = async (id) => {
     if(url.length > 0 && project.length > 0 ){
@@ -40,6 +39,7 @@ export default function UpdateProject(projectName, projectlink, projectImage, pr
               setUser(prevUser => ({...prevUser,
                 project_widgets: resp.data.personal_projects,
               }));
+              close();
               setModalShow(false);
             })
             .catch(err => toast.error("Some Error Occured.", {
@@ -51,6 +51,7 @@ export default function UpdateProject(projectName, projectlink, projectImage, pr
               draggable: true,
               progress: undefined,
             }));
+            close();
         })
         .catch(error => {
           toast.error('Error, Enter correct details!', {
@@ -62,6 +63,7 @@ export default function UpdateProject(projectName, projectlink, projectImage, pr
             draggable: true,
             progress: undefined,
           });
+          close();
         });
     } else {
       toast.error('Error, Fields cannot be empty!', {
@@ -73,10 +75,12 @@ export default function UpdateProject(projectName, projectlink, projectImage, pr
         draggable: true,
         progress: undefined,
       });
+      close();
     }
   }
 
   const UpdateCard = (id) => {
+    open();
     setItem('Projectname', project);
     setItem('Projectid', url);
     updateWidget(id);
