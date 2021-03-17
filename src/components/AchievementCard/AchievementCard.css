@@ -7,11 +7,12 @@
     width: 38%;
 }
 .achievement-heading{
-    font: 56px 'Gilroy', sans-serif;
+    font:40px 'Gilroy', sans-serif;
     font-weight: 800;
-    margin-bottom: 0px;
+    margin-left: 10px;
 }
 .achievement-text{
     font: 20px 'Poppins', sans-serif;
     font-weight: 400;
+    margin-left: 10px;
 }
