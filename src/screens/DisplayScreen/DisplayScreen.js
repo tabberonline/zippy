@@ -12,6 +12,7 @@ import {API_ENDPOINT} from '../../AdminServices/baseUrl';
 import { toast } from 'react-toastify';
 import Header1 from '../../components/Header/Header1';
 import Loader from '../../components/Loader/Loader';
+import { BsFillEyeFill } from 'react-icons/bs';
 const API_KEY = 'AFjzy7b0VSvCEJhKDtcQ6z';
 const processAPI = 'https://cdn.filestackcontent.com';
 
@@ -62,6 +63,15 @@ function DisplayScreen() {
                 <p className="name mb-20 pl-20">Hello! I am <strong>{user.name}</strong></p>
                 <p className="desc">{user.portfolio.description}</p>
               </div>
+              {user.portfolio.cloud_resume_link !== '' ? (
+                <div className="flexColumn mv-20">
+                  <p className="card-heading mb-20">Resume</p>
+                  <div className="grow1 attach-resume flexRow flexAlignCenter flexEvenly">
+                    <p className="resume-head">View Attached PDF</p>
+                    <BsFillEyeFill onClick={() => window.open(user.portfolio.cloud_resume_link)} className="grow2 attach-resume__icon" />
+                  </div>
+                </div>
+              ) : null}              
               {
                 user.rank_widgets.length > 0 ? (
                   <div className="coding-profile mv-20">
