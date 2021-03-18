@@ -11,7 +11,7 @@ import { ProgrammerContext } from '../../utility/userContext';
 export default function ShareModal({id, open, close}) {
   const [user, setUser] = useContext(ProgrammerContext);
   const [modalShow, setModalShow] = React.useState(false);
-  const url = `http://localhost:3000/d?id=${user.user_id}`;
+  const url = `https://tabber.online/d?id=${user.user_id}`;
   const textAreaRef = useRef(null);
 
   const CopyText = (e) => {
@@ -53,9 +53,14 @@ export default function ShareModal({id, open, close}) {
               <input type="text" class="form-control" ref={textAreaRef} defaultValue={url} placeholder="https://tabber.com/123" readOnly />
             </Form.Group>
           </Form>
-  
-          <div className="share" style={{justifyContent: 'center'}}>
-            <a onClick={(e) => CopyText(e)} className="flexAlignCenter modal-button">Copy Link</a>
+
+          <div className="flexRow flexAlignCenter flexCenter">
+            <div className="share">
+              <a onClick={(e) => CopyText(e)} className="flexAlignCenter modal-button">Copy Link</a>
+            </div>
+            <div className="share">
+              <a onClick={() => {window.open(url); setModalShow(false)}} className="flexAlignCenter modal-button">Open Link</a>
+            </div>
           </div>
   
         </div>
