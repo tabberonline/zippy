@@ -35,8 +35,8 @@ function Header1({open, close}){
             project_widgets: [],
             resumeLink: '',
         }));
-        setItem('user', user);
-        setItem('accessToken', user.token);
+        setItem('user', '');
+        setItem('accessToken', '');
         setTimeout(() => {
             close();
             window.open('/home', '_self');

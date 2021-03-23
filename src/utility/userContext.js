@@ -24,9 +24,6 @@ export const UserProvider = (props) => {
         setItem('user', user)
     }, [user])
 
-    console.log('beh', user);
-    console.log('localStorage', getItem('user'))
-
     return(
         <ProgrammerContext.Provider value={[user, setUser]}>
             {props.children}

@@ -16,7 +16,7 @@ export default function ProjectCardDisplay({name, img, url}){
             {
                 namecard ? (
                     <div className="flexColumn flexCenter flexAlignCenter project-textbox">
-                        <p className="project-name">{ name.length > 0 ? name : "Sample Webpage"}</p>
+                        <p style={{cursor: 'pointer'}} onClick={() => window.open(url)} className="project-name">{ name.length > 0 ? name : "Sample Webpage"}</p>
                     </div>
                 ) : null
             }
