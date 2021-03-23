@@ -7,7 +7,7 @@ function AchievementCard({name, image, desc}){
         <div className='grow1 achievement-card'>
             <div className="flexRow flexAlignCenter flexAround">
                 <img className="achievement-logo" src={image} alt="achievement" />
-                <div className="flexColumn">
+                <div className="flexColumn" style={{marginLeft: 10}}>
                     <h1 className="achievement-heading">{desc}</h1>
                     <h2 className="achievement-text">{name}</h2>
                 </div>
