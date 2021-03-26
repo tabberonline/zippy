@@ -353,3 +353,17 @@
     border: 3px solid #00E5D8;
     padding: 7px 27px;
 }
+.imp{
+    padding: 20px 0;
+}
+.imp_header{
+    font: 24px 'Poppins', sans-serif;
+    font-weight: 700;
+    color: black;
+}
+.imp_point{
+    padding-left: 30px;
+    font: 18px 'Poppins', sans-serif;
+    font-weight: 500;
+    color: black;
+}

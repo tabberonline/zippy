@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import {ProgrammerContext} from '../../utility/userContext';
 
 function Header1({open, close}){
-    const [user, setUser] = useContext(ProgrammerContext);  
+    const [user, setUser] = useContext(ProgrammerContext);
     const SignOut = () => {
         open();
         toast.success('Successfully Logged Out!', {

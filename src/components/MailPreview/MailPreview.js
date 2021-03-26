@@ -37,6 +37,11 @@ export default function MailPreview(){
             <div className="share" style={{justifyContent: 'center', padding: 0}} >
                 <a href={`/d?id=${user.user_id}`} className="flexAlignCenter modal-button">Visit Profile</a>
             </div>
+            <div className="imp">
+                <h2 className="imp_header">Important</h2>
+                <li className="imp_point">Tabber is not accountable or liable for the content or truthfulness of the profile.</li>
+                <li className="imp_point">If needed, kindly verify the candidate's information.</li>
+            </div>
         </div>
     );
 }

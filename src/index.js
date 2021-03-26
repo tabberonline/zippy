@@ -13,8 +13,6 @@ import TermsScreen from './screens/TermsScreen/TermsScreen';
 import { UserProvider } from './utility/userContext';
 import { getItem } from './utility/localStorageControl';
 
-console.log(getItem('accessToken'))
-
 ReactDOM.render(
   <React.StrictMode>
     <UserProvider>
