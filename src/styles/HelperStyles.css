@@ -367,3 +367,9 @@
     font-weight: 500;
     color: black;
 }
+
+.error_page{
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}

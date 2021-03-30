@@ -7,7 +7,7 @@ p{
 }
 .header{
     box-shadow: none;
-    max-width: 90%;
+    width: 90%;
     margin: auto;
     flex: 1;
     border-bottom: 1px solid #C7C7C7;

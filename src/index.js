@@ -12,6 +12,7 @@ import PolicyScreen from './screens/PolicyScreen/PolicyScreen';
 import TermsScreen from './screens/TermsScreen/TermsScreen';
 import { UserProvider } from './utility/userContext';
 import { getItem } from './utility/localStorageControl';
+import Error404 from './screens/Error404';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -26,6 +27,7 @@ ReactDOM.render(
             <Route exact path="/contact" component={ContactScreen} />
             <Route exact path="/policy" component={PolicyScreen} />
             <Route exact path="/terms" component={TermsScreen} />
+            <Route component={Error404} />
         </Switch>            
       </Router>
     </UserProvider>
