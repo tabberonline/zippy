@@ -94,7 +94,7 @@ function HomeScreen() {
                     Improve your chances of getting hired, just Tab it for 
                     <span style={{color: 'rgba(0,229,216,1)'}}> FREE</span>
                 </h1>
-                <PortfolioModal home={true} />
+                <PortfolioModal open={() => setloader(true)} close={() => setloader(false)} home={true} />
             </div>
           </div>
         </div>
