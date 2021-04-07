@@ -173,7 +173,7 @@ function PortfolioScreen() {
                 { user.rank_widgets !== [''] ?
                     (
                       user.rank_widgets.map(profile => (
-                        <CodingCard open={() => setloader(true)} close={() => setloader(false)} name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} hide={profile.invisible} />
+                        <CodingCard url="https://www.codechef.com/users/vikrantsnegi" open={() => setloader(true)} close={() => setloader(false)} name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} hide={profile.invisible} />
                       ))
                     ) : null
                 }
@@ -221,7 +221,7 @@ function PortfolioScreen() {
           </div>
           <div className="flexRow flexCenter end-section ph-20 flexAlignCenter mv-40">
             <hr style={{width: '35%', color: 'rgba(154,154,154,1)'}} />
-            <p className="end-text">Thats all folks</p>
+            <p className="end-text">That's all folks</p>
             <hr style={{width: '35%', color: 'rgba(154,154,154,1)'}} />
           </div>
         </div>
