@@ -29,11 +29,11 @@ import { ProgrammerContext } from '../../utility/userContext';
           progress: undefined,
           });
       } else{
-        if(title.length > 0 && desc.length > 0){
+        if(title && desc){
           const portfolioData = {
-              'title': getItem('titlePortfolio'),
-              'picture_url': getItem('image'),
-              'description': getItem('descPortfolio')
+              'title': title,
+              'picture_url': user.image,
+              'description': desc
           };
           AdminService.createPortfolio(portfolioData)
             .then(resp => {

@@ -2,6 +2,9 @@
     display: flex;
     flex-direction: row;
 }
+.textAlignCenter{
+    text-align: center;
+}
 .flexColumn{
     display: flex;
     flex-direction: column;
