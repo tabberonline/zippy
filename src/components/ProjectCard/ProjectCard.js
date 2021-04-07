@@ -194,11 +194,13 @@ export default function ProjectCard({name, url, id, img, hide, open, close}){
                     </div>  
                 ) : (
                     <div className="grow1 flexColumn project-card flexEnd" 
+                        onClick={() => window.open(url)}
                         style={{  
                             backgroundImage: img === "" ? null : `url("${img}")`,
                             backgroundColor: 'rgba(219,219,219,1)',
                             backgroundSize: 'cover',
-                            backgroundRepeat: 'no-repeat'
+                            backgroundRepeat: 'no-repeat',
+                cursor: 'pointer'
                         }}
                     >             
                         {

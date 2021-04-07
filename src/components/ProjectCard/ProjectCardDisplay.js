@@ -5,12 +5,13 @@ import './ProjectCard.css';
 export default function ProjectCardDisplay({name, img, url}){
     const [namecard, setcard] = useState(true);
     return(
-        <div className="grow1 flexColumn project-card flexEnd" 
+        <div onClick={() => window.open(url)} className="grow1 flexColumn project-card flexEnd" 
             style={{  
                 backgroundImage: img === "" ? null : `url("${img}")`,
                 backgroundColor: 'rgba(219,219,219,1)',
                 backgroundSize: 'cover',
-                backgroundRepeat: 'no-repeat'
+                backgroundRepeat: 'no-repeat',
+                cursor: 'pointer'
             }}
         >
             {

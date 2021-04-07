@@ -80,7 +80,7 @@ function DisplayScreen() {
                       { 
                         user.rank_widgets.map(profile => (
                           profile.invisible ? null :
-                            <CodingCardDisplay name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} />
+                            <CodingCardDisplay url="https://www.codechef.com/users/vikrantsnegi" name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} />
                         ))
                       }
                     </div>

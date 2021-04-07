@@ -2,9 +2,9 @@ import React from 'react';
 import '../../styles/HelperStyles.css';
 import './CodingCard.css';
 
-export default function CodingCardDisplay({name, rank, id, logo}){
+export default function CodingCardDisplay({name, rank, id, logo, url}){
     return(
-            <div className="grow1 card11 flexColumn profile-card">
+            <div className="grow1 card11 flexColumn profile-card" onClick={() => window.open(url)} style={{cursor: 'pointer'}}>
                 <div className="flexRow flexCenter" style={{position: 'relative'}}>
                     {logo === "" ? (
                         <div className="flexRow flexCenter flexAlignCenter empty-logo">
