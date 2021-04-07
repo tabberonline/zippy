@@ -13,6 +13,7 @@ import { ProgrammerContext } from '../../utility/userContext';
     const [user, setUser] = useContext(ProgrammerContext);
     const [modalShow, setModalShow] = React.useState(false);
     var username = "";
+    var link = "";
     var rank = "";
     var portal = "Eg. GeeksforGeeks, CodeChef";
     const data = ['Geeks for Geeks', 'CodeChef', 'CodeForces', 'HackerRank', 'TopCoder', 'LeetCode'];
@@ -154,6 +155,11 @@ import { ProgrammerContext } from '../../utility/userContext';
             <Form.Group controlId="formBasicPassword" className="mb-20">
               <Form.Label>Your Profile Username </Form.Label>
               <Form.Control type="text" placeholder="Eg. abc_234" defaultValue={username} onChange={(e) => username = (e.target.value)} />
+            </Form.Group>
+
+            <Form.Group controlId="formBasicPassword2" className="mb-20">
+              <Form.Label>Your Profile Link </Form.Label>
+              <Form.Control type="text" placeholder="Eg. https://www.codechef.com/users/abc1234" defaultValue={link} onChange={(e) => link = (e.target.value)} />
             </Form.Group>
   
             <Form.Group controlId="formBasicPassword1">

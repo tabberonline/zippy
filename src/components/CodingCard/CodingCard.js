@@ -17,7 +17,7 @@ import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { Form } from 'react-bootstrap';
 import { ProgrammerContext } from '../../utility/userContext';
 
-export default function CodingCard({name, rank, id, logo, hide, open, close}){       
+export default function CodingCard({name, rank, id, logo, hide, open, close, url}){       
   const [user, setUser] = useContext(ProgrammerContext); 
     var invisible = hide;
     const [ bullets, setbullets ] = useState(true);
@@ -190,7 +190,7 @@ export default function CodingCard({name, rank, id, logo, hide, open, close}){
     }
 
     return(
-            <div className="grow1 card11 flexColumn profile-card" onMouseLeave={() => CloseOptionDrawer()}>
+            <div className="grow1 card11 flexColumn profile-card" onClick={() => window.open(url)} style={{cursor: 'pointer'}} onMouseLeave={() => CloseOptionDrawer()}>
                 {
                     invisible ? (
                         <div id="overlay" onClick={() => unHideCard(name)} className="flexColumn flexCenter flexAlignCenter">
