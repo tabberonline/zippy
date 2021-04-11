@@ -52,8 +52,8 @@ export default function CodingCard({name, rank, id, logo, hide, open, close, url
             'rank' : rank,
             'username': id,
             'invisible' : invisible,
+            'link' : url,
           }
-          console.log(rankWidgetData);
           AdminService.updateRankWidget(rankWidgetData)
             .then(response => {
               toast.success('Card Updated!', {
@@ -190,7 +190,7 @@ export default function CodingCard({name, rank, id, logo, hide, open, close, url
     }
 
     return(
-            <div className="grow1 card11 flexColumn profile-card" onClick={() => window.open(url)} style={{cursor: 'pointer'}} onMouseLeave={() => CloseOptionDrawer()}>
+            <div className="grow1 card11 flexColumn profile-card" onMouseLeave={() => CloseOptionDrawer()}>
                 {
                     invisible ? (
                         <div id="overlay" onClick={() => unHideCard(name)} className="flexColumn flexCenter flexAlignCenter">
@@ -226,7 +226,7 @@ export default function CodingCard({name, rank, id, logo, hide, open, close, url
                             {icon2 ? (<img src={edited} alt="edit" onMouseEnter={() => {setoption2(true); seticon2(false);}} className="edit-icon" style={{height:30, width: 30, marginBottom: 10, cursor: 'pointer', marginLeft: option1 ? 50 : null || option3 ? 50 : null}} />) : null}
                             { option2 ? (
                                 <div className="flexRow flexAlignCenter option edit-option" onMouseLeave={() => {setoption2(false); seticon2(true);}} style={{ marginBottom: 10, position: 'relative', left: 40, cursor: 'pointer' }}>
-                                    <UpdateCodingProfile portalName={name} Rank={rank} userName={id} open={open} close={close} />
+                                    <UpdateCodingProfile portalName={name} Rank={rank} userName={id} open={open} close={close} url={url} />
                                     <p className="options-text">Edit</p>
                                 </div>
                                 ) : null
@@ -247,9 +247,11 @@ export default function CodingCard({name, rank, id, logo, hide, open, close, url
                     show={modalShow}
                     onHide={() => setModalShow(false)}
                 />
-                <p className="profile-head mb-10"> {name === "" ? "Company Name" : name}</p>
-                <p className="profile-name ph-20 mb-10"><span className="profile-heading">ID:</span> {id === "" ?  "Id here" : id }</p>
-                <p className="profile-name ph-20 mb-10"><span className="profile-heading">Rank:</span> {rank === "" ?  "?" : rank  }</p>
+                <div style={{cursor: 'pointer'}}  onClick={() => window.open(url)}>
+                  <p className="profile-head mb-10"> {name === "" ? "Company Name" : name}</p>
+                  <p className="profile-name ph-20 mb-10"><span className="profile-heading">ID:</span> {id === "" ?  "Id here" : id }</p>
+                  <p className="profile-name ph-20 mb-10"><span className="profile-heading">Rank:</span> {rank === "" ?  "?" : rank  }</p>
+                </div>
             </div>
     );
 }

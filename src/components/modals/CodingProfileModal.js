@@ -46,6 +46,7 @@ import { ProgrammerContext } from '../../utility/userContext';
             'rank' : getItem('Codingrank'),
             'website_id' : getItem('website_id'),
             'username' : getItem('Codingusername'),
+            "link" : link,
           }
           AdminService.createRankWidget(rankWidgetData)
             .then(response => {

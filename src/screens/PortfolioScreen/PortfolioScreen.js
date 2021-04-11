@@ -173,7 +173,7 @@ function PortfolioScreen() {
                 { user.rank_widgets !== [''] ?
                     (
                       user.rank_widgets.map(profile => (
-                        <CodingCard url="https://www.codechef.com/users/vikrantsnegi" open={() => setloader(true)} close={() => setloader(false)} name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} hide={profile.invisible} />
+                        <CodingCard url={profile.link} open={() => setloader(true)} close={() => setloader(false)} name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} hide={profile.invisible} />
                       ))
                     ) : null
                 }
