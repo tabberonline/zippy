@@ -86,7 +86,7 @@ export default function ProjectModal({open, close}) {
 
   const UpdateCard = () => {
     open();
-    stacks = stack.split(',');
+    stacks = stack.split(',')
     createWidget();
     setModalShow(false);
   }
