@@ -13,8 +13,9 @@ import hidecards from '../../assets/images/hiddeeen.png';
 import { Form, Modal } from 'react-bootstrap';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { ProgrammerContext } from '../../utility/userContext';
+import {FiExternalLink} from 'react-icons/fi'
 
-export default function ProjectCard({name, url, id, img, hide, open, close}){
+export default function ProjectCard({name, url, id, img, hide, open, close, techstack, desc}){
     const [user, setUser] = useContext(ProgrammerContext);
     var invisible = hide;
     const [namecard, setcard] = useState(true);
@@ -37,7 +38,9 @@ export default function ProjectCard({name, url, id, img, hide, open, close}){
         const projectWidgetData = {
             'title' : name,
             'link' : url,
-            'invisible': invisible
+            'invisible' : invisible,
+            'techstack' : techstack,
+            'description' : desc,
         }
         AdminService.updateProjectWidget(id, projectWidgetData)
             .then(response => {
@@ -194,15 +197,14 @@ export default function ProjectCard({name, url, id, img, hide, open, close}){
                     </div>  
                 ) : (
                     <div className="grow1 flexColumn project-card flexEnd" 
-                        onClick={() => window.open(url)}
                         style={{  
                             backgroundImage: img === "" ? null : `url("${img}")`,
                             backgroundColor: 'rgba(219,219,219,1)',
                             backgroundSize: 'cover',
                             backgroundRepeat: 'no-repeat',
-                cursor: 'pointer'
                         }}
-                    >             
+                    >         
+                        <FiExternalLink onClick={() => window.open(url)} style={{fontSize: 30, position: 'absolute', top: 10, right: 10, cursor: 'pointer'}} />    
                         {
                             namecard ? (
                                 <div onMouseEnter={() => {setcard(false); setdetail(true);}} className="flexColumn flexCenter flexAlignCenter project-textbox">
@@ -214,11 +216,11 @@ export default function ProjectCard({name, url, id, img, hide, open, close}){
                             detailcard ? (
                                 <div onMouseLeave={() => {setdetail(false); setcard(true);}} className="flexColumn flexAlignCenter project-textbox1">
                                     {/* <p style={{cursor: 'pointer'}} onClick={() => window.open(url)} className="project-name">{ name.length > 0 ? name : "Sample Webpage"}</p> */}
-                                    <p style={{cursor: 'pointer'}} onClick={() => window.open(url)} className="project-desc textAlignCenter"> A weather forest cum tourist guiding web application.</p>
-                                    <p style={{cursor: 'pointer'}} onClick={() => window.open(url)} className="project-stack textAlignCenter"> ReactJS | NodeJS | Firebase</p>
+                                    <p style={{cursor: 'pointer'}} onClick={() => window.open(url)} className="project-desc textAlignCenter">{ desc.length > 0 ? desc : "Sample Description"}</p>
+                                    <p style={{cursor: 'pointer'}} onClick={() => window.open(url)} className="project-stack textAlignCenter">{ techstack ? (techstack.slice(0,4).join(' |')) : "Sample Stack"}</p>
                                     <div className="flexRow flexAround flexAlignCenter" style={{position: 'absolute', bottom: 30, width: '75%'}}>
                                         <img src={deleted} onClick={() => DeleteCardPortal(id)} alt="delete" className="delete-card-icon" style={{height:30, width: 30, marginBottom: 10, cursor: 'pointer'}} />
-                                        <UpdateProject open={open} close={close} projectName={name} projectlink={url} projectImage={img} projectId={id}/>
+                                        <UpdateProject open={open} close={close} projectName={name} projectlink={url} projectImage={img} projectId={id} ProjectStack={techstack} ProjectDesc={desc}  />
                                         <img src={hidden} onClick={() => HideCard()} alt="hidden" className="delete-card-icon" style={{height:30, width: 30, marginBottom: 10, cursor: 'pointer'}} />
                                     </div>
                                 </div>
