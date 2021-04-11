@@ -14,6 +14,7 @@ import { Form, Modal } from 'react-bootstrap';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { ProgrammerContext } from '../../utility/userContext';
 import {FiExternalLink} from 'react-icons/fi'
+import { ClickAwayListener } from '@material-ui/core';
 
 export default function ProjectCard({name, url, id, img, hide, open, close, techstack, desc}){
     const [user, setUser] = useContext(ProgrammerContext);
@@ -214,16 +215,18 @@ export default function ProjectCard({name, url, id, img, hide, open, close, tech
                         }
                         {
                             detailcard ? (
-                                <div onMouseLeave={() => {setdetail(false); setcard(true);}} className="flexColumn flexAlignCenter project-textbox1">
-                                    {/* <p style={{cursor: 'pointer'}} onClick={() => window.open(url)} className="project-name">{ name.length > 0 ? name : "Sample Webpage"}</p> */}
-                                    <p style={{cursor: 'pointer'}} onClick={() => window.open(url)} className="project-desc textAlignCenter">{ desc.length > 0 ? desc = desc.length > 65 ? desc.slice(0,65)+"..." : desc : "Sample Description"}</p>
-                                    <p style={{cursor: 'pointer'}} onClick={() => window.open(url)} className="project-stack textAlignCenter">{ techstack ? (techstack.slice(0,4).join(' |')) : "Sample Stack"}</p>
-                                    <div className="flexRow flexAround flexAlignCenter" style={{position: 'absolute', bottom: 30, width: '75%'}}>
-                                        <img src={deleted} onClick={() => DeleteCardPortal(id)} alt="delete" className="delete-card-icon" style={{height:30, width: 30, marginBottom: 10, cursor: 'pointer'}} />
-                                        <UpdateProject open={open} close={close} projectName={name} projectlink={url} projectImage={img} projectId={id} ProjectStack={techstack} ProjectDesc={desc}  />
-                                        <img src={hidden} onClick={() => HideCard()} alt="hidden" className="delete-card-icon" style={{height:30, width: 30, marginBottom: 10, cursor: 'pointer'}} />
+                                <ClickAwayListener onClickAway={() => {setdetail(false); setcard(true);}}>
+                                    <div className="flexColumn flexAlignCenter project-textbox1">
+                                        {/* <p style={{cursor: 'pointer'}} onClick={() => window.open(url)} className="project-name">{ name.length > 0 ? name : "Sample Webpage"}</p> */}
+                                        <p style={{cursor: 'pointer'}} onClick={() => window.open(url)} className="project-desc textAlignCenter">{ desc.length > 0 ? desc = desc.length > 65 ? desc.slice(0,65)+"..." : desc : "Sample Description"}</p>
+                                        <p style={{cursor: 'pointer'}} onClick={() => window.open(url)} className="project-stack textAlignCenter">{ techstack ? (techstack.slice(0,4).join(' |')) : "Sample Stack"}</p>
+                                        <div className="flexRow flexAround flexAlignCenter" style={{position: 'absolute', bottom: 30, width: '75%'}}>
+                                            <img src={deleted} onClick={() => DeleteCardPortal(id)} alt="delete" className="delete-card-icon" style={{height:30, width: 30, marginBottom: 10, cursor: 'pointer'}} />
+                                            <UpdateProject open={open} close={close} projectName={name} projectlink={url} projectImage={img} projectId={id} ProjectStack={techstack} ProjectDesc={desc}  />
+                                            <img src={hidden} onClick={() => HideCard()} alt="hidden" className="delete-card-icon" style={{height:30, width: 30, marginBottom: 10, cursor: 'pointer'}} />
+                                        </div>
                                     </div>
-                                </div>
+                                </ClickAwayListener>
                             ) : null
                         }
                     </div>
