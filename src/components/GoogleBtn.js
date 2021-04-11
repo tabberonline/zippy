@@ -98,7 +98,7 @@ const GoogleBtn = ({open, close}) => {
     <div>
       { user.login ? (
         <>
-          <PortfolioModal home={false} open={open} close={close} />
+          <PortfolioModal home={false} open={() => open()} close={() => close()} />
         </>
         )
         : 

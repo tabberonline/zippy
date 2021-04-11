@@ -3,8 +3,7 @@ import React, {useContext} from 'react';
 import '../../styles/HelperStyles.css'
 import { Modal, Form } from 'react-bootstrap';
 import {AiOutlineCloseCircle, AiOutlinePlusCircle} from 'react-icons/ai';
-import { setItem, getItem } from '../../utility/localStorageControl';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
 import { ProgrammerContext } from '../../utility/userContext';
@@ -14,12 +13,17 @@ export default function ProjectModal({open, close}) {
   const [modalShow, setModalShow] = React.useState(false);
   var url = '';
   var project = '';
+  var description = '';
+  var stack = '';
+  var stacks = [];
 
   const createWidget = async () => {
     if(url.length > 0 && project.length > 0 ){
       const projectWidgetData = {
-        'title' : getItem('Projectname'),
-        'link' : getItem('Projectid')
+        'title' : project,
+        'link' : url,
+        'tech_stack' : stacks,
+        'description' : description
       }
       AdminService.createProjectWidget(projectWidgetData)
         .then(response => {
@@ -82,8 +86,7 @@ export default function ProjectModal({open, close}) {
 
   const UpdateCard = () => {
     open();
-    setItem('Projectname', project);
-    setItem('Projectid', url);
+    stacks = stack.split(',');
     createWidget();
     setModalShow(false);
   }
@@ -108,6 +111,16 @@ export default function ProjectModal({open, close}) {
             <Form.Group controlId="formBasicEmail" className="mb-20">
               <Form.Label>Project Title</Form.Label>
               <Form.Control type="text" placeholder="Eg. Automated System" defaultValue={project} onChange={(e) => project = (e.target.value)} />
+            </Form.Group>
+
+            <Form.Group controlId="formBasicEmail2" className="mb-20">
+              <Form.Label>Project TechStack   *Separated by Commas(",")*</Form.Label>
+              <Form.Control type="text" placeholder="Eg. Arduino, IOT, React" defaultValue={stack} onChange={(e) => stack = (e.target.value)} />
+            </Form.Group>
+
+            <Form.Group controlId="formBasicEmail3" className="mb-20">
+              <Form.Label>Project Description</Form.Label>
+              <Form.Control type="text" placeholder="Eg. Automated System does this and that" defaultValue={description} onChange={(e) => description = (e.target.value)} />
             </Form.Group>
   
             <Form.Group controlId="formBasicPassword1" className="mb-20">

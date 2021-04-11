@@ -16,8 +16,9 @@ import { Modal } from 'react-bootstrap';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { Form } from 'react-bootstrap';
 import { ProgrammerContext } from '../../utility/userContext';
+import { ClickAwayListener } from '@material-ui/core';
 
-export default function CodingCard({name, rank, id, logo, hide, open, close}){       
+export default function CodingCard({name, rank, id, logo, hide, open, close, url}){       
   const [user, setUser] = useContext(ProgrammerContext); 
     var invisible = hide;
     const [ bullets, setbullets ] = useState(true);
@@ -52,8 +53,8 @@ export default function CodingCard({name, rank, id, logo, hide, open, close}){
             'rank' : rank,
             'username': id,
             'invisible' : invisible,
+            'link' : url,
           }
-          console.log(rankWidgetData);
           AdminService.updateRankWidget(rankWidgetData)
             .then(response => {
               toast.success('Card Updated!', {
@@ -190,7 +191,8 @@ export default function CodingCard({name, rank, id, logo, hide, open, close}){
     }
 
     return(
-            <div className="grow1 card11 flexColumn profile-card" onMouseLeave={() => CloseOptionDrawer()}>
+          <ClickAwayListener onClickAway={() => CloseOptionDrawer()}>
+            <div className="grow1 card11 flexColumn profile-card">
                 {
                     invisible ? (
                         <div id="overlay" onClick={() => unHideCard(name)} className="flexColumn flexCenter flexAlignCenter">
@@ -225,10 +227,12 @@ export default function CodingCard({name, rank, id, logo, hide, open, close}){
                             }
                             {icon2 ? (<img src={edited} alt="edit" onMouseEnter={() => {setoption2(true); seticon2(false);}} className="edit-icon" style={{height:30, width: 30, marginBottom: 10, cursor: 'pointer', marginLeft: option1 ? 50 : null || option3 ? 50 : null}} />) : null}
                             { option2 ? (
-                                <div className="flexRow flexAlignCenter option edit-option" onMouseLeave={() => {setoption2(false); seticon2(true);}} style={{ marginBottom: 10, position: 'relative', left: 40, cursor: 'pointer' }}>
-                                    <UpdateCodingProfile portalName={name} Rank={rank} userName={id} open={open} close={close} />
-                                    <p className="options-text">Edit</p>
-                                </div>
+                                <ClickAwayListener onClickAway={() => {setoption2(false); seticon2(true);}}>
+                                  <div className="flexRow flexAlignCenter option edit-option" style={{ marginBottom: 10, position: 'relative', left: 40, cursor: 'pointer' }}>
+                                      <UpdateCodingProfile portalName={name} Rank={rank} userName={id} open={open} close={close} url={url} />
+                                      <p className="options-text">Edit</p>
+                                  </div>                                
+                                </ClickAwayListener>
                                 ) : null
                             }
                             {icon3 ? (<img src={hidden} alt="hide" onMouseEnter={() => {setoption3(true); seticon3(false);}} className="hide-icon" style={{height:30, width: 30, marginBottom: 10, cursor: 'pointer', marginLeft: option2 ? 50 : null || option1 ? 50 : null}} />) : null}
@@ -247,9 +251,12 @@ export default function CodingCard({name, rank, id, logo, hide, open, close}){
                     show={modalShow}
                     onHide={() => setModalShow(false)}
                 />
-                <p className="profile-head mb-10"> {name === "" ? "Company Name" : name}</p>
-                <p className="profile-name ph-20 mb-10"><span className="profile-heading">ID:</span> {id === "" ?  "Id here" : id }</p>
-                <p className="profile-name ph-20 mb-10"><span className="profile-heading">Rank:</span> {rank === "" ?  "?" : rank  }</p>
+                <div style={{cursor: 'pointer'}}  onClick={() => window.open(url)}>
+                  <p className="profile-head mb-10"> {name === "" ? "Company Name" : name}</p>
+                  <p className="profile-name ph-20 mb-10"><span className="profile-heading">ID:</span> {id === "" ?  "Id here" : id }</p>
+                  <p className="profile-name ph-20 mb-10"><span className="profile-heading">Rank:</span> {rank === "" ?  "?" : rank  }</p>
+                </div>
             </div>
+          </ClickAwayListener>
     );
 }

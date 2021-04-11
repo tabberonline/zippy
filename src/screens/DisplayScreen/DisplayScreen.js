@@ -47,8 +47,6 @@ function DisplayScreen() {
       })
   }, [])
 
-  console.log('bbbbbbbb', userData);
-
   return (
     <div className="#display-screen">
     {loader ? <Loader /> : null}
@@ -80,7 +78,7 @@ function DisplayScreen() {
                       { 
                         user.rank_widgets.map(profile => (
                           profile.invisible ? null :
-                            <CodingCardDisplay name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} />
+                            <CodingCardDisplay url={profile.link} name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} />
                         ))
                       }
                     </div>
@@ -110,7 +108,7 @@ function DisplayScreen() {
                       { 
                         user.personal_projects.map(project => (
                           project.invisible ? null :
-                            <ProjectCardDisplay name={project.title} img={`${processAPI}/${API_KEY}/urlscreenshot=agent:${isMobile ? 'mobile' : 'desktop'}/${project.link}`} url={project.link} id={project.id} hide={project.invisible} />
+                            <ProjectCardDisplay name={project.title} img={`${processAPI}/${API_KEY}/urlscreenshot=agent:${isMobile ? 'mobile' : 'desktop'}/${project.link}`} url={project.link} id={project.id} hide={project.invisible} techstack={project.tech_stack} desc={project.description} />
                         ))
                       }
                     </div>

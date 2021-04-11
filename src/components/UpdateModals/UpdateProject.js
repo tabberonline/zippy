@@ -3,25 +3,29 @@ import React, { useContext } from 'react';
 import '../../styles/HelperStyles.css'
 import { Modal, Form } from 'react-bootstrap';
 import {AiOutlineCloseCircle} from 'react-icons/ai';
-import { setItem, getItem } from '../../utility/localStorageControl';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
 import edited from '../../assets/images/Edit-Icon.png';
 import { ProgrammerContext } from '../../utility/userContext';
 
-export default function UpdateProject({projectName, projectlink, projectImage, projectId, open, close}) {
+export default function UpdateProject({projectName, projectlink, ProjectDesc, ProjectStack, projectId, open, close}) {
   const [user, setUser] = useContext(ProgrammerContext);
   const [modalShow, setModalShow] = React.useState(false);
   var url = projectlink;
   var project = projectName;
   var project_id = projectId;
+  var stack = ProjectStack;
+  var stacks = [];
+  var description = ProjectDesc;
 
   const updateWidget = async (id) => {
     if(url.length > 0 && project.length > 0 ){
         const projectWidgetData = {
-          'title' : getItem('Projectname'),
-          'link' : getItem('Projectid')
+          'title' : project,
+          'link' : url,
+          'tech_stack' : stacks,
+          'description' : description
         }
       AdminService.updateProjectWidget(id, projectWidgetData)
         .then(response => {
@@ -81,8 +85,11 @@ export default function UpdateProject({projectName, projectlink, projectImage, p
 
   const UpdateCard = (id) => {
     open();
-    setItem('Projectname', project);
-    setItem('Projectid', url);
+    if(stack !== ProjectStack){
+      stacks = stack.split(',')
+    } else{
+      stacks = stack;
+    }
     updateWidget(id);
     setModalShow(false);
   }
@@ -108,8 +115,18 @@ export default function UpdateProject({projectName, projectlink, projectImage, p
               <Form.Label>Project Title</Form.Label>
               <Form.Control type="text" placeholder="Eg. Automated System" defaultValue={project} onChange={(e) => project = (e.target.value)} />
             </Form.Group>
+
+            <Form.Group controlId="formBasicEmail2" className="mb-20">
+              <Form.Label>Project TechStack   *Separated by Commas(",")*</Form.Label>
+              <Form.Control type="text" placeholder="Eg. Arduino, IOT, React" defaultValue={stack} onChange={(e) => stack = (e.target.value)} />
+            </Form.Group>
+
+            <Form.Group controlId="formBasicEmail3" className="mb-20">
+              <Form.Label>Project Description</Form.Label>
+              <Form.Control type="text" placeholder="Eg. Automated System does this and that" defaultValue={description} onChange={(e) => description = (e.target.value)} />
+            </Form.Group>
   
-            <Form.Group controlId="formBasicPassword" className="mb-20">
+            <Form.Group controlId="formBasicPassword1" className="mb-20">
               <Form.Label>Project URL</Form.Label>
               <Form.Control type="text" placeholder="http://www.google.com/" defaultValue={url} onChange={(e) => url = (e.target.value)} />
             </Form.Group>
@@ -117,7 +134,7 @@ export default function UpdateProject({projectName, projectlink, projectImage, p
           </Form>
   
           <div className="share" style={{justifyContent: 'center'}}>
-            <a onClick={() => UpdateCard(project_id)} className="flexAlignCenter modal-button">Update Portfolio</a>
+            <a onClick={() => UpdateCard(project_id)} className="flexAlignCenter modal-button">Update Card</a>
           </div>
   
         </div>

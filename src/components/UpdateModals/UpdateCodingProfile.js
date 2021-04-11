@@ -10,7 +10,7 @@ import AdminService from '../../AdminServices/AdminService';
 import edited from '../../assets/images/Edit-Icon.png';
 import { ProgrammerContext } from '../../utility/userContext';
 
-  export default function UpdateCodingProfile({portalName, Rank, userName, open, close}) {
+  export default function UpdateCodingProfile({portalName, Rank, userName, open, close, url}) {
     const [user, setUser] = useContext(ProgrammerContext);
     const [modalShow, setModalShow] = React.useState(false);
     var portal = portalName;
@@ -28,6 +28,7 @@ import { ProgrammerContext } from '../../utility/userContext';
           'rank' : getItem('Codingrank'),
           'website_id' : getItem('website_id'),
           'username': getItem('Codingusername'),
+          'link': url,
         }
         console.log(rankWidgetData);
         AdminService.updateRankWidget(rankWidgetData)
@@ -134,6 +135,11 @@ import { ProgrammerContext } from '../../utility/userContext';
             <Form.Group controlId="formBasicPassword" className="mb-20">
               <Form.Label>Your Profile Username </Form.Label>
               <Form.Control type="text" placeholder="Eg. abc_234" defaultValue={username} onChange={(e) => username = (e.target.value)} />
+            </Form.Group>
+
+            <Form.Group controlId="formBasicPassword2" className="mb-20">
+              <Form.Label>Your Profile Link </Form.Label>
+              <Form.Control type="text" placeholder="Eg. https://www.codechef.com/users/abc1234" defaultValue={url} onChange={(e) => url = (e.target.value)} />
             </Form.Group>
   
             <Form.Group controlId="formBasicPassword1">

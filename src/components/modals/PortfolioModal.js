@@ -13,7 +13,6 @@ import { ProgrammerContext } from '../../utility/userContext';
     const [user, setUser] = useContext(ProgrammerContext);
     const [modalShow, setModalShow] = useState(false);
     const [apicall, setcall] = useState('');
-    var name = '';
     var title = '';
     var desc = '';    
 
@@ -31,9 +30,9 @@ import { ProgrammerContext } from '../../utility/userContext';
       } else{
         if(title && desc){
           const portfolioData = {
-            'title': title,
-            'picture_url': user.image,
-            'description': desc
+              'title': title,
+              'picture_url': user.image,
+              'description': desc
           };
           AdminService.createPortfolio(portfolioData)
             .then(resp => {
@@ -96,9 +95,6 @@ import { ProgrammerContext } from '../../utility/userContext';
 
     const Add = () => {
       open();
-      setItem('name', name);
-      setItem('titlePortfolio', title);
-      setItem('descPortfolio', desc);
       createPortfolio();
       setModalShow(false);  
     }
@@ -123,11 +119,7 @@ import { ProgrammerContext } from '../../utility/userContext';
                 <AiOutlineCloseCircle style={{fontSize: 40, color: 'black'}} />
               </button>
             </div>
-            <Form>
-              <Form.Group controlId="formBasic1" className="mb-20">
-                <Form.Label>Your Name<span style={{color: 'red'}}>*</span> </Form.Label>
-                <Form.Control type="text" defaultValue={name} onChange={(e) => name = (e.target.value)} placeholder="Eg. Aarav Bansal" />
-              </Form.Group>    
+            <Form>    
               <Form.Group controlId="formBasic1" className="mb-20">
                 <Form.Label>Your Portfolio Title<span style={{color: 'red'}}>*</span> </Form.Label>
                 <Form.Control type="text" defaultValue={title} onChange={(e) => title = (e.target.value)} placeholder="Eg. Web Developer" />
