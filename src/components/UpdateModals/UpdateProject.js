@@ -3,7 +3,6 @@ import React, { useContext } from 'react';
 import '../../styles/HelperStyles.css'
 import { Modal, Form } from 'react-bootstrap';
 import {AiOutlineCloseCircle} from 'react-icons/ai';
-import { setItem, getItem } from '../../utility/localStorageControl';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
@@ -86,8 +85,11 @@ export default function UpdateProject({projectName, projectlink, ProjectDesc, Pr
 
   const UpdateCard = (id) => {
     open();
-    stacks = stack.split(',');
-    description = description.length > 65 ? description.slice(0,65)+"..." : description;
+    if(stack !== ProjectStack){
+      stacks = stack.split(',')
+    } else{
+      stacks = stack;
+    }
     updateWidget(id);
     setModalShow(false);
   }
@@ -132,7 +134,7 @@ export default function UpdateProject({projectName, projectlink, ProjectDesc, Pr
           </Form>
   
           <div className="share" style={{justifyContent: 'center'}}>
-            <a onClick={() => UpdateCard(projectId)} className="flexAlignCenter modal-button">Add to Profile</a>
+            <a onClick={() => UpdateCard(project_id)} className="flexAlignCenter modal-button">Update Card</a>
           </div>
   
         </div>

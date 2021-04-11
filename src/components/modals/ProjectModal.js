@@ -3,8 +3,7 @@ import React, {useContext} from 'react';
 import '../../styles/HelperStyles.css'
 import { Modal, Form } from 'react-bootstrap';
 import {AiOutlineCloseCircle, AiOutlinePlusCircle} from 'react-icons/ai';
-import { setItem, getItem } from '../../utility/localStorageControl';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
 import { ProgrammerContext } from '../../utility/userContext';
@@ -88,7 +87,6 @@ export default function ProjectModal({open, close}) {
   const UpdateCard = () => {
     open();
     stacks = stack.split(',');
-    description = description.length > 65 ? description.slice(0,65)+"..." : description;
     createWidget();
     setModalShow(false);
   }

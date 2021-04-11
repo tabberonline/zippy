@@ -216,7 +216,7 @@ export default function ProjectCard({name, url, id, img, hide, open, close, tech
                             detailcard ? (
                                 <div onMouseLeave={() => {setdetail(false); setcard(true);}} className="flexColumn flexAlignCenter project-textbox1">
                                     {/* <p style={{cursor: 'pointer'}} onClick={() => window.open(url)} className="project-name">{ name.length > 0 ? name : "Sample Webpage"}</p> */}
-                                    <p style={{cursor: 'pointer'}} onClick={() => window.open(url)} className="project-desc textAlignCenter">{ desc.length > 0 ? desc : "Sample Description"}</p>
+                                    <p style={{cursor: 'pointer'}} onClick={() => window.open(url)} className="project-desc textAlignCenter">{ desc.length > 0 ? desc = desc.length > 65 ? desc.slice(0,65)+"..." : desc : "Sample Description"}</p>
                                     <p style={{cursor: 'pointer'}} onClick={() => window.open(url)} className="project-stack textAlignCenter">{ techstack ? (techstack.slice(0,4).join(' |')) : "Sample Stack"}</p>
                                     <div className="flexRow flexAround flexAlignCenter" style={{position: 'absolute', bottom: 30, width: '75%'}}>
                                         <img src={deleted} onClick={() => DeleteCardPortal(id)} alt="delete" className="delete-card-icon" style={{height:30, width: 30, marginBottom: 10, cursor: 'pointer'}} />
