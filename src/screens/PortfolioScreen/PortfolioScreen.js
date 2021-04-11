@@ -207,7 +207,7 @@ function PortfolioScreen() {
                 { user.project_widgets !== [''] ?
                     (
                       user.project_widgets.map(project => (
-                        <ProjectCard open={() => setloader(true)} close={() => setloader(false)} name={project.title} url={project.link} img={`${processAPI}/${API_KEY}/urlscreenshot=agent:${isMobile ? 'mobile' : 'desktop'}/${project.link}`} id={project.id} hide={project.invisible} />
+                        <ProjectCard open={() => setloader(true)} close={() => setloader(false)} name={project.title} url={project.link} img={`${processAPI}/${API_KEY}/urlscreenshot=agent:${isMobile ? 'mobile' : 'desktop'}/${project.link}`} id={project.id} hide={project.invisible} techstack={project.tech_stack} desc={project.description} />
                       ))
                     ) : null
                 }   
