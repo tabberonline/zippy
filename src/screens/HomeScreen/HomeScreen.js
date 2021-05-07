@@ -88,7 +88,10 @@ function HomeScreen() {
       <Animated animationIn="slideInUp" isVisible={true}>
         <div id="intro-section">
           <div className="mw1100 mobile-column flexRow flexAround flexAlignCenter">
-            <img className="intro-img" src={introimg} alt="intro" />
+            {/* <img className="intro-img" src={introimg} alt="intro" /> */}
+            <div className="embed-responsive embed-responsive-16by9">
+              <iframe title="Embeds Page" className="embed-responsive-item" src="https://www.youtube.com/embed/v64KOxKVLVg" />
+            </div>
             <div className="mw600 mobile-center flexColumn">
                 <h1 className="intro-text">
                     Improve your chances of getting hired, just Tab it for 
