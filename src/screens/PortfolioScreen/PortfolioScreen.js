@@ -154,7 +154,7 @@ function PortfolioScreen() {
             <div className="flexColumn info-sec">
               <p className="name mb-20 pl-20">Hello! I am <strong>{user.name}</strong></p>
               <div className="flexRow">
-                <textarea style={{backgroundColor: edit2 ? 'inherit' : 'white'}} autocomplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" rows="5" className="desc" defaultValue={desc} onChange={(event) => desc = event.target.value} readOnly placeholder="Enter your College and profile description here" />
+                <textarea style={{backgroundColor: edit2 ? 'inherit' : 'white'}} autocomplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" rows="5" className="desc" value={desc} onChange={(event) => desc = event.target.value} readOnly placeholder="Enter your College and profile description here" />
                 <div className="flexRow flexCenter flexAlignCenter iconcontainer1" style={{left: -15, top: -15}}>
                 {
                   edit2 ?<AiOutlineEdit className="portfolio-icon" onClick={()=>Edit2()} style={{cursor: 'pointer'}} />

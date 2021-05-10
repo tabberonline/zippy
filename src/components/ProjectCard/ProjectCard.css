@@ -32,6 +32,11 @@
     font: 20px 'Poppins', sans-serif;
     font-weight: 500;
 }
+.actionsProject{
+    position: 'absolute';
+    bottom: 30;
+    width: 75%;
+}
 .project-stack{
     color: white;
     font: 16px 'Poppins', sans-serif;

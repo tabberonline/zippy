@@ -22,7 +22,7 @@ export default function ProjectCard({name, url, id, img, hide, open, close, tech
     const [detailcard, setdetail] = useState(false);
     const [modalShow, setModalShow] = useState(false);
 
-    techstack = techstack.map(e => e.trim());
+    techstack = techstack ? techstack.map(e => e.trim()) : techstack;
 
     const HideCard = () => {
         open();
@@ -221,7 +221,7 @@ export default function ProjectCard({name, url, id, img, hide, open, close, tech
                                         {/* <p style={{cursor: 'pointer'}} onClick={() => window.open(url)} className="project-name">{ name.length > 0 ? name : "Sample Webpage"}</p> */}
                                         <p style={{cursor: 'pointer'}} onClick={() => window.open(url)} className="project-desc textAlignCenter">{ desc.length > 0 ? desc = desc.length > 65 ? desc.slice(0,65)+"..." : desc : "Sample Description"}</p>
                                         <p style={{cursor: 'pointer'}} onClick={() => window.open(url)} className="project-stack textAlignCenter">{ techstack ? (techstack.slice(0,4).join(' | ')) : "Sample Stack"}</p>
-                                        <div className="flexRow flexAround flexAlignCenter" style={{position: 'absolute', bottom: 30, width: '75%'}}>
+                                        <div className="actionsProject flexRow flexAround flexAlignCenter">
                                             <img src={deleted} onClick={() => DeleteCardPortal(id)} alt="delete" className="delete-card-icon" style={{height:30, width: 30, marginBottom: 10, cursor: 'pointer'}} />
                                             <UpdateProject open={open} close={close} projectName={name} projectlink={url} projectImage={img} projectId={id} ProjectStack={techstack} ProjectDesc={desc}  />
                                             <img src={hidden} onClick={() => HideCard()} alt="hidden" className="delete-card-icon" style={{height:30, width: 30, marginBottom: 10, cursor: 'pointer'}} />
