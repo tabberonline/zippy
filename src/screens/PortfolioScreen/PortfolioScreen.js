@@ -22,6 +22,7 @@ import AttachResumeModal from '../../components/modals/AttachResume';
 import SendViaEmail from '../../components/modals/SendViaEmail';
 import Loader from '../../components/Loader/Loader';
 import { ProgrammerContext } from '../../utility/userContext';
+import LinkedInProfileModal from '../../components/modals/LinkedInProfile';
 const API_KEY = 'AFjzy7b0VSvCEJhKDtcQ6z';
 const processAPI = 'https://cdn.filestackcontent.com';
 
@@ -166,6 +167,10 @@ function PortfolioScreen() {
             <div className="flexColumn mv-20">
               <p className="card-heading mb-20">Resume</p>
               <AttachResumeModal open={() => setloader(true)} close={() => setloader(false)} />
+            </div>
+            <div className="flexColumn mv-20">
+              <p className="card-heading mb-20">Socials</p>
+              <LinkedInProfileModal open={() => setloader(true)} close={() => setloader(false)} />
             </div>
             <div className="coding-profile mv-20">
               <p className="card-heading mb-20">Coding Profile</p>
