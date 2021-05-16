@@ -50,6 +50,11 @@ const GoogleBtn = ({open, close}) => {
                   setUser(prevUser => ({...prevUser, resumeLink: resp.data.portfolio.cloud_resume_link}));
                 }
               }
+              if(resp.data.portfolio){
+                if(resp.data.portfolio.social_profiles){
+                  setUser(prevUser => ({...prevUser, social_profiles: resp.data.portfolio.social_profiles}));
+                }
+              }
               close();
             })
             .catch(err => {

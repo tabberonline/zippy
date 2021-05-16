@@ -90,7 +90,7 @@ function HomeScreen() {
           <div className="mw1100 mobile-column flexRow flexAround flexAlignCenter">
             {/* <img className="intro-img" src={introimg} alt="intro" /> */}
             <div className="embed-responsive embed-responsive-16by9">
-              <iframe title="Embeds Page" className="embed-responsive-item" src="https://www.youtube.com/embed/v64KOxKVLVg" />
+              <iframe title="Tabber Advertisement Video" frameborder="0" className="embed-responsive-item" src="https://www.youtube.com/embed/_2S0x-YV3XQ?rel=0" allowFullScreen />
             </div>
             <div className="mw600 mobile-center flexColumn">
                 <h1 className="intro-text">

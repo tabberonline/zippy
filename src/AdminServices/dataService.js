@@ -6,7 +6,6 @@ import {API_ENDPOINT} from './baseUrl';
 const authHeader = () => ({
   Authorization: `${getItem('accessToken')}`,
   'Content-Type': 'application/json',
-   'Accept': 'application/json',
 });
 
 const client = axios.create({
