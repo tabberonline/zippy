@@ -13,6 +13,7 @@ import { toast } from 'react-toastify';
 import Header1 from '../../components/Header/Header1';
 import Loader from '../../components/Loader/Loader';
 import { BsFillEyeFill } from 'react-icons/bs';
+import { AiOutlineLinkedin } from 'react-icons/ai';
 const API_KEY = 'AFjzy7b0VSvCEJhKDtcQ6z';
 const processAPI = 'https://cdn.filestackcontent.com';
 
@@ -67,6 +68,15 @@ function DisplayScreen() {
                   <div className="grow1 attach-resume flexRow flexAlignCenter flexEvenly">
                     <p className="resume-head">View Attached PDF</p>
                     <BsFillEyeFill onClick={() => window.open(user.portfolio.cloud_resume_link)} className="grow2 attach-resume__icon" />
+                  </div>
+                </div>
+              ) : null} 
+              {user.portfolio.social_profiles !== '' ? (
+                <div className="flexColumn mv-20">
+                  <p className="card-heading mb-20">LinkedIn</p>
+                  <div className="grow1 attach-resume flexRow flexAlignCenter flexEvenly">
+                    <p className="resume-head">View LinkedIn Profile</p>
+                    <AiOutlineLinkedin onClick={() => window.open(user.portfolio.social_profiles[0].link)} className="grow2 attach-resume__icon" />
                   </div>
                 </div>
               ) : null}              
