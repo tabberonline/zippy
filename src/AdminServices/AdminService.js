@@ -55,7 +55,7 @@ export default {
     return DataService.post('/socialwebsite/create', data)
   },
   UpdateSocialProfiles: async (data) => {
-    return DataService.put('/socialwebsite/create', data)
+    return DataService.put('/socialwebsite/update', data)
   },
   SentHistory: async (page, items) => {
     return DataService.get(`/email/history?page_no=${page}&items_per_page=${items}`)
