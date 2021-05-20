@@ -11,38 +11,133 @@ import { ProgrammerContext } from '../../utility/userContext';
 export default function LinkedInProfileModal({open, close}) {
   const [user, setUser] = useContext(ProgrammerContext);
   const [modalShow, setModalShow] = React.useState(false);
-  let profiles=[];
+  let profiles= user.social_profiles;
   let status = false;
+  if(profiles[0].link){
+    status = true;
+  }
 
   const LinkedInAttach = async () => {
-    // open();
+    open();
     if(profiles){
-        AdminService.SocialProfiles(profiles)
+        AdminService.SocialProfiles(profiles[0])
             .then(res => {
-                console.log(res);
-                status = true;
+                toast.success('Details Entered!', {
+                  position: "top-center",
+                  autoClose: 2000,
+                  hideProgressBar: true,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                });
+                AdminService.getUserData()
+                  .then(resp => {
+                    setModalShow(false);
+                    setUser(prevUser => ({...prevUser,
+                      social_profiles: resp.data.portfolio.social_profiles,
+                    }));
+                    toast.success('Details Added!', {
+                      position: "top-center",
+                      autoClose: 2000,
+                      hideProgressBar: true,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                    });
+                    status = true;
+                    close();
+                  })
+                  .catch(err => {
+                    toast.error("Some Error Occured.", {
+                      position: "top-center",
+                      autoClose: 2000,
+                      hideProgressBar: true,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                    })
+                    close();
+                  });
             })
-            .catch(err => {
-                console.log(err)
+            .catch(error => {
+              toast.error('Error, Enter correct details!', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+              close();
             })
     }
   }
 
   const UpdateLinkedIn = async () => {
-    // open();
+    open();
     if(profiles){
-        AdminService.UpdateSocialProfiles(profiles)
-            .then(res => {
-                console.log(res)
+        AdminService.UpdateSocialProfiles(profiles[0])
+        .then(res => {
+          toast.success('Details Entered!', {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+          AdminService.getUserData()
+            .then(resp => {
+              setModalShow(false);
+              setUser(prevUser => ({...prevUser,
+                social_profiles: resp.data.portfolio.social_profiles,
+              }));
+              toast.success('Details Updated!', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+              close();
             })
             .catch(err => {
-                console.log(err)
-            })
+              toast.error("Some Error Occured.", {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              })
+              close();
+            });
+      })
+      .catch(error => {
+        toast.error('Error, Enter correct details!', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        close();
+      })
     }
   }
 
   const addProfile = (e) => {
-    if(profiles){
+    if(profiles[0]){
         profiles[0].link = e.target.value;
     } else{
         profiles.push({
@@ -51,6 +146,8 @@ export default function LinkedInProfileModal({open, close}) {
         })
     }    
   }
+
+  console.log(status)
 
   function MyVerticallyCenteredModal(props) {
     return (
@@ -71,7 +168,7 @@ export default function LinkedInProfileModal({open, close}) {
           <Form>
             <Form.Group controlId="formBasicEmail" className="flexColumn mb-20">
               <Form.Label style={{fontStyle: 'Poppins'}}>Enter your LinkedIn Profile link here</Form.Label>
-              <input style={{fontStyle: 'Poppins', borderRadius: 32, margin: '10px 0'}} type="text" class="form-control" defaultValue={profiles} placeholder="Example https://www.linkedin.com/in/123/" onChange={(event) => addProfile(event)} />
+              <input style={{fontStyle: 'Poppins', borderRadius: 32, margin: '10px 0'}} type="text" class="form-control" defaultValue={profiles[0].link} placeholder="Example https://www.linkedin.com/in/123/" onChange={(event) => addProfile(event)} />
             </Form.Group>
           </Form>
 
@@ -87,7 +184,7 @@ export default function LinkedInProfileModal({open, close}) {
   return (
     <>
       <div className="grow1 attach-resume flexRow flexAlignCenter flexEvenly">
-        <p className="resume-head">{profiles[0] === 'LinkedIn' ? 'LinkedIn Profile' : 'Add your LinkedIn Profile link'}</p>
+        <p className="resume-head">{profiles[0].website_name === 'LinkedIn' ? 'LinkedIn Profile' : 'Add your LinkedIn Profile link'}</p>
         {profiles[0] ?
         (<div style={{display: 'flex', gap: 20}}>
           <AiOutlineLink onClick={() => setModalShow(true)} className="grow2 attach-resume__icon" />
