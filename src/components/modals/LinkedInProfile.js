@@ -11,18 +11,24 @@ import { ProgrammerContext } from '../../utility/userContext';
 export default function LinkedInProfileModal({open, close}) {
   const [user, setUser] = useContext(ProgrammerContext);
   const [modalShow, setModalShow] = React.useState(false);
-  let profiles= user.social_profiles;
-  let status = false;
-  if(profiles.length > 0){
-    status = true;
+  let profile_link = '';
+  if(user.portfolio.social_profiles.length > 0){
+    profile_link = user.portfolio.social_profiles[0].link;
   }
-
   const LinkedInAttach = async () => {
-    open();
-    if(profiles.length > 0){
-        AdminService.SocialProfiles(profiles[0])
-            .then(res => {
-                toast.success('Details Entered!', {
+    if(!user.portfolio.social_profiles){
+      AdminService.SocialProfiles({
+        website_name: 'LinkedIn',
+        link: profile_link
+      })
+        .then(res => {
+            AdminService.getUserData()
+              .then(resp => {
+                setModalShow(false);
+                setUser(prevUser => ({...prevUser,
+                  portfolio: resp.data.portfolio
+                }));
+                toast.success('Details Added!', {
                   position: "top-center",
                   autoClose: 2000,
                   hideProgressBar: true,
@@ -31,134 +37,77 @@ export default function LinkedInProfileModal({open, close}) {
                   draggable: true,
                   progress: undefined,
                 });
-                AdminService.getUserData()
-                  .then(resp => {
-                    setModalShow(false);
-                    setUser(prevUser => ({...prevUser,
-                      social_profiles: resp.data.portfolio.social_profiles,
-                    }));
-                    toast.success('Details Added!', {
-                      position: "top-center",
-                      autoClose: 2000,
-                      hideProgressBar: true,
-                      closeOnClick: true,
-                      pauseOnHover: true,
-                      draggable: true,
-                      progress: undefined,
-                    });
-                    status = true;
-                    close();
-                  })
-                  .catch(err => {
-                    toast.error("Some Error Occured.", {
-                      position: "top-center",
-                      autoClose: 2000,
-                      hideProgressBar: true,
-                      closeOnClick: true,
-                      pauseOnHover: true,
-                      draggable: true,
-                      progress: undefined,
-                    })
-                    close();
-                  });
-            })
-            .catch(error => {
-              toast.error('Error, Enter correct details!', {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              });
-              close();
-            })
-    }
-  }
-
-  const UpdateLinkedIn = async () => {
-    open();
-    if(profiles.length > 0 && profiles[0].link){
-        AdminService.UpdateSocialProfiles(profiles[0])
-        .then(res => {
-          toast.success('Details Entered!', {
-            position: "top-center",
-            autoClose: 2000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-          AdminService.getUserData()
-            .then(resp => {
-              setModalShow(false);
-              setUser(prevUser => ({...prevUser,
-                social_profiles: resp.data.portfolio.social_profiles,
-              }));
-              toast.success('Details Updated!', {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              });
-              close();
-            })
-            .catch(err => {
-              toast.error("Some Error Occured.", {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
               })
-              close();
-            });
-      })
-      .catch(error => {
-        toast.error('Error, Enter correct details!', {
-          position: "top-center",
-          autoClose: 2000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-        close();
-      })
-    } else {
-      toast.error('Error, Empty details not allowed!', {
-          position: "top-center",
-          autoClose: 2000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-        close();
-    }
-  }
-
-  const addProfile = (e) => {
-    if(profiles.length > 0){
-        profiles[0].link = e.target.value;
+              .catch(err => {
+                toast.error("Some Error Occured.", {
+                  position: "top-center",
+                  autoClose: 2000,
+                  hideProgressBar: true,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                })
+              });
+          })
+          .catch(err => {
+            toast.error("Some Error Occured.", {
+              position: "top-center",
+              autoClose: 2000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            })
+          });
     } else{
-        profiles.push({
-            website_name : 'LinkedIn',
-            link: e.target.value
-        })
+      AdminService.UpdateSocialProfiles({
+        website_name: 'LinkedIn',
+        link: profile_link
+      })
+        .then(res => {     
+            AdminService.getUserData()
+              .then(resp => {
+                setModalShow(false);
+                setUser(prevUser => ({...prevUser,
+                  portfolio: resp.data.portfolio
+                }));
+                toast.success('Details Updated!', {
+                  position: "top-center",
+                  autoClose: 2000,
+                  hideProgressBar: true,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                });
+              })
+              .catch(err => {
+                toast.error("Some Error Occured.", {
+                  position: "top-center",
+                  autoClose: 2000,
+                  hideProgressBar: true,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                })
+              });
+          })
+          .catch(err => {
+            toast.error("User Profile doesn't exist.", {
+              position: "top-center",
+              autoClose: 2000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            })
+          })
     }    
   }
-
-  console.log(status)
 
   function MyVerticallyCenteredModal(props) {
     return (
@@ -179,12 +128,12 @@ export default function LinkedInProfileModal({open, close}) {
           <Form>
             <Form.Group controlId="formBasicEmail" className="flexColumn mb-20">
               <Form.Label style={{fontStyle: 'Poppins'}}>Enter your LinkedIn Profile link here</Form.Label>
-              <input style={{fontStyle: 'Poppins', borderRadius: 32, margin: '10px 0'}} type="text" class="form-control" defaultValue={profiles.length > 0 ? profiles[0].link : ""} placeholder="Example https://www.linkedin.com/in/123/" onChange={(event) => addProfile(event)} />
+              <input style={{fontStyle: 'Poppins', borderRadius: 32, margin: '10px 0'}} type="text" class="form-control" defaultValue={profile_link ? profile_link : ""} placeholder="Example https://www.linkedin.com/in/123/" onChange={(event) => profile_link = (event.target.value)} />
             </Form.Group>
           </Form>
 
           <div className="share" style={{justifyContent: 'center'}}>
-            <a className="flexAlignCenter modal-button" onClick={() => status ? UpdateLinkedIn() : LinkedInAttach()}>Add to profile</a>
+            <a className="flexAlignCenter modal-button" onClick={() => LinkedInAttach()}>Add to profile</a>
           </div>
   
         </div>
@@ -195,20 +144,20 @@ export default function LinkedInProfileModal({open, close}) {
   return (
     <>
       <div className="grow1 attach-resume flexRow flexAlignCenter flexEvenly">
-        <p className="resume-head">{profiles.length > 0 ? profiles[0].website_name === 'LinkedIn' ? 'LinkedIn Profile' : 'Add your LinkedIn Profile link' : 'Add your LinkedIn Profile link'}</p>
-        {profiles.length > 0 ?
-        (<div style={{display: 'flex', gap: 20}}>
-          <AiOutlineLink onClick={() => setModalShow(true)} className="grow2 attach-resume__icon" />
-          <AiOutlineLinkedin onClick={() => window.open(profiles[0].link)} className="grow2 attach-resume__icon" />
-        </div>) :
-        (
-          <AiOutlinePlusCircle onClick={() => setModalShow(true)} className="grow2 attach-resume__icon"/>
-        )}
+        <p className="resume-head">{profile_link ? 'LinkedIn Profile' : 'Add your LinkedIn Profile link'}</p>
+        {profile_link ?
+          (<div style={{display: 'flex', gap: 20}}>
+            <AiOutlineLink onClick={() => setModalShow(true)} className="grow2 attach-resume__icon" />
+            <AiOutlineLinkedin onClick={() => window.open(profile_link)} className="grow2 attach-resume__icon" />
+          </div>) :
+          (
+            <AiOutlinePlusCircle onClick={() => setModalShow(true)} className="grow2 attach-resume__icon"/>
+          )
+        }
       </div>
 
       <MyVerticallyCenteredModal
         show={modalShow}
-        status={status}
         onHide={() => setModalShow(false)}
       />
     </>
