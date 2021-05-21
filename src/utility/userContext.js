@@ -15,8 +15,6 @@ export const UserProvider = (props) => {
         rank_widgets: [],
         contest_widgets: [],
         project_widgets: [],
-        resumeLink: '',
-        social_profiles: [],
         sent_history: [],
         total_mails_sent: '',
     });
