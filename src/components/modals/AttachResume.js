@@ -12,39 +12,76 @@ import { ProgrammerContext } from '../../utility/userContext';
 export default function AttachResumeModal({open, close}) {
   const [user, setUser] = useContext(ProgrammerContext);
   const [modalShow, setModalShow] = React.useState(false);
-  var url = user.resumeLink;
+  var url = user.portfolio.cloud_resume_link;
 
   const ResumeAttach = async () => {
-    open();
-    if(url !== user.resumeLink){
-      setUser(prevUser => ({...prevUser, resumeLink: url}));
-    }
-    setModalShow(false);
-    AdminService.AttachResume(url)
-      .then(resp => {
-        toast.success('Resume Link Added!', {
-          position: "top-center",
-          autoClose: 2000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-        close();
-      })
-      .catch(err => {
-        toast.error("Some Error Occured.", {
-          position: "top-center",
-          autoClose: 2000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
+    if(url !== user.portfolio.cloud_resume_link){
+      setModalShow(false);
+      AdminService.AttachResume(url)
+        .then(resp => {
+          AdminService.getUserData()
+          .then(resp => {
+            setModalShow(false);
+            setUser(prevUser => ({...prevUser,
+              portfolio: resp.data.portfolio
+            }));
+            if(url.length > 0){
+              toast.success('Resume Added!', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+            } else{
+              toast.success('Resume Removed!', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+            }
+            
+          })
+          .catch(err => {
+            toast.error("Some Error Occured.", {
+              position: "top-center",
+              autoClose: 2000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            })
+          });
         })
-        close();
-      });
+        .catch(err => {
+          toast.error("Some Error Occured.", {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          })
+        });
+      } else{
+          toast.error("Same Link.", {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          })
+      }
   }
 
   function MyVerticallyCenteredModal(props) {
@@ -66,7 +103,7 @@ export default function AttachResumeModal({open, close}) {
           <Form>
             <Form.Group controlId="formBasicEmail" className="flexColumn mb-20">
               <Form.Label style={{fontStyle: 'Poppins'}}>Enter your Resume link in the form of PDF below</Form.Label>
-              <textarea style={{fontStyle: 'Poppins', borderRadius: 32, margin: '10px 0'}} rows={5} type="text" class="form-control" defaultValue={url} placeholder="Example https://www.gdrive.com/profile/abc,.pdf" onChange={(event) => url = event.target.value} />
+              <textarea style={{fontStyle: 'Poppins', borderRadius: 32, margin: '10px 0'}} rows={5} type="text" class="form-control" defaultValue={url ? url : ""} placeholder="Example https://www.gdrive.com/profile/abc,.pdf" onChange={(event) => url = event.target.value} />
             </Form.Group>
           </Form>
 
