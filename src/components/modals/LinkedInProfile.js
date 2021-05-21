@@ -13,13 +13,13 @@ export default function LinkedInProfileModal({open, close}) {
   const [modalShow, setModalShow] = React.useState(false);
   let profiles= user.social_profiles;
   let status = false;
-  if(profiles[0].link){
+  if(profiles.length > 0){
     status = true;
   }
 
   const LinkedInAttach = async () => {
     open();
-    if(profiles){
+    if(profiles.length > 0){
         AdminService.SocialProfiles(profiles[0])
             .then(res => {
                 toast.success('Details Entered!', {
@@ -79,7 +79,7 @@ export default function LinkedInProfileModal({open, close}) {
 
   const UpdateLinkedIn = async () => {
     open();
-    if(profiles){
+    if(profiles.length > 0 && profiles[0].link){
         AdminService.UpdateSocialProfiles(profiles[0])
         .then(res => {
           toast.success('Details Entered!', {
@@ -133,11 +133,22 @@ export default function LinkedInProfileModal({open, close}) {
         });
         close();
       })
+    } else {
+      toast.error('Error, Empty details not allowed!', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        close();
     }
   }
 
   const addProfile = (e) => {
-    if(profiles[0]){
+    if(profiles.length > 0){
         profiles[0].link = e.target.value;
     } else{
         profiles.push({
@@ -168,7 +179,7 @@ export default function LinkedInProfileModal({open, close}) {
           <Form>
             <Form.Group controlId="formBasicEmail" className="flexColumn mb-20">
               <Form.Label style={{fontStyle: 'Poppins'}}>Enter your LinkedIn Profile link here</Form.Label>
-              <input style={{fontStyle: 'Poppins', borderRadius: 32, margin: '10px 0'}} type="text" class="form-control" defaultValue={profiles[0].link} placeholder="Example https://www.linkedin.com/in/123/" onChange={(event) => addProfile(event)} />
+              <input style={{fontStyle: 'Poppins', borderRadius: 32, margin: '10px 0'}} type="text" class="form-control" defaultValue={profiles.length > 0 ? profiles[0].link : ""} placeholder="Example https://www.linkedin.com/in/123/" onChange={(event) => addProfile(event)} />
             </Form.Group>
           </Form>
 
@@ -184,8 +195,8 @@ export default function LinkedInProfileModal({open, close}) {
   return (
     <>
       <div className="grow1 attach-resume flexRow flexAlignCenter flexEvenly">
-        <p className="resume-head">{profiles[0].website_name === 'LinkedIn' ? 'LinkedIn Profile' : 'Add your LinkedIn Profile link'}</p>
-        {profiles[0] ?
+        <p className="resume-head">{profiles.length > 0 ? profiles[0].website_name === 'LinkedIn' ? 'LinkedIn Profile' : 'Add your LinkedIn Profile link' : 'Add your LinkedIn Profile link'}</p>
+        {profiles.length > 0 ?
         (<div style={{display: 'flex', gap: 20}}>
           <AiOutlineLink onClick={() => setModalShow(true)} className="grow2 attach-resume__icon" />
           <AiOutlineLinkedin onClick={() => window.open(profiles[0].link)} className="grow2 attach-resume__icon" />
