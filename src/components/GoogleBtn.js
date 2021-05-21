@@ -45,16 +45,16 @@ const GoogleBtn = ({open, close}) => {
                 contest_widgets: resp.data.contest_widgets,
                 project_widgets: resp.data.personal_projects,
               }));
-              if(resp.data.portfolio){
-                if(resp.data.portfolio.cloud_resume_link){
-                  setUser(prevUser => ({...prevUser, resumeLink: resp.data.portfolio.cloud_resume_link}));
-                }
-              }
-              if(resp.data.portfolio){
-                if(resp.data.portfolio.social_profiles){
-                  setUser(prevUser => ({...prevUser, social_profiles: resp.data.portfolio.social_profiles}));
-                }
-              }
+              // if(resp.data.portfolio){
+              //   if(resp.data.portfolio.cloud_resume_link){
+              //     setUser(prevUser => ({...prevUser, resumeLink: resp.data.portfolio.cloud_resume_link}));
+              //   }
+              // }
+              // if(resp.data.portfolio){
+              //   if(resp.data.portfolio.social_profiles){
+              //     setUser(prevUser => ({...prevUser, social_profiles: resp.data.portfolio.social_profiles}));
+              //   }
+              // }
               close();
             })
             .catch(err => {
