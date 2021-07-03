@@ -21,7 +21,7 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
-            <Route exact path="/" component={App} />
+            <Route exact path="/" component={HomeScreen} />
             <Route exact path="/home" component={HomeScreen} /> 
             <Route exact path="/portfolio">{getItem('accessToken') ? <PortfolioScreen /> : <Redirect to="/home" />}</Route> 
             <Route exact path="/d" component={DisplayScreen} /> 
