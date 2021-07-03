@@ -1,16 +1,17 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {useContext, useState} from 'react';
+import React from 'react';
 import '../../styles/HelperStyles.css'
 import { Modal, Form } from 'react-bootstrap';
 import {AiOutlineCloseCircle} from 'react-icons/ai';
 import MailPreview from '../MailPreview/MailPreview';
-import { ErrorToast, getItem, setItem, SuccessToast } from '../../utility/localStorageControl';
+import { ErrorToast, SuccessToast } from '../../utility/localStorageControl';
 import AdminService from '../../AdminServices/AdminService';
-import { ProgrammerContext } from '../../utility/userContext';
+import { setHistory } from '../../features/user/userSlice';
+import { useDispatch } from 'react-redux';
 
 export default function SendViaEmail({open, close}) {
-  const [user, setUser] = useContext(ProgrammerContext);
-  const [modalShow, setModalShow] = React.useState(false);
+    const [modalShow, setModalShow] = React.useState(false);
+    const dispatch = useDispatch();
      var mails = "";
      var resume = "";
      const resumeData = new FormData();
@@ -30,7 +31,9 @@ export default function SendViaEmail({open, close}) {
       AdminService.sendMailwithAttachment(mails, resumeData, OptionalHeader)
         .then(resp => {
           if(resp.data.status === "success"){
-            SuccessToast('Email Succesfully Sent!')
+            SuccessToast(resp.data.message);
+            AdminService.getUserData()
+              .then(resp => dispatch(setHistory(resp.data)))
             close();
           } else{
             ErrorToast(resp.data.message)

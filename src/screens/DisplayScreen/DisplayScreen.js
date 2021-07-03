@@ -13,6 +13,7 @@ import Header1 from '../../components/Header/Header1';
 import Loader from '../../components/Loader/Loader';
 import { BsFillEyeFill } from 'react-icons/bs';
 import { AiOutlineLinkedin } from 'react-icons/ai';
+import { useHistory } from 'react-router-dom';
 const API_KEY = 'AFjzy7b0VSvCEJhKDtcQ6z';
 const processAPI = 'https://cdn.filestackcontent.com';
 
@@ -20,6 +21,8 @@ const processAPI = 'https://cdn.filestackcontent.com';
 function DisplayScreen() {
   const [userData, setData] = useState([]);
   const [loader, setloader] = useState(false);
+  const history = useHistory();
+
   useEffect(() => {
     const getIDFromURL = () => {
       setloader(true);
@@ -53,7 +56,7 @@ function DisplayScreen() {
                 <p className="name mb-20 pl-20">Hello! I am <strong>{user.name}</strong></p>
                 <p className="desc">{user.portfolio.description}</p>
               </div>
-              {user.portfolio.cloud_resume_link !== '' ? (
+              {user.portfolio.cloud_resume_link !== 'https://' ? (
                 <div className="flexColumn mv-20">
                   <p className="card-heading mb-20">Resume</p>
                   <div className="grow1 attach-resume flexRow flexAlignCenter flexEvenly">
@@ -62,7 +65,7 @@ function DisplayScreen() {
                   </div>
                 </div>
               ) : null} 
-              {user.portfolio.social_profiles !== '' ? (
+              {user.portfolio.social_profiles[0] && user.portfolio.social_profiles[0].link !== '' ? (
                 <div className="flexColumn mv-20">
                   <p className="card-heading mb-20">LinkedIn</p>
                   <div className="grow1 attach-resume flexRow flexAlignCenter flexEvenly">

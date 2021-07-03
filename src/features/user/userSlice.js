@@ -48,12 +48,28 @@ const userSlice = createSlice({
             state.portfolio = action.payload.portfolio;
             state.rank_widgets = action.payload.rank_widgets;
             state.contest_widgets = action.payload.contest_widgets;
-            state.project_widgets = action.payload.project_widgets;
+            state.project_widgets = action.payload.personal_projects;
+        },
+        setPortfolio: (state, action) => {
+            state.portfolio = action.payload.portfolio;
+        },
+        setRankWidgets: (state, action) => {
+            state.rank_widgets = action.payload.rank_widgets;
+        },
+        setContestWidgets: (state, action) => {
+            state.contest_widgets = action.payload.contest_widgets;
+        },
+        setProjectWidgets: (state, action) => {
+            state.project_widgets = action.payload.personal_projects;
+        },
+        setHistory : (state, action) => {
+            state.sent_history = action.payload.mail_history;
+            state.total_mails_sent = action.payload.total_items;
         }
     },
 });
 
-export const {logUser, logOutUser, setUser} = userSlice.actions;
+export const {logUser, logOutUser, setUser, setPortfolio, setRankWidgets, setContestWidgets, setProjectWidgets, setHistory} = userSlice.actions;
 
 export const userLogin = state => state.user.login;
 export const userToken = state => state.user.accessToken;

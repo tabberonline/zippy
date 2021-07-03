@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import '../../styles/HelperStyles.css';
 import './ContestCard.css';
 import {BsThreeDotsVertical} from 'react-icons/bs';
@@ -12,11 +12,12 @@ import AdminService from '../../AdminServices/AdminService';
 import UpdateContestProfile from '../UpdateModals/UpdateContestProfile';
 import { Form, Modal } from 'react-bootstrap';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
-import { ProgrammerContext } from '../../utility/userContext';
 import { ClickAwayListener } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
+import { setContestWidgets } from '../../features/user/userSlice';
 
 export default function ContestCard({name, rank, id, logo, contest, card_id, hide, open, close}){ 
-    const [user, setUser] = useContext(ProgrammerContext); 
+    const dispatch = useDispatch();  
     const [ bullets, setbullets ] = useState(true);
     const [ drawer, setdrawer ] = useState(false);
     const [option1, setoption1] = useState(false);
@@ -56,9 +57,7 @@ export default function ContestCard({name, rank, id, logo, contest, card_id, hid
             SuccessToast('Card Updated!');
             AdminService.getUserData()
               .then(resp => {
-                setUser(prevUser => ({...prevUser,
-                  contest_widgets: resp.data.contest_widgets,
-                }));
+                dispatch(setContestWidgets(resp.data));
                 close();
               })
               .catch(err => {
@@ -124,12 +123,11 @@ export default function ContestCard({name, rank, id, logo, contest, card_id, hid
                 SuccessToast('Card deleted successfully!')
                 AdminService.getUserData()
                     .then(resp => {
-                      setUser(prevUser => ({...prevUser,
-                        contest_widgets: resp.data.contest_widgets,
-                      }));
+                      dispatch(setContestWidgets(resp.data));
                       close();
                     })
-                    .catch(err => {console.log(err);
+                    .catch(err => {
+                      ErrorToast("Some Error Occured.");
                       close();});
                 })
             .catch(error => {

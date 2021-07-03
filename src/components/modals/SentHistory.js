@@ -1,24 +1,27 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
 import '../../styles/HelperStyles.css'
-import { Modal, Form, Table, Pagination } from 'react-bootstrap';
+import { Modal, Table, Pagination } from 'react-bootstrap';
 import {AiOutlineCloseCircle} from 'react-icons/ai';
 import AdminService from '../../AdminServices/AdminService';
-import { setItem, getItem, ErrorToast } from '../../utility/localStorageControl';
-import { ProgrammerContext } from '../../utility/userContext';
+import { ErrorToast } from '../../utility/localStorageControl';
+import { useDispatch, useSelector } from 'react-redux';
+import { setHistory, userHistory, userMailSent } from '../../features/user/userSlice';
 
 export default function SentHistoryModal({open, close}) {
-    const [user, setUser] = useContext(ProgrammerContext);
+    const dispatch = useDispatch();
+    const mailSent = useSelector(userMailSent);
+    const mailHistory = useSelector(userHistory);
     const [modalShow, setModalShow] = React.useState(false);
     const [active, setActive] = useState(1);
     let items = [];
-    const pages = Math.floor(user.total_mails_sent/5) + 1;
+    const pages = Math.floor(mailSent/5) + 1;
     for (let number = 1; number <= pages; number++) {
     items.push(
         <Pagination.Item key={number} active={number === active} onClick={() => {
           setActive(number);
           GetHistory(number, 5)
-          console.log(pages, active, user.sent_history);}} style={{cursor: 'pointer'}}>
+        }} style={{cursor: 'pointer'}}>
         {number}
         </Pagination.Item>,
     );
@@ -28,10 +31,7 @@ export default function SentHistoryModal({open, close}) {
       open();
       AdminService.SentHistory(page, item)
         .then(resp => {
-          setUser(prevUser => ({...prevUser,
-            sent_history: resp.data.mail_history,
-            total_mails_sent: resp.data.total_items
-          }));          
+          dispatch(setHistory(resp.data))         
           close();
         })
         .catch(err => {
@@ -80,15 +80,13 @@ export default function SentHistoryModal({open, close}) {
                   <Pagination.Item key="First" active={1 === active} disabled={active === 1 ? true : false} onClick={() => {
                     setActive(active === 1 ? 1 : active-1); 
                     GetHistory(active === 1 ? 1 : active-1,5);
-                    console.log(pages, active, user.sent_history);
                   }} style={{cursor: 'pointer'}}>
                     Prev
                   </Pagination.Item>
                   {items}
                   <Pagination.Item key="Next" active={true} disabled={active === pages ? true : false} onClick={() => {
                     setActive(active+1);
-                    GetHistory(active+1,5);
-                    console.log(pages, active, user.sent_history); 
+                    GetHistory(active+1,5); 
                   }} style={{cursor: 'pointer'}}>
                     Next
                   </Pagination.Item>
@@ -110,7 +108,7 @@ export default function SentHistoryModal({open, close}) {
       <MyVerticallyCenteredModal
         show={modalShow}
         onHide={() => setModalShow(false)}
-        history = {user.sent_history}
+        history = {mailHistory}
       />
     </>
   );

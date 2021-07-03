@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import '../../styles/HelperStyles.css';
 import './PortfolioScreen.css';
 import Footer from '../../components/Footer/Footer';
@@ -13,22 +13,28 @@ import SentHistoryModal from '../../components/modals/SentHistory';
 import { AiOutlineCheck, AiOutlineEdit} from 'react-icons/ai';
 import $ from 'jquery';
 import Header1 from '../../components/Header/Header1';
-import { getItem, setItem, ReversePortalMap, SuccessToast, ErrorToast } from '../../utility/localStorageControl';
+import { setItem, ReversePortalMap, SuccessToast, ErrorToast } from '../../utility/localStorageControl';
 import AdminService from '../../AdminServices/AdminService';
 import { ToastContainer } from 'react-toastify';
 import {isMobile} from 'react-device-detect';
 import AttachResumeModal from '../../components/modals/AttachResume';
 import SendViaEmail from '../../components/modals/SendViaEmail';
 import Loader from '../../components/Loader/Loader';
-import { ProgrammerContext } from '../../utility/userContext';
 import LinkedInProfileModal from '../../components/modals/LinkedInProfile';
+import { useSelector, useDispatch } from 'react-redux';
+import { setPortfolio, userContestWidgets, userName, userPortfolio, userProjectWidgets, userRankWidgets } from '../../features/user/userSlice';
 const API_KEY = 'AFjzy7b0VSvCEJhKDtcQ6z';
 const processAPI = 'https://cdn.filestackcontent.com';
 
 function PortfolioScreen() {
-  const [user, setUser] = useContext(ProgrammerContext);
-  var title = user.portfolio.title;
-  var desc = user.portfolio.description;
+  const portfolio = useSelector(userPortfolio);
+  const name = useSelector(userName);
+  const rank_widgets = useSelector(userRankWidgets);
+  const contest_widgets = useSelector(userContestWidgets);
+  const project_widgets = useSelector(userProjectWidgets);
+  const dispatch = useDispatch();
+  var title = portfolio && portfolio.title;
+  var desc = portfolio && portfolio.description;
   const [edit1, setedit] = useState(true);
   const [edit2, setedit2] = useState(true);
   const [loader, setloader] = useState(false);
@@ -67,9 +73,7 @@ function PortfolioScreen() {
           AdminService.getUserData()
             .then(resp => {
               setloader(false);
-              setUser(prevUser => ({...prevUser,
-                portfolio: resp.data.portfolio,
-              }));
+              dispatch(setPortfolio(resp.data))
             })
             .catch(err => {
               ErrorToast("Some Error Occured.")
@@ -120,7 +124,7 @@ function PortfolioScreen() {
             </div>
             <hr style={{color : '#717070', width: '80%', margin: 'auto', marginTop: 10}} />
             <div className="flexColumn info-sec">
-              <p className="name mb-20 pl-20">Hello! I am <strong>{user.name}</strong></p>
+              <p className="name mb-20 pl-20">Hello! I am <strong>{name}</strong></p>
               <div className="flexRow">
                 <textarea style={{backgroundColor: edit2 ? 'inherit' : 'white'}} autocomplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" rows="5" className="desc" value={desc} onChange={(event) => desc = event.target.value} readOnly placeholder="Enter your College and profile description here" />
                 <div className="flexRow flexCenter flexAlignCenter iconcontainer1" style={{left: -15, top: -15}}>
@@ -142,51 +146,39 @@ function PortfolioScreen() {
             <div className="coding-profile mv-20">
               <p className="card-heading mb-20">Coding Profile</p>
               <div className="flexRow flexWrap">
-                { user.rank_widgets !== [''] ?
-                    (
-                      user.rank_widgets.map(profile => (
-                        <CodingCard url={profile.link} open={() => setloader(true)} close={() => setloader(false)} name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} hide={profile.invisible} />
-                      ))
-                    ) : null
+                { rank_widgets && rank_widgets.map(profile => (
+                      <CodingCard url={profile.link} open={() => setloader(true)} close={() => setloader(false)} name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} hide={profile.invisible} />
+                    ))
                 }
                 {
-                  user.rank_widgets.length < 3 ? (
+                  rank_widgets.length < 3 &&
                     <CodingProfileModal open={() => setloader(true)} close={() => setloader(false)} />
-                  ) : null
                 }
               </div>
             </div>
             <div className="coding-profile mv-20">
               <p className="card-heading mb-20">Contests Won</p>
               <div className="flexRow flexWrap">
-                { user.contest_widgets !== [''] ?
-                    (
-                      user.contest_widgets.map(profile => (
+                { contest_widgets && contest_widgets.map(profile => (
                         <ContestCard open={() => setloader(true)} close={() => setloader(false)} card_id={profile.id} name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} contest={profile.contest_name} hide={profile.invisible} />
                       ))
-                    ) : null
                 }
                 {
-                  user.contest_widgets.length < 3 ? (
+                  contest_widgets.length < 3 &&
                     <ContestProfileModal open={() => setloader(true)} close={() => setloader(false)} />
-                  ) : null
                 }
               </div>
             </div>
             <div className="coding-profile mv-20">
               <p className="card-heading mb-20">Personal Projects</p>
               <div className="flexRow flexWrap">
-                { user.project_widgets !== [''] ?
-                    (
-                      user.project_widgets.map(project => (
+                { project_widgets && project_widgets.map(project => (
                         <ProjectCard open={() => setloader(true)} close={() => setloader(false)} name={project.title} url={project.link} img={`${processAPI}/${API_KEY}/urlscreenshot=agent:${isMobile ? 'mobile' : 'desktop'}/${project.link}`} id={project.id} hide={project.invisible} techstack={project.tech_stack} desc={project.description} />
                       ))
-                    ) : null
                 }   
                 {
-                  user.project_widgets.length < 3 ? ( 
+                  project_widgets.length < 3 &&
                     <ProjectModal open={() => setloader(true)} close={() => setloader(false)} />
-                  ) : null
                 }             
               </div>
             </div>

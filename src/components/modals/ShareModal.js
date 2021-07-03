@@ -1,16 +1,16 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {useState, useRef, useContext} from 'react';
+import React, {useRef} from 'react';
 import '../../styles/HelperStyles.css'
 import { Modal, Form } from 'react-bootstrap';
 import {AiOutlineCloseCircle} from 'react-icons/ai';
-import AdminService from '../../AdminServices/AdminService';
-import { ProgrammerContext } from '../../utility/userContext';
 import { SuccessToast } from '../../utility/localStorageControl';
+import { useSelector } from 'react-redux';
+import { userID } from '../../features/user/userSlice';
 
 export default function ShareModal({id, open, close}) {
-  const [user, setUser] = useContext(ProgrammerContext);
+  const ID = useSelector(userID);
   const [modalShow, setModalShow] = React.useState(false);
-  const url = `https://tabber.online/d?id=${user.user_id}`;
+  const url = `https://tabber.online/d?id=${ID}`;
   const textAreaRef = useRef(null);
 
   const CopyText = (e) => {

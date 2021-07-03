@@ -1,14 +1,16 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useContext } from 'react';
+import React from 'react';
 import '../../styles/HelperStyles.css'
 import { Form, Modal } from 'react-bootstrap';
 import {AiOutlineCloseCircle, AiOutlinePlusCircle} from 'react-icons/ai';
 import { PortalMap, setItem, getItem, ErrorToast, SuccessToast } from '../../utility/localStorageControl';
 import AdminService from '../../AdminServices/AdminService';
-import { ProgrammerContext } from '../../utility/userContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { setRankWidgets, userRankWidgets } from '../../features/user/userSlice';
 
   export default function CodingProfileModal({open, close}) {
-    const [user, setUser] = useContext(ProgrammerContext);
+    const rank_widgets = useSelector(userRankWidgets);
+    const dispatch = useDispatch();
     const [modalShow, setModalShow] = React.useState(false);
     var username = "";
     var link = "";
@@ -22,7 +24,7 @@ import { ProgrammerContext } from '../../utility/userContext';
 
     const createRankWidget = async () => {
       var portalsArray = [];
-      user.rank_widgets.map(rank => (
+      rank_widgets.map(rank => (
         portalsArray.push((rank.website_id))
       ))
       var exist = portalsArray.includes(getItem('website_id'));
@@ -44,9 +46,7 @@ import { ProgrammerContext } from '../../utility/userContext';
               AdminService.getUserData()
                 .then(resp => {
                   setModalShow(false);
-                  setUser(prevUser => ({...prevUser,
-                    rank_widgets: resp.data.rank_widgets,
-                  }));
+                  dispatch(setRankWidgets(resp.data))
                   close();
                 })
                 .catch(err => {

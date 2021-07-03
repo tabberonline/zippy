@@ -1,15 +1,16 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useContext } from 'react';
+import React from 'react';
 import '../../styles/HelperStyles.css'
 import { Modal, Form } from 'react-bootstrap';
 import {AiOutlineCloseCircle} from 'react-icons/ai';
 import AdminService from '../../AdminServices/AdminService';
 import edited from '../../assets/images/Edit-Icon.png';
-import { ProgrammerContext } from '../../utility/userContext';
 import { ErrorToast, SuccessToast } from '../../utility/localStorageControl';
+import { useDispatch } from 'react-redux';
+import { setProjectWidgets } from '../../features/user/userSlice';
 
 export default function UpdateProject({projectName, projectlink, ProjectDesc, ProjectStack, projectId, open, close}) {
-  const [user, setUser] = useContext(ProgrammerContext);
+  const dispatch = useDispatch();  
   const [modalShow, setModalShow] = React.useState(false);
   var url = projectlink;
   var project = projectName;
@@ -31,9 +32,7 @@ export default function UpdateProject({projectName, projectlink, ProjectDesc, Pr
           SuccessToast('Card Updated!')
           AdminService.getUserData()
             .then(resp => {
-              setUser(prevUser => ({...prevUser,
-                project_widgets: resp.data.personal_projects,
-              }));
+              dispatch(setProjectWidgets(resp.data));
               close();
               setModalShow(false);
             })

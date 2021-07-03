@@ -1,9 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import '../../styles/HelperStyles.css';
 import './HomeScreen.css';
 import Header from '../../components/Header/Header';
-import introimg from '../../assets/images/handshake-colour.png';
 import whytabber from '../../assets/images/drawkit-content-man-colour.png'
 import {BiCheckCircle} from 'react-icons/bi';
 import FeatureCard from '../../components/FeatureCard/FeatureCard';
@@ -54,9 +53,9 @@ function HomeScreen() {
       })
   }
 
-  window.onload = () => {
+  useEffect(() => {
     getData();
-  }
+  }, [])
   
   return (
     <div className="#home-screen">
@@ -65,7 +64,6 @@ function HomeScreen() {
       <Animated animationIn="slideInUp" isVisible={true}>
         <div id="intro-section">
           <div className="mw1100 mobile-column flexRow flexAround flexAlignCenter">
-            {/* <img className="intro-img" src={introimg} alt="intro" /> */}
             <div className="embed-responsive embed-responsive-16by9">
               <iframe title="Tabber Advertisement Video" frameborder="0" className="embed-responsive-item" src="https://www.youtube.com/embed/_2S0x-YV3XQ?rel=0" allowFullScreen />
             </div>

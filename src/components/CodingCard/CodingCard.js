@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import '../../styles/HelperStyles.css';
 import './CodingCard.css';
 import {BsThreeDotsVertical} from 'react-icons/bs';
@@ -7,17 +7,18 @@ import deleted from '../../assets/images/Bin-Icon.png';
 import edited from '../../assets/images/Edit-Icon.png';
 import hidden from '../../assets/images/Hide-Icon.png';
 import hidecards from '../../assets/images/hiddeeen.png';
-import {setItem, getItem, PortalMap, SuccessToast, ErrorToast} from '../../utility/localStorageControl';
+import {PortalMap, SuccessToast, ErrorToast} from '../../utility/localStorageControl';
 import AdminService from '../../AdminServices/AdminService';
 import UpdateCodingProfile from '../UpdateModals/UpdateCodingProfile';
 import { Modal } from 'react-bootstrap';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { Form } from 'react-bootstrap';
-import { ProgrammerContext } from '../../utility/userContext';
 import { ClickAwayListener } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
+import { setRankWidgets } from '../../features/user/userSlice';
 
-export default function CodingCard({name, rank, id, logo, hide, open, close, url}){       
-  const [user, setUser] = useContext(ProgrammerContext); 
+export default function CodingCard({name, rank, id, logo, hide, open, close, url}){      
+    const dispatch = useDispatch();  
     var invisible = hide;
     const [ bullets, setbullets ] = useState(true);
     const [ drawer, setdrawer ] = useState(false);
@@ -58,9 +59,7 @@ export default function CodingCard({name, rank, id, logo, hide, open, close, url
               SuccessToast('Card Updated!');
               AdminService.getUserData()
                 .then(resp => {
-                  setUser(prevUser => ({...prevUser,
-                    rank_widgets: resp.data.rank_widgets,
-                  }));
+                  dispatch(setRankWidgets(resp.data));
                   close();
                 })
                 .catch(err => {
@@ -128,13 +127,10 @@ export default function CodingCard({name, rank, id, logo, hide, open, close, url
                 SuccessToast('Card Successfully Deleted');
                 AdminService.getUserData()
                     .then(resp => {
-                      setUser(prevUser => ({...prevUser,
-                        rank_widgets: resp.data.rank_widgets,
-                      }));
+                      dispatch(setRankWidgets(resp.data));
                       close();
                     })
                     .catch(err => {
-                        console.log(err);
                         close();
                       });
                 })

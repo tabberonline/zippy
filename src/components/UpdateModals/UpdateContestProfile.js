@@ -1,15 +1,16 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useContext } from 'react';
+import React from 'react';
 import '../../styles/HelperStyles.css'
 import { Modal, Form } from 'react-bootstrap';
 import {AiOutlineCloseCircle} from 'react-icons/ai';
 import { PortalMap, setItem, getItem, ErrorToast, SuccessToast } from '../../utility/localStorageControl';
 import AdminService from '../../AdminServices/AdminService';
 import edited from '../../assets/images/Edit-Icon.png';
-import { ProgrammerContext } from '../../utility/userContext';
+import { useDispatch } from 'react-redux';
+import { setContestWidgets } from '../../features/user/userSlice';
 
 export default function UpdateContestProfile({portalName, Rank, userName, id, ContestName, open, close}) {
-  const [user, setUser] = useContext(ProgrammerContext);
+  const dispatch = useDispatch();  
   const [modalShow, setModalShow] = React.useState(false);
   var portal = portalName;
   const data = ['Geeks for Geeks', 'CodeChef', 'CodeForces', 'HackerRank', 'TopCoder', 'LeetCode'];
@@ -35,9 +36,7 @@ export default function UpdateContestProfile({portalName, Rank, userName, id, Co
           SuccessToast('Card Updated!')
           AdminService.getUserData()
             .then(resp => {
-              setUser(prevUser => ({...prevUser,
-                contest_widgets: resp.data.contest_widgets,
-              }));
+              dispatch(setContestWidgets(resp.data));
               close();
               setModalShow(false);
             })

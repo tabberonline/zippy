@@ -1,21 +1,22 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {useContext, useState} from 'react';
+import React from 'react';
 import '../../styles/HelperStyles.css'
 import { Modal, Form } from 'react-bootstrap';
 import {AiOutlinePlusCircle, AiOutlineCloseCircle, AiOutlineLink, AiOutlineLinkedin} from 'react-icons/ai';
 import AdminService from '../../AdminServices/AdminService';
-import { ProgrammerContext } from '../../utility/userContext';
 import { ErrorToast, SuccessToast } from '../../utility/localStorageControl';
+import { useDispatch, useSelector } from 'react-redux';
+import { setPortfolio, userPortfolio } from '../../features/user/userSlice';
 
 export default function LinkedInProfileModal({open, close}) {
-  const [user, setUser] = useContext(ProgrammerContext);
+  const portfolio = useSelector(userPortfolio);
+  const dispatch = useDispatch();
   const [modalShow, setModalShow] = React.useState(false);
   let profile_link = '';
-  if(user.portfolio && user.portfolio.social_profiles){
-    profile_link = user.portfolio.social_profiles[0].link;
-  }
+  profile_link = portfolio.social_profiles[0] && portfolio.social_profiles[0].link;
+
   const LinkedInAttach = async () => {
-    if(!user.portfolio.social_profiles){
+    if(!portfolio.social_profiles[0]){
       AdminService.SocialProfiles({
         website_name: 'LinkedIn',
         link: profile_link
@@ -24,9 +25,7 @@ export default function LinkedInProfileModal({open, close}) {
             AdminService.getUserData()
               .then(resp => {
                 setModalShow(false);
-                setUser(prevUser => ({...prevUser,
-                  portfolio: resp.data.portfolio
-                }));
+                dispatch(setPortfolio(resp.data))
                 SuccessToast('Details Added!')
               })
               .catch(err => {
@@ -45,9 +44,7 @@ export default function LinkedInProfileModal({open, close}) {
             AdminService.getUserData()
               .then(resp => {
                 setModalShow(false);
-                setUser(prevUser => ({...prevUser,
-                  portfolio: resp.data.portfolio
-                }));
+                dispatch(setPortfolio(resp.data))
                 SuccessToast('Details Updated!')
               })
               .catch(err => {

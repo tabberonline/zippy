@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import '../../styles/HelperStyles.css';
 import './ProjectCard.css';
 
@@ -6,7 +6,7 @@ export default function ProjectCardDisplay({name, img, url, techstack, desc}){
     const [namecard, setcard] = useState(true);
     const [detailcard, setdetail] = useState(false);   
     desc = desc.length > 120 ? desc.slice(0,120)+"..." : desc;
-    techstack = techstack.map(e => e.trim());
+    techstack = techstack && techstack.map(e => e.trim());
     return(
         <div onClick={() => window.open(url)} className="grow1 flexColumn project-card flexEnd" 
             style={{  

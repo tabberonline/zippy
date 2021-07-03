@@ -1,13 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {useContext} from 'react';
+import React from 'react';
 import '../../styles/HelperStyles.css'
 import { Modal, Form } from 'react-bootstrap';
 import {AiOutlineCloseCircle, AiOutlinePlusCircle} from 'react-icons/ai';import AdminService from '../../AdminServices/AdminService';
-import { ProgrammerContext } from '../../utility/userContext';
 import { ErrorToast, SuccessToast } from '../../utility/localStorageControl';
+import { useDispatch } from 'react-redux';
+import { setProjectWidgets } from '../../features/user/userSlice';
 
 export default function ProjectModal({open, close}) {
-  const [user, setUser] = useContext(ProgrammerContext);
+  const dispatch = useDispatch()
   const [modalShow, setModalShow] = React.useState(false);
   var url = '';
   var project = '';
@@ -28,9 +29,7 @@ export default function ProjectModal({open, close}) {
           SuccessToast('Details Entered!')
           AdminService.getUserData()
             .then(resp => {
-              setUser(prevUser => ({...prevUser,
-                project_widgets: resp.data.personal_projects,
-              }));
+              dispatch(setProjectWidgets(resp.data));
               close();
               setModalShow(false);
             })

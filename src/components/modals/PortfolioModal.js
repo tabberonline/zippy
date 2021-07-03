@@ -1,27 +1,34 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import '../../styles/HelperStyles.css'
 import { Form, Modal } from 'react-bootstrap';
 import {AiOutlineCloseCircle} from 'react-icons/ai';
-import { ErrorToast, getItem, setItem, SuccessToast, WarningToast } from '../../utility/localStorageControl';
+import { ErrorToast, SuccessToast, WarningToast } from '../../utility/localStorageControl';
 import AdminService from '../../AdminServices/AdminService';
-import { ProgrammerContext } from '../../utility/userContext';
+import { useSelector, useDispatch } from 'react-redux';
+import { setPortfolio, userImage, userLogin, userPortfolio, userToken } from '../../features/user/userSlice';
+import { useHistory } from 'react-router-dom';
   
   export default function PortfolioModal({home, open, close}) {
-    const [user, setUser] = useContext(ProgrammerContext);
+    const token = useSelector(userToken);
+    const dispatch = useDispatch();
+    const image = useSelector(userImage);
+    const isLogin = useSelector(userLogin);
+    const portfolio = useSelector(userPortfolio);
+    const history = useHistory();
     const [modalShow, setModalShow] = useState(false);
     const [apicall, setcall] = useState('');
     var title = '';
     var desc = '';    
 
     const createPortfolio = async () => {
-      if(user.token === ""){
+      if(token === ""){
         ErrorToast('Access Token not Retrieved!')
       } else{
         if(title && desc){
           const portfolioData = {
               'title': title,
-              'picture_url': user.image,
+              'picture_url': image,
               'description': desc
           };
           AdminService.createPortfolio(portfolioData)
@@ -30,9 +37,7 @@ import { ProgrammerContext } from '../../utility/userContext';
               setcall('Success');
               AdminService.getUserData()
                 .then(resp => {
-                  setUser(prevUser => ({...prevUser,
-                    portfolio: resp.data.portfolio,
-                  }));    
+                  dispatch(setPortfolio(resp.data)); 
                   close();          
                 })
                 .catch(err => {
@@ -58,7 +63,7 @@ import { ProgrammerContext } from '../../utility/userContext';
     }
 
     const ModalOpen = () => {
-      apicall === 'Success' ? window.open('/portfolio', '_self') : setModalShow(true);
+      apicall === 'Success' ? history.push('/portfolio') : setModalShow(true);
     }
 
     function MyVerticallyCenteredModal(props) {
@@ -102,9 +107,9 @@ import { ProgrammerContext } from '../../utility/userContext';
         {
           home ? (
             <a style={{cursor: 'pointer'}} onClick={() => {
-              if(user.login){
-                if(user.portfolio){
-                  window.open('/portfolio', '_self');
+              if(isLogin){
+                if(portfolio){
+                  history.push('/portfolio');
                 } else {
                   setModalShow(true);
                 }
@@ -118,11 +123,11 @@ import { ProgrammerContext } from '../../utility/userContext';
           ) :
             (
               <button onClick={() => {
-                  user.portfolio ? window.open('/portfolio', '_self') : ModalOpen()
+                  portfolio ?  history.push('/portfolio') : ModalOpen()
                 }} 
                 className="edit-your-portfolio grow1"
               >
-                {apicall === 'Success' || user.portfolio ? 'Move to your Portfolio' : 'Edit your Portfolio'}
+                {apicall === 'Success' || portfolio ? 'Move to your Portfolio' : 'Edit your Portfolio'}
               </button>
             )
         }

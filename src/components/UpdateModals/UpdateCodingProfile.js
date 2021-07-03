@@ -1,15 +1,16 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useContext } from 'react';
+import React from 'react';
 import '../../styles/HelperStyles.css'
 import { Form, Modal } from 'react-bootstrap';
 import {AiOutlineCloseCircle} from 'react-icons/ai';
 import { PortalMap, setItem, getItem, SuccessToast, ErrorToast } from '../../utility/localStorageControl';
 import AdminService from '../../AdminServices/AdminService';
 import edited from '../../assets/images/Edit-Icon.png';
-import { ProgrammerContext } from '../../utility/userContext';
+import { useDispatch } from 'react-redux';
+import { setRankWidgets } from '../../features/user/userSlice';
 
   export default function UpdateCodingProfile({portalName, Rank, userName, open, close, url}) {
-    const [user, setUser] = useContext(ProgrammerContext);
+    const dispatch = useDispatch();
     const [modalShow, setModalShow] = React.useState(false);
     var portal = portalName;
     const data = ['Geeks for Geeks', 'CodeChef', 'CodeForces', 'HackerRank', 'TopCoder', 'LeetCode'];
@@ -28,15 +29,12 @@ import { ProgrammerContext } from '../../utility/userContext';
           'username': getItem('Codingusername'),
           'link': url,
         }
-        console.log(rankWidgetData);
         AdminService.updateRankWidget(rankWidgetData)
           .then(response => {
             SuccessToast('Card Updated!')
             AdminService.getUserData()
-              .then(resp => {
-                setUser(prevUser => ({...prevUser,
-                    rank_widgets: resp.data.rank_widgets,
-                }));
+              .then(resp => {                
+                dispatch(setRankWidgets(resp.data));
                 close();
                 setModalShow(false);
               })

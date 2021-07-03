@@ -22,7 +22,7 @@ function Header1({open, close}){
         dispatch(logOutUser());
         setTimeout(() => {
             close();
-            history.pushState('/home');
+            history.push('/home');
         }, [500])
     }
 
