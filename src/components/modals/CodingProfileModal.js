@@ -1,16 +1,16 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useContext } from 'react';
+import React from 'react';
 import '../../styles/HelperStyles.css'
 import { Form, Modal } from 'react-bootstrap';
 import {AiOutlineCloseCircle, AiOutlinePlusCircle} from 'react-icons/ai';
-import { PortalMap, setItem, getItem } from '../../utility/localStorageControl';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { PortalMap, setItem, getItem, ErrorToast, SuccessToast } from '../../utility/localStorageControl';
 import AdminService from '../../AdminServices/AdminService';
-import { ProgrammerContext } from '../../utility/userContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { setRankWidgets, userRankWidgets } from '../../features/user/userSlice';
 
   export default function CodingProfileModal({open, close}) {
-    const [user, setUser] = useContext(ProgrammerContext);
+    const rank_widgets = useSelector(userRankWidgets);
+    const dispatch = useDispatch();
     const [modalShow, setModalShow] = React.useState(false);
     var username = "";
     var link = "";
@@ -24,21 +24,13 @@ import { ProgrammerContext } from '../../utility/userContext';
 
     const createRankWidget = async () => {
       var portalsArray = [];
-      user.rank_widgets.map(rank => (
+      rank_widgets.map(rank => (
         portalsArray.push((rank.website_id))
       ))
       var exist = portalsArray.includes(getItem('website_id'));
       if(exist){
         setModalShow(false);
-        toast.error('Error, Site already exists!', {
-          position: "top-center",
-          autoClose: 2000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        ErrorToast('Error, Site already exists!');
         close();
       } else{
         if(portal.length > 0 && username.length > 0 && rank.length > 0){
@@ -50,58 +42,24 @@ import { ProgrammerContext } from '../../utility/userContext';
           }
           AdminService.createRankWidget(rankWidgetData)
             .then(response => {
-              toast.success('Details Entered!', {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              });
+              SuccessToast('Details Entered!');
               AdminService.getUserData()
                 .then(resp => {
                   setModalShow(false);
-                  setUser(prevUser => ({...prevUser,
-                    rank_widgets: resp.data.rank_widgets,
-                  }));
+                  dispatch(setRankWidgets(resp.data))
                   close();
                 })
                 .catch(err => {
-                  toast.error("Some Error Occured.", {
-                    position: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                  })
+                  ErrorToast("Some Error Occured.");
                   close();
                 });
             })
             .catch(error => {
-              toast.error('Error, Enter correct details!', {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              });
+              ErrorToast('Error, Enter correct details!');
               close();
             });
         } else {
-          toast.error('Error, Fields cannot be empty!', {
-            position: "top-center",
-            autoClose: 2000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
+          ErrorToast('Error, Fields cannot be empty!');
           close();
         }
       }

@@ -1,45 +1,28 @@
-import {React, useState, useContext} from 'react';
+import React, {useState} from 'react';
 import './Header.css';
 import { Navbar, Nav } from 'react-bootstrap';
 import splashlogo from '../../assets/images/logo.png';
 import GoogleBtn from '../GoogleBtn';
 import Avatar from '@material-ui/core/Avatar';
-import { getItem, setItem } from '../../utility/localStorageControl';
-import { toast } from 'react-toastify';
-import {ProgrammerContext} from '../../utility/userContext';
+import { SuccessToast } from '../../utility/localStorageControl';
+import { useDispatch, useSelector } from 'react-redux';
+import { logOutUser, userImage, userLogin, userName } from '../../features/user/userSlice';
+import { useHistory } from 'react-router-dom';
 
 function Header1({open, close}){
-    const [user, setUser] = useContext(ProgrammerContext);
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const isLogin = useSelector(userLogin);
+    const image = useSelector(userImage);
+    const name = useSelector(userName);
+
     const SignOut = () => {
         open();
-        toast.success('Successfully Logged Out!', {
-            position: "top-center",
-            autoClose: 2000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-        });
-        setUser(prevUser => ({...prevUser,
-            login: false,
-            token: null,
-            user_id: null,
-            name: '',
-            email: '',
-            image: '',
-            resume_present: false,
-            portfolio: [],
-            rank_widgets: [],
-            contest_widgets: [],
-            project_widgets: [],
-            resumeLink: '',
-        }));
-        setItem('user', '');
-        setItem('accessToken', '');
+        SuccessToast('Successfully Logged Out!')
+        dispatch(logOutUser());
         setTimeout(() => {
             close();
-            window.open('/home', '_self');
+            history.push('/home');
         }, [500])
     }
 
@@ -56,7 +39,7 @@ function Header1({open, close}){
                         <Nav.Link className="grow2" href="/home#faq">FAQ</Nav.Link>
                         <Nav.Link className="grow2" href="/contact">Contact</Nav.Link>
                     </Nav>
-                    {user.login ? (
+                    {isLogin ? (
                         dropdown ? (
                             <button onClick={() => SignOut()} 
                                 className="edit-your-portfolio grow1" style={{fontWeight: 500}}
@@ -65,8 +48,8 @@ function Header1({open, close}){
                             </button>
                         ) : (                            
                             <div className="avatar" style={{cursor: 'pointer'}} onClick={() => setdropdown(true)}>
-                                <Avatar alt="img" src={user.image} />
-                                <p className="avatar-name">Welcome<br/><p className="name">{user.name}</p></p>
+                                <Avatar alt="img" src={image} />
+                                <p className="avatar-name">Welcome<br/><p className="name">{name}</p></p>
                             </div>
                         )
                     ) : (

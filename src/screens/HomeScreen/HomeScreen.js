@@ -1,16 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import '../../styles/HelperStyles.css';
 import './HomeScreen.css';
 import Header from '../../components/Header/Header';
-import introimg from '../../assets/images/handshake-colour.png';
 import whytabber from '../../assets/images/drawkit-content-man-colour.png'
 import {BiCheckCircle} from 'react-icons/bi';
 import FeatureCard from '../../components/FeatureCard/FeatureCard';
 import AchievementCard from '../../components/AchievementCard/AchievementCard';
 import FAQCard from '../../components/FAQCard/FAQCard';
 import Footer from '../../components/Footer/Footer';
-import 'react-toastify/dist/ReactToastify.css';
 import PortfolioModal from '../../components/modals/PortfolioModal';
 import { Animated } from 'react-animated-css';
 import Axios from 'axios';
@@ -22,9 +20,10 @@ import modify from '../../assets/images/Modifiable.png';
 import nolimit from '../../assets/images/NoLimit.png';
 import projects from '../../assets/images/Projects.png';
 import achievements from '../../assets/images/Achievements.png';
-import { toast, ToastContainer } from 'react-toastify';
 import {API_ENDPOINT} from '../../AdminServices/baseUrl';
 import Loader from '../../components/Loader/Loader';
+import { ErrorToast } from '../../utility/localStorageControl';
+import {ToastContainer} from 'react-toastify';
 
 function HomeScreen() {
   const [QnA, setQnA] = useState([]);
@@ -38,48 +37,25 @@ function HomeScreen() {
       .then(resp => {
         setQnA(resp.data.value);
       })
-    .catch(err => toast.error("Some Error Occured.", {
-      position: "top-center",
-      autoClose: 2000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    }))
+    .catch(err => ErrorToast("Some Error Occured."));
     Axios.get(`${API_ENDPOINT}/fe/get?page_type=Home&key=Achievements`)
       .then(resp => {
         setAments(resp.data.value)
-      }).catch(err => toast.error("Some Error Occured.", {
-        position: "top-center",
-        autoClose: 2000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      }))
+      })
+      .catch(err => ErrorToast("Some Error Occured."));
     Axios.get(`${API_ENDPOINT}/fe/get?page_type=Home&key=Features`)
       .then(resp => {
         setFeatures(resp.data.value);
         setloader(false);
-      }).catch(err => {
-        toast.error("Some Error Occured.", {
-          position: "top-center",
-          autoClose: 2000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        })
+      })
+      .catch(err => {ErrorToast("Some Error Occured.")
         setloader(false);
       })
   }
 
-  window.onload = () => {
+  useEffect(() => {
     getData();
-  }
+  }, [])
   
   return (
     <div className="#home-screen">
@@ -88,7 +64,6 @@ function HomeScreen() {
       <Animated animationIn="slideInUp" isVisible={true}>
         <div id="intro-section">
           <div className="mw1100 mobile-column flexRow flexAround flexAlignCenter">
-            {/* <img className="intro-img" src={introimg} alt="intro" /> */}
             <div className="embed-responsive embed-responsive-16by9">
               <iframe title="Tabber Advertisement Video" frameborder="0" className="embed-responsive-item" src="https://www.youtube.com/embed/_2S0x-YV3XQ?rel=0" allowFullScreen />
             </div>

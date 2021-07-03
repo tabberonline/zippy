@@ -14,16 +14,18 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
-import { getItem } from './utility/localStorageControl';
+import { useSelector } from 'react-redux';
+import { userToken } from './features/user/userSlice';
 
 function App() {
+  const accessToken = useSelector(userToken);
   return (    
     <div className="App">
       <Router>
         <Switch>
             <Route exact path="/" component={HomeScreen} />
             <Route exact path="/home" component={HomeScreen} /> 
-            <Route exact path="/portfolio">{getItem('accessToken') ? <PortfolioScreen /> : <Redirect to="/home" />}</Route> 
+            <Route exact path="/portfolio">{accessToken ? <PortfolioScreen /> : <Redirect to="/home" />}</Route> 
             <Route exact path="/d" component={DisplayScreen} /> 
             <Route exact path="/about" component={AboutScreen} /> 
             <Route exact path="/contact" component={ContactScreen} />

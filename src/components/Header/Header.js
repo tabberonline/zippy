@@ -1,47 +1,29 @@
-import {React, useState, useContext} from 'react';
+import React from 'react';
 import './Header.css';
 import { Navbar, Nav, Dropdown, DropdownButton } from 'react-bootstrap';
 import splashlogo from '../../assets/images/logo.png';
 import GoogleBtn from '../GoogleBtn';
-import {ProgrammerContext} from '../../utility/userContext';
-import { setItem } from '../../utility/localStorageControl';
-import { toast } from 'react-toastify';
+import { SuccessToast } from '../../utility/localStorageControl';
 import '../../styles/HelperStyles.css'
+import { useDispatch, useSelector } from 'react-redux';
+import { logOutUser, userLogin } from '../../features/user/userSlice';
+import { useHistory } from 'react-router-dom';
 
 function Header({open, close}){
-    const [user, setUser] = useContext(ProgrammerContext);
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const isLogin = useSelector(userLogin);
+
     const SignOut = () => {
         open();
-        toast.success('Successfully Logged Out!', {
-            position: "top-center",
-            autoClose: 2000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-        });
-        setUser(prevUser => ({...prevUser,
-            login: false,
-            token: null,
-            user_id: null,
-            name: '',
-            email: '',
-            image: '',
-            resume_present: false,
-            portfolio: [],
-            rank_widgets: [],
-            contest_widgets: [],
-            project_widgets: [],
-            resumeLink: '',
-        }));
-        setItem('user', '');
-        setItem('accessToken', '');
+        SuccessToast('Successfully Logged Out!')
+        dispatch(logOutUser());
         setTimeout(() => {
             close();
-            window.open('/home', '_self');
+            history.push('/home');
         }, [500])
     }
+
     return (
         <header className="header">
             <Navbar sticky="top" expand="lg" className="flexRow flexAlignCenter navbar">
@@ -55,16 +37,15 @@ function Header({open, close}){
                         <Nav.Link className="grow2" href="/contact">Contact</Nav.Link>
                     </Nav>
                     <GoogleBtn open={open} close={close} />
-                    {user.login ? (
-                        <DropdownButton
+                    {isLogin && <DropdownButton
                             menuAlign="right"
                             title=""
                             className="menu__dropdown"
                             id="dropdown-menu-align-right"
-                            >
+                        >
                             <Dropdown.Item eventKey="1" onClick={() => SignOut()} >Sign Out</Dropdown.Item>
                         </DropdownButton>
-                    ) : null}
+                    }
                 </div>
             </Navbar>
         </header>

@@ -1,22 +1,21 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState } from 'react';
 import '../../styles/HelperStyles.css';
 import './ProjectCard.css';
 import deleted from '../../assets/images/Bin-Icon.png';
 import hidden from '../../assets/images/Hide-Icon.png';
-import {setItem} from '../../utility/localStorageControl';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import {ErrorToast, SuccessToast} from '../../utility/localStorageControl';
 import AdminService from '../../AdminServices/AdminService';
 import UpdateProject from '../UpdateModals/UpdateProject';
 import hidecards from '../../assets/images/hiddeeen.png';
 import { Form, Modal } from 'react-bootstrap';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
-import { ProgrammerContext } from '../../utility/userContext';
+import { useDispatch } from 'react-redux';
 import { ClickAwayListener } from '@material-ui/core';
+import { setProjectWidgets } from '../../features/user/userSlice';
 
 export default function ProjectCard({name, url, id, img, hide, open, close, techstack, desc}){
-    const [user, setUser] = useContext(ProgrammerContext);
+    const dispatch = useDispatch();  
     var invisible = hide;
     const [namecard, setcard] = useState(true);
     const [detailcard, setdetail] = useState(false);
@@ -46,46 +45,20 @@ export default function ProjectCard({name, url, id, img, hide, open, close, tech
         }
         AdminService.updateProjectWidget(id, projectWidgetData)
             .then(response => {
-              toast.success('Card Updated!', {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              });
+              SuccessToast('Card Updated!')
               AdminService.getUserData()
                 .then(resp => {
-                    setUser(prevUser => ({...prevUser,
-                        project_widgets: resp.data.personal_projects,
-                    }));
+                    dispatch(setProjectWidgets(resp.data));
                     close();
                     setModalShow(false);
                 })
                 .catch(err => {
-                    toast.error("Some Error Occured.", {
-                        position: "top-center",
-                        autoClose: 2000,
-                        hideProgressBar: true,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                    })
+                    ErrorToast("Some Error Occured.")
                     close();
                 });
             })
             .catch(error => {
-              toast.error('Error updating, Retry!', {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              });
+              ErrorToast('Error updating, Retry!')
               close();
             });
         }
@@ -127,44 +100,18 @@ export default function ProjectCard({name, url, id, img, hide, open, close, tech
         setModalShow(false);
         AdminService.deleteProjectWidget(project_id)
             .then(response => {
-                toast.success('Card deleted successfully!', {
-                    position: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                });
+                SuccessToast('Card deleted successfully!')
                 AdminService.getUserData()
                     .then(resp => {
-                        setUser(prevUser => ({...prevUser,
-                            project_widgets: resp.data.personal_projects,
-                        }));
+                        dispatch(setProjectWidgets(resp.data));
                         setModalShow(false);
                         close();
                     })
-                    .catch(err => toast.error("Some Error Occured.", {
-                        position: "top-center",
-                        autoClose: 2000,
-                        hideProgressBar: true,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                      }));
+                    .catch(err => ErrorToast("Some Error Occured."));
                       close();
                 })
             .catch(error => {
-                toast.error('Error, Cannot delete this card!', {
-                    position: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                })
+                ErrorToast('Error, Cannot delete this card!')
                 close();
             });
     }
@@ -218,9 +165,8 @@ export default function ProjectCard({name, url, id, img, hide, open, close, tech
                             detailcard ? (
                                 <ClickAwayListener onClickAway={() => {setdetail(false); setcard(true);}}>
                                     <div className="flexColumn flexAlignCenter project-textbox1">
-                                        {/* <p style={{cursor: 'pointer'}} onClick={() => window.open(url)} className="project-name">{ name.length > 0 ? name : "Sample Webpage"}</p> */}
-                                        <p style={{cursor: 'pointer'}} onClick={() => window.open(url)} className="project-desc textAlignCenter">{ desc.length > 0 ? desc = desc.length > 65 ? desc.slice(0,65)+"..." : desc : "Sample Description"}</p>
                                         <p style={{cursor: 'pointer'}} onClick={() => window.open(url)} className="project-stack textAlignCenter">{ techstack ? (techstack.slice(0,4).join(' | ')) : "Sample Stack"}</p>
+                                        <p style={{cursor: 'pointer'}} onClick={() => window.open(url)} className="project-desc textAlignCenter">{ desc.length > 0 ? desc = desc.length > 65 ? desc.slice(0,65)+"..." : desc : "Sample Description"}</p>
                                         <div className="actionsProject flexRow flexAround flexAlignCenter">
                                             <img src={deleted} onClick={() => DeleteCardPortal(id)} alt="delete" className="delete-card-icon" style={{height:30, width: 30, marginBottom: 10, cursor: 'pointer'}} />
                                             <UpdateProject open={open} close={close} projectName={name} projectlink={url} projectImage={img} projectId={id} ProjectStack={techstack} ProjectDesc={desc}  />

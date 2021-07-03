@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import '../../styles/HelperStyles.css';
 import './CodingCard.css';
 import {BsThreeDotsVertical} from 'react-icons/bs';
@@ -7,19 +7,18 @@ import deleted from '../../assets/images/Bin-Icon.png';
 import edited from '../../assets/images/Edit-Icon.png';
 import hidden from '../../assets/images/Hide-Icon.png';
 import hidecards from '../../assets/images/hiddeeen.png';
-import {setItem, getItem, PortalMap} from '../../utility/localStorageControl';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import {PortalMap, SuccessToast, ErrorToast} from '../../utility/localStorageControl';
 import AdminService from '../../AdminServices/AdminService';
 import UpdateCodingProfile from '../UpdateModals/UpdateCodingProfile';
 import { Modal } from 'react-bootstrap';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { Form } from 'react-bootstrap';
-import { ProgrammerContext } from '../../utility/userContext';
 import { ClickAwayListener } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
+import { setRankWidgets } from '../../features/user/userSlice';
 
-export default function CodingCard({name, rank, id, logo, hide, open, close, url}){       
-  const [user, setUser] = useContext(ProgrammerContext); 
+export default function CodingCard({name, rank, id, logo, hide, open, close, url}){      
+    const dispatch = useDispatch();  
     var invisible = hide;
     const [ bullets, setbullets ] = useState(true);
     const [ drawer, setdrawer ] = useState(false);
@@ -57,45 +56,19 @@ export default function CodingCard({name, rank, id, logo, hide, open, close, url
           }
           AdminService.updateRankWidget(rankWidgetData)
             .then(response => {
-              toast.success('Card Updated!', {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              });
+              SuccessToast('Card Updated!');
               AdminService.getUserData()
                 .then(resp => {
-                  setUser(prevUser => ({...prevUser,
-                    rank_widgets: resp.data.rank_widgets,
-                  }));
+                  dispatch(setRankWidgets(resp.data));
                   close();
                 })
                 .catch(err => {
-                  toast.error("Some Error Occured.", {
-                    position: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                  })
+                  ErrorToast('Some Error Occured!');
                   close();
                 });
             })
             .catch(error => {
-              toast.error('Error updating!', {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              });
+              ErrorToast('Error Updating!');
               close();
             });
         }
@@ -151,37 +124,18 @@ export default function CodingCard({name, rank, id, logo, hide, open, close, url
 
         AdminService.deleteRankWidget(website_id)
             .then(response => {
-                toast.success('Card deleted successfully!', {
-                    position: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                });
+                SuccessToast('Card Successfully Deleted');
                 AdminService.getUserData()
                     .then(resp => {
-                      setUser(prevUser => ({...prevUser,
-                        rank_widgets: resp.data.rank_widgets,
-                      }));
+                      dispatch(setRankWidgets(resp.data));
                       close();
                     })
                     .catch(err => {
-                        console.log(err);
                         close();
                       });
                 })
             .catch(error => {
-                toast.error('Error, Cannot delete this card!', {
-                    position: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                })
+                ErrorToast('Error, Cannot delete this card!');
                 close();
             });
     }

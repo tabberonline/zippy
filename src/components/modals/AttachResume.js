@@ -1,86 +1,52 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {useContext, useState} from 'react';
+import React from 'react';
 import '../../styles/HelperStyles.css'
 import { Modal, Form } from 'react-bootstrap';
 import {AiOutlinePlusCircle, AiOutlineCloseCircle, AiOutlineLink} from 'react-icons/ai';
 import {BsFillEyeFill} from 'react-icons/bs'
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
-import { ProgrammerContext } from '../../utility/userContext';
+import { ErrorToast, SuccessToast } from '../../utility/localStorageControl';
+import { useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { setPortfolio, userPortfolio } from '../../features/user/userSlice';
 
 export default function AttachResumeModal({open, close}) {
-  const [user, setUser] = useContext(ProgrammerContext);
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const portfolio = useSelector(userPortfolio);
   const [modalShow, setModalShow] = React.useState(false);
-  var url = user.portfolio.cloud_resume_link;
+  var url = portfolio.cloud_resume_link;
 
   const ResumeAttach = async () => {
-    if(url !== user.portfolio.cloud_resume_link){
+    open();
+    if(url !== portfolio.cloud_resume_link){
       setModalShow(false);
       AdminService.AttachResume(url)
         .then(resp => {
           AdminService.getUserData()
           .then(resp => {
             setModalShow(false);
-            setUser(prevUser => ({...prevUser,
-              portfolio: resp.data.portfolio
-            }));
+            dispatch(setPortfolio(resp.data))
             if(url.length > 0){
-              toast.success('Resume Added!', {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              });
+              SuccessToast('Resume Added!');
+              close();
             } else{
-              toast.success('Resume Removed!', {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              });
-            }
-            
+              SuccessToast('Resume Removed!')
+              close();
+            }            
           })
           .catch(err => {
-            toast.error("Some Error Occured.", {
-              position: "top-center",
-              autoClose: 2000,
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            })
+            ErrorToast("Some Error Occured.")
+            close();
           });
         })
         .catch(err => {
-          toast.error("Some Error Occured.", {
-            position: "top-center",
-            autoClose: 2000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          })
+          ErrorToast("Some Error Occured.")
+          close();
         });
       } else{
-          toast.error("Same Link.", {
-            position: "top-center",
-            autoClose: 2000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          })
+          ErrorToast("Same Link.");
+          close();
       }
   }
 
@@ -122,12 +88,12 @@ export default function AttachResumeModal({open, close}) {
   return (
     <>
       <div className="grow1 attach-resume flexRow flexAlignCenter flexEvenly">
-        <p className="resume-head">{url ? 'View attached PDF' : 'Attach your Resume'}</p>
-        {url && <div style={{display: 'flex', gap: 20}}>
+        <p className="resume-head">{url !== 'https://' ? 'View attached PDF' : 'Attach your Resume'}</p>
+        {url !== 'https://' && <div style={{display: 'flex', gap: 20}}>
           <AiOutlineLink onClick={() => setModalShow(true)} className="grow2 attach-resume__icon" />
           <BsFillEyeFill onClick={() => window.open(url)} className="grow2 attach-resume__icon" />
         </div>}
-        {!url &&
+        {url === 'https://' &&
           <AiOutlinePlusCircle onClick={() => setModalShow(true)} className="grow2 attach-resume__icon"/>
         }
       </div>
