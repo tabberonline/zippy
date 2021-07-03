@@ -4,10 +4,9 @@ import '../../styles/HelperStyles.css'
 import { Modal, Form } from 'react-bootstrap';
 import {AiOutlinePlusCircle, AiOutlineCloseCircle, AiOutlineLink} from 'react-icons/ai';
 import {BsFillEyeFill} from 'react-icons/bs'
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
 import { ProgrammerContext } from '../../utility/userContext';
+import { ErrorToast, SuccessToast } from '../../utility/localStorageControl';
 
 export default function AttachResumeModal({open, close}) {
   const [user, setUser] = useContext(ProgrammerContext);
@@ -26,61 +25,21 @@ export default function AttachResumeModal({open, close}) {
               portfolio: resp.data.portfolio
             }));
             if(url.length > 0){
-              toast.success('Resume Added!', {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              });
+              SuccessToast('Resume Added!');
             } else{
-              toast.success('Resume Removed!', {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              });
+              SuccessToast('Resume Removed!')
             }
             
           })
           .catch(err => {
-            toast.error("Some Error Occured.", {
-              position: "top-center",
-              autoClose: 2000,
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            })
+            ErrorToast("Some Error Occured.")
           });
         })
         .catch(err => {
-          toast.error("Some Error Occured.", {
-            position: "top-center",
-            autoClose: 2000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          })
+          ErrorToast("Some Error Occured.")
         });
       } else{
-          toast.error("Same Link.", {
-            position: "top-center",
-            autoClose: 2000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          })
+          ErrorToast("Same Link.");
       }
   }
 

@@ -4,9 +4,7 @@ import '../../styles/HelperStyles.css';
 import './ProjectCard.css';
 import deleted from '../../assets/images/Bin-Icon.png';
 import hidden from '../../assets/images/Hide-Icon.png';
-import {setItem} from '../../utility/localStorageControl';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import {ErrorToast, setItem, SuccessToast} from '../../utility/localStorageControl';
 import AdminService from '../../AdminServices/AdminService';
 import UpdateProject from '../UpdateModals/UpdateProject';
 import hidecards from '../../assets/images/hiddeeen.png';
@@ -46,15 +44,7 @@ export default function ProjectCard({name, url, id, img, hide, open, close, tech
         }
         AdminService.updateProjectWidget(id, projectWidgetData)
             .then(response => {
-              toast.success('Card Updated!', {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              });
+              SuccessToast('Card Updated!')
               AdminService.getUserData()
                 .then(resp => {
                     setUser(prevUser => ({...prevUser,
@@ -64,28 +54,12 @@ export default function ProjectCard({name, url, id, img, hide, open, close, tech
                     setModalShow(false);
                 })
                 .catch(err => {
-                    toast.error("Some Error Occured.", {
-                        position: "top-center",
-                        autoClose: 2000,
-                        hideProgressBar: true,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                    })
+                    ErrorToast("Some Error Occured.")
                     close();
                 });
             })
             .catch(error => {
-              toast.error('Error updating, Retry!', {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              });
+              ErrorToast('Error updating, Retry!')
               close();
             });
         }
@@ -127,15 +101,7 @@ export default function ProjectCard({name, url, id, img, hide, open, close, tech
         setModalShow(false);
         AdminService.deleteProjectWidget(project_id)
             .then(response => {
-                toast.success('Card deleted successfully!', {
-                    position: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                });
+                SuccessToast('Card deleted successfully!')
                 AdminService.getUserData()
                     .then(resp => {
                         setUser(prevUser => ({...prevUser,
@@ -144,27 +110,11 @@ export default function ProjectCard({name, url, id, img, hide, open, close, tech
                         setModalShow(false);
                         close();
                     })
-                    .catch(err => toast.error("Some Error Occured.", {
-                        position: "top-center",
-                        autoClose: 2000,
-                        hideProgressBar: true,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                      }));
+                    .catch(err => ErrorToast("Some Error Occured."));
                       close();
                 })
             .catch(error => {
-                toast.error('Error, Cannot delete this card!', {
-                    position: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                })
+                ErrorToast('Error, Cannot delete this card!')
                 close();
             });
     }

@@ -1,10 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, {useState, useContext, useEffect} from 'react'
 import { GoogleLogin } from 'react-google-login';
-import { getItem, setItem } from '../utility/localStorageControl';
+import { ErrorToast, getItem, setItem, SuccessToast } from '../utility/localStorageControl';
 import Axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import PortfolioModal from '../components/modals/PortfolioModal';
 import AdminService from '../AdminServices/AdminService';
 import {API_ENDPOINT} from '../AdminServices/baseUrl';
@@ -23,15 +21,7 @@ const GoogleBtn = ({open, close}) => {
           setLogin(true);
           setUser(prevUser => ({...prevUser, login: true, token: response.data.access_token }));
           setItem('accessToken', response.data.access_token);
-          toast.success('Login Successful!', {
-            position: "top-center",
-            autoClose: 2000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
+          SuccessToast('Successfully Logged In');
           AdminService.getUserData()
             .then(resp => {
               setUser(prevUser => ({...prevUser,
@@ -44,42 +34,17 @@ const GoogleBtn = ({open, close}) => {
                 rank_widgets: resp.data.rank_widgets,
                 contest_widgets: resp.data.contest_widgets,
                 project_widgets: resp.data.personal_projects,
-              }));
-              // if(resp.data.portfolio){
-              //   if(resp.data.portfolio.cloud_resume_link){
-              //     setUser(prevUser => ({...prevUser, resumeLink: resp.data.portfolio.cloud_resume_link}));
-              //   }
-              // }
-              // if(resp.data.portfolio){
-              //   if(resp.data.portfolio.social_profiles){
-              //     setUser(prevUser => ({...prevUser, social_profiles: resp.data.portfolio.social_profiles}));
-              //   }
-              // }
+              }));              
+              SuccessToast('User Details fetched!');
               close();
             })
             .catch(err => {
-              toast.error("Some Error Occured.", {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              })
+              ErrorToast("Some Error Occured");
               close();
             });
         })
         .catch(function (error) {
-          toast.error('Login Failed, Retry!', {
-            position: "top-center",
-            autoClose: 2000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
+          ErrorToast('Login Failed, Retry!');
           close();
         });
 
@@ -87,16 +52,8 @@ const GoogleBtn = ({open, close}) => {
   }
 
   const loginFailure = (response) => {
-    open();
-    toast.error('Login Failed, Retry!', {
-      position: "top-center",
-      autoClose: 2000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+    open();    
+    ErrorToast('Login Failed, Retry!');
     close();
   }
     return (

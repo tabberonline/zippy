@@ -3,9 +3,7 @@ import React, { useContext } from 'react';
 import '../../styles/HelperStyles.css'
 import { Form, Modal } from 'react-bootstrap';
 import {AiOutlineCloseCircle} from 'react-icons/ai';
-import { PortalMap, setItem, getItem } from '../../utility/localStorageControl';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { PortalMap, setItem, getItem, SuccessToast, ErrorToast } from '../../utility/localStorageControl';
 import AdminService from '../../AdminServices/AdminService';
 import edited from '../../assets/images/Edit-Icon.png';
 import { ProgrammerContext } from '../../utility/userContext';
@@ -33,15 +31,7 @@ import { ProgrammerContext } from '../../utility/userContext';
         console.log(rankWidgetData);
         AdminService.updateRankWidget(rankWidgetData)
           .then(response => {
-            toast.success('Card Updated!', {
-              position: "top-center",
-              autoClose: 2000,
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            });
+            SuccessToast('Card Updated!')
             AdminService.getUserData()
               .then(resp => {
                 setUser(prevUser => ({...prevUser,
@@ -50,39 +40,15 @@ import { ProgrammerContext } from '../../utility/userContext';
                 close();
                 setModalShow(false);
               })
-              .catch(err => toast.error("Some Error Occured.", {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              }));
+              .catch(err => ErrorToast("Some Error Occured."));
               close();
           })
           .catch(error => {
-            toast.error('Error, Enter correct details!', {
-              position: "top-center",
-              autoClose: 2000,
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            });
+            ErrorToast('Error, Enter correct details!')
             close();
           });
       } else {
-        toast.error('Error, Fields cannot be empty!', {
-          position: "top-center",
-          autoClose: 2000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        ErrorToast('Error, Fields cannot be empty!')
         close();
       }
     }

@@ -3,9 +3,7 @@ import React, { useContext, useState } from 'react';
 import '../../styles/HelperStyles.css'
 import { Form, Modal } from 'react-bootstrap';
 import {AiOutlineCloseCircle} from 'react-icons/ai';
-import { getItem, setItem } from '../../utility/localStorageControl';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ErrorToast, getItem, setItem, SuccessToast, WarningToast } from '../../utility/localStorageControl';
 import AdminService from '../../AdminServices/AdminService';
 import { ProgrammerContext } from '../../utility/userContext';
   
@@ -18,15 +16,7 @@ import { ProgrammerContext } from '../../utility/userContext';
 
     const createPortfolio = async () => {
       if(user.token === ""){
-        toast.error('Access Token not Retrieved!', {
-          position: "top-center",
-          autoClose: 2000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          });
+        ErrorToast('Access Token not Retrieved!')
       } else{
         if(title && desc){
           const portfolioData = {
@@ -36,15 +26,7 @@ import { ProgrammerContext } from '../../utility/userContext';
           };
           AdminService.createPortfolio(portfolioData)
             .then(resp => {
-              toast.success('Details Entered!', {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              });
+              SuccessToast('Details Entered!')
               setcall('Success');
               AdminService.getUserData()
                 .then(resp => {
@@ -54,40 +36,16 @@ import { ProgrammerContext } from '../../utility/userContext';
                   close();          
                 })
                 .catch(err => {
-                  toast.error("Some Error Occured.", {
-                    position: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                  });
+                  ErrorToast("Some Error Occured.")
                   close();
                 });
             })
             .catch(err => {
-              toast.error('Error, One User, One Portfolio!', {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              });
+              ErrorToast('Error, One User, One Portfolio!')
               close();
             });
         } else {
-          toast.error('Error, Fields cannot be empty!', {
-            position: "top-center",
-            autoClose: 2000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
+          ErrorToast('Error, Fields cannot be empty!')
           close();
         }
       }
@@ -151,15 +109,7 @@ import { ProgrammerContext } from '../../utility/userContext';
                   setModalShow(true);
                 }
               } else{
-                toast.warning('You need to Login first!', {
-                  position: "top-center",
-                  autoClose: 2000,
-                  hideProgressBar: true,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                });
+                WarningToast('You need to Login first!');
               }
             }} className="flexAlignCenter intro-button"
           >

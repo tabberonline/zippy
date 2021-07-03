@@ -6,12 +6,11 @@ import Footer from '../../components/Footer/Footer';
 import contactimg from '../../assets/images/Contactimg.png';
 import {Form} from 'react-bootstrap';
 import Header1 from '../../components/Header/Header1';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { Animated } from 'react-animated-css';
 import Axios from 'axios';
 import {API_ENDPOINT} from '../../AdminServices/baseUrl';
 import Loader from '../../components/Loader/Loader';
+import { ErrorToast, SuccessToast } from '../../utility/localStorageControl';
 
 function ContactScreen() {
     const [name, setName] = useState('');
@@ -37,40 +36,16 @@ function ContactScreen() {
             }
             Axios.post(`${API_ENDPOINT}/email`, mailContent)
                 .then(resp => {
-                    toast.success('Mail Sent!', {
-                        position: "top-center",
-                        autoClose: 2000,
-                        hideProgressBar: true,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                    });
+                    SuccessToast('Mail Sent!')
                     setloader(false);
                     ClearFields();
                 })
                 .catch(err => {
-                    toast.error('Some Error Occured!', {
-                        position: "top-center",
-                        autoClose: 2000,
-                        hideProgressBar: true,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                    });
+                    ErrorToast('Some Error Occured!')
                     setloader(false);
                 })
         } else{
-            toast.error('Error, Fields cannot be empty!', {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              });
+            ErrorToast('Error, Fields cannot be empty!')
               setloader(false);
         }
 
@@ -86,17 +61,6 @@ function ContactScreen() {
                     <img src={contactimg} alt="" style={{width: '90%'}} />
                 </div>
             </Animated>
-            <ToastContainer
-                position="top-center"
-                autoClose={3000}
-                hideProgressBar={true}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-            />
             <Animated isVisible={true} animationIn="slideInUp">
                 <div className="flexColumn contact-section">
                     <h1 className="contact-heading">Have anything to ask?</h1>

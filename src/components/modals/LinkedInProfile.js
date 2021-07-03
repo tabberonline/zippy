@@ -3,10 +3,9 @@ import React, {useContext, useState} from 'react';
 import '../../styles/HelperStyles.css'
 import { Modal, Form } from 'react-bootstrap';
 import {AiOutlinePlusCircle, AiOutlineCloseCircle, AiOutlineLink, AiOutlineLinkedin} from 'react-icons/ai';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
 import { ProgrammerContext } from '../../utility/userContext';
+import { ErrorToast, SuccessToast } from '../../utility/localStorageControl';
 
 export default function LinkedInProfileModal({open, close}) {
   const [user, setUser] = useContext(ProgrammerContext);
@@ -28,38 +27,14 @@ export default function LinkedInProfileModal({open, close}) {
                 setUser(prevUser => ({...prevUser,
                   portfolio: resp.data.portfolio
                 }));
-                toast.success('Details Added!', {
-                  position: "top-center",
-                  autoClose: 2000,
-                  hideProgressBar: true,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                });
+                SuccessToast('Details Added!')
               })
               .catch(err => {
-                toast.error("Some Error Occured.", {
-                  position: "top-center",
-                  autoClose: 2000,
-                  hideProgressBar: true,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                })
+                ErrorToast("Some Error Occured.")
               });
           })
           .catch(err => {
-            toast.error("Some Error Occured.", {
-              position: "top-center",
-              autoClose: 2000,
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            })
+            ErrorToast("Some Error Occured.")
           });
     } else{
       AdminService.UpdateSocialProfiles({
@@ -73,38 +48,14 @@ export default function LinkedInProfileModal({open, close}) {
                 setUser(prevUser => ({...prevUser,
                   portfolio: resp.data.portfolio
                 }));
-                toast.success('Details Updated!', {
-                  position: "top-center",
-                  autoClose: 2000,
-                  hideProgressBar: true,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                });
+                SuccessToast('Details Updated!')
               })
               .catch(err => {
-                toast.error("Some Error Occured.", {
-                  position: "top-center",
-                  autoClose: 2000,
-                  hideProgressBar: true,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                })
+                ErrorToast("Some Error Occured.")
               });
           })
           .catch(err => {
-            toast.error("User Profile doesn't exist.", {
-              position: "top-center",
-              autoClose: 2000,
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            })
+            ErrorToast("User Profile doesn't exist.")
           })
     }    
   }

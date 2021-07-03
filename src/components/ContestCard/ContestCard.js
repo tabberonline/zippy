@@ -7,9 +7,7 @@ import deleted from '../../assets/images/Bin-Icon.png';
 import edited from '../../assets/images/Edit-Icon.png';
 import hidden from '../../assets/images/Hide-Icon.png';
 import hidecards from '../../assets/images/hiddeeen.png';
-import {PortalMap} from '../../utility/localStorageControl';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import {ErrorToast, PortalMap, SuccessToast} from '../../utility/localStorageControl';
 import AdminService from '../../AdminServices/AdminService';
 import UpdateContestProfile from '../UpdateModals/UpdateContestProfile';
 import { Form, Modal } from 'react-bootstrap';
@@ -55,15 +53,7 @@ export default function ContestCard({name, rank, id, logo, contest, card_id, hid
           }
         AdminService.updateContestWidget(card_id, updateWidgetData)
           .then(response => {
-            toast.success('Card Updated!', {
-              position: "top-center",
-              autoClose: 2000,
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            });
+            SuccessToast('Card Updated!');
             AdminService.getUserData()
               .then(resp => {
                 setUser(prevUser => ({...prevUser,
@@ -72,28 +62,12 @@ export default function ContestCard({name, rank, id, logo, contest, card_id, hid
                 close();
               })
               .catch(err => {
-                toast.error("Some Error Occured.", {
-                  position: "top-center",
-                  autoClose: 2000,
-                  hideProgressBar: true,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                })
+                ErrorToast("Some Error Occured.");
                 close();
               });
           })
           .catch(error => {
-            toast.error('Error updating!', {
-              position: "top-center",
-              autoClose: 2000,
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            });
+            ErrorToast('Error updating!')
             close();
           });
       }
@@ -147,15 +121,7 @@ export default function ContestCard({name, rank, id, logo, contest, card_id, hid
         open();        
         AdminService.deleteContestWidget(card_id)
             .then(response => {
-                toast.success('Card deleted successfully!', {
-                    position: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                });
+                SuccessToast('Card deleted successfully!')
                 AdminService.getUserData()
                     .then(resp => {
                       setUser(prevUser => ({...prevUser,
@@ -167,15 +133,7 @@ export default function ContestCard({name, rank, id, logo, contest, card_id, hid
                       close();});
                 })
             .catch(error => {
-                toast.error('Error, Cannot delete this card!', {
-                    position: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                })
+                ErrorToast('Error, Cannot delete this card!');
                 close();
             });
     }

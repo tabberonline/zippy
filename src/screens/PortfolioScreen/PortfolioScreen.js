@@ -13,10 +13,9 @@ import SentHistoryModal from '../../components/modals/SentHistory';
 import { AiOutlineCheck, AiOutlineEdit} from 'react-icons/ai';
 import $ from 'jquery';
 import Header1 from '../../components/Header/Header1';
-import { getItem, setItem, ReversePortalMap } from '../../utility/localStorageControl';
+import { getItem, setItem, ReversePortalMap, SuccessToast, ErrorToast } from '../../utility/localStorageControl';
 import AdminService from '../../AdminServices/AdminService';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 import {isMobile} from 'react-device-detect';
 import AttachResumeModal from '../../components/modals/AttachResume';
 import SendViaEmail from '../../components/modals/SendViaEmail';
@@ -64,15 +63,7 @@ function PortfolioScreen() {
       }
       AdminService.updatePortfolio(UpdatePortfolioData)
         .then(resp => {
-          toast.success('Details Updated!', {
-            position: "top-center",
-            autoClose: 2000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
+          SuccessToast('Details Updated!')
           AdminService.getUserData()
             .then(resp => {
               setloader(false);
@@ -81,40 +72,16 @@ function PortfolioScreen() {
               }));
             })
             .catch(err => {
-              toast.error("Some Error Occured.", {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              })
+              ErrorToast("Some Error Occured.")
               setloader(false);
             });
         })
         .catch(err => {
-          toast.error('Error, Please retry!', {
-            position: "top-center",
-            autoClose: 2000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
+          ErrorToast('Error, Please retry!')
           setloader(false);
         });
     } else {
-      toast.error('Error, Fields cannot be empty!', {
-        position: "top-center",
-        autoClose: 2000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      ErrorToast('Error, Fields cannot be empty!')
       setloader(false);
     }
   }

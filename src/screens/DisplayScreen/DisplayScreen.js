@@ -2,14 +2,13 @@ import React, {useEffect, useState} from 'react';
 import '../../styles/HelperStyles.css';
 import './DisplayScreen.css';
 import Footer from '../../components/Footer/Footer';
-import {ReversePortalMap} from '../../utility/localStorageControl';
+import {ErrorToast, ReversePortalMap} from '../../utility/localStorageControl';
 import CodingCardDisplay from '../../components/CodingCard/CodingCardDisplay';
 import ContestCardDisplay from '../../components/ContestCard/ContestCardDisplay';
 import ProjectCardDisplay from '../../components/ProjectCard/ProjectCardDisplay';
 import {isMobile} from 'react-device-detect';
 import Axios from 'axios';
 import {API_ENDPOINT} from '../../AdminServices/baseUrl';
-import { toast } from 'react-toastify';
 import Header1 from '../../components/Header/Header1';
 import Loader from '../../components/Loader/Loader';
 import { BsFillEyeFill } from 'react-icons/bs';
@@ -35,15 +34,7 @@ function DisplayScreen() {
           setloader(false);
         })
       .catch(error => {
-        toast.error("Some Error Occured.", {
-          position: "top-center",
-          autoClose: 2000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        })
+        ErrorToast("Some Error Occured.")
         setloader(false);
       })
   }, [])

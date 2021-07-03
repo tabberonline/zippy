@@ -7,9 +7,7 @@ import deleted from '../../assets/images/Bin-Icon.png';
 import edited from '../../assets/images/Edit-Icon.png';
 import hidden from '../../assets/images/Hide-Icon.png';
 import hidecards from '../../assets/images/hiddeeen.png';
-import {setItem, getItem, PortalMap} from '../../utility/localStorageControl';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import {setItem, getItem, PortalMap, SuccessToast, ErrorToast} from '../../utility/localStorageControl';
 import AdminService from '../../AdminServices/AdminService';
 import UpdateCodingProfile from '../UpdateModals/UpdateCodingProfile';
 import { Modal } from 'react-bootstrap';
@@ -57,15 +55,7 @@ export default function CodingCard({name, rank, id, logo, hide, open, close, url
           }
           AdminService.updateRankWidget(rankWidgetData)
             .then(response => {
-              toast.success('Card Updated!', {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              });
+              SuccessToast('Card Updated!');
               AdminService.getUserData()
                 .then(resp => {
                   setUser(prevUser => ({...prevUser,
@@ -74,28 +64,12 @@ export default function CodingCard({name, rank, id, logo, hide, open, close, url
                   close();
                 })
                 .catch(err => {
-                  toast.error("Some Error Occured.", {
-                    position: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                  })
+                  ErrorToast('Some Error Occured!');
                   close();
                 });
             })
             .catch(error => {
-              toast.error('Error updating!', {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              });
+              ErrorToast('Error Updating!');
               close();
             });
         }
@@ -151,15 +125,7 @@ export default function CodingCard({name, rank, id, logo, hide, open, close, url
 
         AdminService.deleteRankWidget(website_id)
             .then(response => {
-                toast.success('Card deleted successfully!', {
-                    position: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                });
+                SuccessToast('Card Successfully Deleted');
                 AdminService.getUserData()
                     .then(resp => {
                       setUser(prevUser => ({...prevUser,
@@ -173,15 +139,7 @@ export default function CodingCard({name, rank, id, logo, hide, open, close, url
                       });
                 })
             .catch(error => {
-                toast.error('Error, Cannot delete this card!', {
-                    position: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                })
+                ErrorToast('Error, Cannot delete this card!');
                 close();
             });
     }

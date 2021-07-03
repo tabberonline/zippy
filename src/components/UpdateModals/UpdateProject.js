@@ -3,11 +3,10 @@ import React, { useContext } from 'react';
 import '../../styles/HelperStyles.css'
 import { Modal, Form } from 'react-bootstrap';
 import {AiOutlineCloseCircle} from 'react-icons/ai';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
 import edited from '../../assets/images/Edit-Icon.png';
 import { ProgrammerContext } from '../../utility/userContext';
+import { ErrorToast, SuccessToast } from '../../utility/localStorageControl';
 
 export default function UpdateProject({projectName, projectlink, ProjectDesc, ProjectStack, projectId, open, close}) {
   const [user, setUser] = useContext(ProgrammerContext);
@@ -29,15 +28,7 @@ export default function UpdateProject({projectName, projectlink, ProjectDesc, Pr
         }
       AdminService.updateProjectWidget(id, projectWidgetData)
         .then(response => {
-          toast.success('Card Updated!', {
-            position: "top-center",
-            autoClose: 2000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
+          SuccessToast('Card Updated!')
           AdminService.getUserData()
             .then(resp => {
               setUser(prevUser => ({...prevUser,
@@ -46,39 +37,15 @@ export default function UpdateProject({projectName, projectlink, ProjectDesc, Pr
               close();
               setModalShow(false);
             })
-            .catch(err => toast.error("Some Error Occured.", {
-              position: "top-center",
-              autoClose: 2000,
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            }));
+            .catch(err => ErrorToast("Some Error Occured."));
             close();
         })
         .catch(error => {
-          toast.error('Error, Enter correct details!', {
-            position: "top-center",
-            autoClose: 2000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
+          ErrorToast('Error, Enter correct details!')
           close();
         });
     } else {
-      toast.error('Error, Fields cannot be empty!', {
-        position: "top-center",
-        autoClose: 2000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      ErrorToast('Error, Fields cannot be empty!')
       close();
     }
   }

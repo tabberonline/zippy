@@ -4,23 +4,14 @@ import { Navbar, Nav } from 'react-bootstrap';
 import splashlogo from '../../assets/images/logo.png';
 import GoogleBtn from '../GoogleBtn';
 import Avatar from '@material-ui/core/Avatar';
-import { getItem, setItem } from '../../utility/localStorageControl';
-import { toast } from 'react-toastify';
+import { getItem, setItem, SuccessToast } from '../../utility/localStorageControl';
 import {ProgrammerContext} from '../../utility/userContext';
 
 function Header1({open, close}){
     const [user, setUser] = useContext(ProgrammerContext);
     const SignOut = () => {
         open();
-        toast.success('Successfully Logged Out!', {
-            position: "top-center",
-            autoClose: 2000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-        });
+        SuccessToast('Successfully Logged Out!')
         setUser(prevUser => ({...prevUser,
             login: false,
             token: null,

@@ -1,3 +1,7 @@
+
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const getItem = key => {
   const data = typeof window !== 'undefined' ? localStorage.getItem(key) : '';
 
@@ -33,5 +37,39 @@ ReversePortalMap.set('4', {name: 'CodeChef', logo: 'https://upload.wikimedia.org
 ReversePortalMap.set('5', {name: 'TopCoder', logo: 'https://www.topcoder.com/wp-content/uploads/2016/01/topcoder-logo.png'});
 ReversePortalMap.set('6', {name: 'CodeForces', logo: 'https://images.squarespace-cdn.com/content/v1/5a076df2268b966170809a2c/1511918009339-YOT20YA31EFYH71J55TQ/ke17ZwdGBToddI8pDm48kHuMSja0Vh8eB_h0MuaD_CRZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpwU8GNIaN2hBf1MRW24-pMWEs13LPVLeLgTsuCQQ6fIlIDXqTXNEBriE4Y9rQ8vzr4/codeforces_logo.png'});
 
+const SuccessToast = text => {
+  toast.success(text, {
+    position: "top-center",
+    autoClose: 2000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  });
+}
+const ErrorToast = text => {
+  toast.error(text, {
+    position: "top-center",
+    autoClose: 2000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  });
+}
+const WarningToast = text => {
+  toast.warning(text, {
+    position: "top-center",
+    autoClose: 2000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  });
+}
 
-export { getItem, setItem, removeItem, PortalMap, ReversePortalMap };
+
+export { getItem, setItem, removeItem, PortalMap, ReversePortalMap, SuccessToast, ErrorToast, WarningToast };

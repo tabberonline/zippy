@@ -3,9 +3,7 @@ import React, { useContext } from 'react';
 import '../../styles/HelperStyles.css'
 import { Form, Modal } from 'react-bootstrap';
 import {AiOutlineCloseCircle, AiOutlinePlusCircle} from 'react-icons/ai';
-import { PortalMap, setItem, getItem } from '../../utility/localStorageControl';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { PortalMap, setItem, getItem, ErrorToast, SuccessToast } from '../../utility/localStorageControl';
 import AdminService from '../../AdminServices/AdminService';
 import { ProgrammerContext } from '../../utility/userContext';
 
@@ -30,15 +28,7 @@ import { ProgrammerContext } from '../../utility/userContext';
       var exist = portalsArray.includes(getItem('website_id'));
       if(exist){
         setModalShow(false);
-        toast.error('Error, Site already exists!', {
-          position: "top-center",
-          autoClose: 2000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        ErrorToast('Error, Site already exists!');
         close();
       } else{
         if(portal.length > 0 && username.length > 0 && rank.length > 0){
@@ -50,15 +40,7 @@ import { ProgrammerContext } from '../../utility/userContext';
           }
           AdminService.createRankWidget(rankWidgetData)
             .then(response => {
-              toast.success('Details Entered!', {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              });
+              SuccessToast('Details Entered!');
               AdminService.getUserData()
                 .then(resp => {
                   setModalShow(false);
@@ -68,40 +50,16 @@ import { ProgrammerContext } from '../../utility/userContext';
                   close();
                 })
                 .catch(err => {
-                  toast.error("Some Error Occured.", {
-                    position: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                  })
+                  ErrorToast("Some Error Occured.");
                   close();
                 });
             })
             .catch(error => {
-              toast.error('Error, Enter correct details!', {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              });
+              ErrorToast('Error, Enter correct details!');
               close();
             });
         } else {
-          toast.error('Error, Fields cannot be empty!', {
-            position: "top-center",
-            autoClose: 2000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
+          ErrorToast('Error, Fields cannot be empty!');
           close();
         }
       }

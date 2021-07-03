@@ -3,10 +3,8 @@ import React, {useContext, useState} from 'react';
 import '../../styles/HelperStyles.css'
 import { Modal, Form } from 'react-bootstrap';
 import {AiOutlineCloseCircle} from 'react-icons/ai';
-import 'react-toastify/dist/ReactToastify.css';
 import MailPreview from '../MailPreview/MailPreview';
-import { getItem, setItem } from '../../utility/localStorageControl';
-import { ToastContainer, toast } from 'react-toastify';
+import { ErrorToast, getItem, setItem, SuccessToast } from '../../utility/localStorageControl';
 import AdminService from '../../AdminServices/AdminService';
 import { ProgrammerContext } from '../../utility/userContext';
 
@@ -32,40 +30,15 @@ export default function SendViaEmail({open, close}) {
       AdminService.sendMailwithAttachment(mails, resumeData, OptionalHeader)
         .then(resp => {
           if(resp.data.status === "success"){
-            toast.success('Email Succesfully Sent!', {
-              position: "top-center",
-              autoClose: 2000,
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            });
+            SuccessToast('Email Succesfully Sent!')
             close();
           } else{
-            toast.error(resp.data.message, {
-              position: "top-center",
-              autoClose: 2000,
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            });
+            ErrorToast(resp.data.message)
             close();
           }
         })
         .catch(err => {
-          toast.error(
-            "Some Error occured.", {
-            position: "top-center",
-            autoClose: 2000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          })
+          ErrorToast("Some Error occured.")
           close();
         });
     }

@@ -10,7 +10,6 @@ import FeatureCard from '../../components/FeatureCard/FeatureCard';
 import AchievementCard from '../../components/AchievementCard/AchievementCard';
 import FAQCard from '../../components/FAQCard/FAQCard';
 import Footer from '../../components/Footer/Footer';
-import 'react-toastify/dist/ReactToastify.css';
 import PortfolioModal from '../../components/modals/PortfolioModal';
 import { Animated } from 'react-animated-css';
 import Axios from 'axios';
@@ -22,9 +21,10 @@ import modify from '../../assets/images/Modifiable.png';
 import nolimit from '../../assets/images/NoLimit.png';
 import projects from '../../assets/images/Projects.png';
 import achievements from '../../assets/images/Achievements.png';
-import { toast, ToastContainer } from 'react-toastify';
 import {API_ENDPOINT} from '../../AdminServices/baseUrl';
 import Loader from '../../components/Loader/Loader';
+import { ErrorToast } from '../../utility/localStorageControl';
+import {ToastContainer} from 'react-toastify';
 
 function HomeScreen() {
   const [QnA, setQnA] = useState([]);
@@ -38,41 +38,18 @@ function HomeScreen() {
       .then(resp => {
         setQnA(resp.data.value);
       })
-    .catch(err => toast.error("Some Error Occured.", {
-      position: "top-center",
-      autoClose: 2000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    }))
+    .catch(err => ErrorToast("Some Error Occured."));
     Axios.get(`${API_ENDPOINT}/fe/get?page_type=Home&key=Achievements`)
       .then(resp => {
         setAments(resp.data.value)
-      }).catch(err => toast.error("Some Error Occured.", {
-        position: "top-center",
-        autoClose: 2000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      }))
+      })
+      .catch(err => ErrorToast("Some Error Occured."));
     Axios.get(`${API_ENDPOINT}/fe/get?page_type=Home&key=Features`)
       .then(resp => {
         setFeatures(resp.data.value);
         setloader(false);
-      }).catch(err => {
-        toast.error("Some Error Occured.", {
-          position: "top-center",
-          autoClose: 2000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        })
+      })
+      .catch(err => {ErrorToast("Some Error Occured.")
         setloader(false);
       })
   }

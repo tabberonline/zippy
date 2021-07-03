@@ -3,10 +3,8 @@ import React, {useContext, useState} from 'react';
 import '../../styles/HelperStyles.css'
 import { Modal, Form, Table, Pagination } from 'react-bootstrap';
 import {AiOutlineCloseCircle} from 'react-icons/ai';
-import 'react-toastify/dist/ReactToastify.css';
 import AdminService from '../../AdminServices/AdminService';
-import { setItem, getItem } from '../../utility/localStorageControl';
-import { ToastContainer, toast } from 'react-toastify';
+import { setItem, getItem, ErrorToast } from '../../utility/localStorageControl';
 import { ProgrammerContext } from '../../utility/userContext';
 
 export default function SentHistoryModal({open, close}) {
@@ -37,15 +35,7 @@ export default function SentHistoryModal({open, close}) {
           close();
         })
         .catch(err => {
-          toast.error("Some Error Occured.", {
-            position: "top-center",
-            autoClose: 2000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          })
+          ErrorToast("Some Error Occured.")
           close();
       });
     }
