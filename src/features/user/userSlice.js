@@ -23,6 +23,7 @@ const userSlice = createSlice({
         logUser: (state, action) => {
             state.login = true;
             state.accessToken = action.payload.access_token;
+            return state;
         },
         logOutUser: (state, action) => {
             state.login = false;
