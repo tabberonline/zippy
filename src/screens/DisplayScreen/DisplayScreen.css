@@ -27,8 +27,8 @@
     padding: 10px 20px;
 }
 .display-section .card-heading{
-    font: 20px 'Poppins', sans-serif;
-    font-weight: 500;
+    font: 24px 'Poppins', sans-serif;
+    font-weight: bold;
 }
 .end-text{
     font: 20px 'Poppins', sans-serif;

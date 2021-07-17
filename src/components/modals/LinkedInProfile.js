@@ -13,7 +13,7 @@ export default function LinkedInProfileModal({open, close}) {
   const dispatch = useDispatch();
   const [modalShow, setModalShow] = React.useState(false);
   let profile_link = '';
-  profile_link = portfolio.social_profiles[0] && portfolio.social_profiles[0].link;
+  profile_link = portfolio.social_profiles &&portfolio.social_profiles[0] && portfolio.social_profiles[0].link;
 
   const LinkedInAttach = async () => {
     if(!portfolio.social_profiles[0]){

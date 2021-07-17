@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../styles/HelperStyles.css'
 import { Form, Modal } from 'react-bootstrap';
 import {AiOutlineCloseCircle} from 'react-icons/ai';
@@ -19,7 +19,8 @@ import { useHistory } from 'react-router-dom';
     const [modalShow, setModalShow] = useState(false);
     const [apicall, setcall] = useState('');
     var title = '';
-    var desc = '';    
+    var desc = '';  
+    var college = "";  
 
     const createPortfolio = async () => {
       if(token === ""){
@@ -29,7 +30,8 @@ import { useHistory } from 'react-router-dom';
           const portfolioData = {
               'title': title,
               'picture_url': image,
-              'description': desc
+              'description': desc,
+              'college': college
           };
           AdminService.createPortfolio(portfolioData)
             .then(resp => {
@@ -37,8 +39,10 @@ import { useHistory } from 'react-router-dom';
               setcall('Success');
               AdminService.getUserData()
                 .then(resp => {
-                  dispatch(setPortfolio(resp.data)); 
+                  dispatch(setPortfolio(resp.data));
+                  setModalShow(false);   
                   close();          
+                  history.push('/portfolio')
                 })
                 .catch(err => {
                   ErrorToast("Some Error Occured.")
@@ -59,12 +63,15 @@ import { useHistory } from 'react-router-dom';
     const Add = () => {
       open();
       createPortfolio();
-      setModalShow(false);  
     }
 
     const ModalOpen = () => {
       apicall === 'Success' ? history.push('/portfolio') : setModalShow(true);
     }
+    
+    useEffect(() => {
+      !home && !portfolio && setModalShow(true);
+    }, [])
 
     function MyVerticallyCenteredModal(props) {
         return (
@@ -85,11 +92,15 @@ import { useHistory } from 'react-router-dom';
             <Form>    
               <Form.Group controlId="formBasic1" className="mb-20">
                 <Form.Label>Your Portfolio Title<span style={{color: 'red'}}>*</span> </Form.Label>
-                <Form.Control type="text" defaultValue={title} onChange={(e) => title = (e.target.value)} placeholder="Eg. Web Developer" />
+                <Form.Control type="text" defaultValue={title} onChange={(e) => title = (e.target.value)} placeholder="Eg. Web Developer, Analyst, Mechanic" />
+              </Form.Group> 
+              <Form.Group controlId="formBasic2">
+                <Form.Label>Your College Name<span style={{color: 'red'}}>*</span></Form.Label>
+                <Form.Control type="text" defaultValue={college} onChange={(e) => college = (e.target.value)} placeholder="Enter your College here" />
               </Form.Group>    
               <Form.Group controlId="formBasic2">
                 <Form.Label>Your Description<span style={{color: 'red'}}>*</span></Form.Label>
-                <Form.Control type="text" defaultValue={desc} onChange={(e) => desc = (e.target.value)} placeholder="Enter your College and profile description here" />
+                <Form.Control type="text" defaultValue={desc} onChange={(e) => desc = (e.target.value)} placeholder="Enter your short bio/description here" />
               </Form.Group>    
             </Form>
     

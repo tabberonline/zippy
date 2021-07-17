@@ -35,9 +35,14 @@
     font: 40px 'Poppins', sans-serif;
     font-weight: 500;
 }
+.whyTabberlist{
+    list-style-position: outside;
+    list-style-type: none;
+}
 #why-tabber .whytabber-text, .whytabber-point{
     font: 20px 'Poppins', sans-serif;
     font-weight: 400;
+    list-style-position: outside;
 }
 #why-tabber .whytabber-features{
     font: 20px 'Poppins', sans-serif;

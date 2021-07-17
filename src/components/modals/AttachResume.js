@@ -75,6 +75,7 @@ export default function AttachResumeModal({open, close}) {
 
           <span className="modal-list">• Enter a proper Gdrive/Dropbox or any cloud link.</span>
           <span className="modal-list">• Upload the file in cloud in pdf format (Recommended).</span>
+          <span className="modal-list">• Give Public Access to your shared link (Recommended).</span>
 
           <div className="share" style={{justifyContent: 'center'}}>
             <a className="flexAlignCenter modal-button" onClick={() => ResumeAttach()}>Add to profile</a>
@@ -88,12 +89,12 @@ export default function AttachResumeModal({open, close}) {
   return (
     <>
       <div className="grow1 attach-resume flexRow flexAlignCenter flexEvenly">
-        <p className="resume-head">{url !== 'https://' ? 'View attached PDF' : 'Attach your Resume'}</p>
-        {url !== 'https://' && <div style={{display: 'flex', gap: 20}}>
+        <p className="resume-head">{url ? 'View attached PDF' : 'Attach your Resume'}</p>
+        {url && <div style={{display: 'flex', gap: 20}}>
           <AiOutlineLink onClick={() => setModalShow(true)} className="grow2 attach-resume__icon" />
           <BsFillEyeFill onClick={() => window.open(url)} className="grow2 attach-resume__icon" />
         </div>}
-        {url === 'https://' &&
+        {!url &&
           <AiOutlinePlusCircle onClick={() => setModalShow(true)} className="grow2 attach-resume__icon"/>
         }
       </div>

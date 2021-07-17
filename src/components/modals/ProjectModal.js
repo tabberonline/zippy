@@ -52,7 +52,6 @@ export default function ProjectModal({open, close}) {
     open();
     stacks = stack.split(',')
     createWidget();
-    setModalShow(false);
   }
 
   function MyVerticallyCenteredModal(props) {
@@ -74,11 +73,11 @@ export default function ProjectModal({open, close}) {
           <Form>
             <Form.Group controlId="formBasicEmail" className="mb-20">
               <Form.Label>Project Title</Form.Label>
-              <Form.Control type="text" placeholder="Eg. Automated System" defaultValue={project} onChange={(e) => project = (e.target.value)} />
+              <Form.Control type="text" placeholder="Eg. Automated System, Buggy, Site Revamp" defaultValue={project} onChange={(e) => project = (e.target.value)} />
             </Form.Group>
 
             <Form.Group controlId="formBasicEmail2" className="mb-20">
-              <Form.Label>Project TechStack   *Separated by Commas(",")*</Form.Label>
+              <Form.Label>Project TechStack/Concepts Used  *Separated by Commas(",")*</Form.Label>
               <Form.Control type="text" placeholder="Eg. Arduino, IOT, React" defaultValue={stack} onChange={(e) => stack = (e.target.value)} />
             </Form.Group>
 

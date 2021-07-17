@@ -21,7 +21,9 @@ const processAPI = 'https://cdn.filestackcontent.com';
 function DisplayScreen() {
   const [userData, setData] = useState([]);
   const [loader, setloader] = useState(false);
-  const history = useHistory();
+  const [RankWidgets, setRank] = useState([]);
+  const [ContestWidgets, setContests] = useState([]);
+  const [ProjectWidgets, setProjects] = useState([]);
 
   useEffect(() => {
     const getIDFromURL = () => {
@@ -35,12 +37,22 @@ function DisplayScreen() {
         .then(data => {
           setData([data]);
           setloader(false);
+          adjustData(data);
         })
       .catch(error => {
         ErrorToast("Some Error Occured.")
         setloader(false);
       })
   }, [])
+
+  const adjustData = (data) => {
+    var abc = data && data.rank_widgets && data.rank_widgets.filter(profile => profile.invisible === false);
+    setRank(abc);
+    abc = data && data.contest_widgets && data.contest_widgets.filter(profile => profile.invisible === false);
+    setContests(abc);
+    abc = data && data.personal_projects && data.personal_projects.filter(profile => profile.invisible === false);
+    setProjects(abc)
+  }
 
   return (
     <div className="#display-screen">
@@ -56,32 +68,33 @@ function DisplayScreen() {
                 <p className="name mb-20 pl-20">Hello! I am <strong>{user.name}</strong></p>
                 <p className="desc">{user.portfolio.description}</p>
               </div>
-              {user.portfolio.cloud_resume_link !== 'https://' ? (
-                <div className="flexColumn mv-20">
-                  <p className="card-heading mb-20">Resume</p>
-                  <div className="grow1 attach-resume flexRow flexAlignCenter flexEvenly">
-                    <p className="resume-head">View Attached PDF</p>
-                    <BsFillEyeFill onClick={() => window.open(user.portfolio.cloud_resume_link)} className="grow2 attach-resume__icon" />
+              <div className="socialsRow">
+                {user.portfolio.cloud_resume_link !== 'https://' ? (
+                  <div className="flexColumn mv-20">
+                    <p className="card-heading mb-20">Resume</p>
+                    <div className="grow1 attach-resume flexRow flexAlignCenter flexEvenly">
+                      <p className="resume-head">View Attached PDF</p>
+                      <BsFillEyeFill onClick={() => window.open(user.portfolio.cloud_resume_link)} className="grow2 attach-resume__icon" />
+                    </div>
                   </div>
-                </div>
-              ) : null} 
-              {user.portfolio.social_profiles[0] && user.portfolio.social_profiles[0].link !== '' ? (
-                <div className="flexColumn mv-20">
-                  <p className="card-heading mb-20">LinkedIn</p>
-                  <div className="grow1 attach-resume flexRow flexAlignCenter flexEvenly">
-                    <p className="resume-head">View LinkedIn Profile</p>
-                    <AiOutlineLinkedin onClick={() => window.open(user.portfolio.social_profiles[0].link)} className="grow2 attach-resume__icon" />
+                ) : null} 
+                {user.portfolio.social_profiles[0] && user.portfolio.social_profiles[0].link !== '' ? (
+                  <div className="flexColumn mv-20">
+                    <p className="card-heading mb-20">LinkedIn Profile</p>
+                    <div className="grow1 attach-resume flexRow flexAlignCenter flexEvenly">
+                      <p className="resume-head">View LinkedIn Profile</p>
+                      <AiOutlineLinkedin onClick={() => window.open(user.portfolio.social_profiles[0].link)} className="grow2 attach-resume__icon" />
+                    </div>
                   </div>
-                </div>
-              ) : null}              
+                ) : null}  
+              </div>                            
               {
-                user.rank_widgets.length > 0 ? (
+                RankWidgets.length > 0 ? (
                   <div className="coding-profile mv-20">
                     <p className="card-heading mb-20">Coding Profile</p>
                     <div className="flexRow flexWrap">
                       { 
-                        user.rank_widgets.map(profile => (
-                          profile.invisible ? null :
+                        RankWidgets.map(profile => (
                             <CodingCardDisplay url={profile.link} name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} />
                         ))
                       }
@@ -90,13 +103,12 @@ function DisplayScreen() {
                 ) : null
               }
               {
-                user.contest_widgets.length > 0 ? (
+                ContestWidgets.length > 0 ? (
                   <div className="coding-profile mv-20">
-                    <p className="card-heading mb-20">Contests Won</p>
+                    <p className="card-heading mb-20">Coding Contests</p>
                     <div className="flexRow flexWrap">
                       { 
-                        user.contest_widgets.map(profile => (
-                          profile.invisible ? null :
+                        ContestWidgets.map(profile => (
                             <ContestCardDisplay card_id={profile.id} name={ReversePortalMap.get(profile.website_id.toString()).name} id={profile.website_username} rank={profile.rank} logo={ReversePortalMap.get(profile.website_id.toString()).logo} contest={profile.contest_name} />
                         ))
                       }
@@ -105,13 +117,12 @@ function DisplayScreen() {
                 ) : null
               }
               {
-                user.personal_projects.length > 0 ? (
+                ProjectWidgets.length > 0 ? (
                   <div className="coding-profile mv-20">
-                    <p className="card-heading mb-20">Personal Projects</p>
+                    <p className="card-heading mb-20">Projects</p>
                     <div className="flexRow flexWrap">
                       { 
-                        user.personal_projects.map(project => (
-                          project.invisible ? null :
+                        ProjectWidgets.map(project => (
                             <ProjectCardDisplay name={project.title} img={`${processAPI}/${API_KEY}/urlscreenshot=agent:${isMobile ? 'mobile' : 'desktop'}/${project.link}`} url={project.link} id={project.id} hide={project.invisible} techstack={project.tech_stack} desc={project.description} />
                         ))
                       }

@@ -33,7 +33,7 @@ import { setRankWidgets, userRankWidgets } from '../../features/user/userSlice';
         ErrorToast('Error, Site already exists!');
         close();
       } else{
-        if(portal.length > 0 && username.length > 0 && rank.length > 0){
+        if(portal && username && rank && link){
           const rankWidgetData = {
             'rank' : getItem('Codingrank'),
             'website_id' : getItem('website_id'),
@@ -75,7 +75,6 @@ import { setRankWidgets, userRankWidgets } from '../../features/user/userSlice';
 
     const UpdateCard = () => {
       open();
-      setModalShow(false);
       setItem('Codingportal', portal);
       getPortalDetails(formatPortal(getItem('Codingportal')));
       setItem('Codingusername', username);
