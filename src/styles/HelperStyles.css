@@ -177,7 +177,7 @@
 .form-group select{
     padding: 5px 20px !important;
 }
-.modal .form-group input:focus, .modal .form-group select:focus{
+.modal .form-group input:focus, .modal .form-group select:focus,  .modal .form-group textarea:focus{
     background: #FFFFFF;
     border: 1px solid #00E6D8;
     box-sizing: border-box;

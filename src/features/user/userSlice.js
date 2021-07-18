@@ -7,7 +7,6 @@ const initialState = {
     name: '',
     email: '',
     image: '',
-    college: '',
     resume_present: false,
     portfolio: [],
     rank_widgets: [],
@@ -68,11 +67,14 @@ const userSlice = createSlice({
         setHistory : (state, action) => {
             state.sent_history = action.payload.mail_history;
             state.total_mails_sent = action.payload.total_items;
+        },
+        setName: (state, action) => {
+            state.portfolio = action.payload.name;
         }
     },
 });
 
-export const {logUser, logOutUser, setUser, setPortfolio, setRankWidgets, setContestWidgets, setProjectWidgets, setHistory} = userSlice.actions;
+export const {logUser, logOutUser, setUser, setName, setPortfolio, setRankWidgets, setContestWidgets, setProjectWidgets, setHistory} = userSlice.actions;
 
 export const userLogin = state => state.user.login;
 export const userToken = state => state.user.accessToken;
@@ -80,7 +82,6 @@ export const userName = state => state.user.name;
 export const userEmail = state => state.user.email;
 export const userImage = state => state.user.image;
 export const userID = state => state.user.user_id;
-export const userCollege = state => state.user.college;
 export const userResume = state => state.user.resume_present;
 export const userPortfolio = state => state.user.portfolio;
 export const userRankWidgets = state => state.user.rank_widgets;
