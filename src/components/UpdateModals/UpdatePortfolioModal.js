@@ -7,13 +7,15 @@ import { ErrorToast, SuccessToast } from '../../utility/localStorageControl';
 import AdminService from '../../AdminServices/AdminService';
 import { useSelector, useDispatch } from 'react-redux';
 import { setPortfolio, setName, userName, userPortfolio } from '../../features/user/userSlice';
-import { useHistory } from 'react-router-dom';
+import { API_ENDPOINT } from '../../AdminServices/baseUrl';
+import axios from 'axios';
   
   export default function UpdatePortfolioModal({open, close}) {
     const dispatch = useDispatch();
     const name = useSelector(userName);
     const portfolio = useSelector(userPortfolio);
     const [modalShow, setModalShow] = useState(false);
+    const [collegeList, setList] = useState([]);
     var title = portfolio && portfolio.title;
     var desc = portfolio && portfolio.description;  
     var college = portfolio && portfolio.college;  
@@ -34,6 +36,7 @@ import { useHistory } from 'react-router-dom';
               AdminService.getUserData()
                 .then(resp => {
                   dispatch(setPortfolio(resp.data))
+                  setModalShow(false)
                   close();
                 })
                 .catch(err => {
@@ -50,12 +53,13 @@ import { useHistory } from 'react-router-dom';
           close();
         }
         if(name11 !== name){
-          AdminService.UpdateName({userName: name11})
+          AdminService.UpdateName(name11)
             .then(res => {
               AdminService.getUserData()
                 .then(resp => {
                   dispatch(setName(resp.data))
                   SuccessToast('Details Updated!')
+                  setModalShow(false)
                   close();
                 })
                 .catch(err => {
@@ -70,10 +74,22 @@ import { useHistory } from 'react-router-dom';
         }
       }
 
+      const getUnivList = () =>{
+        axios.get(`${API_ENDPOINT}/university/university_list`)
+          .then(res => {
+            const data = Object.values(res.data);
+            setList(data);
+          })
+      }
+
     const Add = () => {
       open();
       UpdatePortfolio();
     }
+
+    useEffect(() => {
+      getUnivList()
+    }, [])
 
     function MyVerticallyCenteredModal(props) {
         return (
@@ -100,13 +116,22 @@ import { useHistory } from 'react-router-dom';
                 <Form.Label>Your Portfolio Title<span style={{color: 'red'}}>*</span> </Form.Label>
                 <Form.Control type="text" defaultValue={title} onChange={(e) => title = (e.target.value)} placeholder="Eg. Web Developer, Analyst, Mechanic" />
               </Form.Group> 
-              <Form.Group controlId="formBasic2">
+              <Form.Group controlId="formBasicEmail" className="flexColumn mb-20">
                 <Form.Label>Your College Name<span style={{color: 'red'}}>*</span></Form.Label>
-                <Form.Control type="text" defaultValue={college} onChange={(e) => college = (e.target.value)} placeholder="Enter your College here" />
-              </Form.Group>    
+                <select defaultValue={college} onChange={(e) => college = (e.target.value)}>
+                  <option value="Eg. TIET, BITS" disabled>Eg. TIET, BITS, IIIT</option>
+                  {collegeList.map((college, index) => (
+                    <option value={index}>{college.split(',')[0]}</option>
+                  ))}
+                </select>
+              </Form.Group> 
+              <Form.Group controlId="formBasic5" className="mb-20">
+                <Form.Label>If not in above list:<span style={{color: 'red'}}></span> </Form.Label>
+                <Form.Control type="text" defaultValue={other} onChange={(e) => other = (e.target.value)} placeholder="Eg. Thapar University, Patiala" />
+              </Form.Group>     
               <Form.Group controlId="formBasic2">
                 <Form.Label>Your Description<span style={{color: 'red'}}>*</span></Form.Label>
-                <Form.Control type="text" defaultValue={desc} onChange={(e) => desc = (e.target.value)} placeholder="Enter your short bio/description here" />
+                <Form.Control as="textarea" defaultValue={desc} onChange={(e) => desc = (e.target.value)} placeholder="Enter your short bio/description here" />
               </Form.Group>    
             </Form>
     

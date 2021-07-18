@@ -33,6 +33,7 @@ function PortfolioScreen() {
   const project_widgets = useSelector(userProjectWidgets);
   var title = portfolio && portfolio.title;
   var desc = portfolio && portfolio.description;
+  var college = portfolio && portfolio.college;
   const [loader, setloader] = useState(false);
 
   return (
@@ -65,7 +66,7 @@ function PortfolioScreen() {
             <hr style={{color : '#717070', width: '80%', margin: 'auto', marginTop: 10}} />
             <div className="flexColumn info-sec">
               <div className="flexRow  mb-20 pl-20">
-                <p className="nameText">Hello! I am <strong>{name}</strong></p>
+                <p className="nameText">Hello! I am <strong>{name}</strong>, a student of <strong>{college}</strong></p>
               </div>
               <div className="flexRow">
                 <p style={{backgroundColor: 'inherit'}} className="desc">{desc}</p>

@@ -93,12 +93,12 @@ export default function AttachResumeModal({open, close}) {
   return (
     <>
       <div className="grow1 attach-resume flexRow flexAlignCenter flexEvenly">
-        <p className="resume-head">{url !=='' && url!=='https://' ? 'View attached PDF' : 'Attach your Resume'}</p>
-        {url !=='' && url!=='https://' && <div style={{display: 'flex', gap: 20}}>
+        <p className="resume-head">{url && url!=='https://' ? 'View attached PDF' : 'Attach your Resume'}</p>
+        {url && url!=='https://' && <div style={{display: 'flex', gap: 20}}>
           <AiOutlineLink onClick={() => setModalShow(true)} className="grow2 attach-resume__icon" />
           <BsFillEyeFill onClick={() => window.open(url)} className="grow2 attach-resume__icon" />
         </div>}
-        {url ==='' || url ==='https://' &&
+        {(!url || url ==='https://') &&
           <AiOutlinePlusCircle onClick={() => setModalShow(true)} className="grow2 attach-resume__icon"/>
         }
       </div>

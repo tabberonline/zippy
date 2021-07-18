@@ -41,13 +41,12 @@ import {API_ENDPOINT} from '../../AdminServices/baseUrl';
           AdminService.createPortfolio(portfolioData)
             .then(resp => {
               SuccessToast('Details Entered!')
-              setcall('Success');
               AdminService.getUserData()
                 .then(resp => {
                   dispatch(setPortfolio(resp.data));
                   setModalShow(false);   
-                  close();          
                   history.push('/portfolio')
+                  close();
                 })
                 .catch(err => {
                   ErrorToast("Some Error Occured.")
@@ -76,10 +75,6 @@ import {API_ENDPOINT} from '../../AdminServices/baseUrl';
           const data = Object.values(res.data);
           setList(data);
         })
-    }
-
-    const ModalOpen = () => {
-      apicall === 'Success' ? history.push('/portfolio') : setModalShow(true);
     }
     
     useEffect(() => {
@@ -157,11 +152,11 @@ import {API_ENDPOINT} from '../../AdminServices/baseUrl';
           ) :
             (
               <button onClick={() => {
-                  portfolio ?  history.push('/portfolio') : ModalOpen()
+                  portfolio ?  history.push('/portfolio') : setModalShow(true)
                 }} 
                 className="edit-your-portfolio grow1"
               >
-                {apicall === 'Success' || portfolio ? 'Move to your Portfolio' : 'Edit your Portfolio'}
+                {portfolio ? 'Move to your Portfolio' : 'Edit your Portfolio'}
               </button>
             )
         }

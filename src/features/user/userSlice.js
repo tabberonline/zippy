@@ -32,7 +32,6 @@ const userSlice = createSlice({
             state.name = '';
             state.email = '';
             state.image = '';
-            state.college = '';
             state.resume_present = false;
             state.portfolio = [];
             state.rank_widgets = [];
@@ -69,7 +68,7 @@ const userSlice = createSlice({
             state.total_mails_sent = action.payload.total_items;
         },
         setName: (state, action) => {
-            state.portfolio = action.payload.name;
+            state.name = action.payload.name;
         }
     },
 });
