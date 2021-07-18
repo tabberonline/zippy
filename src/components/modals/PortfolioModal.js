@@ -8,6 +8,8 @@ import AdminService from '../../AdminServices/AdminService';
 import { useSelector, useDispatch } from 'react-redux';
 import { setPortfolio, userImage, userLogin, userPortfolio, userToken } from '../../features/user/userSlice';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+import {API_ENDPOINT} from '../../AdminServices/baseUrl';
   
   export default function PortfolioModal({home, open, close}) {
     const token = useSelector(userToken);
@@ -18,20 +20,23 @@ import { useHistory } from 'react-router-dom';
     const history = useHistory();
     const [modalShow, setModalShow] = useState(false);
     const [apicall, setcall] = useState('');
+    const [collegeList, setList] = useState([]);
     var title = '';
     var desc = '';  
-    var college = "";  
+    var college = -1;
+    var other = null;  
 
     const createPortfolio = async () => {
       if(token === ""){
         ErrorToast('Access Token not Retrieved!')
       } else{
-        if(title && desc){
+        if(title && desc && college){
           const portfolioData = {
               'title': title,
               'picture_url': image,
               'description': desc,
-              'college': college
+              'college': college,
+              "college_others": other,
           };
           AdminService.createPortfolio(portfolioData)
             .then(resp => {
@@ -65,12 +70,21 @@ import { useHistory } from 'react-router-dom';
       createPortfolio();
     }
 
+    const getUnivList = () =>{
+      axios.get(`${API_ENDPOINT}/university/university_list`)
+        .then(res => {
+          const data = Object.values(res.data);
+          setList(data);
+        })
+    }
+
     const ModalOpen = () => {
       apicall === 'Success' ? history.push('/portfolio') : setModalShow(true);
     }
     
     useEffect(() => {
       !home && !portfolio && setModalShow(true);
+      getUnivList();
     }, [])
 
     function MyVerticallyCenteredModal(props) {
@@ -93,14 +107,23 @@ import { useHistory } from 'react-router-dom';
               <Form.Group controlId="formBasic1" className="mb-20">
                 <Form.Label>Your Portfolio Title<span style={{color: 'red'}}>*</span> </Form.Label>
                 <Form.Control type="text" defaultValue={title} onChange={(e) => title = (e.target.value)} placeholder="Eg. Web Developer, Analyst, Mechanic" />
-              </Form.Group> 
-              <Form.Group controlId="formBasic2">
+              </Form.Group>  
+              <Form.Group controlId="formBasicEmail" className="flexColumn mb-20">
                 <Form.Label>Your College Name<span style={{color: 'red'}}>*</span></Form.Label>
-                <Form.Control type="text" defaultValue={college} onChange={(e) => college = (e.target.value)} placeholder="Enter your College here" />
-              </Form.Group>    
+                <select defaultValue={college} onChange={(e) => college = (e.target.value)}>
+                  <option value="Eg. TIET, BITS" disabled>Eg. TIET, BITS, IIIT</option>
+                  {collegeList.map((college, index) => (
+                    <option value={index}>{college.split(',')[0]}</option>
+                  ))}
+                </select>
+              </Form.Group> 
+              <Form.Group controlId="formBasic5" className="mb-20">
+                <Form.Label>If not in above list:<span style={{color: 'red'}}></span> </Form.Label>
+                <Form.Control type="text" defaultValue={other} onChange={(e) => other = (e.target.value)} placeholder="Eg. Thapar University, Patiala" />
+              </Form.Group>  
               <Form.Group controlId="formBasic2">
                 <Form.Label>Your Description<span style={{color: 'red'}}>*</span></Form.Label>
-                <Form.Control type="text" defaultValue={desc} onChange={(e) => desc = (e.target.value)} placeholder="Enter your short bio/description here" />
+                <Form.Control as="textarea" defaultValue={desc} onChange={(e) => desc = (e.target.value)} placeholder="Enter your short bio/description here" />
               </Form.Group>    
             </Form>
     

@@ -6,25 +6,27 @@ import {AiOutlineCloseCircle} from 'react-icons/ai';
 import { ErrorToast, SuccessToast } from '../../utility/localStorageControl';
 import AdminService from '../../AdminServices/AdminService';
 import { useSelector, useDispatch } from 'react-redux';
-import { setPortfolio, userImage, userName, userPortfolio, userToken } from '../../features/user/userSlice';
+import { setPortfolio, setName, userName, userPortfolio } from '../../features/user/userSlice';
 import { useHistory } from 'react-router-dom';
   
   export default function UpdatePortfolioModal({open, close}) {
     const dispatch = useDispatch();
     const name = useSelector(userName);
     const portfolio = useSelector(userPortfolio);
-    const history = useHistory();
     const [modalShow, setModalShow] = useState(false);
     var title = portfolio && portfolio.title;
     var desc = portfolio && portfolio.description;  
-    var college = portfolio && portfolio.collegeName;  
+    var college = portfolio && portfolio.college;  
     var name11 = name;
+    var other= '';
 
     const UpdatePortfolio = async () =>{
         if(desc.length > 0 && title.length > 0){
           const UpdatePortfolioData = {
             'title': title,
             'description': desc,
+            'college': college,
+            "college_others": other,
           }
           AdminService.updatePortfolio(UpdatePortfolioData)
             .then(resp => {
@@ -46,6 +48,25 @@ import { useHistory } from 'react-router-dom';
         } else {
           ErrorToast('Error, Fields cannot be empty!')
           close();
+        }
+        if(name11 !== name){
+          AdminService.UpdateName({userName: name11})
+            .then(res => {
+              AdminService.getUserData()
+                .then(resp => {
+                  dispatch(setName(resp.data))
+                  SuccessToast('Details Updated!')
+                  close();
+                })
+                .catch(err => {
+                  ErrorToast("Some Error Occured.")
+                  close();
+                });
+              })
+            .catch(err => {
+              ErrorToast('Error, Please retry!')
+              close();
+            });
         }
       }
 
