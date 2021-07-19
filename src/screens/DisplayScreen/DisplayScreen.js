@@ -65,7 +65,7 @@ function DisplayScreen() {
               <p className="title">{user.portfolio.title}</p>
               <hr style={{color : '#717070', width: '80%', margin: 'auto', marginTop: 10}} />
               <div className="flexColumn info-sec">
-                <p className="name mb-20 pl-20">Hello! I am <strong>{user.name}</strong></p>
+                <p className="name mb-20 pl-20">Hello! I am <strong>{user.name}</strong>, a student of  <strong>{user.portfolio.college.split(',')[0]}</strong>.</p>
                 <p className="desc">{user.portfolio.description}</p>
               </div>
               <div className="socialsRow">
