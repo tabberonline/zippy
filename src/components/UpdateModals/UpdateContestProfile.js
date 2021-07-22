@@ -64,7 +64,6 @@ export default function UpdateContestProfile({portalName, Rank, userName, id, Co
 
   const UpdateCard = (card_id) => {
     open();
-    setModalShow(false);
     setItem('Contestportal', portal);
     getPortalDetails(formatPortal(getItem('Contestportal')));
     setItem('Contestusername', username);

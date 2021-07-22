@@ -61,7 +61,6 @@ import { setRankWidgets } from '../../features/user/userSlice';
 
     const UpdateCard = () => {
       open();
-      setModalShow(false);
       setItem('Codingportal', portal);
       getPortalDetails(formatPortal(getItem('Codingportal')));
       setItem('Codingusername', username);

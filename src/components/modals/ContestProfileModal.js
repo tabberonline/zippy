@@ -60,7 +60,6 @@ export default function ContestProfileModal({open, close}) {
   }
 
   const UpdateCard = () => {
-    setModalShow(false);
     open();
     setItem('Contestportal', portal);
     getPortalDetails(formatPortal(getItem('Contestportal')));

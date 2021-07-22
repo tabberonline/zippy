@@ -57,15 +57,21 @@
     height: 180px;
     width: 180px;
 }
-.portfolio-section .name{
+.portfolio-section .nameText{
     font: 20px 'Poppins', sans-serif;
     font-weight: 400;
+}
+.portfolio-section .name{
+    font: 20px 'Poppins', sans-serif;
+    font-weight: bold;
+    border: none;
+    background-color: inherit;
+    margin-left: 8px
 }
 .portfolio-section .desc{
     font: 20px 'Poppins', sans-serif;
     font-weight: 400;
     border: none;
-    height: 100px;
     width: 100%;
     padding: 10px 20px;
 }
@@ -82,8 +88,8 @@ textarea{
     border-radius: 8px;
 }
 .portfolio-section .card-heading{
-    font: 20px 'Poppins', sans-serif;
-    font-weight: 500;
+    font: 24px 'Poppins', sans-serif;
+    font-weight: bold;
 }
 .end-text{
     font: 20px 'Poppins', sans-serif;

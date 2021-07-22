@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getItem } from '../utility/localStorageControl';
-
 import {API_ENDPOINT} from './baseUrl';
+
 
 const authHeader = () => ({
   Authorization: `${getItem('accessToken')}`,

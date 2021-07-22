@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import '../../styles/HelperStyles.css';
 import './PortfolioScreen.css';
 import Footer from '../../components/Footer/Footer';
@@ -11,18 +11,17 @@ import ProjectModal from '../../components/modals/ProjectModal';
 import ShareModal from '../../components/modals/ShareModal';
 import SentHistoryModal from '../../components/modals/SentHistory';
 import { AiOutlineCheck, AiOutlineEdit} from 'react-icons/ai';
-import $ from 'jquery';
 import Header1 from '../../components/Header/Header1';
-import { setItem, ReversePortalMap, SuccessToast, ErrorToast } from '../../utility/localStorageControl';
-import AdminService from '../../AdminServices/AdminService';
+import { ReversePortalMap} from '../../utility/localStorageControl';
 import { ToastContainer } from 'react-toastify';
 import {isMobile} from 'react-device-detect';
 import AttachResumeModal from '../../components/modals/AttachResume';
 import SendViaEmail from '../../components/modals/SendViaEmail';
 import Loader from '../../components/Loader/Loader';
 import LinkedInProfileModal from '../../components/modals/LinkedInProfile';
-import { useSelector, useDispatch } from 'react-redux';
-import { setPortfolio, userContestWidgets, userName, userPortfolio, userProjectWidgets, userRankWidgets } from '../../features/user/userSlice';
+import { useSelector } from 'react-redux';
+import { userContestWidgets, userName, userPortfolio, userProjectWidgets, userRankWidgets } from '../../features/user/userSlice';
+import UpdatePortfolioModal from '../../components/UpdateModals/UpdatePortfolioModal';
 const API_KEY = 'AFjzy7b0VSvCEJhKDtcQ6z';
 const processAPI = 'https://cdn.filestackcontent.com';
 
@@ -32,63 +31,10 @@ function PortfolioScreen() {
   const rank_widgets = useSelector(userRankWidgets);
   const contest_widgets = useSelector(userContestWidgets);
   const project_widgets = useSelector(userProjectWidgets);
-  const dispatch = useDispatch();
   var title = portfolio && portfolio.title;
   var desc = portfolio && portfolio.description;
-  const [edit1, setedit] = useState(true);
-  const [edit2, setedit2] = useState(true);
+  var college = portfolio && portfolio.college;
   const [loader, setloader] = useState(false);
-
-  const Edit1 = () => {
-    $(".title").prop("readonly", false);
-    setedit(false);
-  } 
-  const Edit2 = () => {
-    $(".desc").prop("readonly", false);
-    setedit2(false);
-  } 
-  const Save1 = () => {
-    $(".title").prop("readonly", true);
-    setedit(true);
-    setItem('titlePortfolio', title);
-    setloader(true);
-    UpdatePortfolio();
-  } 
-  const Save2 = () => {
-    $(".desc").prop("readonly", true);
-    setedit2(true);
-    setItem('descPortfolio', desc);
-    setloader(true);
-    UpdatePortfolio();
-  } 
-  const UpdatePortfolio = async () =>{
-    if(desc.length > 0 && title.length > 0){
-      const UpdatePortfolioData = {
-        'title': title,
-        'description': desc,
-      }
-      AdminService.updatePortfolio(UpdatePortfolioData)
-        .then(resp => {
-          SuccessToast('Details Updated!')
-          AdminService.getUserData()
-            .then(resp => {
-              setloader(false);
-              dispatch(setPortfolio(resp.data))
-            })
-            .catch(err => {
-              ErrorToast("Some Error Occured.")
-              setloader(false);
-            });
-        })
-        .catch(err => {
-          ErrorToast('Error, Please retry!')
-          setloader(false);
-        });
-    } else {
-      ErrorToast('Error, Fields cannot be empty!')
-      setloader(false);
-    }
-  }
 
   return (
     <div className="#portfolio-screen">    
@@ -108,40 +54,33 @@ function PortfolioScreen() {
       <div className="flexRow mw1100 flexBetween" style={{}}>
         <SendViaEmail open={() => setloader(true)} close={() => setloader(false)} />
         <SentHistoryModal open={() => setloader(true)} close={() => setloader(false)} />
+        <UpdatePortfolioModal open={() => setloader(true)} close={() => setloader(false)} />
         <ShareModal open={() => setloader(true)} close={() => setloader(false)} />
       </div>
       <div className="mw1100">
         <div className="p-40 flexColumn portfolio-section">
           <div className="flexColumn">
             <div className="flexRow flexCenter flexAlignCenter">
-              <input type="text" style={{backgroundColor: edit1 ? 'inherit' : 'white', width: '75%'}} autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" className="title" defaultValue={title} onChange={(event) => title = event.target.value} placeholder="Portfolio Title" readOnly />
-              <div className="flexRow flexCenter flexAlignCenter iconcontainer1" style={{left: -15, top: -15}}>
-                {
-                  edit1 ? <AiOutlineEdit className="portfolio-icon" onClick={()=>Edit1()} style={{cursor: 'pointer'}} />
-                  : <AiOutlineCheck className="portfolio-icon" onClick={()=>Save1()} style={{cursor: 'pointer'}} />
-                }
-              </div>
+              <p style={{backgroundColor: 'inherit', width: '75%'}} className="title">{title}</p>
             </div>
             <hr style={{color : '#717070', width: '80%', margin: 'auto', marginTop: 10}} />
             <div className="flexColumn info-sec">
-              <p className="name mb-20 pl-20">Hello! I am <strong>{name}</strong></p>
+              <div className="flexRow  mb-20 pl-20">
+                <p className="nameText">Hello! I am <strong>{name}</strong>, a student of <strong>{college.split(',')[0]}</strong></p>
+              </div>
               <div className="flexRow">
-                <textarea style={{backgroundColor: edit2 ? 'inherit' : 'white'}} autocomplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" rows="5" className="desc" value={desc} onChange={(event) => desc = event.target.value} readOnly placeholder="Enter your College and profile description here" />
-                <div className="flexRow flexCenter flexAlignCenter iconcontainer1" style={{left: -15, top: -15}}>
-                {
-                  edit2 ?<AiOutlineEdit className="portfolio-icon" onClick={()=>Edit2()} style={{cursor: 'pointer'}} />
-                  : <AiOutlineCheck className="portfolio-icon" onClick={()=>Save2()} style={{cursor: 'pointer'}} />
-                }
-                </div>
+                <p style={{backgroundColor: 'inherit'}} className="desc">{desc}</p>
               </div>
             </div>
-            <div className="flexColumn mv-20">
-              <p className="card-heading mb-20">Resume</p>
-              <AttachResumeModal open={() => setloader(true)} close={() => setloader(false)} />
-            </div>
-            <div className="flexColumn mv-20">
-              <p className="card-heading mb-20">Socials</p>
-              <LinkedInProfileModal open={() => setloader(true)} close={() => setloader(false)} />
+            <div className="socialsRow">
+              <div className="flexColumn mv-20">
+                <p className="card-heading mb-20">Resume</p>
+                <AttachResumeModal open={() => setloader(true)} close={() => setloader(false)} />
+              </div>
+              <div className="flexColumn mv-20">
+                <p className="card-heading mb-20">Socials</p>
+                <LinkedInProfileModal open={() => setloader(true)} close={() => setloader(false)} />
+              </div>
             </div>
             <div className="coding-profile mv-20">
               <p className="card-heading mb-20">Coding Profile</p>
@@ -170,7 +109,7 @@ function PortfolioScreen() {
               </div>
             </div>
             <div className="coding-profile mv-20">
-              <p className="card-heading mb-20">Personal Projects</p>
+              <p className="card-heading mb-20">Projects</p>
               <div className="flexRow flexWrap">
                 { project_widgets && project_widgets.map(project => (
                         <ProjectCard open={() => setloader(true)} close={() => setloader(false)} name={project.title} url={project.link} img={`${processAPI}/${API_KEY}/urlscreenshot=agent:${isMobile ? 'mobile' : 'desktop'}/${project.link}`} id={project.id} hide={project.invisible} techstack={project.tech_stack} desc={project.description} />

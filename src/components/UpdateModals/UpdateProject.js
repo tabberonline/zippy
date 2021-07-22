@@ -57,7 +57,6 @@ export default function UpdateProject({projectName, projectlink, ProjectDesc, Pr
       stacks = stack;
     }
     updateWidget(id);
-    setModalShow(false);
   }
 
   function MyVerticallyCenteredModal(props) {

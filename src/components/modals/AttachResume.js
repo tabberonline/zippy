@@ -19,35 +19,39 @@ export default function AttachResumeModal({open, close}) {
 
   const ResumeAttach = async () => {
     open();
-    if(url !== portfolio.cloud_resume_link){
-      setModalShow(false);
-      AdminService.AttachResume(url)
-        .then(resp => {
-          AdminService.getUserData()
+    if(url !== ''){
+      if(url !== portfolio.cloud_resume_link){
+        setModalShow(false);
+        AdminService.AttachResume(url)
           .then(resp => {
-            setModalShow(false);
-            dispatch(setPortfolio(resp.data))
-            if(url.length > 0){
-              SuccessToast('Resume Added!');
+            AdminService.getUserData()
+            .then(resp => {
+              setModalShow(false);
+              dispatch(setPortfolio(resp.data))
+              if(url.length > 0){
+                SuccessToast('Resume Added!');
+                close();
+              } else{
+                SuccessToast('Resume Removed!')
+                close();
+              }            
+            })
+            .catch(err => {
+              ErrorToast("Some Error Occured.")
               close();
-            } else{
-              SuccessToast('Resume Removed!')
-              close();
-            }            
+            });
           })
           .catch(err => {
             ErrorToast("Some Error Occured.")
             close();
           });
-        })
-        .catch(err => {
-          ErrorToast("Some Error Occured.")
-          close();
-        });
-      } else{
-          ErrorToast("Same Link.");
-          close();
-      }
+        } else{
+            ErrorToast("Same Link.");
+            close();
+        }
+    }
+    ErrorToast("Empty field");
+    close();
   }
 
   function MyVerticallyCenteredModal(props) {
@@ -75,6 +79,7 @@ export default function AttachResumeModal({open, close}) {
 
           <span className="modal-list">• Enter a proper Gdrive/Dropbox or any cloud link.</span>
           <span className="modal-list">• Upload the file in cloud in pdf format (Recommended).</span>
+          <span className="modal-list">• Give Public Access to your shared link (Recommended).</span>
 
           <div className="share" style={{justifyContent: 'center'}}>
             <a className="flexAlignCenter modal-button" onClick={() => ResumeAttach()}>Add to profile</a>
@@ -88,12 +93,12 @@ export default function AttachResumeModal({open, close}) {
   return (
     <>
       <div className="grow1 attach-resume flexRow flexAlignCenter flexEvenly">
-        <p className="resume-head">{url !== 'https://' ? 'View attached PDF' : 'Attach your Resume'}</p>
-        {url !== 'https://' && <div style={{display: 'flex', gap: 20}}>
+        <p className="resume-head">{url && url!=='https://' ? 'View attached PDF' : 'Attach your Resume'}</p>
+        {url && url!=='https://' && <div style={{display: 'flex', gap: 20}}>
           <AiOutlineLink onClick={() => setModalShow(true)} className="grow2 attach-resume__icon" />
           <BsFillEyeFill onClick={() => window.open(url)} className="grow2 attach-resume__icon" />
         </div>}
-        {url === 'https://' &&
+        {(!url || url ==='https://') &&
           <AiOutlinePlusCircle onClick={() => setModalShow(true)} className="grow2 attach-resume__icon"/>
         }
       </div>

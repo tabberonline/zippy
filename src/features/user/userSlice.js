@@ -23,6 +23,7 @@ const userSlice = createSlice({
         logUser: (state, action) => {
             state.login = true;
             state.accessToken = action.payload.access_token;
+            return state;
         },
         logOutUser: (state, action) => {
             state.login = false;
@@ -65,11 +66,14 @@ const userSlice = createSlice({
         setHistory : (state, action) => {
             state.sent_history = action.payload.mail_history;
             state.total_mails_sent = action.payload.total_items;
+        },
+        setName: (state, action) => {
+            state.name = action.payload.name;
         }
     },
 });
 
-export const {logUser, logOutUser, setUser, setPortfolio, setRankWidgets, setContestWidgets, setProjectWidgets, setHistory} = userSlice.actions;
+export const {logUser, logOutUser, setUser, setName, setPortfolio, setRankWidgets, setContestWidgets, setProjectWidgets, setHistory} = userSlice.actions;
 
 export const userLogin = state => state.user.login;
 export const userToken = state => state.user.accessToken;
