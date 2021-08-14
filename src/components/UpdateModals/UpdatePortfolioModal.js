@@ -78,7 +78,7 @@ import axios from 'axios';
         axios.get(`${API_ENDPOINT}/university/university_list`)
           .then(res => {
             const data = Object.values(res.data);
-            setList(data);
+            setList(data.sort());
           })
       }
 
