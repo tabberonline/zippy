@@ -20,7 +20,6 @@ function AboutScreen() {
             </Animated>
             <Animated isVisible={true} animationIn="slideInUp">
               <div className="flexColumn about-section">
-                  <h1 className="about-heading">How it all began</h1>
                   <div className="flexRow flexAround flexAlignCenter dividerBottom pb-100 main-about">
                       <div className="flexColumn mv-20">
                           <div className="flexRow flexAlignCenter mainAbout">

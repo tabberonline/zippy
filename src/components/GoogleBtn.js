@@ -30,8 +30,7 @@ const GoogleBtn = ({open, close}) => {
               dispatch(setUser(resp.data));
               SuccessToast('Successfully Logged In');
               SuccessToast('User Details fetched!');
-
-              // portfolio && portfolio.id && history.push('/portfolio');
+              portfolio && portfolio.id && history.push('/portfolio');
               close();
             })
             .catch(err => {

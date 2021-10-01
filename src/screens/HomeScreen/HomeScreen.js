@@ -54,7 +54,9 @@ function HomeScreen() {
   }
 
   useEffect(() => {
+    setloader(true);
     getData();
+    QnA && setloader(false);
   }, [])
   
   return (
