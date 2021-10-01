@@ -11,6 +11,7 @@
     font: 48px 'Poppins', sans-serif;
     font-weight: 500;
     color: black;
+    text-align: center;
 }
 .about-screen #about-section .about-text{
     font: 20px 'Poppins', sans-serif;

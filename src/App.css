@@ -523,9 +523,6 @@
         display: flex;
         flex-direction: row !important;
     }
-    .about-img{
-        width: 40% !important;
-    }
 }
 @media (min-width: 992px) and (max-width: 1100px){
     #about-section{
@@ -541,6 +538,13 @@
         font: 28px 'Poppins', sans-serif !important;
         font-weight: 500 !important;
         padding-left: 20px;
+    }
+    .mainAbout{
+        display: flex;
+        flex-direction: column !important;
+    }
+    .about-img{
+        margin-bottom: 20px !important;
     }
 }
 @media (min-width: 480px) and (max-width: 599px){
@@ -1689,4 +1693,10 @@
         font: 20px 'Poppins', sans-serif !important;
         font-weight: 400 !important;
     }
+}
+
+.about-img{
+    width: 40%;
+    margin: 0 auto;
+    margin-bottom: 60px;
 }

@@ -73,7 +73,7 @@ import {API_ENDPOINT} from '../../AdminServices/baseUrl';
       axios.get(`${API_ENDPOINT}/university/university_list`)
         .then(res => {
           const data = Object.values(res.data);
-          setList(data.sort());
+          setList(data);
         })
     }
     
