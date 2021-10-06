@@ -13,6 +13,7 @@ import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { useDispatch } from 'react-redux';
 import { ClickAwayListener } from '@material-ui/core';
 import { setProjectWidgets } from '../../features/user/userSlice';
+import axios from 'axios';
 
 export default function ProjectCard({name, url, id, img, hide, open, close, techstack, desc}){
     const dispatch = useDispatch();  
@@ -120,6 +121,12 @@ export default function ProjectCard({name, url, id, img, hide, open, close, tech
         setModalShow(true);
     }
 
+    const [display, setDisplay] = useState(true);
+
+    axios.get(img)
+        .then(res => setDisplay(true))
+        .catch(err => setDisplay(false))
+
     return(
         <>
             <DeleteModal
@@ -147,8 +154,7 @@ export default function ProjectCard({name, url, id, img, hide, open, close, tech
                 ) : (
                     <div className="grow1 flexColumn project-card flexEnd" 
                         style={{  
-                            backgroundImage: img === "" ? null : `url("${img}")`,
-                            backgroundColor: 'rgba(219,219,219,1)',
+                            backgroundImage: (img === "" || !display) ? `url('https://images.unsplash.com/photo-1603145733146-ae562a55031e?ixid=MXwyNTE2NnwwfDF8c2VhcmNofDV8fHxlbnwwfHx8&ixlib=rb-1.2.1&q=85&w=2160')` : `url("${img}")`,
                             backgroundSize: 'cover',
                             backgroundRepeat: 'no-repeat',
                         }}
