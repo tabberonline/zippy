@@ -18,7 +18,7 @@ import axios from 'axios';
     const [collegeList, setList] = useState([]);
     var title = portfolio && portfolio.title;
     var desc = portfolio && portfolio.description;  
-    var college = portfolio && portfolio.college;  
+    var college = portfolio && portfolio.college_num - 1;  
     var name11 = name;
     var other= '';
 
