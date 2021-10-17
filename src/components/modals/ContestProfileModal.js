@@ -1,73 +1,90 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react';
-import '../../styles/HelperStyles.css'
-import { Modal, Form } from 'react-bootstrap';
-import {AiOutlineCloseCircle, AiOutlinePlusCircle} from 'react-icons/ai';
-import { PortalMap, setItem, getItem, ErrorToast, SuccessToast } from '../../utility/localStorageControl';
-import AdminService from '../../AdminServices/AdminService';
-import { useDispatch } from 'react-redux';
-import { setContestWidgets } from '../../features/user/userSlice';
+import React from "react";
+import "../../styles/HelperStyles.css";
+import { Modal, Form } from "react-bootstrap";
+import { AiOutlineCloseCircle, AiOutlinePlusCircle } from "react-icons/ai";
+import {
+  PortalMap,
+  setItem,
+  getItem,
+  ErrorToast,
+  SuccessToast,
+} from "../../utility/localStorageControl";
+import AdminService from "../../AdminServices/AdminService";
+import { useDispatch } from "react-redux";
+import { setContestWidgets } from "../../features/user/userSlice";
 
-export default function ContestProfileModal({open, close}) {
+export default function ContestProfileModal({ open, close }) {
   const dispatch = useDispatch();
   const [modalShow, setModalShow] = React.useState(false);
   var portal = "Eg. GeeksforGeeks, CodeChef";
-  const data = ['Geeks for Geeks', 'CodeChef', 'CodeForces', 'HackerRank', 'TopCoder', 'LeetCode'];
-  var contest = '';
-  var rank = '';
-  var username = '';
+  const data = [
+    "Geeks for Geeks",
+    "CodeChef",
+    "CodeForces",
+    "HackerRank",
+    "TopCoder",
+    "LeetCode",
+  ];
+  var contest = "";
+  var rank = "";
+  var username = "";
 
-  const formatPortal = portal => {
-    return portal.split(' ').join('').toLowerCase();
-  }
+  const formatPortal = (portal) => {
+    return portal.split(" ").join("").toLowerCase();
+  };
 
   const createWidget = async () => {
-    if(portal && username && rank && contest){
+    if (portal && username && rank && contest) {
       const contestWidgetData = {
-        'rank' : getItem('Contestrank'),
-        'website_id' : getItem('website_id'),
-        'username' : getItem('Contestusername'),
-        'contest_name': getItem('Contestname')
-      }
+        rank: getItem("Contestrank"),
+        website_id: getItem("website_id"),
+        username: getItem("Contestusername"),
+        contest_name: getItem("Contestname"),
+      };
       AdminService.createContestWidget(contestWidgetData)
-        .then(response => {
-          SuccessToast('Details Entered!')
+        .then((response) => {
+          SuccessToast("Details Entered!");
           AdminService.getUserData()
-            .then(resp => {              
+            .then((resp) => {
               dispatch(setContestWidgets(resp.data));
               close();
               setModalShow(false);
             })
-            .catch(err => ErrorToast("Some Error Occured."));
-            close();
+            .catch((err) => ErrorToast("Some Error Occured."));
+          close();
         })
-        .catch(error => {
-          ErrorToast('Error, Enter correct details!')
+        .catch((error) => {
+          ErrorToast("Error, Enter correct details!");
           close();
         });
     } else {
-      ErrorToast('Error, Fields cannot be empty!')
+      ErrorToast("Error, Fields cannot be empty!");
       close();
     }
-  }
+  };
 
   const getPortalDetails = (portal) => {
-    if(portal !== ''){
-      setItem('url', PortalMap.get(portal).url);
-      setItem('website_id', PortalMap.get(portal).id);
-      setItem('logo', PortalMap.get(portal).logo);
+    if (portal !== "") {
+      setItem("url", PortalMap.get(portal).url);
+      setItem("website_id", PortalMap.get(portal).id);
+      setItem("logo", PortalMap.get(portal).logo);
     }
-  }
+  };
 
   const UpdateCard = () => {
-    open();
-    setItem('Contestportal', portal);
-    getPortalDetails(formatPortal(getItem('Contestportal')));
-    setItem('Contestusername', username);
-    setItem('Contestrank', rank);
-    setItem('Contestname', contest);
-    createWidget();
-  }
+    if (portal && username && rank && contest) {
+      open();
+      setItem("Contestportal", portal);
+      getPortalDetails(formatPortal(getItem("Contestportal")));
+      setItem("Contestusername", username);
+      setItem("Contestrank", rank);
+      setItem("Contestname", contest);
+      createWidget();
+    } else {
+      ErrorToast("Error, Fields cannot be empty!");
+    }
+  };
 
   function MyVerticallyCenteredModal(props) {
     return (
@@ -76,47 +93,74 @@ export default function ContestProfileModal({open, close}) {
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
+        animation={false}
       >
         <div className="flexColumn">
           <div className="flexRow flexBetween flexAlignCenter mb-40">
-            <div style={{width: 20}}></div>
+            <div style={{ width: 20 }}></div>
             <h2 className="modal-head">Add Contests won</h2>
             <button onClick={props.onHide}>
-              <AiOutlineCloseCircle style={{fontSize: 40, color: 'black'}} />
+              <AiOutlineCloseCircle style={{ fontSize: 40, color: "black" }} />
             </button>
           </div>
           <Form>
-            <Form.Group controlId="formBasicEmail" className=" flexColumn mb-20">
+            <Form.Group
+              controlId="formBasicEmail"
+              className=" flexColumn mb-20"
+            >
               <Form.Label>Website Name</Form.Label>
-              <select defaultValue={portal} onChange={(e) => portal = (e.target.value)}>
-                <option value="Eg. GeeksforGeeks, CodeChef" disabled>Eg. GeeksforGeeks, CodeChef</option>
-                {data.map(platform => (
+              <select
+                defaultValue={portal}
+                onChange={(e) => (portal = e.target.value)}
+              >
+                <option value="Eg. GeeksforGeeks, CodeChef" disabled>
+                  Eg. GeeksforGeeks, CodeChef
+                </option>
+                {data.map((platform) => (
                   <option value={platform}>{platform}</option>
                 ))}
               </select>
             </Form.Group>
-  
+
             <Form.Group controlId="formBasicPassword1" className="mb-20">
               <Form.Label>Your Profile Username </Form.Label>
-              <Form.Control type="text" placeholder="Eg. abc_234" defaultValue={username} onChange={(e) => username = (e.target.value)} />
+              <Form.Control
+                type="text"
+                placeholder="Eg. abc_234"
+                defaultValue={username}
+                onChange={(e) => (username = e.target.value)}
+              />
             </Form.Group>
-  
+
             <Form.Group controlId="formBasicPassword2" className="mb-20">
               <Form.Label>Contest Name</Form.Label>
-              <Form.Control type="text" placeholder="Eg. 2020 Hackathon" defaultValue={contest} onChange={(e) => contest = (e.target.value)} />
+              <Form.Control
+                type="text"
+                placeholder="Eg. 2020 Hackathon"
+                defaultValue={contest}
+                onChange={(e) => (contest = e.target.value)}
+              />
             </Form.Group>
-  
+
             <Form.Group controlId="formBasicPassword3">
               <Form.Label>Your Rank</Form.Label>
-              <Form.Control type="text" placeholder="Eg. 2514" defaultValue={rank} onChange={(e) => rank = (e.target.value)} />
+              <Form.Control
+                type="text"
+                placeholder="Eg. 2514"
+                defaultValue={rank}
+                onChange={(e) => (rank = e.target.value)}
+              />
             </Form.Group>
-  
           </Form>
-  
-          <div className="share" style={{justifyContent: 'center'}}>
-            <a onClick={() => UpdateCard()} className="flexAlignCenter modal-button">Add to Profile</a>
+
+          <div className="share" style={{ justifyContent: "center" }}>
+            <a
+              onClick={() => UpdateCard()}
+              className="flexAlignCenter modal-button"
+            >
+              Add to Profile
+            </a>
           </div>
-  
         </div>
       </Modal>
     );
@@ -124,9 +168,12 @@ export default function ContestProfileModal({open, close}) {
 
   return (
     <>
-      <div className="grow1 flexColumn flexCenter flexAlignCenter add-card1" style={{height: 250}}>
+      <div
+        className="grow1 flexColumn flexCenter flexAlignCenter add-card1"
+        style={{ height: 250 }}
+      >
         <button onClick={() => setModalShow(true)}>
-          <AiOutlinePlusCircle style={{fontSize: 80, color: '#C0C0C0'}} />
+          <AiOutlinePlusCircle style={{ fontSize: 80, color: "#C0C0C0" }} />
         </button>
       </div>
 

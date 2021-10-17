@@ -1,136 +1,137 @@
-.history{
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    padding: 30px;
+.history {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 30px;
 }
-.history .history-button{
-    background-color: white;
-    border-radius: 8px;
-    border: none;
-    margin-right: 20px;
-    padding: 10px 30px;
-    font: 18px 'Poppins', sans-serif;
-    font-weight: 500;
-    border: 1px solid black;
+.history .history-button {
+  background-color: white;
+  border-radius: 8px;
+  border: none;
+  margin-right: 20px;
+  padding: 10px 30px;
+  font: 18px "Poppins", sans-serif;
+  font-weight: 500;
+  border: 1px solid black;
 }
-.history .history-button:hover{
-    background-color: inherit;
-    border: 1px solid black;
-    color: black;
-    padding: 7px 27px;
+.history .history-button:hover {
+  background-color: inherit;
+  border: 1px solid #00e5d8;
+  color: gray;
 }
-.share{
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    padding: 30px;
+.share {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 30px;
 }
-.share .share-button{
-    background-color: #00E5D8;
-    border-radius: 8px;
-    border: none;
-    margin-right: 20px;
-    padding: 10px 30px;
-    font: 18px 'Poppins', sans-serif;
-    font-weight: 500;
+.share .share-button {
+  background-color: #00e5d8;
+  border-radius: 8px;
+  border: none;
+  margin-right: 20px;
+  padding: 10px 30px;
+  font: 18px "Poppins", sans-serif;
+  font-weight: 500;
 }
-.share .share-button:hover{
-    background-color: inherit;
-    border: 3px solid #00E5D8;
-    color: #00E5D8;
-    padding: 7px 27px;
+.share .share-button:hover {
+  background-color: inherit;
+  border: 3px solid #00e5d8;
+  color: #00e5d8;
+  padding: 7px 27px;
 }
-.portfolio-section{
-    background: rgba(246,246,246,1);
-    border-radius: 8px;
-    margin: 0 20px 60px 20px;
+.portfolio-section {
+  background: rgba(246, 246, 246, 1);
+  border-radius: 8px;
+  margin: 0 20px 60px 20px;
 }
-.portfolio-section .title{
-    font: 48px 'Poppins', sans-serif;
-    font-weight: 500;
-    text-align: center;
-    border: none;
-    background-color: inherit;
+.portfolio-section .title {
+  font: 48px "Poppins", sans-serif;
+  font-weight: 500;
+  text-align: center;
+  border: none;
+  background-color: inherit;
 }
-.portfolio-section .profile-pic{
-    height: 180px;
-    width: 180px;
+.portfolio-section .profile-pic {
+  height: 180px;
+  width: 180px;
 }
-.portfolio-section .nameText{
-    font: 20px 'Poppins', sans-serif;
-    font-weight: 400;
+.portfolio-section .nameText {
+  font: 20px "Poppins", sans-serif;
+  font-weight: 400;
 }
-.portfolio-section .name{
-    font: 20px 'Poppins', sans-serif;
-    font-weight: bold;
-    border: none;
-    background-color: inherit;
-    margin-left: 8px
+.portfolio-section .name {
+  font: 20px "Poppins", sans-serif;
+  font-weight: bold;
+  border: none;
+  background-color: inherit;
+  margin-left: 8px;
 }
-.portfolio-section .desc{
-    font: 20px 'Poppins', sans-serif;
-    font-weight: 400;
-    border: none;
-    width: 100%;
-    padding: 10px 20px;
+.portfolio-section .desc {
+  font: 20px "Poppins", sans-serif;
+  font-weight: 400;
+  border: none;
+  width: 100%;
+  padding: 10px 20px;
 }
-textarea{
-    overflow: hidden;
-    resize: none;
+textarea {
+  overflow: hidden;
+  resize: none;
 }
-.portfolio-section .add-card, .portfolio-section .add-card1{
-    background-color: white;
-    width: 44%;
-    padding: 20px;
-    margin : 20px;
-    box-shadow: 0px 4px 8px 2px rgba(230, 230, 230, 0.25);
-    border-radius: 8px;
+.portfolio-section .add-card,
+.portfolio-section .add-card1 {
+  background-color: white;
+  width: 44%;
+  padding: 20px;
+  margin: 20px;
+  box-shadow: 0px 4px 8px 2px rgba(230, 230, 230, 0.25);
+  border-radius: 8px;
 }
-.portfolio-section .card-heading{
-    font: 24px 'Poppins', sans-serif;
-    font-weight: bold;
+.portfolio-section .card-heading {
+  font: 24px "Poppins", sans-serif;
+  font-weight: bold;
 }
-.end-text{
-    font: 20px 'Poppins', sans-serif;
-    font-weight: 500;
-    color: rgba(154,154,154,1);
-} 
-input:focus, textarea:focus{
-    border: none;
-    outline: none;
+.end-text {
+  font: 20px "Poppins", sans-serif;
+  font-weight: 500;
+  color: rgba(154, 154, 154, 1);
 }
-.portfolio-section .coding-profile button{
-    background-color: inherit;
-    border: none;
-    height: 100%;
-    width: 100%;
-    outline: none;
+input:focus,
+textarea:focus {
+  border: none;
+  outline: none;
 }
-.iconcontainer{
-    height: 30px;
-    width: 30px;
-    background-color: white;
-    border: 1px solid rgba(170,170,170,1);
-    border-radius: 20px;
-    position: absolute;
-    top: -15%;
-    right: -2%;
-    cursor: pointer;
+.portfolio-section .coding-profile button {
+  background-color: inherit;
+  border: none;
+  height: 100%;
+  width: 100%;
+  outline: none;
 }
-.iconcontainer1{
-    height: 30px;
-    width: 30px;
-    background-color: white;
-    border: 1px solid rgba(170,170,170,1);
-    border-radius: 20px;
-    position: relative;
-    cursor: pointer;
+.iconcontainer {
+  height: 30px;
+  width: 30px;
+  background-color: white;
+  border: 1px solid rgba(170, 170, 170, 1);
+  border-radius: 20px;
+  position: absolute;
+  top: -15%;
+  right: -2%;
+  cursor: pointer;
 }
-.portfolio-icon{
-    color: rgba(170,170,170,1);
-    font-size: 20px;
+.iconcontainer1 {
+  height: 30px;
+  width: 30px;
+  background-color: white;
+  border: 1px solid rgba(170, 170, 170, 1);
+  border-radius: 20px;
+  position: relative;
+  cursor: pointer;
 }
-.info-sec{
-    margin: 40px 0;
+.portfolio-icon {
+  color: rgba(170, 170, 170, 1);
+  font-size: 20px;
+}
+.info-sec {
+  margin: 40px 0;
 }
