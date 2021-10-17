@@ -7,6 +7,7 @@ import {
   ErrorToast,
   SuccessToast,
   WarningToast,
+  graduationYears,
 } from "../../utility/localStorageControl";
 import AdminService from "../../AdminServices/AdminService";
 import { useSelector, useDispatch } from "react-redux";
@@ -31,22 +32,28 @@ export default function PortfolioModal({ home, open, close }) {
   const [modalShow, setModalShow] = useState(false);
   const [apicall, setcall] = useState("");
   const [collegeList, setList] = useState([]);
-  var title = "";
-  var desc = "";
-  var college = -1;
-  var other = null;
+  const [educationLevels, setEducationLevels] = useState([]);
+
+  let title = "";
+  let desc = "";
+  let college = -1;
+  let other = null;
+  let gradYear = 2020;
+  let educationLevel = "postgraduate";
 
   const createPortfolio = async () => {
     if (token === "") {
       ErrorToast("Access Token not Retrieved!");
     } else {
-      if (title && desc && college) {
+      if (title && desc && college && gradYear && educationLevel) {
         const portfolioData = {
           title: title,
           picture_url: image,
           description: desc,
-          college: college,
+          college: other.length >= 1 ? -1 : college,
           college_others: other,
+          graduation_year: gradYear,
+          education_level: educationLevel,
         };
         AdminService.createPortfolio(portfolioData)
           .then((resp) => {
@@ -86,9 +93,22 @@ export default function PortfolioModal({ home, open, close }) {
     });
   };
 
+  const getEducationLevels = () => {
+    axios
+      .get(`${API_ENDPOINT}/fe/get?page_type=portfolio&key=education_level`)
+      .then((res) => {
+        const data2 = Object.keys(res.data.value);
+        setEducationLevels(data2);
+      })
+      .catch((err) => {
+        console.log("Something went wrong!", err);
+      });
+  };
+
   useEffect(() => {
     !home && !portfolio && setModalShow(true);
     getUnivList();
+    getEducationLevels();
   }, []);
 
   function MyVerticallyCenteredModal(props) {
@@ -143,9 +163,43 @@ export default function PortfolioModal({ home, open, close }) {
               <Form.Control
                 type="text"
                 defaultValue={other}
-                onChange={(e) => (other = e.target.value)}
+                onChange={(e) => (other = e.target.value.trim())}
                 placeholder="Eg. Thapar University, Patiala"
               />
+            </Form.Group>
+            <Form.Group controlId="formBasic7" className="flexColumn mb-20">
+              <Form.Label>
+                Education Level<span style={{ color: "red" }}>*</span>
+              </Form.Label>
+              <select
+                defaultValue={educationLevel}
+                onChange={(e) => (educationLevel = e.target.value)}
+              >
+                <option value="Eg. Undergraduate" disabled>
+                  Eg. Undergraduate
+                </option>
+                {educationLevels.map((eduLevel) => (
+                  <option value={eduLevel}>
+                    {eduLevel.charAt(0).toUpperCase() + eduLevel.slice(1)}
+                  </option>
+                ))}
+              </select>
+            </Form.Group>
+            <Form.Group controlId="formBasic6" className="flexColumn mb-20">
+              <Form.Label>
+                Graduation Year<span style={{ color: "red" }}>*</span>
+              </Form.Label>
+              <select
+                defaultValue={gradYear}
+                onChange={(e) => (gradYear = e.target.value)}
+              >
+                <option value="year" disabled>
+                  Year
+                </option>
+                {graduationYears.map((year) => (
+                  <option value={year.gradYear}>{year.gradYear}</option>
+                ))}
+              </select>
             </Form.Group>
             <Form.Group controlId="formBasic2">
               <Form.Label>

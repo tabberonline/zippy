@@ -37,9 +37,23 @@ function PortfolioScreen() {
   const rank_widgets = useSelector(userRankWidgets);
   const contest_widgets = useSelector(userContestWidgets);
   const project_widgets = useSelector(userProjectWidgets);
-  var title = portfolio && portfolio.title;
-  var desc = portfolio && portfolio.description;
-  var college = portfolio && portfolio.college;
+
+  let title = portfolio && portfolio.title;
+  let desc = portfolio && portfolio.description;
+  let college = portfolio && portfolio.college;
+  let educationLevel = portfolio && portfolio.education_level;
+
+  let text = "";
+  educationLevel === "postgraduate"
+    ? (text = "a postgraduate passout from ")
+    : educationLevel === "undergraduate"
+    ? (text = "an undergraduate passout from ")
+    : educationLevel === "pursuing postgraduation"
+    ? (text = "a postgraduate student of ")
+    : educationLevel === "pursuing undergraduation"
+    ? (text = "an undergraduate student of ")
+    : (text = "a student of ");
+
   const [loader, setloader] = useState(false);
 
   return (
@@ -94,7 +108,7 @@ function PortfolioScreen() {
             <div className="flexColumn info-sec">
               <div className="flexRow  mb-20 pl-20">
                 <p className="nameText">
-                  Hello! I am <strong>{name}</strong>, a student of{" "}
+                  Hello! I am <strong>{name}</strong>, {text}{" "}
                   <strong>{college && college.split(",")[0]}</strong>
                 </p>
               </div>

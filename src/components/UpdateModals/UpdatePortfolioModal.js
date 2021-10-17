@@ -3,7 +3,11 @@ import React, { useState, useEffect } from "react";
 import "../../styles/HelperStyles.css";
 import { Form, Modal } from "react-bootstrap";
 import { AiOutlineCloseCircle } from "react-icons/ai";
-import { ErrorToast, SuccessToast } from "../../utility/localStorageControl";
+import {
+  ErrorToast,
+  SuccessToast,
+  graduationYears,
+} from "../../utility/localStorageControl";
 import AdminService from "../../AdminServices/AdminService";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -21,20 +25,27 @@ export default function UpdatePortfolioModal({ open, close }) {
   const portfolio = useSelector(userPortfolio);
   const [modalShow, setModalShow] = useState(false);
   const [collegeList, setList] = useState([]);
-  var title = portfolio && portfolio.title;
-  var desc = portfolio && portfolio.description;
-  var college = portfolio && portfolio.college_num - 1;
-  var name11 = name;
-  var other = "";
+  const [educationLevels, setEducationLevels] = useState([]);
+
+  let title = portfolio && portfolio.title;
+  let desc = portfolio && portfolio.description;
+  let college = portfolio && portfolio.college_num - 1;
+  let name11 = name;
+  let other = "";
+  let gradYear = portfolio && portfolio.graduation_year;
+  let educationLevel = portfolio && portfolio.education_level;
 
   const UpdatePortfolio = async () => {
     if (desc.length > 0 && title.length > 0) {
       const UpdatePortfolioData = {
         title: title,
         description: desc,
-        college: college,
+        college: other.length >= 1 ? -1 : college,
         college_others: other,
+        graduation_year: gradYear,
+        education_level: educationLevel,
       };
+
       AdminService.updatePortfolio(UpdatePortfolioData)
         .then((resp) => {
           SuccessToast("Details Updated!");
@@ -86,6 +97,18 @@ export default function UpdatePortfolioModal({ open, close }) {
     });
   };
 
+  const getEducationLevels = () => {
+    axios
+      .get(`${API_ENDPOINT}/fe/get?page_type=portfolio&key=education_level`)
+      .then((res) => {
+        const data2 = Object.keys(res.data.value);
+        setEducationLevels(data2);
+      })
+      .catch((err) => {
+        console.log("Something went wrong!", err);
+      });
+  };
+
   const Add = () => {
     open();
     UpdatePortfolio();
@@ -93,6 +116,7 @@ export default function UpdatePortfolioModal({ open, close }) {
 
   useEffect(() => {
     getUnivList();
+    getEducationLevels();
   }, []);
 
   function MyVerticallyCenteredModal(props) {
@@ -158,9 +182,43 @@ export default function UpdatePortfolioModal({ open, close }) {
               <Form.Control
                 type="text"
                 defaultValue={other}
-                onChange={(e) => (other = e.target.value)}
+                onChange={(e) => (other = e.target.value.trim())}
                 placeholder="Eg. Thapar University, Patiala"
               />
+            </Form.Group>
+            <Form.Group controlId="formBasic7" className="flexColumn mb-20">
+              <Form.Label>
+                Education Level<span style={{ color: "red" }}>*</span>
+              </Form.Label>
+              <select
+                defaultValue={educationLevel}
+                onChange={(e) => (educationLevel = e.target.value)}
+              >
+                <option value="Eg. Undergraduate" disabled>
+                  Eg. Undergraduate
+                </option>
+                {educationLevels.map((eduLevel) => (
+                  <option value={eduLevel}>
+                    {eduLevel.charAt(0).toUpperCase() + eduLevel.slice(1)}
+                  </option>
+                ))}
+              </select>
+            </Form.Group>
+            <Form.Group controlId="formBasic6" className="flexColumn mb-20">
+              <Form.Label>
+                Graduation Year<span style={{ color: "red" }}>*</span>
+              </Form.Label>
+              <select
+                defaultValue={gradYear}
+                onChange={(e) => (gradYear = e.target.value)}
+              >
+                <option value="year" disabled>
+                  Year
+                </option>
+                {graduationYears.map((year) => (
+                  <option value={year.gradYear}>{year.gradYear}</option>
+                ))}
+              </select>
             </Form.Group>
             <Form.Group controlId="formBasic2">
               <Form.Label>
