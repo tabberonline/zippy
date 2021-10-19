@@ -114,17 +114,27 @@ const WarningToast = (text) => {
 
 // Graduation year
 const graduationYears = [
-  { id: "0", gradYear: 2020 },
-  { id: "1", gradYear: 2021 },
-  { id: "2", gradYear: 2022 },
-  { id: "3", gradYear: 2023 },
-  { id: "4", gradYear: 2024 },
-  { id: "5", gradYear: 2025 },
-  { id: "6", gradYear: 2026 },
-  { id: "7", gradYear: 2027 },
-  { id: "8", gradYear: 2028 },
-  { id: "9", gradYear: 2029 },
-  { id: "10", gradYear: 2030 },
+  { id: "0", gradYear: 2010 },
+  { id: "1", gradYear: 2011 },
+  { id: "2", gradYear: 2012 },
+  { id: "3", gradYear: 2013 },
+  { id: "4", gradYear: 2014 },
+  { id: "5", gradYear: 2015 },
+  { id: "6", gradYear: 2016 },
+  { id: "7", gradYear: 2017 },
+  { id: "8", gradYear: 2018 },
+  { id: "9", gradYear: 2019 },
+  { id: "10", gradYear: 2020 },
+  { id: "11", gradYear: 2021 },
+  { id: "12", gradYear: 2022 },
+  { id: "13", gradYear: 2023 },
+  { id: "14", gradYear: 2024 },
+  { id: "15", gradYear: 2025 },
+  { id: "16", gradYear: 2026 },
+  { id: "17", gradYear: 2027 },
+  { id: "18", gradYear: 2028 },
+  { id: "19", gradYear: 2029 },
+  { id: "20", gradYear: 2030 },
 ];
 
 export {

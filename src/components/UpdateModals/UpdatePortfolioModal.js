@@ -31,12 +31,16 @@ export default function UpdatePortfolioModal({ open, close }) {
   let desc = portfolio && portfolio.description;
   let college = portfolio && portfolio.college_num - 1;
   let name11 = name;
-  let other = "";
+  let other = portfolio && portfolio.college_num !== -1 ? "" : portfolio && portfolio.college;
   let gradYear = portfolio && portfolio.graduation_year;
   let educationLevel = portfolio && portfolio.education_level;
 
   const UpdatePortfolio = async () => {
-    if (desc.length > 0 && title.length > 0) {
+    if (
+      desc.length > 0 &&
+      title.length > 0 &&
+      (college !== -2 || other.length > 0)
+    ) {
       const UpdatePortfolioData = {
         title: title,
         description: desc,
@@ -165,13 +169,16 @@ export default function UpdatePortfolioModal({ open, close }) {
               </Form.Label>
               <select
                 defaultValue={college}
-                onChange={(e) => (college = e.target.value)}
+                onChange={(e) => {
+                  other = "";
+                  return (college = e.target.value);
+                }}
               >
-                <option value="Eg. TIET, BITS" disabled>
-                  Eg. TIET, BITS, IIIT
+                <option value="Select Your College/University">
+                  Select Your College/University
                 </option>
                 {collegeList.map((college, index) => (
-                  <option value={index}>{college.split(",")[0]}</option>
+                  <option value={index}>{college}</option>
                 ))}
               </select>
             </Form.Group>
@@ -182,7 +189,9 @@ export default function UpdatePortfolioModal({ open, close }) {
               <Form.Control
                 type="text"
                 defaultValue={other}
-                onChange={(e) => (other = e.target.value.trim())}
+                onChange={(e) => {
+                  other = e.target.value.trim();
+                }}
                 placeholder="Eg. Thapar University, Patiala"
               />
             </Form.Group>
