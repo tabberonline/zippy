@@ -37,15 +37,15 @@ export default function PortfolioModal({ home, open, close }) {
   let title = "";
   let desc = "";
   let college = -1;
-  let other = null;
-  let gradYear = 2020;
+  let other = "";
+  let gradYear = 2010;
   let educationLevel = "postgraduate";
 
   const createPortfolio = async () => {
     if (token === "") {
       ErrorToast("Access Token not Retrieved!");
     } else {
-      if (title && desc && college && gradYear && educationLevel) {
+      if (title && desc && gradYear && educationLevel && (college !== -1 || other !== "")) {
         const portfolioData = {
           title: title,
           picture_url: image,
@@ -148,11 +148,11 @@ export default function PortfolioModal({ home, open, close }) {
                 defaultValue={college}
                 onChange={(e) => (college = e.target.value)}
               >
-                <option value="Eg. TIET, BITS" disabled>
-                  Eg. TIET, BITS, IIIT
+                <option value="Select Your College/University">
+                  Select Your College/University
                 </option>
                 {collegeList.map((college, index) => (
-                  <option value={index}>{college.split(",")[0]}</option>
+                  <option value={index}>{college}</option>
                 ))}
               </select>
             </Form.Group>
@@ -215,7 +215,7 @@ export default function PortfolioModal({ home, open, close }) {
           </Form>
 
           <div className="share" style={{ justifyContent: "center" }}>
-            <a onClick={() => Add()} className="flexAlignCenter modal-button">
+            <a onClick={() => {Add(); setModalShow(false);}} className="flexAlignCenter modal-button">
               Create Portfolio
             </a>
           </div>
