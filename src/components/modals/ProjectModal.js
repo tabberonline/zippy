@@ -118,7 +118,7 @@ export default function ProjectModal({ open, close }) {
 
           <div className="share" style={{ justifyContent: "center" }}>
             <a
-              onClick={() => UpdateCard()}
+              onClick={() => {UpdateCard(); setModalShow(false);}}
               className="flexAlignCenter modal-button"
             >
               Add to Profile
