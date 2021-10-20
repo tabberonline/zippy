@@ -243,7 +243,7 @@ export default function UpdatePortfolioModal({ open, close }) {
           </Form>
 
           <div className="share" style={{ justifyContent: "center" }}>
-            <a onClick={() => Add()} className="flexAlignCenter modal-button">
+            <a onClick={() => {Add(); setModalShow(false);} } className="flexAlignCenter modal-button">
               Update Portfolio
             </a>
           </div>
