@@ -91,7 +91,7 @@ export default function AttachResumeModal({ open, close }) {
                 class="form-control"
                 defaultValue={url ? url : ""}
                 placeholder="Example https://www.gdrive.com/profile/abc,.pdf"
-                onChange={(event) => (url = event.target.value)}
+                onChange={(event) => (url = event.target.value.trim())}
               />
             </Form.Group>
           </Form>

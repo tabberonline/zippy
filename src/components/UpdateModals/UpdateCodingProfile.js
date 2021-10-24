@@ -157,7 +157,7 @@ export default function UpdateCodingProfile({
 
           <div className="share" style={{ justifyContent: "center" }}>
             <a
-              onClick={() => UpdateCard()}
+              onClick={() => {UpdateCard(); setModalShow(false);}}
               className="flexAlignCenter modal-button"
             >
               Update Profile

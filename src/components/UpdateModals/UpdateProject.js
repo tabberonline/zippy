@@ -99,7 +99,7 @@ export default function UpdateProject({projectName, projectlink, ProjectDesc, Pr
           </Form>
   
           <div className="share" style={{justifyContent: 'center'}}>
-            <a onClick={() => UpdateCard(project_id)} className="flexAlignCenter modal-button">Update Card</a>
+            <a onClick={() =>{ UpdateCard(project_id); setModalShow(false);}} className="flexAlignCenter modal-button">Update Card</a>
           </div>
   
         </div>
