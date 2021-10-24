@@ -161,7 +161,7 @@ export default function UpdateContestProfile({
 
           <div className="share" style={{ justifyContent: "center" }}>
             <a
-              onClick={() => UpdateCard(card_id)}
+              onClick={() => {UpdateCard(card_id); setModalShow(false);}}
               className="flexAlignCenter modal-button"
             >
               Update Profile
