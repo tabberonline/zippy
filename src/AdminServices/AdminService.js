@@ -62,5 +62,11 @@ export default {
   },
   UpdateName: async (name) =>{
     return DataService.get(`/user/update/user_name?userName=${name}`)
-  }
+  },
+  GetCookie:  async () => {
+    return DataService.get(`/user/get/cookie`)
+  },
+  SetCookie: async () => {
+    return DataService.get(`/user/update/cookie`)
+  },
 }
