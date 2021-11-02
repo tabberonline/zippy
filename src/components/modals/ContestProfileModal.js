@@ -170,7 +170,6 @@ export default function ContestProfileModal({ open, close }) {
     <>
       <div
         className="grow1 flexColumn flexCenter flexAlignCenter add-card1"
-        style={{ height: 250 }}
       >
         <button onClick={() => setModalShow(true)}>
           <AiOutlinePlusCircle style={{ fontSize: 80, color: "#C0C0C0" }} />

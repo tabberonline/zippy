@@ -135,3 +135,18 @@ textarea:focus {
 .info-sec {
   margin: 40px 0;
 }
+.courses{
+  background-color: inherit;
+  border: none;
+  height: 100%;
+  width: 100%;
+  outline: none;
+}
+.courseList{
+  margin: 20px;
+  padding: 28px 24px;
+  background-color: white;
+  width: 92%;
+  box-shadow: 0px 4px 8px 2px rgb(230 230 230 / 25%);
+  border-radius: 8px;
+}

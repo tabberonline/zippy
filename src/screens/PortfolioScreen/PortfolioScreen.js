@@ -134,6 +134,12 @@ function PortfolioScreen() {
                 />
               </div>
             </div>
+            <div className="courses mv-20">
+              <p className="card-heading mb-20">Courses Taken</p>
+              <div className="courseList grow5">
+                Hello
+              </div>
+            </div>
             <div className="coding-profile mv-20">
               <p className="card-heading mb-20">Coding Profile</p>
               <div className="flexRow flexWrap">
