@@ -154,6 +154,16 @@ function DisplayScreen() {
 
     if(isLoggedin) {
       cookieAcceptStatus(checkCookie1);
+
+      if(checkCookie1) {
+        AdminService.SetCookie()
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch(() => {
+          ErrorToast('Something went wrong');
+        })
+      }
       
       if(cookieStatus && !checkCookie1) {
         setCookie1('cookieAccepted', true, 365);
