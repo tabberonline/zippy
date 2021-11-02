@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react';
+import { useSelector } from "react-redux";
 import '../../styles/HelperStyles.css';
 import './DisplayScreen.css';
 import Footer from '../../components/Footer/Footer';
-import {ErrorToast, ReversePortalMap} from '../../utility/localStorageControl';
+import { ErrorToast, ReversePortalMap } from '../../utility/localStorageControl';
 import CodingCardDisplay from '../../components/CodingCard/CodingCardDisplay';
 import ContestCardDisplay from '../../components/ContestCard/ContestCardDisplay';
 import ProjectCardDisplay from '../../components/ProjectCard/ProjectCardDisplay';
+import CookiePopup from '../../components/Cookie/CookiePopup';
 import {isMobile} from 'react-device-detect';
 import Axios from 'axios';
 import {API_ENDPOINT} from '../../AdminServices/baseUrl';
@@ -14,16 +16,20 @@ import Loader from '../../components/Loader/Loader';
 import { BsFillEyeFill } from 'react-icons/bs';
 import { AiOutlineLinkedin } from 'react-icons/ai';
 import { useHistory } from 'react-router-dom';
+import { userToken } from '../../features/user/userSlice';
+import AdminService from '../../AdminServices/AdminService';
 const API_KEY = 'AFjzy7b0VSvCEJhKDtcQ6z';
 const processAPI = 'https://cdn.filestackcontent.com';
 
-
 function DisplayScreen() {
+  const accessToken = useSelector(userToken);
   const [userData, setData] = useState([]);
   const [loader, setloader] = useState(false);
   const [RankWidgets, setRank] = useState([]);
   const [ContestWidgets, setContests] = useState([]);
   const [ProjectWidgets, setProjects] = useState([]);
+  const [showCookiePopup, setShowCookiePopup] = useState(false);
+  const [cookieStatus, setCookieStatus] = useState(null);
 
   useEffect(() => {
     const getIDFromURL = () => {
@@ -44,6 +50,133 @@ function DisplayScreen() {
         setloader(false);
       })
   }, [])
+
+  const showPopupHandler = () => {
+    setShowCookiePopup(true);
+  };
+  const hidePopupHandler = () => {
+    setShowCookiePopup(false);
+  };
+
+  const generateUUID = () => {
+    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+      (c ^ ((crypto.getRandomValues(new Uint8Array(1))[0] & 15) >> (c / 4))).toString(16)
+    );
+  };
+
+  const setCookie1 = (cname,cvalue,exdays) => {
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    let expires = "expires=" + d.toGMTString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  };
+
+  const setCookie2 = (cname,cvalue) => {
+    const d = new Date();
+    d.setTime(d.getTime() + (60*60*1000));
+    let expires = "expires=" + d.toGMTString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  };
+  
+  const getCookie = (cname) => {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+
+    for(let i = 0; i <ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) === ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) === 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  };
+
+  const checkCookie = (cname) => {
+    const check = getCookie(cname);
+    if(check) {
+      return true;
+    }
+    return false;
+  };
+  
+  const cookieAcceptStatus = (checkCookie1) => {
+    AdminService.GetCookie()
+      .then(responce => {
+        if(responce.data){
+          setCookieStatus(true);
+        } else {
+          setCookieStatus(false);
+          if(!cookieStatus) {
+            if(!checkCookie1){
+              showPopupHandler();
+            }
+          }
+        }
+      })
+      .catch(() => {
+        ErrorToast('Something Went Wrong!');
+      })
+  };
+  
+  const acceptCookieHandler = () => {
+    let uuid = null;
+    let isLoggedin;
+
+    accessToken === null ? isLoggedin = false : isLoggedin = true;
+    const checkCookie1 = checkCookie('cookieAccepted');
+
+    if(!checkCookie1){
+      setCookie1('cookieAccepted', true, 365);
+      uuid = generateUUID();
+      setCookie2('uuid', uuid);
+    }
+    if(isLoggedin) {
+      AdminService.SetCookie()
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch(() => {
+          ErrorToast('Something went wrong');
+        })
+    }
+    setShowCookiePopup(false);
+  };
+  
+
+  useEffect(() => {
+    let isLoggedin;
+    accessToken === null ? isLoggedin = false : isLoggedin = true;
+    const checkCookie1 = checkCookie('cookieAccepted');
+
+    if(isLoggedin) {
+      cookieAcceptStatus(checkCookie1);
+      
+      if(cookieStatus && !checkCookie1) {
+        setCookie1('cookieAccepted', true, 365);
+        const checkCookie2 = checkCookie('uuid');
+        if(!checkCookie2) {
+          let uuid = generateUUID();
+          setCookie2('uuid', uuid);
+        }
+      }
+    } else {
+      if(!checkCookie1) {
+        showPopupHandler();
+      }
+    }
+    // if cookie2 has expired then generate new uuid
+    if(checkCookie1) {
+      const checkCookie2 = checkCookie('uuid');
+      if(!checkCookie2) {
+        let uuid = generateUUID();
+        setCookie2('uuid', uuid);
+      }
+    }
+  }, [accessToken, cookieStatus]);
 
   const adjustData = (data) => {
     var abc = data && data.rank_widgets && data.rank_widgets.filter(profile => profile.invisible === false);
@@ -69,7 +202,7 @@ function DisplayScreen() {
                 <p className="desc">{user.portfolio.description}</p>
               </div>
               <div className="socialsRow">
-                {user.portfolio.cloud_resume_link !== '' ? (
+                {user.portfolio.cloud_resume_link !== 'https://' ? (
                   <div className="flexColumn mv-20">
                     <p className="card-heading mb-20">Resume</p>
                     <div className="grow1 attach-resume flexRow flexAlignCenter flexEvenly">
@@ -140,6 +273,7 @@ function DisplayScreen() {
         </div>
       </div>
       <Footer />
+      <CookiePopup show={showCookiePopup} hidePopup={hidePopupHandler} acceptCookie={acceptCookieHandler}/>
     </div>
   );
 }
