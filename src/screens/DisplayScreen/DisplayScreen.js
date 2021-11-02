@@ -18,7 +18,7 @@ import { AiOutlineLinkedin } from 'react-icons/ai';
 import { useHistory } from 'react-router-dom';
 import { userToken } from '../../features/user/userSlice';
 import AdminService from '../../AdminServices/AdminService';
-const API_KEY = 'AFjzy7b0VSvCEJhKDtcQ6z';
+const API_KEY = 'AJYGpQcugTouk4olbrEfWz';
 const processAPI = 'https://cdn.filestackcontent.com';
 
 function DisplayScreen() {

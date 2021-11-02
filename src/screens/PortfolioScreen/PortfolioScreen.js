@@ -28,7 +28,7 @@ import {
   userRankWidgets,
 } from "../../features/user/userSlice";
 import UpdatePortfolioModal from "../../components/UpdateModals/UpdatePortfolioModal";
-const API_KEY = "AFjzy7b0VSvCEJhKDtcQ6z";
+const API_KEY = "AJYGpQcugTouk4olbrEfWz";
 const processAPI = "https://cdn.filestackcontent.com";
 
 function PortfolioScreen() {
