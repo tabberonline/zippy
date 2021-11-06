@@ -119,6 +119,15 @@ textarea:focus {
   right: -2%;
   cursor: pointer;
 }
+.iconcontainerCourse{
+  height: 30px;
+  width: 30px;
+  background-color: white;
+  border: 1px solid rgba(170, 170, 170, 1);
+  border-radius: 20px;
+  position: absolute;
+  cursor: pointer;
+}
 .iconcontainer1 {
   height: 30px;
   width: 30px;
@@ -154,6 +163,7 @@ textarea:focus {
   cursor: pointer;
 }
 .course-card{
+  position: relative;
   padding: 10px;
   padding-bottom: 20px;
   gap: 24px;
@@ -185,4 +195,39 @@ textarea:focus {
 .viewCourses__text{
   font: 20px 'Poppins';
   color: #202C39;
+}
+.drawerImg{
+  height: 30px;
+  width: 30px;
+  margin-right: 10px
+}
+.drawerImg1{
+  height: 30px;
+  width: 30px;
+  margin-bottom: 10px
+}
+.drawerOption{
+  margin-bottom: 10px;
+  position: relative;
+  right: 40px;
+  cursor: pointer
+}
+.drawerOption1{
+  margin-bottom: 10px;
+  position: relative;
+  left: 40px;
+  cursor: pointer
+}
+.projectCardHD{
+  font-size: 30px;
+  position: absolute;
+  top: 0px;
+  height: 60%;
+  width: 100%; 
+  cursor: pointer
+}
+.contestProfile{
+  position: absolute;
+  top: -15%;
+  right:-2%
 }

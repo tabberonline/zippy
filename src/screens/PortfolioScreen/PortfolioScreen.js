@@ -151,10 +151,26 @@ function PortfolioScreen() {
               {course_widgets.length > 0 ? (
                 <div className="flexColumn courseList grow5">
                   {!courses && course_widgets.slice(0,2).map((course) => (
-                    <CourseCard name={course.course_name} link={course.certificate_link} issuer={course.issuer} />
+                    <CourseCard
+                      name={course.course_name}
+                      link={course.certificate_link}
+                      issuer={course.issuer}
+                      open={() => setloader(true)}
+                      close={() => setloader(false)}
+                      id={course.id}
+                      hide={course.invisible}
+                    />
                   ))}
                   {courses && course_widgets.map((course) => (
-                    <CourseCard name={course.course_name} link={course.certificate_link} issuer={course.issuer} />
+                    <CourseCard
+                      name={course.course_name}
+                      link={course.certificate_link}
+                      issuer={course.issuer}
+                      id={course.id}
+                      open={() => setloader(true)}
+                      close={() => setloader(false)}
+                      hide={course.invisible}
+                    />
                   ))}
                   {
                     courses && <div className="viewCourses flexRow flexCenter" onClick={() => showCourses(false)}>
