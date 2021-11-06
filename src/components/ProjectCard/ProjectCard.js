@@ -133,7 +133,6 @@ export default function ProjectCard({name, url, id, img, hide, open, close, tech
                 show={modalShow}
                 onHide={() => setModalShow(false)}
             />
-            {console.log(img, display)}
             {
                 invisible ? (
                     <div className="grow1 flexColumn project-card flexEnd" 
