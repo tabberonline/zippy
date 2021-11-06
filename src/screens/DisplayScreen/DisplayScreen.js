@@ -51,7 +51,7 @@ function DisplayScreen() {
   const sendTrakingId = async(uuid) => {
     const getIDFromURL = () => {
       setloader(true);
-      return window.location.href.split('?')[1].split('=')[1];
+      return window.location.href.split('d/')[1];
     };
     const user_id = getIDFromURL();
     Axios.get(`${API_ENDPOINT}/user/guest/resume?id=${user_id}&trakingId=${uuid}`)
@@ -192,7 +192,7 @@ function DisplayScreen() {
   useEffect(() => {
     const getIDFromURL = () => {
       setloader(true);
-      return window.location.href.split('?')[1].split('=')[1];
+      return window.location.href.split('d/')[1];
     };
     const user_id = getIDFromURL();
 

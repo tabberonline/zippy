@@ -5,12 +5,12 @@ import { Modal, Form } from 'react-bootstrap';
 import {AiOutlineCloseCircle} from 'react-icons/ai';
 import { SuccessToast } from '../../utility/localStorageControl';
 import { useSelector } from 'react-redux';
-import { userID } from '../../features/user/userSlice';
+import { userPortfolioLink } from '../../features/user/userSlice';
 
 export default function ShareModal({id, open, close}) {
-  const ID = useSelector(userID);
+  const ID = useSelector(userPortfolioLink);
   const [modalShow, setModalShow] = React.useState(false);
-  const url = `https://tabber.online/d?id=${ID}`;
+  const url = `https://${ID}`;
   const textAreaRef = useRef(null);
 
   const CopyText = (e) => {

@@ -28,7 +28,7 @@ function App() {
           <Route exact path="/portfolio">
             {accessToken ? <PortfolioScreen /> : <Redirect to="/home" />}
           </Route>
-          <Route exact path="/d" component={DisplayScreen} />
+          <Route exact path="/d/:id" component={DisplayScreen} />
           <Route exact path="/about" component={AboutScreen} />
           <Route exact path="/contact" component={ContactScreen} />
           <Route exact path="/policy" component={PolicyScreen} />
