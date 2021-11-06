@@ -28,6 +28,7 @@ import {
   userRankWidgets,
 } from "../../features/user/userSlice";
 import UpdatePortfolioModal from "../../components/UpdateModals/UpdatePortfolioModal";
+import AddCourseModal from "../../components/modals/AddCourseModal";
 const API_KEY = "AJYGpQcugTouk4olbrEfWz";
 const processAPI = "https://cdn.filestackcontent.com";
 
@@ -135,7 +136,13 @@ function PortfolioScreen() {
               </div>
             </div>
             <div className="courses mv-20">
-              <p className="card-heading mb-20">Courses Taken</p>
+              <div className="flexRow flexBetween flexAlignCenter mb-20">
+                <p className="card-heading">Courses Taken</p>
+                <AddCourseModal
+                  open={() => setloader(true)}
+                  close={() => setloader(false)}
+                />
+              </div>
               <div className="courseList grow5">
                 Hello
               </div>
