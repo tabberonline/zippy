@@ -66,7 +66,7 @@ export default function AddCourseModal({ open, close }) {
           </div>
           <Form>
             <Form.Group controlId="formBasicEmail" className="mb-20">
-              <Form.Label>Course Name</Form.Label>
+              <Form.Label>Course Name*</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Eg.  Data Structures & Algorithm"
@@ -77,7 +77,7 @@ export default function AddCourseModal({ open, close }) {
 
             <Form.Group controlId="formBasicEmail2" className="mb-20">
               <Form.Label>
-                Institute Name
+                Institute Name*
               </Form.Label>
               <Form.Control
                 type="text"
@@ -88,7 +88,7 @@ export default function AddCourseModal({ open, close }) {
             </Form.Group>
 
             <Form.Group controlId="formBasicEmail3" className="mb-20">
-              <Form.Label>Course Link</Form.Label>
+              <Form.Label>Course Certification Link</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Eg.  https://www.google.com"
