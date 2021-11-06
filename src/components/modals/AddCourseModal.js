@@ -1,19 +1,51 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {useRef} from "react";
+import React from "react";
 import "../../styles/HelperStyles.css";
 import { Modal, Form } from "react-bootstrap";
 import { AiOutlineCloseCircle, AiOutlinePlusCircle } from "react-icons/ai";
 import AdminService from "../../AdminServices/AdminService";
 import { ErrorToast, SuccessToast } from "../../utility/localStorageControl";
 import { useDispatch } from "react-redux";
-import { setProjectWidgets } from "../../features/user/userSlice";
+import { setCourses } from "../../features/user/userSlice";
 
 export default function AddCourseModal({ open, close }) {
   const dispatch = useDispatch();
   const [modalShow, setModalShow] = React.useState(false);
-  const CourseName = useRef("");
-  const InstituteName = useRef("");
-  const CourseLink = useRef("");
+  let CourseName = "";
+  let InstituteName = "";
+  let CourseLink = "";
+
+  const AddCourse = () => {
+    open();
+    if(CourseName && InstituteName && CourseLink){
+        let CourseData = {
+            "course_name": CourseName,
+            "issuer": InstituteName,
+            "certificate_link": CourseLink
+        }
+        AdminService.createCourseWidget(CourseData)
+        .then(res => {
+          SuccessToast("Details Entered!");
+          AdminService.getUserData()
+            .then((resp) => {
+              dispatch(setCourses(resp.data));
+              close();
+              setModalShow(false);
+            })
+            .catch(err => {
+              ErrorToast("Some Error Occured.");
+              close();
+            });
+        })
+        .catch(error => {
+          ErrorToast("Error, Enter correct details!");
+          close();
+        });
+    } else {
+      ErrorToast("Error, Fields cannot be empty!");
+      close();
+    }
+  }
 
   function MyVerticallyCenteredModal(props) {
     return (
@@ -38,8 +70,8 @@ export default function AddCourseModal({ open, close }) {
               <Form.Control
                 type="text"
                 placeholder="Eg.  Data Structures & Algorithm"
-                ref={CourseName}
-                onChange={(e) => (CourseName.current = e.target.value)}
+                defaultValue={CourseName}
+                onChange={(e) => (CourseName = e.target.value)}
               />
             </Form.Group>
 
@@ -50,8 +82,8 @@ export default function AddCourseModal({ open, close }) {
               <Form.Control
                 type="text"
                 placeholder="Eg.  Coursera"
-                ref={InstituteName}
-                onChange={(e) => (InstituteName.current = e.target.value)}
+                defaultValue={InstituteName}
+                onChange={(e) => (InstituteName = e.target.value)}
               />
             </Form.Group>
 
@@ -60,8 +92,8 @@ export default function AddCourseModal({ open, close }) {
               <Form.Control
                 type="text"
                 placeholder="Eg.  https://www.google.com"
-                ref={CourseLink}
-                onChange={(e) => (CourseLink.current = e.target.value)}
+                defaultValue={CourseLink}
+                onChange={(e) => (CourseLink = e.target.value)}
               />
             </Form.Group>
           </Form>
@@ -69,6 +101,7 @@ export default function AddCourseModal({ open, close }) {
           <div className="share" style={{ justifyContent: "center" }}>
             <a
               onClick={() => {
+                AddCourse();
                 setModalShow(false);
               }}
               className="flexAlignCenter modal-button"
@@ -83,7 +116,7 @@ export default function AddCourseModal({ open, close }) {
 
   return (
     <>      
-      <a className="mr-60 AddCourseModal grow1" onClick={() => setModalShow(true)}>
+      <a className="mr-60 pointer grow1" onClick={() => setModalShow(true)}>
         <AiOutlinePlusCircle style={{ fontSize: 30, color: "#C0C0C0" }} />
       </a>
 
