@@ -10,8 +10,8 @@ import ContestProfileModal from "../../components/modals/ContestProfileModal";
 import ProjectModal from "../../components/modals/ProjectModal";
 import ShareModal from "../../components/modals/ShareModal";
 import SentHistoryModal from "../../components/modals/SentHistory";
-import { AiOutlineCheck, AiOutlineEdit } from "react-icons/ai";
 import Header1 from "../../components/Header/Header1";
+import {AiOutlineDown, AiOutlineUp} from 'react-icons/ai';
 import { ReversePortalMap } from "../../utility/localStorageControl";
 import { ToastContainer } from "react-toastify";
 import { isMobile } from "react-device-detect";
@@ -22,6 +22,7 @@ import LinkedInProfileModal from "../../components/modals/LinkedInProfile";
 import { useSelector } from "react-redux";
 import {
   userContestWidgets,
+  userCoursesTaken,
   userName,
   userPortfolio,
   userProjectWidgets,
@@ -29,6 +30,7 @@ import {
 } from "../../features/user/userSlice";
 import UpdatePortfolioModal from "../../components/UpdateModals/UpdatePortfolioModal";
 import AddCourseModal from "../../components/modals/AddCourseModal";
+import { CourseCard } from "../../components/CourseCard/CourseCard";
 const API_KEY = "AJYGpQcugTouk4olbrEfWz";
 const processAPI = "https://cdn.filestackcontent.com";
 
@@ -38,11 +40,14 @@ function PortfolioScreen() {
   const rank_widgets = useSelector(userRankWidgets);
   const contest_widgets = useSelector(userContestWidgets);
   const project_widgets = useSelector(userProjectWidgets);
+  const course_widgets = useSelector(userCoursesTaken);
 
   let title = portfolio && portfolio.title;
   let desc = portfolio && portfolio.description;
   let college = portfolio && portfolio.college;
   let educationLevel = portfolio && portfolio.education_level;
+
+  const [courses, showCourses] = useState(false);
 
   let text = "";
   educationLevel === "postgraduate"
@@ -143,9 +148,36 @@ function PortfolioScreen() {
                   close={() => setloader(false)}
                 />
               </div>
-              <div className="courseList grow5">
-                Hello
-              </div>
+              {course_widgets.length > 0 ? (
+                <div className="flexColumn courseList grow5">
+                  {!courses && course_widgets.slice(0,2).map((course) => (
+                    <CourseCard name={course.course_name} link={course.certificate_link} issuer={course.issuer} />
+                  ))}
+                  {courses && course_widgets.map((course) => (
+                    <CourseCard name={course.course_name} link={course.certificate_link} issuer={course.issuer} />
+                  ))}
+                  {
+                    courses && <div className="viewCourses flexRow flexCenter" onClick={() => showCourses(false)}>
+                      <div className="flexRow flexAlignCenter viewCourses__containter pointer">
+                        <p className="viewCourses__text">View Less</p>
+                        <AiOutlineUp />
+                      </div>
+                    </div>
+                  }
+                  {
+                    !courses && course_widgets.length > 2 && <div className="viewCourses flexRow flexCenter" onClick={() => showCourses(true)}>
+                      <div className="flexRow flexAlignCenter viewCourses__containter pointer">
+                        <p className="viewCourses__text">View All</p>
+                        <AiOutlineDown />
+                      </div>
+                    </div>
+                  }
+                </div>
+              ) : (
+                <div className="flexRow flexCenter flexAlignCenter courseList grow5">
+                  You have not added any course yet.
+                </div>
+              )}  
             </div>
             <div className="coding-profile mv-20">
               <p className="card-heading mb-20">Coding Profile</p>
