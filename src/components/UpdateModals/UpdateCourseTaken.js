@@ -15,7 +15,10 @@ import { setCourses } from "../../features/user/userSlice";
 export default function UpdateCourseTaken({
   name,
   link,
-  issuer
+  issuer,
+  id,
+  open,
+  close
 }) {
   const dispatch = useDispatch();
   const [modalShow, setModalShow] = React.useState(false);
@@ -25,13 +28,13 @@ export default function UpdateCourseTaken({
   let CourseLink = link;
 
   const updateCourseWidget = async () => {
-    if (portal && username && rank) {
+    if (CourseName && InstituteName && CourseLink) {
       let CourseData = {
         "course_name": CourseName,
         "issuer": InstituteName,
         "certificate_link": CourseLink
       };
-      AdminService.updateCourseWidget(CourseData)
+      AdminService.updateCourseWidget(id,CourseData)
         .then(() => {
           SuccessToast("Course Updated!");
           AdminService.getUserData()
