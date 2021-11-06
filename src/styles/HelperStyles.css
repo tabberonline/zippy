@@ -37,6 +37,9 @@
 .mr-80{
     margin-right: 80px;
 }
+.mr-10{
+    margin-right: 10px;
+}
 .w100{width: 100%;}
 .header button{
     font-family: 'Poppins', sans-serif;
@@ -75,6 +78,12 @@
 .mb-10{margin-bottom: 10px;}
 .mv-40{
     margin: 40px 0;
+}
+.mv-5{
+    margin: 5px 0;
+}
+.mv-10{
+    margin: 10px 0;
 }
 .mv-20{
     margin: 20px 0;

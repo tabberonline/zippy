@@ -145,7 +145,7 @@ export default function ProjectCard({name, url, id, img, hide, open, close, tech
                         }}
                     >                 
                         <div id="overlay" onClick={() => unHideCard()} className="flexColumn flexCenter flexAlignCenter">
-                            <img src={hidecards} alt="hidden" className="hide-card-icon" style={{height:30, width: 30, marginBottom: 10}} />
+                            <img src={hidecards} alt="hidden" className="hide-card-icon drawerOption1" />
                             <p className="options-text" style={{color: 'white'}}>Hidden</p>
                         </div>                    
                         <div onMouseEnter={() => {setcard(false); setdetail(true);}} className="flexColumn flexCenter flexAlignCenter project-textbox">
@@ -160,7 +160,7 @@ export default function ProjectCard({name, url, id, img, hide, open, close, tech
                             backgroundRepeat: 'no-repeat',
                         }}
                     >         
-                        <div onClick={() => window.open(url)} style={{fontSize: 30, position: 'absolute', top: 0, height: '60%', width: '100%', cursor: 'pointer'}} />    
+                        <div onClick={() => window.open(url)} className="projectCardHD" />    
                         {
                             namecard ? (
                                 <div onMouseEnter={() => {setcard(false); setdetail(true);}} className="flexColumn flexCenter flexAlignCenter project-textbox">
@@ -175,9 +175,9 @@ export default function ProjectCard({name, url, id, img, hide, open, close, tech
                                         <p style={{cursor: 'pointer'}} onClick={() => window.open(url)} className="project-stack textAlignCenter">{ techstack ? (techstack.slice(0,4).join(' | ')) : "Sample Stack"}</p>
                                         <p style={{cursor: 'pointer'}} onClick={() => window.open(url)} className="project-desc textAlignCenter">{ desc.length > 0 ? desc = desc.length > 65 ? desc.slice(0,65)+"..." : desc : "Sample Description"}</p>
                                         <div className="actionsProject flexRow flexAround flexAlignCenter">
-                                            <img src={deleted} onClick={() => DeleteCardPortal(id)} alt="delete" className="delete-card-icon" style={{height:30, width: 30, marginBottom: 10, cursor: 'pointer'}} />
+                                            <img src={deleted} onClick={() => DeleteCardPortal(id)} alt="delete" className="delete-card-icon drawerImg1 pointer" />
                                             <UpdateProject open={open} close={close} projectName={name} projectlink={url} projectImage={img} projectId={id} ProjectStack={techstack} ProjectDesc={desc}  />
-                                            <img src={hidden} onClick={() => HideCard()} alt="hidden" className="delete-card-icon" style={{height:30, width: 30, marginBottom: 10, cursor: 'pointer'}} />
+                                            <img src={hidden} onClick={() => HideCard()} alt="hidden" className="delete-card-icon drawerImg1 pointer" />
                                         </div>
                                     </div>
                                 </ClickAwayListener>

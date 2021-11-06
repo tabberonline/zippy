@@ -108,7 +108,7 @@ export default function CodingCard({name, rank, id, logo, hide, open, close, url
               </Form>
       
               <div className="share" style={{justifyContent: 'center'}}>
-                <a onClick={(e) => {DeleteCard(name); setModalShow(false); }} style={{marginRight: 10}} className="flexAlignCenter modal-button">Delete</a>
+                <a onClick={(e) => {DeleteCard(name); setModalShow(false); }} className="flexAlignCenter modal-button mr-10">Delete</a>
                 <a onClick={props.onHide} className="flexAlignCenter modal-button">Cancel</a>
               </div>
       
@@ -170,11 +170,11 @@ export default function CodingCard({name, rank, id, logo, hide, open, close, url
                         ) : null 
                     }
                     { drawer ? (
-                        <div className="flexColumn flexStart options" style={{position: 'absolute', top: '-15%', right:'-2%'}}>
+                        <div className="flexColumn flexStart options contestProfile">
                             {icon1 ? (<img src={deleted} alt="delete" onMouseEnter={() => {setoption1(true); seticon1(false);}} onClick={() => DeleteCardPortal(name)} className="delete-icon" style={{height:30, width: 30, marginBottom: 10, cursor: 'pointer', marginLeft: option2 ? 50 : null || option3 ? 50 : null}} />) : null }
                             { option1 ? (
-                                <div className="flexRow flexAlignCenter option delete-option" onClick={() => DeleteCardPortal(name)} onMouseLeave={() => {setoption1(false); seticon1(true);}} style={{ marginBottom: 10, position: 'relative', left: 40, cursor: 'pointer' }}>
-                                    <img src={deleted} alt="delete" style={{height:30, width: 30, marginRight: 10}} />
+                                <div className="flexRow flexAlignCenter option delete-option drawerOption1" onClick={() => DeleteCardPortal(name)} onMouseLeave={() => {setoption1(false); seticon1(true);}} >
+                                    <img src={deleted} alt="delete" className="drawerImg" />
                                     <p className="options-text">Delete</p>
                                 </div>                            
                                 ) : null
@@ -182,7 +182,7 @@ export default function CodingCard({name, rank, id, logo, hide, open, close, url
                             {icon2 ? (<img src={edited} alt="edit" onMouseEnter={() => {setoption2(true); seticon2(false);}} className="edit-icon" style={{height:30, width: 30, marginBottom: 10, cursor: 'pointer', marginLeft: option1 ? 50 : null || option3 ? 50 : null}} />) : null}
                             { option2 ? (
                                 <ClickAwayListener onClickAway={() => {setoption2(false); seticon2(true);}}>
-                                  <div className="flexRow flexAlignCenter option edit-option" style={{ marginBottom: 10, position: 'relative', left: 40, cursor: 'pointer' }}>
+                                  <div className="flexRow flexAlignCenter option edit-option drawerOption1">
                                       <UpdateCodingProfile portalName={name} Rank={rank} userName={id} open={open} close={close} url={url} />
                                       <p className="options-text">Edit</p>
                                   </div>                                
@@ -191,8 +191,8 @@ export default function CodingCard({name, rank, id, logo, hide, open, close, url
                             }
                             {icon3 ? (<img src={hidden} alt="hide" onMouseEnter={() => {setoption3(true); seticon3(false);}} className="hide-icon" style={{height:30, width: 30, marginBottom: 10, cursor: 'pointer', marginLeft: option2 ? 50 : null || option1 ? 50 : null}} />) : null}
                             { option3 ? (
-                                <div className="flexRow flexAlignCenter option hide-option" onClick={() => HideCard(name)} onMouseLeave={() => {setoption3(false); seticon3(true);}} style={{ marginBottom: 10, position: 'relative', left: 40, cursor: 'pointer' }}>
-                                    <img src={hidden} alt="hide" style={{height:30, width: 30, marginRight: 10}} />
+                                <div className="flexRow flexAlignCenter option hide-option drawerOption1" onClick={() => HideCard(name)} onMouseLeave={() => {setoption3(false); seticon3(true);}} >
+                                    <img src={hidden} alt="hide" className="drawerImg" />
                                     <p className="options-text">Hide</p>
                                 </div>
                                 ) : null
