@@ -9,6 +9,7 @@ const initialState = {
     image: '',
     resume_present: false,
     portfolio: [],
+    course_widgets: [],
     rank_widgets: [],
     contest_widgets: [],
     project_widgets: [],
@@ -50,6 +51,7 @@ const userSlice = createSlice({
             state.rank_widgets = action.payload.rank_widgets;
             state.contest_widgets = action.payload.contest_widgets;
             state.project_widgets = action.payload.personal_projects;
+            state.course_widgets = action.payload.course_widgets;
         },
         setPortfolio: (state, action) => {
             state.portfolio = action.payload.portfolio;
@@ -69,11 +71,14 @@ const userSlice = createSlice({
         },
         setName: (state, action) => {
             state.name = action.payload.name;
-        }
+        },
+        setCourses: (state, action) => {
+            state.course_widgets = action.payload.course_widgets;
+        },
     },
 });
 
-export const {logUser, logOutUser, setUser, setName, setPortfolio, setRankWidgets, setContestWidgets, setProjectWidgets, setHistory} = userSlice.actions;
+export const {logUser, logOutUser, setUser, setName, setPortfolio, setRankWidgets, setContestWidgets, setProjectWidgets, setHistory, setCourses} = userSlice.actions;
 
 export const userLogin = state => state.user.login;
 export const userToken = state => state.user.accessToken;
@@ -84,6 +89,7 @@ export const userID = state => state.user.user_id;
 export const userResume = state => state.user.resume_present;
 export const userPortfolio = state => state.user.portfolio;
 export const userRankWidgets = state => state.user.rank_widgets;
+export const userCoursesTaken = state => state.user.course_widgets;
 export const userContestWidgets = state => state.user.contest_widgets;
 export const userProjectWidgets = state => state.user.project_widgets;
 export const userHistory = state => state.user.sent_history;

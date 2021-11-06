@@ -14,10 +14,11 @@ import {API_ENDPOINT} from '../../AdminServices/baseUrl';
 import Header1 from '../../components/Header/Header1';
 import Loader from '../../components/Loader/Loader';
 import { BsFillEyeFill } from 'react-icons/bs';
-import { AiOutlineLinkedin } from 'react-icons/ai';
+import { AiOutlineDown, AiOutlineLinkedin, AiOutlineUp } from 'react-icons/ai';
 import { useHistory } from 'react-router-dom';
 import { userToken } from '../../features/user/userSlice';
 import AdminService from '../../AdminServices/AdminService';
+import { CourseCardDisplay } from '../../components/CourseCard/CourseCardDisplay';
 const API_KEY = 'AJYGpQcugTouk4olbrEfWz';
 const processAPI = 'https://cdn.filestackcontent.com';
 
@@ -26,9 +27,11 @@ function DisplayScreen() {
   const [userData, setData] = useState([]);
   const [loader, setloader] = useState(false);
   const [RankWidgets, setRank] = useState([]);
+  const [CourseWidgets, setCourses] = useState([]);
   const [ContestWidgets, setContests] = useState([]);
   const [ProjectWidgets, setProjects] = useState([]);
   const [showCookiePopup, setShowCookiePopup] = useState(false);
+  const [courses, showCourses] = useState(false);
   const [cookieStatus, setCookieStatus] = useState(null);
 
   
@@ -219,6 +222,8 @@ function DisplayScreen() {
     setContests(abc);
     abc = data && data.personal_projects && data.personal_projects.filter(profile => profile.invisible === false);
     setProjects(abc)
+    abc = data && data.course_widgets && data.course_widgets.filter(profile => profile.invisible === false);
+    setCourses(abc)
   }
 
   return (
@@ -254,7 +259,42 @@ function DisplayScreen() {
                     </div>
                   </div>
                 ) : null}  
-              </div>                            
+              </div>      
+              {
+                CourseWidgets.length > 0 ? (
+                  <div className="courses mv-20">
+                    <p className="card-heading mb-20">Courses Taken</p>
+                    <div className="flexColumn courseList grow5">
+                      { 
+                        courses && CourseWidgets.map(profile => (
+                            <CourseCardDisplay name={profile.course_name} link={profile.certificate_link} issuer={profile.issuer} />
+                        ))
+                      }
+                      { 
+                        !courses && CourseWidgets.splice(0,2).map(profile => (
+                            <CourseCardDisplay name={profile.course_name} link={profile.certificate_link} issuer={profile.issuer} />
+                        ))
+                      }
+                      {
+                        courses && <div className="viewCourses flexRow flexCenter" onClick={() => showCourses(false)}>
+                          <div className="flexRow flexAlignCenter viewCourses__containter pointer">
+                            <p className="viewCourses__text">View Less</p>
+                            <AiOutlineUp />
+                          </div>
+                        </div>
+                      }
+                      {
+                        !courses && <div className="viewCourses flexRow flexCenter" onClick={() => showCourses(true)}>
+                          <div className="flexRow flexAlignCenter viewCourses__containter pointer">
+                            <p className="viewCourses__text">View All</p>
+                            <AiOutlineDown />
+                          </div>
+                        </div>
+                      }
+                    </div>
+                  </div>
+                ) : null
+              }                      
               {
                 RankWidgets.length > 0 ? (
                   <div className="coding-profile mv-20">

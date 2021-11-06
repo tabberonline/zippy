@@ -69,4 +69,13 @@ export default {
   SetCookie: async () => {
     return DataService.get(`/user/update/cookie`)
   },
+  createCourseWidget: async (data) => {
+    return DataService.post('/coursewidget/create', data);
+  },
+  deleteCourseWidget: async (id) => {
+    return DataService.delete(`/coursewidget/delete?id=${id}`);
+  },
+  updateCourseWidget: async (id, data) => {
+    return DataService.put(`/coursewidget/update?id=${id}`, data);
+  },
 }

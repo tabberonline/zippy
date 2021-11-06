@@ -135,3 +135,54 @@ textarea:focus {
 .info-sec {
   margin: 40px 0;
 }
+.courses{
+  background-color: inherit;
+  border: none;
+  height: 100%;
+  width: 100%;
+  outline: none;
+}
+.courseList{
+  margin: 20px;
+  padding: 28px 24px;
+  background-color: white;
+  width: 92%;
+  box-shadow: 0px 4px 8px 2px rgb(230 230 230 / 25%);
+  border-radius: 8px;
+}
+.pointer{
+  cursor: pointer;
+}
+.course-card{
+  padding: 10px;
+  padding-bottom: 20px;
+  gap: 24px;
+  border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+.course__logo{
+  height: 48px;
+  width: 48px;
+  border-radius: 8px;
+}
+.course__name{
+  font: 20px 'Poppins';
+  font-weight: 500;
+}
+.course__name:hover{
+  text-decoration: underline !important;
+  color: black !important;
+}
+.course__issuer{
+  font: 20px 'Poppins';
+  color: rgba(0,0,0,0.5);
+}
+.viewCourses{
+  padding-top: 20px;
+}
+.viewCourses__containter{
+  gap: 10px;
+}
+.viewCourses__text{
+  font: 20px 'Poppins';
+  color: #202C39;
+}
