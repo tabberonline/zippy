@@ -1,43 +1,52 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import "../../styles/HelperStyles.css";
-import { Modal, Form } from "react-bootstrap";
-import { AiOutlineCloseCircle, AiOutlinePlusCircle } from "react-icons/ai";
+import { Form, Modal } from "react-bootstrap";
+import { AiOutlineCloseCircle } from "react-icons/ai";
+import {
+  SuccessToast,
+  ErrorToast,
+} from "../../utility/localStorageControl";
 import AdminService from "../../AdminServices/AdminService";
-import { ErrorToast, SuccessToast } from "../../utility/localStorageControl";
+import edited from "../../assets/images/Edit-Icon.png";
 import { useDispatch } from "react-redux";
 import { setCourses } from "../../features/user/userSlice";
 
-export default function AddCourseModal({ open, close }) {
+export default function UpdateCourseTaken({
+  name,
+  link,
+  issuer,
+  id,
+  open,
+  close
+}) {
   const dispatch = useDispatch();
   const [modalShow, setModalShow] = React.useState(false);
-  let CourseName = "";
-  let InstituteName = "";
-  let CourseLink = "";
 
-  const AddCourse = () => {
-    open();
-    if(CourseName && InstituteName && CourseLink){
-        let CourseData = {
-            "course_name": CourseName,
-            "issuer": InstituteName,
-            "certificate_link": CourseLink
-        }
-        AdminService.createCourseWidget(CourseData)
-        .then(res => {
-          SuccessToast("Details Entered!");
+  let CourseName = name;
+  let InstituteName = issuer;
+  let CourseLink = link;
+
+  const updateCourseWidget = async () => {
+    if (CourseName && InstituteName && CourseLink) {
+      let CourseData = {
+        "course_name": CourseName,
+        "issuer": InstituteName,
+        "certificate_link": CourseLink
+      };
+      AdminService.updateCourseWidget(id,CourseData)
+        .then(() => {
+          SuccessToast("Course Updated!");
           AdminService.getUserData()
             .then((resp) => {
               dispatch(setCourses(resp.data));
               close();
               setModalShow(false);
             })
-            .catch(err => {
-              ErrorToast("Some Error Occured.");
-              close();
-            });
+            .catch((err) => ErrorToast("Some Error Occured."));
+          close();
         })
-        .catch(error => {
+        .catch((error) => {
           ErrorToast("Error, Enter correct details!");
           close();
         });
@@ -45,7 +54,12 @@ export default function AddCourseModal({ open, close }) {
       ErrorToast("Error, Fields cannot be empty!");
       close();
     }
-  }
+  };
+
+  const UpdateCard = () => {
+    open();
+    updateCourseWidget();
+  };
 
   function MyVerticallyCenteredModal(props) {
     return (
@@ -59,7 +73,7 @@ export default function AddCourseModal({ open, close }) {
         <div className="flexColumn">
           <div className="flexRow flexBetween flexAlignCenter mb-40">
             <div style={{ width: 20 }}></div>
-            <h2 className="modal-head">Add Course</h2>
+            <h2 className="modal-head">Update Course Taken</h2>
             <button onClick={props.onHide}>
               <AiOutlineCloseCircle style={{ fontSize: 40, color: "black" }} />
             </button>
@@ -100,13 +114,10 @@ export default function AddCourseModal({ open, close }) {
 
           <div className="share" style={{ justifyContent: "center" }}>
             <a
-              onClick={() => {
-                AddCourse();
-                setModalShow(false);
-              }}
+              onClick={() => {UpdateCard(); setModalShow(false);}}
               className="flexAlignCenter modal-button"
             >
-              Add to Profile
+              Update Course
             </a>
           </div>
         </div>
@@ -115,10 +126,13 @@ export default function AddCourseModal({ open, close }) {
   }
 
   return (
-    <>      
-      <a className="mr-60 pointer grow1" onClick={() => setModalShow(true)}>
-        <AiOutlinePlusCircle style={{ fontSize: 30, color: "#C0C0C0" }} />
-      </a>
+    <>
+      <img
+        src={edited}
+        alt="edit"
+        onClick={() => setModalShow(true)}
+        style={{ height: 30, width: 30, marginRight: 10 }}
+      />
 
       <MyVerticallyCenteredModal
         show={modalShow}
