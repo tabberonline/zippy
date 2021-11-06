@@ -15,6 +15,7 @@ const initialState = {
     project_widgets: [],
     sent_history: [],
     total_mails_sent: '',
+    portfolio_link: '',
 };
 
 const userSlice = createSlice({
@@ -40,6 +41,7 @@ const userSlice = createSlice({
             state.project_widgets = [];
             state.sent_history = [];
             state.total_mails_sent = '';
+            state.portfolio_link = '';
         },
         setUser: (state, action) => {
             state.user_id = action.payload.user_id;
@@ -52,6 +54,7 @@ const userSlice = createSlice({
             state.contest_widgets = action.payload.contest_widgets;
             state.project_widgets = action.payload.personal_projects;
             state.course_widgets = action.payload.course_widgets;
+            state.portfolio_link = action.payload.portfolio_link;
         },
         setPortfolio: (state, action) => {
             state.portfolio = action.payload.portfolio;
@@ -75,10 +78,13 @@ const userSlice = createSlice({
         setCourses: (state, action) => {
             state.course_widgets = action.payload.course_widgets;
         },
+        setPortfolioLink: (state, action) => {
+            state.portfolio_link = action.payload.portfolio_link;
+        },
     },
 });
 
-export const {logUser, logOutUser, setUser, setName, setPortfolio, setRankWidgets, setContestWidgets, setProjectWidgets, setHistory, setCourses} = userSlice.actions;
+export const {logUser, logOutUser, setUser, setName, setPortfolio, setPortfolioLink, setRankWidgets, setContestWidgets, setProjectWidgets, setHistory, setCourses} = userSlice.actions;
 
 export const userLogin = state => state.user.login;
 export const userToken = state => state.user.accessToken;
@@ -94,5 +100,6 @@ export const userContestWidgets = state => state.user.contest_widgets;
 export const userProjectWidgets = state => state.user.project_widgets;
 export const userHistory = state => state.user.sent_history;
 export const userMailSent = state => state.user.total_mails_sent;
+export const userPortfolioLink = state => state.user.portfolio_link;
 
 export default userSlice.reducer;
