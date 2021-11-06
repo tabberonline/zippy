@@ -34,38 +34,35 @@ function DisplayScreen() {
   const [courses, showCourses] = useState(false);
   const [cookieStatus, setCookieStatus] = useState(null);
 
-  useEffect(() => {
-    const getIDFromURL = () => {
-      setloader(true);
-      return window.location.href.split('?')[1].split('=')[1];
-    };
-    const user_id = getIDFromURL();
-
-    Axios.get(`${API_ENDPOINT}/user/guest/resume?id=${user_id}`)
-      .then(resp => resp.data)
-        .then(data => {
-          setData([data]);
-          setloader(false);
-          adjustData(data);
-        })
-      .catch(error => {
-        ErrorToast("Some Error Occured.")
-        setloader(false);
-      })
-  }, [])
-
+  
   const showPopupHandler = () => {
     setShowCookiePopup(true);
   };
   const hidePopupHandler = () => {
     setShowCookiePopup(false);
   };
-
+  
   const generateUUID = () => {
     return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
       (c ^ ((crypto.getRandomValues(new Uint8Array(1))[0] & 15) >> (c / 4))).toString(16)
     );
   };
+
+  const sendTrakingId = async(uuid) => {
+    const getIDFromURL = () => {
+      setloader(true);
+      return window.location.href.split('?')[1].split('=')[1];
+    };
+    const user_id = getIDFromURL();
+    Axios.get(`${API_ENDPOINT}/user/guest/resume?id=${user_id}&trakingId=${uuid}`)
+      .then(() => {
+        setloader(false);
+      })
+      .catch(err => { 
+        ErrorToast('Something went wrong');
+        setloader(false);
+      })
+  }
 
   const setCookie1 = (cname,cvalue,exdays) => {
     const d = new Date();
@@ -73,7 +70,7 @@ function DisplayScreen() {
     let expires = "expires=" + d.toGMTString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
   };
-
+  
   const setCookie2 = (cname,cvalue) => {
     const d = new Date();
     d.setTime(d.getTime() + (60*60*1000));
@@ -85,7 +82,7 @@ function DisplayScreen() {
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
     let ca = decodedCookie.split(';');
-
+    
     for(let i = 0; i <ca.length; i++) {
       let c = ca[i];
       while (c.charAt(0) === ' ') {
@@ -97,7 +94,7 @@ function DisplayScreen() {
     }
     return "";
   };
-
+  
   const checkCookie = (cname) => {
     const check = getCookie(cname);
     if(check) {
@@ -108,61 +105,60 @@ function DisplayScreen() {
   
   const cookieAcceptStatus = (checkCookie1) => {
     AdminService.GetCookie()
-      .then(responce => {
-        if(responce.data){
-          setCookieStatus(true);
-        } else {
-          setCookieStatus(false);
-          if(!cookieStatus) {
-            if(!checkCookie1){
-              showPopupHandler();
-            }
+    .then(responce => {
+      if(responce.data){
+        setCookieStatus(true);
+      } else {
+        setCookieStatus(false);
+        if(!cookieStatus) {
+          if(!checkCookie1){
+            showPopupHandler();
           }
         }
-      })
-      .catch(() => {
-        ErrorToast('Something Went Wrong!');
-      })
+      }
+    })
+    .catch(() => {
+      ErrorToast('Something Went Wrong!');
+    })
   };
   
   const acceptCookieHandler = () => {
     let uuid = null;
     let isLoggedin;
-
+    
     accessToken === null ? isLoggedin = false : isLoggedin = true;
     const checkCookie1 = checkCookie('cookieAccepted');
-
+    
     if(!checkCookie1){
       setCookie1('cookieAccepted', true, 365);
       uuid = generateUUID();
       setCookie2('uuid', uuid);
+      sendTrakingId(uuid);
     }
     if(isLoggedin) {
       AdminService.SetCookie()
-        .then((res) => {
-          console.log(res.data);
-        })
-        .catch(() => {
-          ErrorToast('Something went wrong');
-        })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch(() => {
+        ErrorToast('Something went wrong');
+      })
     }
     setShowCookiePopup(false);
   };
   
-
+  
   useEffect(() => {
     let isLoggedin;
     accessToken === null ? isLoggedin = false : isLoggedin = true;
     const checkCookie1 = checkCookie('cookieAccepted');
-
+    
     if(isLoggedin) {
       cookieAcceptStatus(checkCookie1);
-
+      
       if(checkCookie1) {
         AdminService.SetCookie()
-        .then((res) => {
-          console.log(res.data);
-        })
+        .then((res) => {})
         .catch(() => {
           ErrorToast('Something went wrong');
         })
@@ -174,6 +170,7 @@ function DisplayScreen() {
         if(!checkCookie2) {
           let uuid = generateUUID();
           setCookie2('uuid', uuid);
+          sendTrakingId(uuid);
         }
       }
     } else {
@@ -187,10 +184,37 @@ function DisplayScreen() {
       if(!checkCookie2) {
         let uuid = generateUUID();
         setCookie2('uuid', uuid);
+        sendTrakingId(uuid);
       }
     }
   }, [accessToken, cookieStatus]);
 
+  useEffect(() => {
+    const getIDFromURL = () => {
+      setloader(true);
+      return window.location.href.split('?')[1].split('=')[1];
+    };
+    const user_id = getIDFromURL();
+
+    const trakingId = getCookie("uuid");
+    let urlTrakingId = "";
+    if(trakingId) {
+      urlTrakingId = `&trakingId=${trakingId}`;
+    }
+
+    Axios.get(`${API_ENDPOINT}/user/guest/resume?id=${user_id}${urlTrakingId}`)
+      .then(resp => resp.data)
+        .then(data => {
+          setData([data]);
+          setloader(false);
+          adjustData(data);
+        })
+      .catch(error => {
+        ErrorToast("Some Error Occured.")
+        setloader(false);
+      })
+  }, [])
+  
   const adjustData = (data) => {
     var abc = data && data.rank_widgets && data.rank_widgets.filter(profile => profile.invisible === false);
     setRank(abc);
