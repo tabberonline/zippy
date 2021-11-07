@@ -23,8 +23,7 @@ export default function AttachResumeModal({ open, close }) {
 
   const ResumeAttach = async () => {
     open();
-    if (url !== "") {
-      if (url !== portfolio.cloud_resume_link) {
+      if (url !== portfolio.cloud_resume_link && url !== "") {
         setModalShow(false);
         AdminService.AttachResume(url)
           .then((resp) => {
@@ -50,12 +49,13 @@ export default function AttachResumeModal({ open, close }) {
             close();
           });
       } else {
-        ErrorToast("Same Link.");
+        if(portfolio.cloud_resume_link === 'https://'){
+          ErrorToast("Empty Field");
+        } else {
+          ErrorToast("No Change");
+        }
         close();
       }
-    } else {
-      ErrorToast("Empty field");
-    }
     close();
   };
 
