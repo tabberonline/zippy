@@ -242,7 +242,7 @@ function DisplayScreen() {
                 <p className="desc">{user.portfolio.description}</p>
               </div>
               <div className="socialsRow">
-                {user.portfolio.cloud_resume_link !== 'https://' ? (
+                {user.portfolio.cloud_resume_link && user.portfolio.cloud_resume_link !== 'https://' ? (
                   <div className="flexColumn mv-20">
                     <p className="card-heading mb-20">Resume</p>
                     <div className="grow1 attach-resume flexRow flexAlignCenter flexEvenly">
