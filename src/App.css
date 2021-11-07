@@ -1358,17 +1358,6 @@
         background-color: #00e5d8;
         color: black;
     }
-    .socialsRow {
-        gap: 120px !important;
-    }
-}
-@media(min-width: 1100px) {
-    .profile-head{
-        padding-left: 20px !important;
-    }
-    .socialsRow {
-        gap: 135px !important;
-    }
 }
 
 /* DISPLAY SCREEN */
@@ -1425,7 +1414,7 @@
         border-radius: 4px !important;
         padding: 10px 15px !important;
         width: auto !important;
-        margin: 15px 60px !important;
+        margin: 15px 15px 15px 25px !important;
     }
     .resume-head{
         font: 12px 'Poppins', sans-serif !important;
@@ -1535,6 +1524,12 @@
     #about-section > div > div:nth-child(2) > div > div > div > p:nth-child(3) {
         font-size: 16px !important;
     }
+    div.socialsRow > div:nth-child(1) {
+        width: 100% !important;
+    }
+    div.socialsRow > div:nth-child(2) {
+        width: 100% !important;
+    }
 }
 @media(min-width: 480px) and (max-width: 599px){
     .email-button, .history-button, .share .share-button {
@@ -1627,9 +1622,12 @@
     div.socialsRow > div:nth-child(1) > div > div > svg:nth-child(1),
     div.socialsRow > div:nth-child(1) > div > div > svg:nth-child(2) {
         font-size: 24px !important;
-    } 
-    .socialsRow {
-        gap: 20px !important;
+    }
+    div.socialsRow > div:nth-child(1) {
+        width: 100% !important;
+    }
+    div.socialsRow > div:nth-child(2) {
+        width: 100% !important;
     }
 }
 @media(min-width: 600px) and (max-width: 767px){
@@ -1728,7 +1726,7 @@
         margin: 8px !important;
     }
     .resume-head{
-        font: 18px 'Poppins', sans-serif !important;
+        font: 16px 'Poppins', sans-serif !important;
     }
     .attach-resume__icon{
         font-size: 40px !important;
@@ -1800,9 +1798,6 @@
         background-color: inherit;
         color: black;
         border: 3px solid #00e5d8;
-    }
-    .socialsRow {
-        gap: 55px !important;
     }
 }
 

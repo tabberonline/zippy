@@ -206,6 +206,7 @@ function DisplayScreen() {
       .then(resp => resp.data)
         .then(data => {
           setData([data]);
+          window.scroll(0,150);
           setloader(false);
           adjustData(data);
         })
