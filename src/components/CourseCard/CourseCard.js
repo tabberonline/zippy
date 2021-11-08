@@ -163,7 +163,7 @@ export const CourseCard = ({name, issuer, link, id, hide, open, close}) => {
                         ) : null 
                     }
                     { drawer ? (
-                        <div className="flexColumn flexStart options" style={{position: 'absolute', zIndex: 1000}}>
+                        <div className="flexRow flexStart options" style={{position: 'absolute', zIndex: 1000}}>
                             <div className="flexRow flexAlignCenter option delete-option drawerOption" onClick={() => DeleteCardPortal()}>
                                 <img src={deleted} alt="delete" className="drawerImg" />
                             </div>    
