@@ -27,14 +27,12 @@ function DisplayScreen() {
   const [userData, setData] = useState([]);
   const [loader, setloader] = useState(false);
   const [RankWidgets, setRank] = useState([]);
-  const [CourseWidgets, setCourses] = useState([]);
   const [ContestWidgets, setContests] = useState([]);
   const [ProjectWidgets, setProjects] = useState([]);
   const [showCookiePopup, setShowCookiePopup] = useState(false);
-  const [courses, showCourses] = useState(false);
   const [cookieStatus, setCookieStatus] = useState(null);
-
-  
+  const [CourseWidgets, setCourses] = useState([]);
+  const [ view, setView ] = useState(false)  
   const showPopupHandler = () => {
     setShowCookiePopup(true);
   };
@@ -203,13 +201,12 @@ function DisplayScreen() {
     }
 
     Axios.get(`${API_ENDPOINT}/user/guest/resume?id=${user_id}${urlTrakingId}`)
-      .then(resp => resp.data)
-        .then(data => {
-          setData([data]);
+      .then(resp => {
+        setData([resp.data]);
           window.scroll(0,150);
           setloader(false);
-          adjustData(data);
-        })
+          adjustData(resp.data);
+      })
       .catch(error => {
         ErrorToast("Some Error Occured.")
         setloader(false);
@@ -217,6 +214,7 @@ function DisplayScreen() {
   }, [])
   
   const adjustData = (data) => {
+    console.log(data)
     var abc = data && data.rank_widgets && data.rank_widgets.filter(profile => profile.invisible === false);
     setRank(abc);
     abc = data && data.contest_widgets && data.contest_widgets.filter(profile => profile.invisible === false);
@@ -226,14 +224,13 @@ function DisplayScreen() {
     abc = data && data.course_widgets && data.course_widgets.filter(profile => profile.invisible === false);
     setCourses(abc)
   }
-
   return (
     <div className="#display-screen">
     {loader ? <Loader /> : null}
       <Header1 open={() => setloader(true)} close={() => setloader(false)} />
       <div className="mw1100">
         <div className="p-40 flexColumn display-section">
-          {userData.map(user => (
+          {userData && userData.map(user => (
             <div className="flexColumn" key={user.user_id}>
               <p className="title">{user.portfolio.title}</p>
               <hr style={{color : '#717070', width: '80%', margin: 'auto', marginTop: 10}} />
@@ -260,37 +257,48 @@ function DisplayScreen() {
                     </div>
                   </div>
                 ) : null}  
-              </div>      
+              </div>
               {
-                CourseWidgets.length > 0 ? (
+                CourseWidgets && CourseWidgets.length > 0 ? (
                   <div className="courses mv-20">
                     <p className="card-heading mb-20">Courses Taken</p>
                     <div className="flexColumn courseList grow5">
-                      { 
-                        courses && CourseWidgets.map(profile => (
-                            <CourseCardDisplay name={profile.course_name} link={profile.certificate_link} issuer={profile.issuer} />
-                        ))
-                      }
-                      { 
-                        !courses && CourseWidgets.splice(0,2).map(profile => (
-                            <CourseCardDisplay name={profile.course_name} link={profile.certificate_link} issuer={profile.issuer} />
-                        ))
-                      }
                       {
-                        courses && <div className="viewCourses flexRow flexCenter" onClick={() => showCourses(false)}>
-                          <div className="flexRow flexAlignCenter viewCourses__containter pointer">
-                            <p className="viewCourses__text">View Less</p>
-                            <AiOutlineUp />
-                          </div>
-                        </div>
-                      }
-                      {
-                        !courses && <div className="viewCourses flexRow flexCenter" onClick={() => showCourses(true)}>
-                          <div className="flexRow flexAlignCenter viewCourses__containter pointer">
-                            <p className="viewCourses__text">View All</p>
-                            <AiOutlineDown />
-                          </div>
-                        </div>
+                        CourseWidgets.length > 2 ? (
+                          view ? (
+                            <>
+                              {CourseWidgets.map(profile => (
+                                <CourseCardDisplay name={profile.course_name} link={profile.certificate_link} issuer={profile.issuer} />
+                              ))}
+                              {
+                                <div className="viewCourses flexRow flexCenter" onClick={() => setView(false)}>
+                                  <div className="flexRow flexAlignCenter viewCourses__containter pointer">
+                                    <p className="viewCourses__text">View Less</p>
+                                    <AiOutlineUp />
+                                  </div>
+                                </div>
+                              }
+                            </>
+                          ) : (
+                            <>
+                              {CourseWidgets.slice(0,2).map(profile => (
+                                <CourseCardDisplay name={profile.course_name} link={profile.certificate_link} issuer={profile.issuer} />
+                              ))}
+                              {
+                                <div className="viewCourses flexRow flexCenter" onClick={() => setView(true)}>
+                                  <div className="flexRow flexAlignCenter viewCourses__containter pointer">
+                                    <p className="viewCourses__text">View More</p>
+                                    <AiOutlineDown />
+                                  </div>
+                                </div>
+                              }
+                            </>
+                          )
+                        ) : (
+                          CourseWidgets.map(profile => (
+                            <CourseCardDisplay name={profile.course_name} link={profile.certificate_link} issuer={profile.issuer} />
+                          ))
+                        )                        
                       }
                     </div>
                   </div>

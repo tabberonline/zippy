@@ -39,6 +39,7 @@ const userSlice = createSlice({
             state.rank_widgets = [];
             state.contest_widgets = [];
             state.project_widgets = [];
+            state.course_widgets = [];
             state.sent_history = [];
             state.total_mails_sent = '';
             state.portfolio_link = '';
