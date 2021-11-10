@@ -130,8 +130,8 @@ export default function UpdateCourseTaken({
       <img
         src={edited}
         alt="edit"
+        className="drawerImg"
         onClick={() => setModalShow(true)}
-        style={{ height: 30, width: 30, marginRight: 10 }}
       />
 
       <MyVerticallyCenteredModal

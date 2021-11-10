@@ -15,10 +15,11 @@ import Header1 from '../../components/Header/Header1';
 import Loader from '../../components/Loader/Loader';
 import { BsFillEyeFill } from 'react-icons/bs';
 import { AiOutlineDown, AiOutlineLinkedin, AiOutlineUp } from 'react-icons/ai';
-import { useHistory } from 'react-router-dom';
 import { userToken } from '../../features/user/userSlice';
 import AdminService from '../../AdminServices/AdminService';
 import { CourseCardDisplay } from '../../components/CourseCard/CourseCardDisplay';
+import { ExperienceCardDisplay } from '../../components/ExperienceCard/ExperienceCardDisplay';
+
 const API_KEY = 'AJYGpQcugTouk4olbrEfWz';
 const processAPI = 'https://cdn.filestackcontent.com';
 
@@ -32,7 +33,9 @@ function DisplayScreen() {
   const [showCookiePopup, setShowCookiePopup] = useState(false);
   const [cookieStatus, setCookieStatus] = useState(null);
   const [CourseWidgets, setCourses] = useState([]);
-  const [ view, setView ] = useState(false)  
+  const [ view, setView ] = useState(false);
+  const [ExperienceWidgets, setExperiences] = useState([]);
+  const [viewExperience, setViewExperience] = useState(false);
   const showPopupHandler = () => {
     setShowCookiePopup(true);
   };
@@ -203,8 +206,8 @@ function DisplayScreen() {
     Axios.get(`${API_ENDPOINT}/user/guest/resume?id=${user_id}${urlTrakingId}`)
       .then(resp => {
         setData([resp.data]);
-          window.scroll(0,150);
-          setloader(false);
+        setloader(false);
+        window.scroll(0,150);
           adjustData(resp.data);
       })
       .catch(error => {
@@ -214,15 +217,17 @@ function DisplayScreen() {
   }, [])
   
   const adjustData = (data) => {
-    console.log(data)
+    // console.log(data)
     var abc = data && data.rank_widgets && data.rank_widgets.filter(profile => profile.invisible === false);
     setRank(abc);
     abc = data && data.contest_widgets && data.contest_widgets.filter(profile => profile.invisible === false);
     setContests(abc);
     abc = data && data.personal_projects && data.personal_projects.filter(profile => profile.invisible === false);
-    setProjects(abc)
+    setProjects(abc);
     abc = data && data.course_widgets && data.course_widgets.filter(profile => profile.invisible === false);
-    setCourses(abc)
+    setCourses(abc);
+    abc = data && data.experience_widgets && data.experience_widgets.filter(profile => profile.invisible === false );
+    setExperiences(abc);
   }
   return (
     <div className="#display-screen">
@@ -303,7 +308,53 @@ function DisplayScreen() {
                     </div>
                   </div>
                 ) : null
-              }                      
+              }
+              {
+                ExperienceWidgets && ExperienceWidgets.length > 0 ? (
+                  <div className="courses mv-20">
+                    <p className="card-heading mb-20">Experience</p>
+                    <div className="flexColumn courseList grow5">
+                      {
+                        ExperienceWidgets.length > 2 ? (
+                          viewExperience ? (
+                            <>
+                              {ExperienceWidgets.map(profile => (
+                                <ExperienceCardDisplay type={profile.type} companyName={profile.company_name} description={profile.description} start={profile.start_date} end={profile.end_date} />
+                              ))}
+                              {
+                                <div className="viewCourses flexRow flexCenter" onClick={() => setViewExperience(false)}>
+                                  <div className="flexRow flexAlignCenter viewCourses__containter pointer">
+                                    <p className="viewCourses__text">View Less</p>
+                                    <AiOutlineUp />
+                                  </div>
+                                </div>
+                              }
+                            </>
+                          ) : (
+                            <>
+                              {ExperienceWidgets.slice(0,2).map(profile => (
+                                <ExperienceCardDisplay type={profile.type} companyName={profile.company_name} description={profile.description} start={profile.start_date} end={profile.end_date} />
+                              ))}
+                              {
+                                <div className="viewCourses flexRow flexCenter" onClick={() => setViewExperience(true)}>
+                                  <div className="flexRow flexAlignCenter viewCourses__containter pointer">
+                                    <p className="viewCourses__text">View More</p>
+                                    <AiOutlineDown />
+                                  </div>
+                                </div>
+                              }
+                            </>
+                          )
+                        ) : (
+                          ExperienceWidgets.map(profile => (
+                            <ExperienceCardDisplay type={profile.type} companyName={profile.company_name} description={profile.description} start={profile.start_date} end={profile.end_date} />
+                          ))
+                        )                        
+                      }
+                    </div>
+                  </div>
+                ) : null
+              }
               {
                 RankWidgets.length > 0 ? (
                   <div className="coding-profile mv-20">

@@ -10,6 +10,7 @@ const initialState = {
     resume_present: false,
     portfolio: [],
     course_widgets: [],
+    experience_widgets: [],
     rank_widgets: [],
     contest_widgets: [],
     project_widgets: [],
@@ -40,6 +41,7 @@ const userSlice = createSlice({
             state.contest_widgets = [];
             state.project_widgets = [];
             state.course_widgets = [];
+            state.experience_widgets = [];
             state.sent_history = [];
             state.total_mails_sent = '';
             state.portfolio_link = '';
@@ -55,6 +57,7 @@ const userSlice = createSlice({
             state.contest_widgets = action.payload.contest_widgets;
             state.project_widgets = action.payload.personal_projects;
             state.course_widgets = action.payload.course_widgets;
+            state.experience_widgets = action.payload.experience_widgets;
             state.portfolio_link = action.payload.portfolio_link;
         },
         setPortfolio: (state, action) => {
@@ -79,13 +82,16 @@ const userSlice = createSlice({
         setCourses: (state, action) => {
             state.course_widgets = action.payload.course_widgets;
         },
+        setExperiences: (state, action) => {
+            state.experience_widgets = action.payload.experience_widgets;
+        },
         setPortfolioLink: (state, action) => {
             state.portfolio_link = action.payload.portfolio_link;
         },
     },
 });
 
-export const {logUser, logOutUser, setUser, setName, setPortfolio, setPortfolioLink, setRankWidgets, setContestWidgets, setProjectWidgets, setHistory, setCourses} = userSlice.actions;
+export const {logUser, logOutUser, setUser, setName, setPortfolio, setPortfolioLink, setRankWidgets, setContestWidgets, setProjectWidgets, setHistory, setCourses, setExperiences} = userSlice.actions;
 
 export const userLogin = state => state.user.login;
 export const userToken = state => state.user.accessToken;
@@ -97,6 +103,7 @@ export const userResume = state => state.user.resume_present;
 export const userPortfolio = state => state.user.portfolio;
 export const userRankWidgets = state => state.user.rank_widgets;
 export const userCoursesTaken = state => state.user.course_widgets;
+export const userExperiences = state => state.user.experience_widgets;
 export const userContestWidgets = state => state.user.contest_widgets;
 export const userProjectWidgets = state => state.user.project_widgets;
 export const userHistory = state => state.user.sent_history;
