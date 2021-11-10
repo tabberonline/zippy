@@ -202,7 +202,7 @@ function PortfolioScreen() {
             </div>
             <div className="courses mv-20">
               <div className="flexRow flexBetween flexAlignCenter mb-20">
-                <p className="card-heading">Experience</p>
+                <p className="card-heading">Work Experience</p>
                 <AddExperienceModal
                   open={() => setloader(true)}
                   close={() => setloader(false)}

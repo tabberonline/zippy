@@ -312,7 +312,7 @@ function DisplayScreen() {
               {
                 ExperienceWidgets && ExperienceWidgets.length > 0 ? (
                   <div className="courses mv-20">
-                    <p className="card-heading mb-20">Experience</p>
+                    <p className="card-heading mb-20">Work Experience</p>
                     <div className="flexColumn courseList grow5">
                       {
                         ExperienceWidgets.length > 2 ? (

@@ -193,7 +193,7 @@ export const ExperienceCard = ({ type, companyName, description, start, end, id,
                     ) : null
                     }
                     {drawer ? (
-                        <div className="flexRow flexStart options" style={{ position: 'absolute', zIndex: 1000 }}>
+                        <div className="flexColumn options" style={{ position: 'absolute', zIndex: 1000, left: 25 }}>
                             <div className="flexRow flexAlignCenter option delete-option drawerOption" onClick={() => DeleteCardPortal()}>
                                 <img src={deleted} alt="delete" className="drawerImg" />
                             </div>
