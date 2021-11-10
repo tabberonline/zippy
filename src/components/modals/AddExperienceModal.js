@@ -64,7 +64,7 @@ export default function AddExperienceModal({ open, close }) {
                 <div className="flexColumn">
                     <div className="flexRow flexBetween flexAlignCenter mb-40">
                         <div style={{ width: 20 }}></div>
-                        <h2 className="modal-head">Add Experience</h2>
+                        <h2 className="modal-head">Add Work Experience</h2>
                         <button onClick={props.onHide}>
                             <AiOutlineCloseCircle style={{ fontSize: 40, color: "black" }} />
                         </button>

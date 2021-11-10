@@ -82,7 +82,7 @@ export default function UpdateExperience({
                 <div className="flexColumn">
                     <div className="flexRow flexBetween flexAlignCenter mb-40">
                         <div style={{ width: 20 }}></div>
-                        <h2 className="modal-head">Update Experience</h2>
+                        <h2 className="modal-head">Update Work Experience</h2>
                         <button onClick={props.onHide}>
                             <AiOutlineCloseCircle style={{ fontSize: 40, color: "black" }} />
                         </button>
@@ -148,7 +148,7 @@ export default function UpdateExperience({
                             }}
                             className="flexAlignCenter modal-button"
                         >
-                            Update Experience
+                            Update Work Experience
                         </a>
                     </div>
                 </div>

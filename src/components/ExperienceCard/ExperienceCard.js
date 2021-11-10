@@ -67,7 +67,7 @@ export const ExperienceCard = ({ type, companyName, description, start, end, id,
                 <div className="flexColumn">
                     <div className="flexRow flexBetween flexAlignCenter mb-40">
                         <div style={{ width: 20 }}></div>
-                        <h2 className="modal-head">Delete Experience</h2>
+                        <h2 className="modal-head">Delete Work Experience</h2>
                         <button onClick={props.onHide}>
                             <AiOutlineCloseCircle style={{ fontSize: 40, color: 'black' }} />
                         </button>

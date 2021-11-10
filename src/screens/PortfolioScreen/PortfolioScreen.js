@@ -255,7 +255,7 @@ function PortfolioScreen() {
                 </div>
               ) : (
                 <div className="flexRow flexCenter flexAlignCenter courseList grow5">
-                  You have not added any experience yet.
+                  You have not added any work experience yet.
                 </div>
               )}  
             </div>
