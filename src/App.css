@@ -734,10 +734,16 @@
         width: 20px !important;
     }
     .modal-head{
-        font-size: 20px !important;
+        font-size: 15px !important;
+    }
+    .modal-list {
+        font-size: 14px !important;
+    }
+    .modal-button {
+        font-size: 14px !important;
     }
     .modal .form-group .form-label {
-        font: 16px 'Poppins', sans-serif !important;
+        font: 14px 'Poppins', sans-serif !important;
     }
     .modal .form-group input, .modal .form-group select, option {
         font: 16px 'Poppins', sans-serif !important;
@@ -1188,7 +1194,7 @@
         width: 30px !important;
     }
     .modal-head{
-        font-size: 36px !important;
+        font-size: 26px !important;
     }
     .modal .form-group .form-label {
         font: 24px 'Poppins', sans-serif !important;
@@ -1484,7 +1490,7 @@
         font-weight: 400 !important;
     }
     .modal .form-group input, .modal .form-group select, .modal .form-group textarea {
-        font: 16px 'Poppins', sans-serif !important;
+        font: 14px 'Poppins', sans-serif !important;
     }
     div.flexRow.mw1100.flexBetween > div:nth-child(1) > a,
     div.flexRow.mw1100.flexBetween > div:nth-child(4) > button {
