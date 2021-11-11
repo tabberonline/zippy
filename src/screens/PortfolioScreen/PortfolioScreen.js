@@ -23,6 +23,7 @@ import { useSelector } from "react-redux";
 import {
   userContestWidgets,
   userCoursesTaken,
+  userExperiences,
   userName,
   userPortfolio,
   userProjectWidgets,
@@ -30,7 +31,9 @@ import {
 } from "../../features/user/userSlice";
 import UpdatePortfolioModal from "../../components/UpdateModals/UpdatePortfolioModal";
 import AddCourseModal from "../../components/modals/AddCourseModal";
+import AddExperienceModal from "../../components/modals/AddExperienceModal";
 import { CourseCard } from "../../components/CourseCard/CourseCard";
+import { ExperienceCard } from "../../components/ExperienceCard/ExperienceCard";
 const API_KEY = "AJYGpQcugTouk4olbrEfWz";
 const processAPI = "https://cdn.filestackcontent.com";
 
@@ -41,6 +44,7 @@ function PortfolioScreen() {
   const contest_widgets = useSelector(userContestWidgets);
   const project_widgets = useSelector(userProjectWidgets);
   const course_widgets = useSelector(userCoursesTaken);
+  const experience_widget = useSelector(userExperiences);
 
   let title = portfolio && portfolio.title;
   let desc = portfolio && portfolio.description;
@@ -48,6 +52,7 @@ function PortfolioScreen() {
   let educationLevel = portfolio && portfolio.education_level;
 
   const [courses, showCourses] = useState(false);
+  const [experiences, showExperiences] = useState(false);
 
   let text = "";
   educationLevel === "postgraduate"
@@ -192,6 +197,65 @@ function PortfolioScreen() {
               ) : (
                 <div className="flexRow flexCenter flexAlignCenter courseList grow5">
                   You have not added any course yet.
+                </div>
+              )}  
+            </div>
+            <div className="courses mv-20">
+              <div className="flexRow flexBetween flexAlignCenter mb-20">
+                <p className="card-heading">Work Experience</p>
+                <AddExperienceModal
+                  open={() => setloader(true)}
+                  close={() => setloader(false)}
+                />
+              </div>
+              {experience_widget.length > 0 ? (
+                <div className="flexColumn courseList grow5">
+                  {!experiences && experience_widget.slice(0,2).map((experience) => (
+                    <ExperienceCard
+                      type={experience.type}
+                      companyName={experience.company_name}
+                      description={experience.description}
+                      start={experience.start_date}
+                      end={experience.end_date}
+                      open={() => setloader(true)}
+                      close={() => setloader(false)}
+                      id={experience.id}
+                      hide={experience.invisible}
+                    />
+                  ))}
+                  {experiences && experience_widget.map((experience) => (
+                    <ExperienceCard
+                      type={experience.type}
+                      companyName={experience.company_name}
+                      description={experience.description}
+                      start={experience.start_date}
+                      end={experience.end_date}
+                      id={experience.id}
+                      open={() => setloader(true)}
+                      close={() => setloader(false)}
+                      hide={experience.invisible}
+                    />
+                  ))}
+                  {
+                    experiences && <div className="viewCourses flexRow flexCenter" onClick={() => showExperiences(false)}>
+                      <div className="flexRow flexAlignCenter viewCourses__containter pointer">
+                        <p className="viewCourses__text">View Less</p>
+                        <AiOutlineUp />
+                      </div>
+                    </div>
+                  }
+                  {
+                    !experiences && experience_widget.length > 2 && <div className="viewCourses flexRow flexCenter" onClick={() => showExperiences(true)}>
+                      <div className="flexRow flexAlignCenter viewCourses__containter pointer">
+                        <p className="viewCourses__text">View All</p>
+                        <AiOutlineDown />
+                      </div>
+                    </div>
+                  }
+                </div>
+              ) : (
+                <div className="flexRow flexCenter flexAlignCenter courseList grow5">
+                  You have not added any work experience yet.
                 </div>
               )}  
             </div>

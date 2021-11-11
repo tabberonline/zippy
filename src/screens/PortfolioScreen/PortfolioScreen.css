@@ -186,6 +186,14 @@ textarea:focus {
   font: 20px 'Poppins';
   color: rgba(0,0,0,0.5);
 }
+.company__name{
+  font: 20px 'Poppins';
+  font-weight: 500;
+}
+.experience__date{
+  font: 18px 'Poppins';
+  color: rgba(0,0,0,0.5);
+}
 .viewCourses{
   padding-top: 20px;
 }
@@ -230,4 +238,65 @@ textarea:focus {
   position: absolute;
   top: -15%;
   right:-2%
+}
+.experience__section {
+  font: 16px 'Poppins';
+  width: 90%;
+}
+.experience__desc {
+  background-color: #f6f6f6;
+  border-radius: 10px;
+  color: #7b7b7b;
+  padding: 8px;
+  margin-top: 3px;
+  min-height: 50px;
+}
+.experience__type {
+  margin-top: 5px;
+  padding-left: 5px;
+  color: #7b7b7b;
+  font-weight: 500;
+}
+
+@media (max-width: 480px){
+  .course-card {
+    padding: 10px 25px;
+  }
+  .courseList {
+    padding: 10px 0;
+    width: 86%;
+  }
+  .iconcontainerCourse {
+    width: 20px;
+    height: 20px;
+  }
+  .experience__section {
+    font-size: 12px;
+  }
+  .course__name {
+    font-size: 14px;
+  }
+  .course__issuer {
+    font-size: 12px;
+  }
+  .company__name {
+    font-size: 14px !important;
+  }
+  .experience__date {
+    font-size: 12px;
+  }
+  div.flexRow.flexBetween.flexAlignCenter.mb-20 > a > svg {
+    height: 25px;
+    width: 25px;
+  }
+  .drawerImg {
+    width: 20px;
+    height: 20px;
+  }
+  .viewCourses {
+    padding-top: 10px;
+  }
+  .viewCourses__text {
+    font-size: 16px;
+  }
 }

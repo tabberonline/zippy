@@ -78,4 +78,13 @@ export default {
   updateCourseWidget: async (id, data) => {
     return DataService.put(`/coursewidget/update?id=${id}`, data);
   },
+  createExperienceWidget: async(data) => {
+    return DataService.post('/experiencewidget/create', data);
+  },
+  deleteExperienceWidget: async(id) => {
+    return DataService.delete(`/experiencewidget/delete?id=${id}`);
+  },
+  updateExperienceWidget: async(id, data) => {
+    return DataService.put(`/experiencewidget/update?id=${id}`, data);
+  },
 }
