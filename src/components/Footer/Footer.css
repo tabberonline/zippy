@@ -21,3 +21,42 @@
 .mr-40{
     margin-right: 40px;
 }
+a.linkedinIcon > span > svg,
+a.instagramIcon > span > svg,
+a.facebookIcon > span > svg {
+    font-size: 25px;
+    margin: 0 10px;
+}
+footer > div > div > a:nth-child(1) {
+    margin-left: 30px;
+}
+
+@media (max-width: 480px) {
+    a.linkedinIcon > span > svg,
+    a.instagramIcon > span > svg,
+    a.facebookIcon > span > svg {
+        font-size: 16px;
+        margin: 0 3px;
+    }
+    footer > div > div > a:nth-child(1) {
+        margin-left: 5px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    a.linkedinIcon > span > svg,
+    a.instagramIcon > span > svg,
+    a.facebookIcon > span > svg {
+        font-size: 25px;
+        margin: 0 10px;
+    }
+}
+
+@media (min-width: 480px) and (max-width: 599px) {
+    a.linkedinIcon > span > svg,
+    a.instagramIcon > span > svg,
+    a.facebookIcon > span > svg {
+        font-size: 20px;
+        margin: 0 10px;
+    }
+}
