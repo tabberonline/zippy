@@ -50,6 +50,7 @@ function PortfolioScreen() {
   let desc = portfolio && portfolio.description;
   let college = portfolio && portfolio.college;
   let educationLevel = portfolio && portfolio.education_level;
+  let graduation_year = portfolio && portfolio.graduation_year;
 
   const [courses, showCourses] = useState(false);
   const [experiences, showExperiences] = useState(false);
@@ -120,7 +121,7 @@ function PortfolioScreen() {
               <div className="flexRow  mb-20 pl-20">
                 <p className="nameText">
                   Hello! I am <strong>{name}</strong>, {text}{" "}
-                  <strong>{college && college.split(",")[0]}</strong>
+                  <strong>{college && college.split(",")[0]} ({graduation_year})</strong>
                 </p>
               </div>
               <div className="flexRow">
