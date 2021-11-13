@@ -223,8 +223,9 @@ textarea:focus {
 .drawerOption1{
   margin-bottom: 10px;
   position: relative;
-  left: 40px;
-  cursor: pointer
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
 }
 .projectCardHD{
   font-size: 30px;
@@ -275,6 +276,7 @@ textarea:focus {
   }
   .course__name {
     font-size: 14px;
+    padding-top: 20px !important;
   }
   .course__issuer {
     font-size: 12px;
@@ -298,5 +300,9 @@ textarea:focus {
   }
   .viewCourses__text {
     font-size: 16px;
+  }
+  .drawerOption1 {
+    width: 30px;
+    height: 30px;
   }
 }
