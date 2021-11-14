@@ -32,7 +32,6 @@ export default function UpdateExperience({
     let End = end;
 
     const updateExperienceWidget = async () => {
-        if (Type && CompanyName && Description && Start && End) {
             let ExperienceData = {
                 "type": Type,
                 "company_name": CompanyName,
@@ -58,16 +57,19 @@ export default function UpdateExperience({
                     ErrorToast("Error, Enter Correct details!");
                     close();
                 });
-        } else {
-            ErrorToast("Error, Fields cannot be empty!");
-            close();
-        }
+        
     };
 
 
     const UpdateCard = () => {
         open();
-        updateExperienceWidget();
+        if (Type && CompanyName && Description && Start) {
+            updateExperienceWidget();        
+            setModalShow(false);
+        } else {
+            ErrorToast("Error, Fields cannot be empty!");
+            close();
+        }
     };
 
     function MyVerticallyCenteredModal(props) {
@@ -144,7 +146,6 @@ export default function UpdateExperience({
                         <a
                             onClick={() => {
                                 UpdateCard();
-                                setModalShow(false);
                             }}
                             className="flexAlignCenter modal-button"
                         >

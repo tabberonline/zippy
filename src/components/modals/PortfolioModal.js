@@ -47,7 +47,6 @@ export default function PortfolioModal({ home, open, close, terms }) {
     if (token === "") {
       ErrorToast("Access Token not Retrieved!");
     } else {
-      if (title && desc && gradYear && educationLevel && (college !== -1 || other !== "")) {
         const portfolioData = {
           title: title,
           picture_url: image,
@@ -76,16 +75,17 @@ export default function PortfolioModal({ home, open, close, terms }) {
             ErrorToast("Error, One User, One Portfolio!");
             close();
           });
-      } else {
-        ErrorToast("Error, Fields cannot be empty!");
-        close();
-      }
     }
   };
 
   const Add = () => {
     open();
-    createPortfolio();
+    if (title && desc && gradYear && educationLevel && (college !== -1 || other !== "")) {
+      createPortfolio(); setModalShow(false);
+    } else {
+      ErrorToast("Error, Fields cannot be empty!");
+      close();
+    }
   };
 
   const getUnivList = () => {
@@ -217,7 +217,7 @@ export default function PortfolioModal({ home, open, close, terms }) {
           </Form>
 
           <div className="share" style={{ justifyContent: "center" }}>
-            <a onClick={() => {Add(); setModalShow(false);}} className="flexAlignCenter modal-button">
+            <a onClick={() => Add()} className="flexAlignCenter modal-button">
               Create Portfolio
             </a>
           </div>

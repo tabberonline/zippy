@@ -102,7 +102,6 @@ export default function AddCourseModal({ open, close }) {
             <a
               onClick={() => {
                 AddCourse();
-                setModalShow(false);
               }}
               className="flexAlignCenter modal-button"
             >

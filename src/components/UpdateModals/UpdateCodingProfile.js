@@ -42,7 +42,6 @@ export default function UpdateCodingProfile({
   };
 
   const updateRankWidget = async () => {
-    if (portal && username && rank) {
       const rankWidgetData = {
         rank: getItem("Codingrank"),
         website_id: getItem("website_id"),
@@ -65,10 +64,6 @@ export default function UpdateCodingProfile({
           ErrorToast("Error, Enter correct details!");
           close();
         });
-    } else {
-      ErrorToast("Error, Fields cannot be empty!");
-      close();
-    }
   };
 
   const getPortalDetails = (portal) => {
@@ -85,7 +80,14 @@ export default function UpdateCodingProfile({
     getPortalDetails(formatPortal(getItem("Codingportal")));
     setItem("Codingusername", username);
     setItem("Codingrank", rank);
-    updateRankWidget();
+    
+    if (portal && username && rank) {
+      updateRankWidget();
+      setModalShow(false);
+    } else {
+      ErrorToast("Error, Fields cannot be empty!");
+      close();
+    }
   };
 
   function MyVerticallyCenteredModal(props) {
@@ -157,7 +159,7 @@ export default function UpdateCodingProfile({
 
           <div className="share" style={{ justifyContent: "center" }}>
             <a
-              onClick={() => {UpdateCard(); setModalShow(false);}}
+              onClick={() => {UpdateCard();}}
               className="flexAlignCenter modal-button"
             >
               Update Profile

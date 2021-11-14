@@ -45,7 +45,6 @@ export default function UpdateContestProfile({
   };
 
   const updateWidget = async (card_id) => {
-    if (portal && username && rank && contest) {
       const updateWidgetData = {
         rank: getItem("Contestrank"),
         website_id: getItem("website_id"),
@@ -68,10 +67,6 @@ export default function UpdateContestProfile({
           ErrorToast("Error, Enter correct details!");
           close();
         });
-    } else {
-      ErrorToast("Error, Fields cannot be empty!");
-      close();
-    }
   };
 
   const getPortalDetails = (portal) => {
@@ -89,7 +84,14 @@ export default function UpdateContestProfile({
     setItem("Contestusername", username);
     setItem("Contestrank", rank);
     setItem("Contestname", contest);
-    updateWidget(card_id);
+
+    if (portal && username && rank && contest) {
+      updateWidget(card_id);
+      setModalShow(false);
+    } else {
+      ErrorToast("Error, Fields cannot be empty!");
+      close();
+    }
   };
 
   function MyVerticallyCenteredModal(props) {
@@ -161,7 +163,7 @@ export default function UpdateContestProfile({
 
           <div className="share" style={{ justifyContent: "center" }}>
             <a
-              onClick={() => {UpdateCard(card_id); setModalShow(false);}}
+              onClick={() => {UpdateCard(card_id);}}
               className="flexAlignCenter modal-button"
             >
               Update Profile

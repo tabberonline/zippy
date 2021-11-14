@@ -85,7 +85,7 @@ export default function LinkedInProfileModal({open, close}) {
           </Form>
 
           <div className="share" style={{justifyContent: 'center'}}>
-            <a className="flexAlignCenter modal-button" onClick={() => {LinkedInAttach(); setModalShow(false);}}>Add to profile</a>
+            <a className="flexAlignCenter modal-button" onClick={() => LinkedInAttach()}>Add to profile</a>
           </div>
   
         </div>

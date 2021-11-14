@@ -36,11 +36,6 @@ export default function UpdatePortfolioModal({ open, close }) {
   let educationLevel = portfolio && portfolio.education_level;
 
   const UpdatePortfolio = async () => {
-    if (
-      desc.length > 0 &&
-      title.length > 0 &&
-      (college !== -2 || other.length > 0)
-    ) {
       const UpdatePortfolioData = {
         title: title,
         description: desc,
@@ -67,31 +62,27 @@ export default function UpdatePortfolioModal({ open, close }) {
         .catch((err) => {
           ErrorToast("Error, Please retry!");
           close();
-        });
-    } else {
-      ErrorToast("Error, Fields cannot be empty!");
-      close();
-    }
-    if (name11 !== name) {
-      AdminService.UpdateName(name11)
-        .then((res) => {
-          AdminService.getUserData()
-            .then((resp) => {
-              dispatch(setName(resp.data));
-              SuccessToast("Details Updated!");
-              setModalShow(false);
-              close();
-            })
-            .catch((err) => {
-              ErrorToast("Some Error Occured.");
-              close();
-            });
-        })
-        .catch((err) => {
-          ErrorToast("Error, Please retry!");
-          close();
-        });
-    }
+        });    
+      if (name11 && name11 !== name) {
+        AdminService.UpdateName(name11)
+          .then((res) => {
+            AdminService.getUserData()
+              .then((resp) => {
+                dispatch(setName(resp.data));
+                SuccessToast("Details Updated!");
+                setModalShow(false);
+                close();
+              })
+              .catch((err) => {
+                ErrorToast("Some Error Occured.");
+                close();
+              });
+          })
+          .catch((err) => {
+            ErrorToast("Error, Please retry!");
+            close();
+          });
+      }
   };
 
   const getUnivList = () => {
@@ -115,7 +106,19 @@ export default function UpdatePortfolioModal({ open, close }) {
 
   const Add = () => {
     open();
-    UpdatePortfolio();
+    if (
+      title &&
+      desc.length > 0 &&
+      title.length > 0 &&
+      (college !== -2 || other.length > 0) &&
+      educationLevel &&
+      gradYear
+    ) {
+      UpdatePortfolio(); setModalShow(false);
+    } else {
+      ErrorToast("Error, Fields cannot be empty!");
+      close();
+    }
   };
 
   useEffect(() => {
@@ -243,7 +246,7 @@ export default function UpdatePortfolioModal({ open, close }) {
           </Form>
 
           <div className="share" style={{ justifyContent: "center" }}>
-            <a onClick={() => {Add(); setModalShow(false);} } className="flexAlignCenter modal-button">
+            <a onClick={() => {Add();} } className="flexAlignCenter modal-button">
               Update Portfolio
             </a>
           </div>
