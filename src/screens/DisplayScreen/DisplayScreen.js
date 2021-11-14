@@ -35,7 +35,9 @@ function DisplayScreen() {
   const [CourseWidgets, setCourses] = useState([]);
   const [ view, setView ] = useState(false);
   const [ExperienceWidgets, setExperiences] = useState([]);
+  const [graduationStatus, setGraduationStatus] = useState(null);
   const [viewExperience, setViewExperience] = useState(false);
+
   const showPopupHandler = () => {
     setShowCookiePopup(true);
   };
@@ -148,6 +150,23 @@ function DisplayScreen() {
     setShowCookiePopup(false);
   };
   
+  const responceData = (data) => {
+    let text;
+    const educationLevel = data.portfolio.education_level;
+    const graduationStringMap = data.string_map;
+
+    educationLevel === "postgraduate"
+    ? (text = graduationStringMap["postgraduate"])
+    : educationLevel === "undergraduate"
+    ? (text = graduationStringMap["undergraduate"])
+    : educationLevel === "pursuing postgraduation"
+    ? (text = graduationStringMap["pursuing postgraduation"])
+    : educationLevel === "pursuing undergraduation"
+    ? (text = graduationStringMap["pursuing undergraduation"])
+    : (text = " a student of ");
+
+    setGraduationStatus(text);
+  }
   
   useEffect(() => {
     let isLoggedin;
@@ -206,6 +225,7 @@ function DisplayScreen() {
     Axios.get(`${API_ENDPOINT}/user/guest/resume?id=${user_id}${urlTrakingId}`)
       .then(resp => {
         setData([resp.data]);
+        responceData(resp.data);
         setloader(false);
         window.scroll(0,150);
           adjustData(resp.data);
@@ -217,7 +237,6 @@ function DisplayScreen() {
   }, [])
   
   const adjustData = (data) => {
-    // console.log(data)
     var abc = data && data.rank_widgets && data.rank_widgets.filter(profile => profile.invisible === false);
     setRank(abc);
     abc = data && data.contest_widgets && data.contest_widgets.filter(profile => profile.invisible === false);
@@ -240,7 +259,7 @@ function DisplayScreen() {
               <p className="title">{user.portfolio.title}</p>
               <hr style={{color : '#717070', width: '80%', margin: 'auto', marginTop: 10}} />
               <div className="flexColumn info-sec">
-                <p className="name mb-20 pl-20">Hello! I am <strong>{user.name}</strong>, a student of  <strong>{user.portfolio.college.split(',')[0]}({user.portfolio.graduation_year})</strong></p>
+                <p className="name mb-20 pl-20">Hello! I am <strong>{user.name}</strong>{graduationStatus}<strong>{user.portfolio.college.split(',')[0]}({user.portfolio.graduation_year})</strong></p>
                 <p className="desc">{user.portfolio.description}</p>
               </div>
               <div className="socialsRow">

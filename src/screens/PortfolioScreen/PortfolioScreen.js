@@ -28,6 +28,7 @@ import {
   userPortfolio,
   userProjectWidgets,
   userRankWidgets,
+  userStringMap,
 } from "../../features/user/userSlice";
 import UpdatePortfolioModal from "../../components/UpdateModals/UpdatePortfolioModal";
 import AddCourseModal from "../../components/modals/AddCourseModal";
@@ -45,6 +46,7 @@ function PortfolioScreen() {
   const project_widgets = useSelector(userProjectWidgets);
   const course_widgets = useSelector(userCoursesTaken);
   const experience_widget = useSelector(userExperiences);
+  const graduationStringMap = useSelector(userStringMap);
 
   let title = portfolio && portfolio.title;
   let desc = portfolio && portfolio.description;
@@ -57,13 +59,13 @@ function PortfolioScreen() {
 
   let text = "";
   educationLevel === "postgraduate"
-    ? (text = "a postgraduate passout from ")
+    ? (text = graduationStringMap["postgraduate"])
     : educationLevel === "undergraduate"
-    ? (text = "an undergraduate passout from ")
+    ? (text = graduationStringMap["undergraduate"])
     : educationLevel === "pursuing postgraduation"
-    ? (text = "a postgraduate student of ")
+    ? (text = graduationStringMap["pursuing postgraduation"])
     : educationLevel === "pursuing undergraduation"
-    ? (text = "an undergraduate student of ")
+    ? (text = graduationStringMap["pursuing undergraduation"])
     : (text = "a student of ");
 
   const [loader, setloader] = useState(false);
@@ -120,7 +122,7 @@ function PortfolioScreen() {
             <div className="flexColumn info-sec">
               <div className="flexRow  mb-20 pl-20">
                 <p className="nameText">
-                  Hello! I am <strong>{name}</strong>, {text}{" "}
+                  Hello! I am <strong>{name}</strong>{text}{" "}
                   <strong>{college && college.split(",")[0]} ({graduation_year})</strong>
                 </p>
               </div>

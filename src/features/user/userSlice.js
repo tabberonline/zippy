@@ -15,6 +15,7 @@ const initialState = {
     contest_widgets: [],
     project_widgets: [],
     sent_history: [],
+    string_map: [],
     total_mails_sent: '',
     portfolio_link: '',
 };
@@ -43,6 +44,7 @@ const userSlice = createSlice({
             state.course_widgets = [];
             state.experience_widgets = [];
             state.sent_history = [];
+            state.string_map = [];
             state.total_mails_sent = '';
             state.portfolio_link = '';
         },
@@ -59,6 +61,7 @@ const userSlice = createSlice({
             state.course_widgets = action.payload.course_widgets;
             state.experience_widgets = action.payload.experience_widgets;
             state.portfolio_link = action.payload.portfolio_link;
+            state.string_map = action.payload.string_map;
         },
         setPortfolio: (state, action) => {
             state.portfolio = action.payload.portfolio;
@@ -109,5 +112,6 @@ export const userProjectWidgets = state => state.user.project_widgets;
 export const userHistory = state => state.user.sent_history;
 export const userMailSent = state => state.user.total_mails_sent;
 export const userPortfolioLink = state => state.user.portfolio_link;
+export const userStringMap = state => state.user.string_map;
 
 export default userSlice.reducer;
