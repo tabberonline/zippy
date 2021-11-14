@@ -28,7 +28,6 @@ export default function UpdateCourseTaken({
   let CourseLink = link;
 
   const updateCourseWidget = async () => {
-    if (CourseName && InstituteName && CourseLink) {
       let CourseData = {
         "course_name": CourseName,
         "issuer": InstituteName,
@@ -50,15 +49,17 @@ export default function UpdateCourseTaken({
           ErrorToast("Error, Enter correct details!");
           close();
         });
-    } else {
-      ErrorToast("Error, Fields cannot be empty!");
-      close();
-    }
   };
 
   const UpdateCard = () => {
     open();
-    updateCourseWidget();
+    if (CourseName && InstituteName && CourseLink) {
+      updateCourseWidget();
+      setModalShow(false);
+    } else {
+      ErrorToast("Error, Fields cannot be empty!");
+      close();
+    }
   };
 
   function MyVerticallyCenteredModal(props) {
@@ -114,7 +115,7 @@ export default function UpdateCourseTaken({
 
           <div className="share" style={{ justifyContent: "center" }}>
             <a
-              onClick={() => {UpdateCard(); setModalShow(false);}}
+              onClick={() => {UpdateCard();}}
               className="flexAlignCenter modal-button"
             >
               Update Course

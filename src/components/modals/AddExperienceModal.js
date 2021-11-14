@@ -126,7 +126,6 @@ export default function AddExperienceModal({ open, close }) {
                         <a
                             onClick={() => {
                                 AddExperience();
-                                setModalShow(false);
                             }}
                             className="flexAlignCenter modal-button"
                         >

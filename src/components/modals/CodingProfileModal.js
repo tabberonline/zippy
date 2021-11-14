@@ -92,8 +92,10 @@ export default function CodingProfileModal({ open, close }) {
       setItem("Codingusername", username);
       setItem("Codingrank", rank);
       createRankWidget();
+      setModalShow(false)
     } else {
       ErrorToast("Error, Fields cannot be empty!");
+      close();
     }
   };
 
@@ -166,7 +168,7 @@ export default function CodingProfileModal({ open, close }) {
 
           <div className="share" style={{ justifyContent: "center" }}>
             <a
-              onClick={() => {UpdateCard(); setModalShow(false);}}
+              onClick={() => UpdateCard()}
               className="flexAlignCenter modal-button"
             >
               Add to Profile

@@ -81,8 +81,10 @@ export default function ContestProfileModal({ open, close }) {
       setItem("Contestrank", rank);
       setItem("Contestname", contest);
       createWidget();
+      setModalShow(false);
     } else {
       ErrorToast("Error, Fields cannot be empty!");
+      close();
     }
   };
 
@@ -155,7 +157,7 @@ export default function ContestProfileModal({ open, close }) {
 
           <div className="share" style={{ justifyContent: "center" }}>
             <a
-              onClick={() => {UpdateCard(); setModalShow(false);}}
+              onClick={() => UpdateCard()}
               className="flexAlignCenter modal-button"
             >
               Add to Profile

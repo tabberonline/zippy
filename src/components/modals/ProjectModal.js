@@ -18,7 +18,6 @@ export default function ProjectModal({ open, close }) {
   var stacks = [];
 
   const createWidget = async () => {
-    if (url.length > 0 && project.length > 0) {
       const projectWidgetData = {
         title: project,
         link: url,
@@ -43,16 +42,17 @@ export default function ProjectModal({ open, close }) {
           ErrorToast("Error, Enter correct details!");
           close();
         });
-    } else {
-      ErrorToast("Error, Fields cannot be empty!");
-      close();
-    }
   };
 
   const UpdateCard = () => {
     open();
     stacks = stack.split(",");
-    createWidget();
+    if (url.length > 0 && project.length > 0) {
+      createWidget();  setModalShow(false);
+    } else {
+      ErrorToast("Error, Fields cannot be empty!");
+      close();
+    }
   };
 
   function MyVerticallyCenteredModal(props) {
@@ -118,7 +118,7 @@ export default function ProjectModal({ open, close }) {
 
           <div className="share" style={{ justifyContent: "center" }}>
             <a
-              onClick={() => {UpdateCard(); setModalShow(false);}}
+              onClick={() => UpdateCard()}
               className="flexAlignCenter modal-button"
             >
               Add to Profile

@@ -21,8 +21,9 @@ import {
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { API_ENDPOINT } from "../../AdminServices/baseUrl";
+import TermsnCondns from "./TermsnCondns";
 
-export default function PortfolioModal({ home, open, close }) {
+export default function PortfolioModal({ home, open, close, terms }) {
   const token = useSelector(userToken);
   const dispatch = useDispatch();
   const image = useSelector(userImage);
@@ -30,7 +31,8 @@ export default function PortfolioModal({ home, open, close }) {
   const portfolio = useSelector(userPortfolio);
   const history = useHistory();
   const [modalShow, setModalShow] = useState(false);
-  const [apicall, setcall] = useState("");
+  const [modalShow2, setModalShow2] = useState(false);
+  const [accept, setAccept] = useState(false);
   const [collegeList, setList] = useState([]);
   const [educationLevels, setEducationLevels] = useState([]);
 
@@ -45,7 +47,6 @@ export default function PortfolioModal({ home, open, close }) {
     if (token === "") {
       ErrorToast("Access Token not Retrieved!");
     } else {
-      if (title && desc && gradYear && educationLevel && (college !== -1 || other !== "")) {
         const portfolioData = {
           title: title,
           picture_url: image,
@@ -74,16 +75,17 @@ export default function PortfolioModal({ home, open, close }) {
             ErrorToast("Error, One User, One Portfolio!");
             close();
           });
-      } else {
-        ErrorToast("Error, Fields cannot be empty!");
-        close();
-      }
     }
   };
 
   const Add = () => {
     open();
-    createPortfolio();
+    if (title && desc && gradYear && educationLevel && (college !== -1 || other !== "")) {
+      createPortfolio(); setModalShow(false);
+    } else {
+      ErrorToast("Error, Fields cannot be empty!");
+      close();
+    }
   };
 
   const getUnivList = () => {
@@ -106,7 +108,7 @@ export default function PortfolioModal({ home, open, close }) {
   };
 
   useEffect(() => {
-    !home && !portfolio && setModalShow(true);
+    !home && !portfolio && (accept ? setModalShow(true) : setModalShow2(true));
     getUnivList();
     getEducationLevels();
   }, []);
@@ -215,13 +217,17 @@ export default function PortfolioModal({ home, open, close }) {
           </Form>
 
           <div className="share" style={{ justifyContent: "center" }}>
-            <a onClick={() => {Add(); setModalShow(false);}} className="flexAlignCenter modal-button">
+            <a onClick={() => Add()} className="flexAlignCenter modal-button">
               Create Portfolio
             </a>
           </div>
         </div>
       </Modal>
     );
+  }
+  
+  const setAct = (option) => {
+    setAccept(option)
   }
 
   return (
@@ -234,7 +240,7 @@ export default function PortfolioModal({ home, open, close }) {
               if (portfolio) {
                 history.push("/portfolio");
               } else {
-                setModalShow(true);
+                (accept ? setModalShow(true) : setModalShow2(true))
               }
             } else {
               WarningToast("You need to Login first!");
@@ -247,7 +253,7 @@ export default function PortfolioModal({ home, open, close }) {
       ) : (
         <button
           onClick={() => {
-            portfolio ? history.push("/portfolio") : setModalShow(true);
+            portfolio ? history.push("/portfolio") : (accept ? setModalShow(true) : setModalShow2(true));
           }}
           className="edit-your-portfolio grow1"
         >
@@ -258,6 +264,7 @@ export default function PortfolioModal({ home, open, close }) {
         show={modalShow}
         onHide={() => setModalShow(false)}
       />
+      {terms && !accept && <TermsnCondns setModalShow1={setModalShow} setModalShow={setModalShow2} modalShow={modalShow2} terms={terms} setAccept={setAct} />}
     </>
   );
 }

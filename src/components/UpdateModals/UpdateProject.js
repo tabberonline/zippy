@@ -20,7 +20,7 @@ export default function UpdateProject({projectName, projectlink, ProjectDesc, Pr
   var description = ProjectDesc;
 
   const updateWidget = async (id) => {
-    if(url.length > 0 && project.length > 0 ){
+    
         const projectWidgetData = {
           'title' : project,
           'link' : url,
@@ -43,10 +43,6 @@ export default function UpdateProject({projectName, projectlink, ProjectDesc, Pr
           ErrorToast('Error, Enter correct details!')
           close();
         });
-    } else {
-      ErrorToast('Error, Fields cannot be empty!')
-      close();
-    }
   }
 
   const UpdateCard = (id) => {
@@ -56,7 +52,13 @@ export default function UpdateProject({projectName, projectlink, ProjectDesc, Pr
     } else{
       stacks = stack;
     }
-    updateWidget(id);
+    if(url.length > 0 && project.length > 0 ){
+      updateWidget(id);
+      setModalShow(false);
+    } else {
+      ErrorToast('Error, Fields cannot be empty!')
+      close();
+    }
   }
 
   function MyVerticallyCenteredModal(props) {
@@ -99,7 +101,7 @@ export default function UpdateProject({projectName, projectlink, ProjectDesc, Pr
           </Form>
   
           <div className="share" style={{justifyContent: 'center'}}>
-            <a onClick={() =>{ UpdateCard(project_id); setModalShow(false);}} className="flexAlignCenter modal-button">Update Card</a>
+            <a onClick={() => UpdateCard(project_id)} className="flexAlignCenter modal-button">Update Card</a>
           </div>
   
         </div>
