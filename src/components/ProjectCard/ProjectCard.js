@@ -144,7 +144,7 @@ export default function ProjectCard({name, url, id, img, hide, open, close, tech
                         }}
                     >                 
                         <div id="overlay" onClick={() => unHideCard()} className="flexColumn flexCenter flexAlignCenter">
-                            <img src={hidecards} alt="hidden" className="hide-card-icon drawerOption1" />
+                            <img src={hidecards} alt="hidden" className="hide-card-icon drawerOption1" style={{width: 30, height: 30}} />
                             <p className="options-text" style={{color: 'white'}}>Hidden</p>
                         </div>                    
                         <div onMouseEnter={() => {setcard(false); setdetail(true);}} className="flexColumn flexCenter flexAlignCenter project-textbox">
