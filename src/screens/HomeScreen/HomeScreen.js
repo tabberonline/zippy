@@ -91,38 +91,44 @@ function HomeScreen() {
         pauseOnHover
       />
       <Animated animationIn="slideInUp" isVisible={true}>
-      <div id="why-tabber">
-        <div className="mw1100 flexRow mobile-column flexAround flexAlignCenter">
-          <div className="mw600 flexColumn mv-40">
-              <h1 className="whytabber-heading">Why <span style={{color: '#077A73'}}>tabber?</span></h1>
-              <p className="whytabber-text">Are you tired of sending <strong>each and every link</strong> to recruiters taking the hassle of mentioning each and every <strong>rank</strong>? Say no more! because Tabber is here to make this a possibility.</p>
-              <p className="whytabber-features mt-50 mb-20">The features which are covered in this</p>
-              <ul className="whyTabberlist">
-                <div className="flexRow flexAlignCenter">
-                  <BiCheckCircle style={{color: '#077A73', marginRight: 10, marginTop: 5, fontSize: 21}} />
-                  <li className="ml-19 whytabber-point flexAlignCenter">Add all your portfolio profiles.</li>
-                </div>
-                <div className="flexRow flexAlignCenter">
-                  <BiCheckCircle style={{color: '#077A73', marginRight: 10, marginTop: 5, fontSize: 21}} />
-                  <li className="ml-19 whytabber-point flexAlignCenter">Edit your resume live on the go.</li>
-                </div>
-                <div className="flexRow flexAlignCenter">
-                  <BiCheckCircle style={{color: '#077A73', marginRight: 10, marginTop: 5, fontSize: 23}} />
-                  <li className="ml-19 whytabber-point flexAlignCenter">Send and keep track of emails to recruiters within Tabby.</li>
-                </div>
-                <div className="flexRow ">
-                  <BiCheckCircle style={{color: '#077A73', marginRight: 10, marginTop: 1, fontSize: 30}} />
-                  <li className="ml-19 whytabber-point flexAlignCenter">Tabby avoids spamming, thus increasing the chances of you getting noticed!</li>
-                </div>
-                <div className="flexRow flexAlignCenter">
-                  <BiCheckCircle style={{color: '#077A73', marginRight: 10, marginTop: 5, fontSize: 20}} />
-                  <li className="ml-19 whytabber-point flexAlignCenter">Get a single shareable link.</li>
-                </div>
-              </ul>
+        <div id="why-tabber">
+          <div className="mw1100 pl-20 flexColumn trending__profiles">
+            <h1 className="trending__profilesHeader">Trending Profiles</h1>
+            <div className="trending__profilesCards flexRow flexAlignCenter">
+
+            </div>
           </div>
-          <img className="intro-img" src={whytabber} alt="why-tabber" />
+          <div className="mw1100 flexRow mobile-column flexAround flexAlignCenter">
+            <div className="mw600 flexColumn mv-40">
+                <h1 className="whytabber-heading">Why <span style={{color: '#077A73'}}>tabber?</span></h1>
+                <p className="whytabber-text">Are you tired of sending <strong>each and every link</strong> to recruiters taking the hassle of mentioning each and every <strong>rank</strong>? Say no more! because Tabber is here to make this a possibility.</p>
+                <p className="whytabber-features mt-50 mb-20">The features which are covered in this</p>
+                <ul className="whyTabberlist">
+                  <div className="flexRow flexAlignCenter">
+                    <BiCheckCircle style={{color: '#077A73', marginRight: 10, marginTop: 5, fontSize: 21}} />
+                    <li className="ml-19 whytabber-point flexAlignCenter">Add all your portfolio profiles.</li>
+                  </div>
+                  <div className="flexRow flexAlignCenter">
+                    <BiCheckCircle style={{color: '#077A73', marginRight: 10, marginTop: 5, fontSize: 21}} />
+                    <li className="ml-19 whytabber-point flexAlignCenter">Edit your resume live on the go.</li>
+                  </div>
+                  <div className="flexRow flexAlignCenter">
+                    <BiCheckCircle style={{color: '#077A73', marginRight: 10, marginTop: 5, fontSize: 23}} />
+                    <li className="ml-19 whytabber-point flexAlignCenter">Send and keep track of emails to recruiters within Tabby.</li>
+                  </div>
+                  <div className="flexRow ">
+                    <BiCheckCircle style={{color: '#077A73', marginRight: 10, marginTop: 1, fontSize: 30}} />
+                    <li className="ml-19 whytabber-point flexAlignCenter">Tabby avoids spamming, thus increasing the chances of you getting noticed!</li>
+                  </div>
+                  <div className="flexRow flexAlignCenter">
+                    <BiCheckCircle style={{color: '#077A73', marginRight: 10, marginTop: 5, fontSize: 20}} />
+                    <li className="ml-19 whytabber-point flexAlignCenter">Get a single shareable link.</li>
+                  </div>
+                </ul>
+            </div>
+            <img className="intro-img" src={whytabber} alt="why-tabber" />
+          </div>
         </div>
-      </div>
       </Animated>
       <Animated animationIn="slideInUp" isVisible={true}>
       <div id="tabberfeatures">
