@@ -10,9 +10,14 @@ export const ExperienceCardDisplay = ({ type, companyName, description, start, e
     const myStartYear = new Date(start).toDateString().split(' ')[3];
     const startDate = myStartMonth + ' ' + myStartYear;
 
-    const myEndMonth = new Date(end).toDateString().split(' ')[1];
-    const myEndYear = new Date(end).toDateString().split(' ')[3];
-    const endDate = myEndMonth + ' ' + myEndYear;
+    let endDate;
+    if(end) {
+        const myEndMonth = new Date(end).toDateString().split(' ')[1];
+        const myEndYear = new Date(end).toDateString().split(' ')[3];
+        endDate = myEndMonth + ' ' + myEndYear;
+    } else {
+        endDate = "Present";
+    }
 
     const toggleReadMore = () => {
         setIsReadMore(prevState => !prevState);

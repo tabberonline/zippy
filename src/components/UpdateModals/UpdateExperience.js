@@ -38,7 +38,7 @@ export default function UpdateExperience({
                 "company_name": CompanyName,
                 "description": Description,
                 "start_date": Start,
-                "end_date": End,
+                "end_date": End ? End : null,
             };
             AdminService.updateExperienceWidget(id, ExperienceData)
                 .then(() => {
@@ -55,7 +55,7 @@ export default function UpdateExperience({
                     close();
                 })
                 .catch((error) => {
-                    ErrorToast("Error, Enter Correct details!");
+                    ErrorToast("Error, Something went wrong");
                     close();
                 });
         

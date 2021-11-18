@@ -20,13 +20,13 @@ export default function AddExperienceModal({ open, close }) {
 
     const AddExperience = () => {
         open();
-        if (Type && CompanyName && Description && StartDate && EndDate) {
+        if (Type && CompanyName && Description && StartDate) {
             let ExperienceData = {
                 "type": Type,
                 "company_name": CompanyName,
                 "description": Description,
                 "start_date": StartDate,
-                "end_date": EndDate
+                "end_date": EndDate ? EndDate : null,
             }
             AdminService.createExperienceWidget(ExperienceData)
                 .then(res => {
