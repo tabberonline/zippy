@@ -121,7 +121,7 @@ export default function AddExperienceModal({ open, close }) {
                             />
                         </Form.Group>
                         <Form.Group controlId="formBasicEmail5" className="mb-20">
-                            <Form.Label>End Date*</Form.Label>
+                            <Form.Label>End Date</Form.Label>
                             <Form.Control
                                 type="date"
                                 defaultValue={EndDate}
