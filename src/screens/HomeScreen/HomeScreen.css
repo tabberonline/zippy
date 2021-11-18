@@ -30,6 +30,9 @@
     background-color: rgba(242,230,203,1);
     padding: 40px 0 80px 0;
     clip-path: polygon(0 0, 100% 0, 100% 80%, 0% 100%);
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
 }
 #why-tabber .whytabber-heading, .tabberfeatures-heading, .achievements-heading, .tabberfeatures-heading{
     font: 40px 'Poppins', sans-serif;
@@ -66,4 +69,18 @@
     .embed-responsive{
         left: 5%;
     }
+}
+.trending__profiles{
+    gap: 30px;
+}
+.trending__profilesHeader{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 3.5vw;
+    line-height: 7.15vh;
+    color: #000000;
+}
+.trending__profilesCards{
+    gap: 40px
 }
