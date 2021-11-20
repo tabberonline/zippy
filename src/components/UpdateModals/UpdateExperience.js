@@ -6,6 +6,7 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import {
     SuccessToast,
     ErrorToast,
+    workExperiences,
 } from "../../utility/localStorageControl";
 import AdminService from "../../AdminServices/AdminService";
 import edited from "../../assets/images/Edit-Icon.png";
@@ -37,7 +38,7 @@ export default function UpdateExperience({
                 "company_name": CompanyName,
                 "description": Description,
                 "start_date": Start,
-                "end_date": End,
+                "end_date": End ? End : null,
             };
             AdminService.updateExperienceWidget(id, ExperienceData)
                 .then(() => {
@@ -54,7 +55,7 @@ export default function UpdateExperience({
                     close();
                 })
                 .catch((error) => {
-                    ErrorToast("Error, Enter Correct details!");
+                    ErrorToast("Error, Something went wrong");
                     close();
                 });
         
@@ -92,12 +93,21 @@ export default function UpdateExperience({
                     <Form>
                         <Form.Group controlId="formBasicEmail" className="mb-20">
                             <Form.Label>Type*</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Eg. Internship or Fulltime "
-                                defaultValue={Type}
-                                onChange={(e) => (Type = e.target.value)}
-                            />
+                            <br />
+                            <select 
+                            defaultValue={Type}
+                            onChange={e => (Type = e.target.value)}
+                            style={{width: "100%"}}
+                            >
+                                <option value="Eg. Internship/training" disabled>
+                                    Eg. Internship/Training
+                                </option>
+                                {workExperiences.map((exp) => (
+                                    <option value={exp.experience} key={exp.id}>
+                                        {exp.experience}
+                                    </option>
+                                ))}
+                            </select>
                         </Form.Group>
 
                         <Form.Group controlId="formBasicEmail2" className="mb-20">
@@ -132,7 +142,7 @@ export default function UpdateExperience({
                             />
                         </Form.Group>
                         <Form.Group controlId="formBasicEmail5" className="mb-20">
-                            <Form.Label>End Date*</Form.Label>
+                            <Form.Label>End Date</Form.Label>
                             <Form.Control
                                 type="date"
                                 defaultValue={End}

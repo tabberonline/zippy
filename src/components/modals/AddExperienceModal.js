@@ -4,7 +4,7 @@ import "../../styles/HelperStyles.css";
 import { Modal, Form } from "react-bootstrap";
 import { AiOutlineCloseCircle, AiOutlinePlusCircle } from "react-icons/ai";
 import AdminService from "../../AdminServices/AdminService";
-import { ErrorToast, SuccessToast } from "../../utility/localStorageControl";
+import { ErrorToast, SuccessToast, workExperiences } from "../../utility/localStorageControl";
 import { useDispatch } from "react-redux";
 import { setExperiences } from "../../features/user/userSlice";
 
@@ -20,13 +20,13 @@ export default function AddExperienceModal({ open, close }) {
 
     const AddExperience = () => {
         open();
-        if (Type && CompanyName && Description && StartDate && EndDate) {
+        if (Type && CompanyName && Description && StartDate) {
             let ExperienceData = {
                 "type": Type,
                 "company_name": CompanyName,
                 "description": Description,
                 "start_date": StartDate,
-                "end_date": EndDate
+                "end_date": EndDate ? EndDate : null,
             }
             AdminService.createExperienceWidget(ExperienceData)
                 .then(res => {
@@ -43,7 +43,7 @@ export default function AddExperienceModal({ open, close }) {
                         });
                 })
                 .catch(error => {
-                    ErrorToast("Error, Enter correct details");
+                    ErrorToast("Error, Something went wrong");
                     close();
                 });
         } else {
@@ -72,12 +72,21 @@ export default function AddExperienceModal({ open, close }) {
                     <Form>
                         <Form.Group controlId="formBasicEmail" className="mb-20">
                             <Form.Label>Type*</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Eg. Internship or Fulltime "
+                            <br />
+                            <select
                                 defaultValue={Type}
-                                onChange={(e) => (Type = e.target.value)}
-                            />
+                                onChange={e => (Type = e.target.value)}
+                                style={{ width: "100%" }}
+                            >
+                                <option value="Eg. Internship/training">
+                                    Eg. Internship/Training
+                                </option>
+                                {workExperiences.map((exp) => (
+                                    <option value={exp.experience} key={exp.id}>
+                                        {exp.experience}
+                                    </option>
+                                ))}
+                            </select>
                         </Form.Group>
 
                         <Form.Group controlId="formBasicEmail2" className="mb-20">
@@ -112,7 +121,7 @@ export default function AddExperienceModal({ open, close }) {
                             />
                         </Form.Group>
                         <Form.Group controlId="formBasicEmail5" className="mb-20">
-                            <Form.Label>End Date*</Form.Label>
+                            <Form.Label>End Date</Form.Label>
                             <Form.Control
                                 type="date"
                                 defaultValue={EndDate}
@@ -126,6 +135,7 @@ export default function AddExperienceModal({ open, close }) {
                         <a
                             onClick={() => {
                                 AddExperience();
+                                setModalShow(false);
                             }}
                             className="flexAlignCenter modal-button"
                         >

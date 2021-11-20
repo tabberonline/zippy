@@ -137,6 +137,13 @@ const graduationYears = [
   { id: "20", gradYear: 2030 },
 ];
 
+// Work Experience
+const workExperiences = [
+  {id: "1", experience: "Internship/Training"},
+  {id: "2", experience: "Fulltime"},
+  {id: "3", experience: "Other"},
+];
+
 export {
   getItem,
   setItem,
@@ -147,4 +154,5 @@ export {
   ErrorToast,
   WarningToast,
   graduationYears,
+  workExperiences,
 };
