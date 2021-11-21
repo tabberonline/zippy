@@ -77,10 +77,16 @@
     font-family: Poppins;
     font-style: normal;
     font-weight: 500;
-    font-size: 3.5vw;
+    font-size: 2.5vw;
     line-height: 7.15vh;
     color: #000000;
 }
 .trending__profilesCards{
     gap: 40px
+}
+.trending__profileCard{
+    width: 20vw;
+    background: #F8F8F8;
+    box-shadow: 0px 4px 12px -4px rgba(100, 99, 99, 0.25);
+    border-radius: 8px;
 }

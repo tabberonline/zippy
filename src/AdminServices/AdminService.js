@@ -87,4 +87,7 @@ export default {
   updateExperienceWidget: async(id, data) => {
     return DataService.put(`/experiencewidget/update?id=${id}`, data);
   },
+  getTrendingProfiles:  async () => {
+    return DataService.get(`/website/trendingProfiles`)
+  },
 }
