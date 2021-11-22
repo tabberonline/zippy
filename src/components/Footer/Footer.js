@@ -4,7 +4,7 @@ import { FaInstagram, FaFacebookSquare, FaLinkedin } from "react-icons/fa";
 
 function Footer() {
     return (
-        <footer className="footer">
+        <footer className="footer flexColumn">
             <div className="mw1100 ph-20 flexRow flexBetween flexAlignCenter">
                 <h1 className="footer-logo"><a href="/home">Tabber</a></h1>
                 <div className="flexRow flexBetween flexAlignCenter">
@@ -22,6 +22,9 @@ function Footer() {
                         <span><FaFacebookSquare /></span>
                     </a>
                 </div>
+            </div>
+            <div className="copyright">
+                <p>Tabber &copy; 2021</p>
             </div>
         </footer>
     );
