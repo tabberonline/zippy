@@ -66,6 +66,7 @@ function HomeScreen() {
     QnA && setloader(false);
   }, [])
 
+  console.log(TrendingProf)
   
   return (
     <div className="#home-screen">
@@ -100,14 +101,14 @@ function HomeScreen() {
       />
       <Animated animationIn="slideInUp" isVisible={true}>
         <div id="why-tabber">
-          <div className="mw1100 pl-20 flexColumn trending__profiles">
+          {TrendingProf && <div className="mw1100 pl-20 flexColumn trending__profiles">
             <h1 className="trending__profilesHeader">Trending Profiles</h1>
             <div className="trending__profilesCards flexRow flexAlignCenter">
               <div className="trending__profileCard">
                 
               </div>
             </div>
-          </div>
+          </div> }
           <div className="mw1100 flexRow mobile-column flexAround flexAlignCenter">
             <div className="mw600 flexColumn mv-40">
                 <h1 className="whytabber-heading">Why <span style={{color: '#077A73'}}>tabber?</span></h1>
