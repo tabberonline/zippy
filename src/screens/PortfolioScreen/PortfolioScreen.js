@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../../styles/HelperStyles.css";
 import "./PortfolioScreen.css";
 import Footer from "../../components/Footer/Footer";
@@ -12,15 +12,17 @@ import ShareModal from "../../components/modals/ShareModal";
 import SentHistoryModal from "../../components/modals/SentHistory";
 import Header1 from "../../components/Header/Header1";
 import {AiOutlineDown, AiOutlineUp} from 'react-icons/ai';
-import { ReversePortalMap } from "../../utility/localStorageControl";
+import { ErrorToast, ReversePortalMap } from "../../utility/localStorageControl";
 import { ToastContainer } from "react-toastify";
 import { isMobile } from "react-device-detect";
 import AttachResumeModal from "../../components/modals/AttachResume";
 import SendViaEmail from "../../components/modals/SendViaEmail";
 import Loader from "../../components/Loader/Loader";
 import LinkedInProfileModal from "../../components/modals/LinkedInProfile";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { BiShowAlt, BiShow } from "react-icons/bi";
 import {
+  setPortfolio,
   userContestWidgets,
   userCoursesTaken,
   userExperiences,
@@ -35,10 +37,12 @@ import AddCourseModal from "../../components/modals/AddCourseModal";
 import AddExperienceModal from "../../components/modals/AddExperienceModal";
 import { CourseCard } from "../../components/CourseCard/CourseCard";
 import { ExperienceCard } from "../../components/ExperienceCard/ExperienceCard";
+import AdminService from "../../AdminServices/AdminService";
 const API_KEY = "AJYGpQcugTouk4olbrEfWz";
 const processAPI = "https://cdn.filestackcontent.com";
 
 function PortfolioScreen() {
+  const dispatch = useDispatch();
   const portfolio = useSelector(userPortfolio);
   const name = useSelector(userName);
   const rank_widgets = useSelector(userRankWidgets);
@@ -53,6 +57,8 @@ function PortfolioScreen() {
   let college = portfolio && portfolio.college;
   let educationLevel = portfolio && portfolio.education_level;
   let graduation_year = portfolio && portfolio.graduation_year;
+  let totalViews = portfolio && portfolio.views;
+  let recentViews = portfolio && portfolio.recentViews;
 
   const [courses, showCourses] = useState(false);
   const [experiences, showExperiences] = useState(false);
@@ -70,6 +76,23 @@ function PortfolioScreen() {
 
   const [loader, setloader] = useState(false);
 
+  const getViews = async () => {
+    AdminService.getUserData()
+      .then(resp => {
+        dispatch(setPortfolio(resp.data));
+      })
+      .catch(err => {
+        ErrorToast("Something went wrong");
+      })
+  }
+
+  useEffect(() => {
+    setloader(true);
+    getViews();
+    setloader(false);
+  }, [])
+
+  
   return (
     <div className="#portfolio-screen">
       {loader ? <Loader /> : null}
@@ -351,6 +374,19 @@ function PortfolioScreen() {
             <hr style={{ width: "35%", color: "rgba(154,154,154,1)" }} />
             <p className="end-text">That's all folks</p>
             <hr style={{ width: "35%", color: "rgba(154,154,154,1)" }} />
+          </div>
+          <div>
+          <div className="viewsContainer">
+            <div className="flexRow flexCenter">Views</div>
+            <div className="flexRow flexCenter flexAlignCenter mv-10 viewsDetails">
+              <p>Total :</p>
+              <div className="totalViews">{totalViews}</div>
+              <BiShow />
+              <p className="recent">Recent :</p>
+              <div className="recentViews">{recentViews}</div>
+              <BiShowAlt />
+            </div>
+          </div>
           </div>
         </div>
       </div>
