@@ -256,12 +256,17 @@ textarea:focus {
   color: #7b7b7b;
   font-weight: 500;
 }
+/* Portfolio Visitor Views */
 .viewsContainer {
   color: #9A9A9A;
 }
+.viewsDetails {
+  font: 16px 'Poppins';
+}
 .viewsContainer div:nth-child(1) {
   font-size: 16px;
-  font-family: "Poppins";
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
 }
 .viewsContainer div.viewsDetails p {
   padding: 0 5px;
@@ -280,7 +285,6 @@ div > div.viewsDetails > svg:nth-child(6):hover {
 .viewsDetails div.totalViews,
 .viewsDetails div.recentViews {
   margin: 0 5px;
-  font: 16px 'Poppins';
 }
 
 @media (max-width: 480px){
@@ -324,5 +328,46 @@ div > div.viewsDetails > svg:nth-child(6):hover {
   }
   .viewCourses__text {
     font-size: 16px;
+  }
+  /* Portfolio Visitor Views */
+  .viewsContainer {
+    color: #9A9A9A;
+  }
+  div.viewsDetails {
+    font-size: 12px;
+  }
+  .viewsContainer div:nth-child(1) {
+    font: 12px 'Poppins';
+    font-weight: 500;
+  }
+  .viewsDetails div.totalViews,
+  .viewsDetails div.recentViews {
+    font: 12px 'Poppins';
+  }
+  div > div.viewsDetails > svg:nth-child(3),
+  div > div.viewsDetails > svg:nth-child(6) {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 690px) and (max-width: 768px){    
+  .viewsContainer div:nth-child(1) {
+    font: 16px 'Poppins';
+    font-weight: 500;
+  }
+  .viewsDetails div.totalViews,
+  .viewsDetails div.recentViews {
+    font: 16px 'Poppins';
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1100px) {
+  .viewsContainer div:nth-child(1) {
+    font: 16px 'Poppins';
+    font-weight: 500;
+  }
+  .viewsDetails div.totalViews,
+  .viewsDetails div.recentViews {
+    font: 16px 'Poppins';
   }
 }
