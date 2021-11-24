@@ -273,6 +273,10 @@ div > div.viewsDetails > svg:nth-child(3),
 div > div.viewsDetails > svg:nth-child(6) {
   font-size: 20px;
 }
+div > div.viewsDetails > svg:nth-child(3):hover,
+div > div.viewsDetails > svg:nth-child(6):hover {
+  color: #00e5d8;
+}
 .viewsDetails div.totalViews,
 .viewsDetails div.recentViews {
   margin: 0 5px;
