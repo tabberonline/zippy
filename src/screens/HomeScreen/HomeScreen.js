@@ -24,7 +24,6 @@ import {API_ENDPOINT} from '../../AdminServices/baseUrl';
 import Loader from '../../components/Loader/Loader';
 import { ErrorToast } from '../../utility/localStorageControl';
 import {ToastContainer} from 'react-toastify';
-import AdminService from '../../AdminServices/AdminService';
 
 function HomeScreen() {
   const [QnA, setQnA] = useState([]);
@@ -53,11 +52,12 @@ function HomeScreen() {
       .catch(err => {ErrorToast("Some Error Occured.")
         setloader(false);
       })
-    AdminService.getTrendingProfiles()
-    .then(resp => {
-      setProfiles(resp.data)
-    })
-    .catch(err => ErrorToast("Some Error Occured."));
+    Axios.get(`${API_ENDPOINT}/website/trendingProfiles`)
+      .then(resp => {
+        setProfiles(resp.data)
+        setloader(false)
+      })
+      .catch(err => ErrorToast("Some Error Occured."));
   }
 
   useEffect(() => {
@@ -65,8 +65,6 @@ function HomeScreen() {
     getData();
     QnA && setloader(false);
   }, [])
-
-  console.log(TrendingProf)
   
   return (
     <div className="#home-screen">
@@ -104,9 +102,12 @@ function HomeScreen() {
           {TrendingProf && <div className="mw1100 pl-20 flexColumn trending__profiles">
             <h1 className="trending__profilesHeader">Trending Profiles</h1>
             <div className="trending__profilesCards flexRow flexAlignCenter">
-              <div className="trending__profileCard">
-                
-              </div>
+              {console.log(TrendingProf)}
+              {/* {TrendingProf.map(profile => {
+                return (
+                  
+                )
+              })} */}
             </div>
           </div> }
           <div className="mw1100 flexRow mobile-column flexAround flexAlignCenter">
