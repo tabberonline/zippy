@@ -82,7 +82,8 @@
     color: #000000;
 }
 .trending__profilesCards{
-    gap: 40px
+    gap: 40px;
+    padding: 0 60px;
 }
 .trending__profileCard{
     width: 20vw;

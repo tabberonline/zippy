@@ -100,7 +100,7 @@ function HomeScreen() {
       />
       <Animated animationIn="slideInUp" isVisible={true}>
         <div id="why-tabber">
-          {TrendingProf && <div className="mw1100 pl-20 flexColumn trending__profiles">
+          {TrendingProf && <div className="mw1100 pl-20 flexColumn trending__profiles" style={{width: 1100}}>
             <h1 className="trending__profilesHeader">Trending Profiles</h1>
             <div className="trending__profilesCards flexRow flexAlignCenter">
               {Object.values(TrendingProf).map(prof => <TrendingProfile profile={prof} />)}
