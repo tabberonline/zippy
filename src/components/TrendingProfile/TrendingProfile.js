@@ -3,11 +3,17 @@ import React from 'react'
 const TrendingProfile = ({profile}) => {
     console.log(profile)
     return (
-        <div className="trending__profileCard flexColumn flexAlignCenter">
+        <div className="trending__profileCard flexColumn flexAlignCenter flexCenter">
             <img src={profile.picture_url} className="trending__profileImage" alt="UserImage" />
-            <span className="trending__profileName">{profile.name}</span>
-            <span className="trending__profileCollege">{profile.portfolio.college.split(',')[0]}</span>                 
-            <span className="trending__profileViews">{profile.portfolio.views}{" "}Views</span>
+            <div className="trending__profileName">
+                <span>{profile.name}</span>
+            </div>
+            <div className="trending__profileCollege">
+                <span>{profile.portfolio.college.split(',')[0]}</span>   
+            </div>   
+            <div className="trending__profileViews">       
+                <span>{profile.portfolio.views}{" "}Views</span>
+            </div>
         </div>
     )
 }
