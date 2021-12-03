@@ -24,6 +24,7 @@ import {API_ENDPOINT} from '../../AdminServices/baseUrl';
 import Loader from '../../components/Loader/Loader';
 import { ErrorToast } from '../../utility/localStorageControl';
 import {ToastContainer} from 'react-toastify';
+import TrendingProfile from '../../components/TrendingProfile/TrendingProfile';
 
 function HomeScreen() {
   const [QnA, setQnA] = useState([]);
@@ -99,15 +100,10 @@ function HomeScreen() {
       />
       <Animated animationIn="slideInUp" isVisible={true}>
         <div id="why-tabber">
-          {TrendingProf && <div className="mw1100 pl-20 flexColumn trending__profiles">
+          {TrendingProf && <div className="mw1100 pl-20 flexColumn trending__profiles" style={{width: 1100}}>
             <h1 className="trending__profilesHeader">Trending Profiles</h1>
             <div className="trending__profilesCards flexRow flexAlignCenter">
-              {console.log(TrendingProf)}
-              {/* {TrendingProf.map(profile => {
-                return (
-                  
-                )
-              })} */}
+              {Object.values(TrendingProf).map(prof => <TrendingProfile profile={prof} />)}
             </div>
           </div> }
           <div className="mw1100 flexRow mobile-column flexAround flexAlignCenter">
