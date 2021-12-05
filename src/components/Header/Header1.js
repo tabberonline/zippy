@@ -8,13 +8,23 @@ import { SuccessToast } from '../../utility/localStorageControl';
 import { useDispatch, useSelector } from 'react-redux';
 import { logOutUser, userImage, userLogin, userName } from '../../features/user/userSlice';
 import { useHistory } from 'react-router-dom';
+import Loader from '../Loader/Loader';
 
-function Header1({open, close}){
+function Header1(){
     const dispatch = useDispatch();
     const history = useHistory();
     const isLogin = useSelector(userLogin);
     const image = useSelector(userImage);
     const name = useSelector(userName);
+    const [loader, setloader] = useState(false);
+
+    const open = () => {
+        setloader(true);
+    };
+    const close = () => {
+        setloader(false);
+    };
+
 
     const SignOut = () => {
         open();
@@ -29,6 +39,7 @@ function Header1({open, close}){
     const [dropdown, setdropdown] = useState(false);
     return (
         <header className="header">
+            {loader ? <Loader /> : null}
             <Navbar sticky="top" expand="lg" className="flexRow flexAlignCenter navbar">
                 <Navbar.Brand className="flexColumn flexAlignCenter" href="/home">
                     <img src={splashlogo} width="150" height="30" className="d-inline-block mr-80" alt="logo" />
