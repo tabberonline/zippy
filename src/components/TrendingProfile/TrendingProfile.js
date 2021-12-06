@@ -1,7 +1,6 @@
 import React from 'react'
 
 const TrendingProfile = ({profile}) => {
-    console.log(profile)
     return (
         <div className="trending__profileCard flexColumn flexAlignCenter">
             <img src={profile.picture_url} className="trending__profileImage" alt="UserImage" />

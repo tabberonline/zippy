@@ -53,7 +53,7 @@ function ContactScreen() {
   return (
     <div className="contact-screen">
         {loader ? <Loader /> : null}
-        <Header1 open={() => setloader(true)} close={() => setloader(false)} />
+        <Header1 />
         <div id="contact-section">
           <div className="mw1100 flexColumn">
             <Animated isVisible={true} animationIn="slideInUp">

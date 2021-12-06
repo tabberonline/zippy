@@ -106,7 +106,7 @@ export const ExperienceCard = ({ type, companyName, description, start, end, id,
     }
 
     const updateExperienceWidget = async () => {
-        if (type && companyName && description && start && end) {
+        if (type && companyName && description && start) {
             let ExperienceData = {
                 "type": type,
                 "company_name": companyName,

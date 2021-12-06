@@ -107,7 +107,7 @@ function PortfolioScreen() {
         draggable
         pauseOnHover
       />
-      <Header1 open={() => setloader(true)} close={() => setloader(false)} />
+      <Header1 />
       <div className="flexRow mw1100 flexBetween" style={{}}>
         <SendViaEmail
           open={() => setloader(true)}
