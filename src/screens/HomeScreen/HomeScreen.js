@@ -40,7 +40,7 @@ function HomeScreen() {
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1
-  }
+  };
 
   const getData = async () =>{
     setloader(true);
@@ -113,7 +113,7 @@ function HomeScreen() {
             <h1 className="trending__profilesHeader">Trending Profiles</h1>
             <div className="trending__profilesCards flexRow flexAlignCenter">
               {/* <Slider {...settings}> */}
-                {Object.values(TrendingProf).map(prof => <TrendingProfile profile={prof} />)}
+                {Object.values(TrendingProf).splice(0,3).map(prof => <TrendingProfile profile={prof} />)}
               {/* </Slider> */}
             </div>
           </div> }
