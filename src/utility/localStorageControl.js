@@ -1,5 +1,6 @@
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import bowser from 'bowser';
 
 const getItem = (key) => {
   const data = typeof window !== "undefined" ? localStorage.getItem(key) : "";
@@ -144,6 +145,21 @@ const workExperiences = [
   {id: "3", experience: "Other"},
 ];
 
+let isDesktopDevice = true;
+
+if(typeof window !== undefined){
+    const browser = bowser.getParser(window.navigator.userAgent);
+    const platform = browser.parsedResult.platform.type;
+
+    isDesktopDevice = (platform === 'desktop');
+    if(!platform && window.navigator.userAgent.indexOf('CrOS') !== -1){
+        isDesktopDevice = true;
+    }
+}
+
+const isDesktop = () => isDesktopDevice;
+const isMobile = () => !isDesktopDevice;
+
 export {
   getItem,
   setItem,
@@ -155,4 +171,6 @@ export {
   WarningToast,
   graduationYears,
   workExperiences,
+  isDesktop,
+  isMobile
 };
