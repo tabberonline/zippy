@@ -25,6 +25,7 @@ import Loader from '../../components/Loader/Loader';
 import { ErrorToast } from '../../utility/localStorageControl';
 import {ToastContainer} from 'react-toastify';
 import TrendingProfile from '../../components/TrendingProfile/TrendingProfile';
+import Slider from 'react-slick';
 
 function HomeScreen() {
   const [QnA, setQnA] = useState([]);
@@ -32,6 +33,14 @@ function HomeScreen() {
   const [Features, setFeatures] = useState([]);
   const [TrendingProf, setProfiles] = useState([]);
   const [loader, setloader] = useState(false);
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1
+  }
 
   const getData = async () =>{
     setloader(true);
@@ -100,10 +109,12 @@ function HomeScreen() {
       />
       <Animated animationIn="slideInUp" isVisible={true}>
         <div id="why-tabber">
-          {TrendingProf && <div className="mw1100 pl-20 flexColumn trending__profiles" style={{width: 1100}}>
+          {TrendingProf && <div className="pl-20 flexColumn trending__profiles mw1100" style={{width: 1100}}>
             <h1 className="trending__profilesHeader">Trending Profiles</h1>
             <div className="trending__profilesCards flexRow flexAlignCenter">
-              {Object.values(TrendingProf).map(prof => <TrendingProfile profile={prof} />)}
+              {/* <Slider {...settings}> */}
+                {Object.values(TrendingProf).map(prof => <TrendingProfile profile={prof} />)}
+              {/* </Slider> */}
             </div>
           </div> }
           <div className="mw1100 flexRow mobile-column flexAround flexAlignCenter">
