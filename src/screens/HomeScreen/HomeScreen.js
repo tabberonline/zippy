@@ -22,10 +22,11 @@ import projects from '../../assets/images/Projects.png';
 import achievements from '../../assets/images/Achievements.png';
 import {API_ENDPOINT} from '../../AdminServices/baseUrl';
 import Loader from '../../components/Loader/Loader';
-import { ErrorToast } from '../../utility/localStorageControl';
+import { ErrorToast, isDesktop, isMobile } from '../../utility/localStorageControl';
 import {ToastContainer} from 'react-toastify';
 import TrendingProfile from '../../components/TrendingProfile/TrendingProfile';
 import Slider from 'react-slick';
+import { isMobileOnly } from 'react-device-detect';
 
 function HomeScreen() {
   const [QnA, setQnA] = useState([]);
@@ -40,10 +41,9 @@ function HomeScreen() {
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1
-  }
+  };
 
   const getData = async () =>{
-    setloader(true);
     Axios.get(`${API_ENDPOINT}/fe/get?page_type=Home&key=QnA`)
       .then(resp => {
         setQnA(resp.data.value);
@@ -56,8 +56,7 @@ function HomeScreen() {
       .catch(err => ErrorToast("Some Error Occured."));
     Axios.get(`${API_ENDPOINT}/fe/get?page_type=Home&key=Features`)
       .then(resp => {
-        setFeatures(resp.data.value);
-        setloader(false);
+        setFeatures(resp.data.value);;
       })
       .catch(err => {ErrorToast("Some Error Occured.")
         setloader(false);
@@ -65,15 +64,17 @@ function HomeScreen() {
     Axios.get(`${API_ENDPOINT}/website/trendingProfiles`)
       .then(resp => {
         setProfiles(resp.data)
-        setloader(false)
       })
-      .catch(err => ErrorToast("Some Error Occured."));
+      .catch(err => {
+        ErrorToast("Some Error Occured.")
+        setloader(false);
+      });
   }
 
   useEffect(() => {
     setloader(true);
     getData();
-    QnA && setloader(false);
+    TrendingProf && setloader(false);
   }, [])
   
   return (
@@ -113,7 +114,9 @@ function HomeScreen() {
             <h1 className="trending__profilesHeader">Trending Profiles</h1>
             <div className="trending__profilesCards flexRow flexAlignCenter">
               {/* <Slider {...settings}> */}
-                {Object.values(TrendingProf).map(prof => <TrendingProfile profile={prof} />)}
+                {isDesktop() && Object.values(TrendingProf).splice(0,3).map(prof => <TrendingProfile profile={prof} />)}
+                {window.innerWidth <= 768 && window.innerWidth > 600 && Object.values(TrendingProf).splice(0,2).map(prof => <TrendingProfile profile={prof} />)}
+                {isMobileOnly && Object.values(TrendingProf).splice(0,1).map(prof => <TrendingProfile profile={prof} />)}
               {/* </Slider> */}
             </div>
           </div> }
