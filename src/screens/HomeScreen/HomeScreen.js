@@ -43,6 +43,22 @@ function HomeScreen() {
     slidesToScroll: 1
   };
 
+  const settings1 = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 2,
+    slidesToScroll: 1
+  };
+
+  const settings2 = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1
+  };
+
   const getData = async () =>{
     Axios.get(`${API_ENDPOINT}/fe/get?page_type=Home&key=QnA`)
       .then(resp => {
@@ -110,14 +126,32 @@ function HomeScreen() {
       />
       <Animated animationIn="slideInUp" isVisible={true}>
         <div id="why-tabber">
-          {TrendingProf && <div className="pl-20 flexColumn trending__profiles mw1100" style={{width: 1100}}>
+          {TrendingProf && <div className="pl-20 flexColumn trending__profiles mw1100">
             <h1 className="trending__profilesHeader">Trending Profiles</h1>
             <div className="trending__profilesCards flexRow flexAlignCenter">
-              {/* <Slider {...settings}> */}
-                {isDesktop() && Object.values(TrendingProf).splice(0,3).map(prof => <TrendingProfile profile={prof} />)}
+            {/* <Slider {...settings}> */}
+              {isDesktop() && Object.values(TrendingProf).splice(0,3).map(prof => <TrendingProfile profile={prof} />)}
                 {window.innerWidth <= 768 && window.innerWidth > 600 && Object.values(TrendingProf).splice(0,2).map(prof => <TrendingProfile profile={prof} />)}
                 {isMobileOnly && Object.values(TrendingProf).splice(0,1).map(prof => <TrendingProfile profile={prof} />)}
-              {/* </Slider> */}
+            {/* </Slider> */}
+              {/* {
+                isDesktop() &&
+                 <Slider {...settings}>
+                  {Object.values(TrendingProf).splice(0,3).map(prof => <TrendingProfile profile={prof} />)}
+                </Slider>
+              }
+              {
+                window.innerWidth <= 768 && window.innerWidth > 600 &&
+                  <Slider {...settings1}>
+                    { Object.values(TrendingProf).splice(0,2).map(prof => <TrendingProfile profile={prof} />)}
+                  </Slider>
+              }
+              {
+                isMobileOnly &&
+                  <Slider {...settings2}>
+                    { Object.values(TrendingProf).splice(0,1).map(prof => <TrendingProfile profile={prof} />)}
+                  </Slider>
+              } */}
             </div>
           </div> }
           <div className="mw1100 flexRow mobile-column flexAround flexAlignCenter">
