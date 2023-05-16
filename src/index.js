@@ -5,6 +5,7 @@ import App from './App';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react'
 import {store, persistor} from './app/store';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 
 // React and ReactDOM are libraries that enable you to build user interfaces using React components and render them to the DOM.
@@ -26,12 +27,14 @@ import {store, persistor} from './app/store';
 // The document.getElementById('root') expression, which identifies the DOM element where the application will be rendered.
 
 ReactDOM.render(
+  <GoogleOAuthProvider clientId="954820964588-l8ba8pbqa49riqctv9fa6ckrt1dbul77.apps.googleusercontent.com">
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <App />
       </PersistGate>
     </Provider>
-  </React.StrictMode>,
+  </React.StrictMode>
+  </GoogleOAuthProvider>,
   document.getElementById('root')
 );

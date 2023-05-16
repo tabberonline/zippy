@@ -176,7 +176,7 @@ function HomeScreen() {
           <h1 className="achievements-heading">Achievements we have made, so far</h1>
           <div className="flexRow flexCenter" style={{flexWrap: 'wrap'}}>
               {Achievements.map(achievement => (
-                  <AchievementCard key={achievement.sr} name={achievement.name} desc={achievement.desc} image={achievement.sr === 1 ? users : links} />
+                  <AchievementCard key={achievement.sr} name={achievement.desc} desc={achievement.name} image={achievement.sr === 1 ? users : links} />
               ))}
           </div>
         </div>

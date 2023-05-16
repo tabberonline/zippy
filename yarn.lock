@@ -1964,6 +1964,11 @@
   "resolved" "https://registry.npmjs.org/@protobufjs/utf8/-/utf8-1.1.0.tgz"
   "version" "1.1.0"
 
+"@react-oauth/google@^0.11.0":
+  "integrity" "sha512-yeypwdQCcFIAo43OqVOLBfUXuxmxt3xiybfP9h3smtBW4UeFXFVQDsq+d+GlbZFo0TpONPR2+KCk/KT1/pQnvQ=="
+  "resolved" "https://registry.npmjs.org/@react-oauth/google/-/google-0.11.0.tgz"
+  "version" "0.11.0"
+
 "@reduxjs/toolkit@^1.6.0":
   "integrity" "sha512-eGL50G+Vj5AG5uD0lineb6rRtbs96M8+hxbcwkHpZ8LQcmt0Bm33WyBSnj5AweLkjQ7ZP+KFRDHiLMznljRQ3A=="
   "resolved" "https://registry.npmjs.org/@reduxjs/toolkit/-/toolkit-1.6.0.tgz"

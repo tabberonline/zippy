@@ -10,7 +10,7 @@ import { userPortfolioLink } from '../../features/user/userSlice';
 export default function ShareModal({id, open, close}) {
   const ID = useSelector(userPortfolioLink);
   const [modalShow, setModalShow] = React.useState(false);
-  const url = `https://${ID}`;
+  const url = `${ID}`;
   const textAreaRef = useRef(null);
 
   const CopyText = (e) => {

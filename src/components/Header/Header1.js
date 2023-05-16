@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logOutUser, userImage, userLogin, userName } from '../../features/user/userSlice';
 import { useHistory } from 'react-router-dom';
 import Loader from '../Loader/Loader';
+import { googleLogout } from '@react-oauth/google';
 
 function Header1(){
     const dispatch = useDispatch();
@@ -29,6 +30,7 @@ function Header1(){
     const SignOut = () => {
         open();
         SuccessToast('Successfully Logged Out!')
+        googleLogout();
         dispatch(logOutUser());
         setTimeout(() => {
             close();

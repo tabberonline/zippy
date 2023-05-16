@@ -60,3 +60,6 @@ function TermsScreen() {
 }
 
 export default TermsScreen;
+
+
+

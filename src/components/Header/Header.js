@@ -8,6 +8,8 @@ import '../../styles/HelperStyles.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { logOutUser, userLogin } from '../../features/user/userSlice';
 import { useHistory } from 'react-router-dom';
+import { googleLogout } from '@react-oauth/google';
+
 
 function Header({open, close}){
     const dispatch = useDispatch();
@@ -16,6 +18,7 @@ function Header({open, close}){
 
     const SignOut = () => {
         open();
+        googleLogout();
         SuccessToast('Successfully Logged Out!')
         dispatch(logOutUser());
         setTimeout(() => {
