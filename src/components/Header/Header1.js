@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import './Header.css';
-import { Navbar, Nav } from 'react-bootstrap';
+import { Navbar, Nav , Form,Button} from 'react-bootstrap';
 import splashlogo from '../../assets/images/logo.png';
 import GoogleBtn from '../GoogleBtn';
 import Avatar from '@material-ui/core/Avatar';
@@ -18,12 +18,24 @@ function Header1(){
     const image = useSelector(userImage);
     const name = useSelector(userName);
     const [loader, setloader] = useState(false);
+    const [searchValue, setSearchValue] = useState('');
+
 
     const open = () => {
         setloader(true);
     };
     const close = () => {
         setloader(false);
+    };
+
+       
+    const handleSearch = (e) => {
+        e.preventDefault();
+        history.push(`/search?query=${searchValue}`);
+    };
+
+    const handleInputChange = (e) => {
+        setSearchValue(e.target.value);
     };
 
 
@@ -51,6 +63,19 @@ function Header1(){
                         <Nav.Link className="grow2" href="/about">About</Nav.Link>
                         <Nav.Link className="grow2" href="/home#faq">FAQ</Nav.Link>
                         <Nav.Link className="grow2" href="/contact">Contact</Nav.Link>
+                    </Nav>
+                    <Nav className="mr-auto flexRow">
+                    <Form menuAlign="center" className="d-flex flexRow" onSubmit={handleSearch}>
+                        <Form.Control
+                        type="search"
+                        placeholder="Search"
+                        className="me-2"
+                        aria-label="Search"
+                        value={searchValue}
+                        onChange={handleInputChange}
+                        />
+                        <Button type="submit" variant="outline-success">Search</Button>
+                    </Form>
                     </Nav>
                     {isLogin ? (
                         dropdown ? (

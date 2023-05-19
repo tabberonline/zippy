@@ -7,6 +7,7 @@ import ContactScreen from "./screens/ContactScreen/ContactScreen";
 import DisplayScreen from "./screens/DisplayScreen/DisplayScreen";
 import PolicyScreen from "./screens/PolicyScreen/PolicyScreen";
 import TermsScreen from "./screens/TermsScreen/TermsScreen";
+import SearchScreen from "./screens/SearchScreen/SearchScreen"
 import Error404 from "./screens/Error404";
 import {
   BrowserRouter as Router,
@@ -30,6 +31,7 @@ function App() {
           </Route>
           <Route exact path="/d/:id" component={DisplayScreen} />
           <Route exact path="/about" component={AboutScreen} />
+          <Route exact path="/search" component={SearchScreen} />
           <Route exact path="/contact" component={ContactScreen} />
           <Route exact path="/policy" component={PolicyScreen} />
           <Route exact path="/terms" component={TermsScreen} />

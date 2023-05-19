@@ -1,8 +1,12 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { DataService } from './dataService';
+import { GithubApiService } from './githubApiService';
+
 
 export default {
-
+  searchGithubUsers: async(data) =>{
+    return GithubApiService.searchUsers(data)
+  },
   createPortfolio : async (data) => {
     return DataService.post('/portfolio/create', data);
   },
