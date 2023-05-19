@@ -9,6 +9,7 @@ import { API_ENDPOINT } from '../../AdminServices/baseUrl';
 import { ErrorToast } from '../../utility/localStorageControl';
 import  AdminService  from '../../AdminServices/AdminService';
 import { useHistory } from 'react-router-dom';
+import { ToastContainer } from "react-toastify";
 
 function TermsScreen() {
   const [query, setQuery] = useState('');
@@ -18,16 +19,17 @@ function TermsScreen() {
   const itemsPerPage = 10;
   const history = useHistory();
 
-  const loadDataFromGithub = async (data) => {
-    AdminService.searchGithubUsers(data)
-      .then(resp => {
+  const loadDataFromGithub = async (query) => {
+    Axios.get( "https://api.github.com"+ '/search/users?q='+query.username+'&per_page='+query.per_page+'&page='+query.page)
+    .then(resp => {
         setItems(resp.data.items)
         setTotalItems(resp.data.total_count)
-        console.log(resp)
+    })
+    .catch(err => {
+      
+        ErrorToast("GitHub Free Rate Limit exceed! Please Wait");
       })
-      .catch(err => {
-        ErrorToast("Something went wrong");
-      })
+  
   }
 
   const handlePageChange = (pageNumber) => {
@@ -118,7 +120,19 @@ function TermsScreen() {
   }, [history]);
 
   return (
+    
     <div>
+              <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <Header1 />
       <table className="table">
         <thead>
