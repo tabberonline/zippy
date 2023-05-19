@@ -4,7 +4,7 @@ import {API_ENDPOINT} from './baseUrl';
 
 
 const authHeader = () => ({
-  'Authorization': 'Bearer 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',
+  'Authorization': process.env.GITHUB_TOKEN,
   'Content-Type': 'application/json',
 });
 
